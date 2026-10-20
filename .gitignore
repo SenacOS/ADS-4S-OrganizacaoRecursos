@@ -1,29 +1,65 @@
-
-
-# Environment & Secrets (AIOX)
+# ===== Segredos e ambiente =====
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
 *.key
 *.pem
+*.p12
+*.jks
+application-local.*
+application-secrets.*
 
-# Dependencies (AIOX)
-node_modules/
-node_modules
-
-# Build & Logs (AIOX)
-dist/
+# ===== Java: Maven e Gradle (build tool ainda não decidida) =====
+target/
 build/
+out/
+.gradle/
+*.class
+*.jar
+*.war
+!.mvn/wrapper/maven-wrapper.jar
+!gradle/wrapper/gradle-wrapper.jar
+hs_err_pid*
+
+# ===== Testes, cobertura e análise =====
+jacoco.exec
+.scannerwork/
+.sonar/
+*.jtl
+jmeter.log
+
+# ===== Dependências Node (ferramental AIOX) =====
+node_modules/
+
+# ===== Logs =====
 *.log
 logs/
 
-# IDE & OS (AIOX)
+# ===== IDE e sistema operacional =====
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+.factorypath
+.sts4-cache/
 .DS_Store
 Thumbs.db
-.idea/
 *.swp
 
-# AIOX Local (AIOX)
+# ===== AIOX e agentes: estado local =====
 .aiox-core/local/
-.claude/settings.local.json
 .aiox/install-log.txt
+.claude/settings.local.json
+CLAUDE.local.md
+
+# ===== Integrações de ferramentas NÃO usadas pela equipe =====
+# Descomentar conforme a decisão. Não incluir .github/ nem .aiox-core/.
+# .agent/
+# .antigravity/
+# .codex/
+# .cursor/
+# .gemini/
+# .grok/
+# .kimi/
