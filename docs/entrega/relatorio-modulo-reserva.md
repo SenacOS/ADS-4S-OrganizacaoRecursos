@@ -167,7 +167,7 @@ Convenções: pacotes sem acento; mensagens ao usuário em português; nenhum da
 
 - Sem controller REST, DTOs, JPA, migrações, segurança, auditoria e notificação reais: dependem das portas listadas acima.
 - Sem `@Transactional` e sem idempotência por chave.
-- Sem consulta de disponibilidade (RF03) nem relatórios (RF12) além do registro de conflito evitado.
+- Consulta de disponibilidade (`ReservaService.consultarDisponibilidade`) e cálculo de horas (`UtilizacaoReservas`) existem como código de serviço/domínio, **sem endpoint** e sem busca real de dados; relatórios (RF12) completos dependem de persistência.
 - Nenhum requisito deve ser marcado como **IMPLEMENTADO/VALIDADO** na RTM até existirem execução no CI e evidência.
 
 ## 8. Glossário rápido

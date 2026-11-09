@@ -127,6 +127,29 @@ public class ReservaService {
                 r -> r.registrarNaoComparecimento(ator), null);
     }
 
+    /**
+     * Consulta informativa (S4): sem lock, sem gravação, sem auditoria e sem contar "conflito evitado".
+     * Reusa o {@link DetectorConflitos}. Não verifica existência nem se o recurso está ativo
+     * (isso é a pesquisa de recursos, RF03). Devolve só a origem do bloqueio, nunca quem ocupa.
+     * {@code ignorarReservaId}: reserva em edição, que não conflita consigo mesma (pode ser nulo).
+     */
+    public ResultadoDisponibilidade consultarDisponibilidade(Collection<Long> recursoIds,
+                                                             IntervaloReserva intervalo, Long ignorarReservaId) {
+        List<Long> ids = normalizar(recursoIds);
+        boolean dentro = expediente.atual().comporta(intervalo);
+        List<Ocupacao> existentes = ocupacoes.buscar(ids, intervalo);
+        List<DisponibilidadeRecurso> situacao = ids.stream().map(id -> {
+            Optional<Ocupacao> conflito =
+                    DetectorConflitos.primeiroConflito(intervalo, List.of(id), existentes, ignorarReservaId);
+            return new DisponibilidadeRecurso(id, conflito.isEmpty(), conflito.map(Ocupacao::origem).orElse(null));
+        }).toList();
+        return new ResultadoDisponibilidade(dentro, situacao);
+    }
+
+    public ResultadoDisponibilidade consultarDisponibilidade(Collection<Long> recursoIds, IntervaloReserva intervalo) {
+        return consultarDisponibilidade(recursoIds, intervalo, null);
+    }
+
     private Reserva transicionar(long reservaId, AtorReserva ator, AcaoReserva acao,
                                  UnaryOperator<Reserva> operacao, TipoEventoNotificacao evento) {
         String correlacao = novaCorrelacao();
