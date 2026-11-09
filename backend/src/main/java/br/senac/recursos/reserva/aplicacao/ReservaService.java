@@ -31,7 +31,6 @@ import java.util.stream.Stream;
  */
 public class ReservaService {
 
-    private static final int TENTATIVAS_DE_BLOQUEIO = 3;
 
     private final RecursosPort recursos;
     private final ReservaRepositorio reservas;
@@ -164,10 +163,10 @@ public class ReservaService {
 
     /**
      * Lê a reserva, bloqueia a união ordenada dos recursos atuais e novos e relê a reserva já sob lock.
-     * Se o conjunto de recursos mudou entre as duas leituras, repete (ADR-003, "Edição").
+     * Se o conjunto de recursos mudou entre as duas leituras, aborta a transação (ADR-003, "Edição").
      */
     private Bloqueada carregarBloqueando(long reservaId, List<Long> recursosExtras) {
-        for (int tentativa = 0; tentativa < TENTATIVAS_DE_BLOQUEIO; tentativa++) {
+        {
             Reserva previa = buscar(reservaId);
             List<Long> uniao = Stream.concat(previa.recursoIds().stream(), recursosExtras.stream())
                     .distinct().sorted().toList();

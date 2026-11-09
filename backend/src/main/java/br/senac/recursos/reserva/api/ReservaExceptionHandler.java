@@ -33,7 +33,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  * Erros do próprio Spring MVC (405, 415, JSON inválido...) também saem no formato padrão.
  */
 @RestControllerAdvice
-@ConditionalOnProperty(name = "reservas.api.enabled", havingValue = "true")
 public class ReservaExceptionHandler extends ResponseEntityExceptionHandler {
 
     static final String CABECALHO_CORRELACAO = "X-Correlation-Id";
@@ -84,6 +83,26 @@ public class ReservaExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(AlteracaoConcorrenteException.class)
     ResponseEntity<ErroApi> alteracaoConcorrente(AlteracaoConcorrenteException ex, WebRequest req) {
         return erro(HttpStatus.CONFLICT, "TENTE_NOVAMENTE", ex.getMessage(), req);
+    }
+
+    @ExceptionHandler(br.senac.recursos.shared.ErroDominio.class)
+    ResponseEntity<ErroApi> dominio(br.senac.recursos.shared.ErroDominio ex, WebRequest req) {
+      return erro(HttpStatus.valueOf(ex.status()), ex.codigo(), ex.getMessage(), req);
+    }
+
+    @ExceptionHandler(org.springframework.dao.PessimisticLockingFailureException.class)
+    ResponseEntity<ErroApi> lock(RuntimeException ex, WebRequest req) {
+      return erro(
+          HttpStatus.CONFLICT, "TENTE_NOVAMENTE", "OperaÃ§Ã£o concorrente; tente novamente.", req);
+    }
+
+    @ExceptionHandler(org.springframework.dao.DataIntegrityViolationException.class)
+    ResponseEntity<ErroApi> integridade(RuntimeException ex, WebRequest req) {
+      return erro(
+          HttpStatus.CONFLICT,
+          "INTEGRIDADE_DOS_DADOS",
+          "CÃ³digo, patrimÃ´nio ou vÃ­nculo incompatÃ­vel com os dados existentes.",
+          req);
     }
 
     @ExceptionHandler(Exception.class)
