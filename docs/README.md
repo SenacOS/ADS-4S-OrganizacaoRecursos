@@ -12,7 +12,8 @@ Os documentos do projeto academico devem ficar sob `docs/`. Esta organizacao e u
 | `dominio/` | Glossario, regras de negocio, ciclo de vida e decisoes de dominio | PROPOSTO |
 | `personas/` | Descricao das personas e jornadas, distinta dos perfis de autorizacao | PENDENTE de descoberta |
 | `requisitos/` | Requisitos funcionais e nao funcionais refinados, criterios de aceitacao e RTM | PENDENTE de refinamento |
-| `arquitetura/` | Diagramas e decisoes arquiteturais aprovadas, incluindo ADRs quando pertinentes | PENDENTE de aprovacao das decisoes |
+| `arquitetura/adr/` | ADR-001 a ADR-006 (monólito, MySQL, concorrência, sessão, políticas, timezone) | APROVADO |
+| `arquitetura/` (diagramas) | C4 contexto/componentes e sequências críticas | PENDENTE |
 | `qualidade/` | Plano e evidencias de testes, defeitos e relatorio de qualidade | PENDENTE de planejamento e execucao |
 | `entrega/` | Instrucoes e artefatos finais de apresentacao e demonstracao | PENDENTE |
 
@@ -24,7 +25,7 @@ Criar subpastas quando houver um artefato real a registrar; nao criar documentos
 
 Na inspecao de 2026-10-20, `docs/contexto-inicial-agentes.md` era o unico documento do projeto em `docs/`. O repositorio nao continha codigo de aplicacao nem artefatos de dominio, personas ou requisitos refinados. O scaffold e as configuracoes AIOX presentes no workspace nao comprovam que a aplicacao foi implementada ou que suas escolhas estejam aprovadas.
 
-Ha um desalinhamento a resolver antes de qualquer implementacao: o contexto do projeto fixa Java 21 e Spring Boot 3.x, enquanto `.aiox-core/data/technical-preferences.md` e `.aiox-core/core-config.yaml` indicam o preset `nextjs-react`. Isso e registrado como pendencia de configuracao, nao como autorizacao para alterar a plataforma obrigatoria.
+O desalinhamento entre o contexto (Java 21/Spring Boot 3.x) e o preset `nextjs-react` do AIOX foi resolvido: `.aiox-core/data/technical-preferences.md` agora indica o preset `java`.
 
 ## Primeiro artefato
 

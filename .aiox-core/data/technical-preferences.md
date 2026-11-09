@@ -43,14 +43,14 @@ Each preset includes:
 
 ## Active Preset
 
-> **Current:** `nextjs-react` (Next.js 16+, React, TypeScript, Tailwind, Zustand)
+> **Current:** `java` (Java 21+, Spring Boot, Spring Data JPA, Flyway, JUnit). Projeto: MySQL 8.4, frontend HTML/CSS/JS puro em `backend/src/main/resources/static/`; sem PostgreSQL, Next.js ou `frontend/`. Ver `docs/arquitetura/adr/`.
 
 The active preset is automatically loaded when @dev is activated. To change:
 
 ```yaml
 # .aiox-core/core-config.yaml
 techPreset:
-  active: nextjs-react # Change to another preset name
+  active: java # Change to another preset name
 ```
 
 ---

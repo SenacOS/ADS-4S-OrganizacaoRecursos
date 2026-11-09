@@ -76,28 +76,30 @@ Sequência principal oficial: `SOLICITADA → APROVADA → EM_USO → CONCLUÍDA
 - **Qualidade e integração contínua:** GitHub Actions, JaCoCo e SonarCloud
 - **Testes de carga:** JMeter
 
-**Propostas e decisões pendentes** (cada uma será registrada em ADR em `docs/arquitetura/adr/`)
+**Decisões da equipe** (registradas em [`docs/arquitetura/adr/`](docs/arquitetura/adr/README.md))
 
-| Decisão | Situação | Ponto em aberto |
+| Decisão | Situação | ADR |
 |---|---|---|
-| Frontend | Direção: HTML, CSS e JavaScript simples, consumindo a API | Como será servido e qual ferramenta fará os testes E2E |
-| Banco de dados | Proposta: PostgreSQL (relacional e transacional) | Forma de hospedagem e execução local |
-| Build | Proposta: Maven | Confirmar antes de criar o `pom.xml` definitivo |
-| Autenticação | Sem decisão | Mecanismo de sessão ou token; uso apenas local ou publicado |
-| Proteção contra dupla reserva | Sem decisão | Locks transacionais e/ou restrições do banco |
-| Modelo de materiais | Sem decisão | Itens individuais ou controle por quantidade |
+| Arquitetura | Monólito modular Spring Boot 3.x, Java 21 | [ADR-001](docs/arquitetura/adr/ADR-001-monolito-modular-frontend-estatico.md) |
+| Frontend | HTML, CSS e JavaScript puro, servido pelo Spring Boot em `backend/src/main/resources/static/` | ADR-001 |
+| Build | Maven | ADR-001 |
+| Banco de dados | MySQL 8.4 (InnoDB); Flyway e JPA/Hibernate (provisório) | [ADR-002](docs/arquitetura/adr/ADR-002-mysql-innodb-modelo-recursos.md) |
+| Dupla reserva | Locks pessimistas (`FOR UPDATE`) em `recursos`, ordem crescente de ID, READ COMMITTED | [ADR-003](docs/arquitetura/adr/ADR-003-estrategia-de-concorrencia.md) |
+| Autenticação | Spring Security, sessão com cookie HttpOnly e CSRF; sem JWT | [ADR-004](docs/arquitetura/adr/ADR-004-sessao-spring-security.md) |
+| Reservas e materiais | Comuns autoaprovadas; restritas SOLICITADAS e bloqueando; materiais individuais | [ADR-005](docs/arquitetura/adr/ADR-005-politicas-de-reserva.md) |
+| Datas e notificações | UTC na persistência, `America/Sao_Paulo` na exibição; notificação simulada | [ADR-006](docs/arquitetura/adr/ADR-006-timezone-expediente-notificacoes.md) |
 
-Onde este documento cita PostgreSQL ou Maven, trata-se de recomendação a validar, não de imposição do enunciado. Nenhum componente que dependa de tecnologia não aprovada deve ser construído.
+Ferramenta de testes E2E (Playwright ou Selenium): ainda a escolher.
 
 ## Arquitetura e Documentação
 
-**Estado: PROPOSTA, aguardando ADRs.**
+**Estado: APROVADO** (ver ADRs). Nada aqui indica que esteja implementado.
 
-O backend é um **monólito modular**: uma única aplicação Spring Boot, implantada como uma unidade, com módulos de negócio organizados internamente. O frontend é apenas um cliente da API: validações visuais não substituem a validação e a autorização feitas no servidor. A separação em pastas não transforma o backend em microsserviços.
+O backend é um **monólito modular**: uma única aplicação Spring Boot, implantada como uma unidade, com módulos de negócio organizados internamente. O frontend estático é servido pelo próprio Spring Boot e é apenas um cliente da API: validações visuais não substituem a validação e a autorização feitas no servidor. A separação em pastas não transforma o backend em microsserviços.
 
 ```mermaid
 flowchart TD
-    U["Navegador / interface responsiva"] -->|HTTPS / JSON| API
+    U["Navegador / interface responsiva"] -->|HTTPS / JSON + sessão HttpOnly| API
 
     subgraph APP["Aplicação Spring Boot 3.x - Java 21 (implantação única)"]
         API["API REST + autorização"]
@@ -119,7 +121,7 @@ flowchart TD
         RES --> NOT
     end
 
-    APP -->|JPA / transações| DB[("Banco de dados único")]
+    APP -->|JPA / transações| DB[("MySQL 8.4 (InnoDB)")]
     NOT -.->|opcional| EXT["Serviço externo de notificação"]
 ```
 
@@ -130,7 +132,7 @@ Módulos e responsáveis:
 | `reserva` | Gabriel Silva Gomes | Disponibilidade, conflitos, transições e aprovação |
 | `recurso`, `movimentacao` | Gabriel Rodrigues Fausto | Cadastros, manutenção, persistência e movimentações |
 | `seguranca`, `auditoria`, `notificacao` | Débora dos Santos | Perfis, permissões, trilha auditável e CI |
-| `frontend` | Marcos Boé | Telas, integração com a API e testes E2E |
+| frontend (`static/`) | Marcos Boé | Telas, integração com a API e testes E2E |
 | `relatorio` | Compartilhado | API por Silva e Fausto, telas por Marcos |
 
 Princípios de arquitetura:
@@ -141,7 +143,7 @@ Princípios de arquitetura:
 - Módulos expõem contratos definidos e não consultam diretamente as tabelas uns dos outros sem acordo documentado.
 - Datas seguem ISO 8601 com fuso explícito, e erros seguem um formato padronizado, sem expor detalhes internos.
 
-Estrutura de diretórios prevista, a confirmar. Os diretórios existentes do AIOX são preservados, sem renomear:
+Estrutura de diretórios alvo. Os diretórios existentes do AIOX são preservados, sem renomear:
 
 ```
 backend/
@@ -150,9 +152,11 @@ backend/
     seguranca/ usuario/
     reserva/ recurso/ movimentacao/ auditoria/ notificacao/ relatorio/
     shared/
+  src/main/resources/
+    db/migration/       <-- Flyway
+    static/             <-- frontend: HTML, CSS e JS (fonte única)
   src/test/java/br/senac/recursos/
-    unit/ integration/ api/ concurrency/
-frontend/               <-- HTML, CSS e JS (estrutura a confirmar)
+    unit/ integration/ api/ concurrency/ security/
 tests/                  <-- E2E, desempenho (JMeter) e evidências
 docs/                   <-- requisitos, ADRs, API, testes e qualidade
 .github/workflows/      <-- integração contínua
@@ -195,20 +199,21 @@ Cada decisão relevante é registrada em um ADR, com contexto, opções avaliada
 
 **Definição de pronto:** uma funcionalidade só está pronta quando atende ao requisito e à regra de negócio (casos válidos, inválidos e de autorização), tem testes executados, com código crítico não dependendo só de mock, tem documentação, RTM e riscos atualizados com evidência reproduzível, e teve o PR revisado com a pipeline verde.
 
-**AIOX:** a base inicial é preservada. Antes de adaptar a estrutura proposta, inventariar os arquivos existentes e seus possíveis conflitos com `backend/`, `frontend/` e `docs/`. Código gerado por agentes entra sempre via PR revisável, com testes executados e documentação.
+**AIOX:** a base inicial é preservada. Antes de adaptar a estrutura proposta, inventariar os arquivos existentes e seus possíveis conflitos com `backend/` e `docs/`. O preset AIOX ativo é `java`. Código gerado por agentes entra sempre via PR revisável, com testes executados e documentação.
 
 ## Estado do Projeto
 
-O projeto está na fase de planejamento e alinhamento. Ainda não há aplicação executável, e nenhum requisito foi marcado como implementado.
+O projeto está em transição do planejamento para o desenvolvimento. As decisões D01–D10 estão aprovadas e registradas em ADR. Ainda não há aplicação executável, e nenhum requisito foi marcado como implementado.
 
-Decisões de domínio em aberto:
+Parâmetros ainda em aberto (configuração ou ADR futuro, sem bloquear o início):
 
-- Uma solicitação pendente (`SOLICITADA`) ocupa o horário do recurso? O conflito é revalidado na aprovação?
-- Quem inicia, conclui e marca não comparecimento: ação manual ou automática?
-- Política para manutenção que colide com reserva já aprovada (rejeitar, negociar ou remanejar)
-- Modelo de materiais: itens individuais, por quantidade ou ambos
-- Quem pode assumir o papel de Responsável, e se pode ser também Solicitante
-- Definição formal do indicador "conflitos evitados" e conteúdo mínimo da auditoria
+- Expediente concreto, duração mínima/máxima de reserva e antecedência
+- Quem dispara EM_USO, CONCLUÍDA e NÃO_COMPARECEU, e a tolerância de atraso
+- Política para manutenção que colide com reserva já aprovada (rejeitar o bloqueio ou resolver com auditoria)
+- Ferramenta de testes E2E
+- Definição formal de "conflitos evitados" e conteúdo mínimo da auditoria
+
+Prazo de entrega: conferir o calendário oficial (semana 46 de 2026); o planejamento não é dividido em sprints.
 
 ## Como Executar o Projeto
 
@@ -219,7 +224,8 @@ As instruções completas serão publicadas quando houver uma versão executáve
 - Java 21
 - Git
 - Docker (necessário para os testes com Testcontainers)
-- Demais requisitos: a definir com as decisões de banco de dados, interface e build
+- Maven 3.9+ (ou wrapper `./mvnw`, quando versionado)
+- MySQL 8.4 para execução local (os testes usam MySQL via Testcontainers)
 
 ### Passo a Passo
 
@@ -228,9 +234,8 @@ As instruções completas serão publicadas quando houver uma versão executáve
    git clone https://github.com/SenacOS/nome-do-repositorio.git
    ```
 2. Configure as variáveis de ambiente (renomeie `.env.example` para `.env`, se houver).
-3. Instalação das dependências: a definir.
-4. Execução da aplicação: a definir.
-5. Execução dos testes: a definir (o comando será o mesmo usado no CI).
+3. Instalação das dependências e testes (a partir de `backend/`): `mvn verify` (será o mesmo comando do CI).
+4. Execução da aplicação (a partir de `backend/`): `mvn spring-boot:run` — depende do esqueleto do backend, ainda em PR.
 
 ## Screenshots
 
