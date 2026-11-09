@@ -50,8 +50,8 @@ O módulo `reserva/` foi escrito de modo que **tudo o que depende de outro integ
 | S1 | Controller REST `/api/reservas/**` e DTOs | **Escrito** (8 endpoints de escrita, desligado por padrão); falta ativar com D1 e integração; GET e disponibilidade pendentes (porta de leitura do Fausto) |
 | S2 | Anotar o serviço com `@Transactional(isolation = READ_COMMITTED)` e criar o bean | F1–F3 |
 | S3 | Idempotência por chave de requisição (duplo clique/retentativa) | contrato (M1) |
-| S4 | Consulta de disponibilidade reutilizando `DetectorConflitos` (RF03/RF05) | F4 |
-| S5 | Agregações de horas (RF12) | F1, F6 |
+| S4 | Consulta de disponibilidade reutilizando `DetectorConflitos` (RF03/RF05) | **Escrito no serviço** (`consultarDisponibilidade`, sem endpoint); falta o dono do endpoint (V9) e F4 real |
+| S5 | Agregações de horas (RF12) | **Cálculo puro escrito** (`UtilizacaoReservas`); faltam a consulta de reservas por período (F1/F3), a API de relatório e a contagem de conflitos evitados (F6) |
 | S6 | Teste de corrida real e caso TDD/BDD documentado (RED/GREEN/REFACTOR) | F8 |
 
 ## 3. Decisões abertas que afetam o módulo (PROPOSTO no código)
