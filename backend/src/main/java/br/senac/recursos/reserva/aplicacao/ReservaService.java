@@ -1,6 +1,7 @@
 package br.senac.recursos.reserva.aplicacao;
 
 import br.senac.recursos.reserva.dominio.AcaoReserva;
+import br.senac.recursos.reserva.dominio.AlteracaoConcorrenteException;
 import br.senac.recursos.reserva.dominio.AtorReserva;
 import br.senac.recursos.reserva.dominio.ConflitoDisponibilidadeException;
 import br.senac.recursos.reserva.dominio.DetectorConflitos;
@@ -153,7 +154,7 @@ public class ReservaService {
                 return new Bloqueada(fresca, bloqueados);
             }
         }
-        throw new IllegalStateException("A reserva foi alterada por outra operação; tente novamente.");
+        throw new AlteracaoConcorrenteException();
     }
 
     private Reserva buscar(long reservaId) {
