@@ -1,6 +1,6 @@
 # Contrato da API de reservas
 
-**Estado: PROPOSTO** — em revisão por Marcos (cliente) e Débora (segurança). Os 8 endpoints de escrita estão escritos, mas desligados por padrão (reservas.api.enabled=false). A integração depende da sessão e dos provedores reais de auditoria/notificação; não foram validados ponta a ponta. A autenticação entregue em branch separada ainda precisa ser integrada à develop.
+**Estado: ACEITO POR MARCOS PARA O FRONTEND em 10/11/2026** — datas, PATCH e 409 adotados conforme autorização do usuário. Revisões de backend/segurança e integração real permanecem pendentes. Os 8 endpoints de escrita estão escritos, mas desligados por padrão (reservas.api.enabled=false). A integração depende da sessão e dos provedores reais de auditoria/notificação; não foram validados ponta a ponta. A autenticação entregue em branch separada ainda precisa ser integrada à develop.
 
 **Fora deste contrato por enquanto:** `GET /api/reservas`, `GET /api/reservas/{id}` e disponibilidade. Dependem de uma porta de leitura (Fausto), da regra de quem pode consultar (Q9) e do dono do endpoint de disponibilidade (`GET /api/recursos`, Fausto).
 
@@ -61,9 +61,9 @@ Respostas trazem datas em `America/Sao_Paulo` com offset (ADR-006); o banco guar
 ```
 `motivo` é obrigatório (400 se vazio).
 
-## Revisão de cliente — proposta de Marcos
+## Revisão de cliente — decisões adotadas por Marcos
 
-O cliente aceita datas ISO com offset e PATCH com substituição conjunta de inicio/fim/recursosIds. Recomenda manter 409/FORA_DO_EXPEDIENTE. Leitura/detalhes da fila, identificação legível de recursos/solicitante, filtros e paginação precisam ser fechados com Silva, Fausto e Débora; não estão implementados por esta revisão. Ver [respostas completas e proposta de fila](../planejamento/marcos-plano-de-acao.md#respostas-propostas-para-fechar-o-contrato).
+O cliente aceita datas ISO com offset e PATCH com substituição conjunta de inicio/fim/recursosIds. Mantém-se 409/FORA_DO_EXPEDIENTE. A necessidade de leitura da fila, campos legíveis, filtros e paginação está [especificada para implementação](reservas-leitura-contrato.md), sem declarar o endpoint implementado ou as revisões dos demais integrantes aprovadas. Ver [decisões completas](../planejamento/marcos-plano-de-acao.md#respostas-adotadas-para-o-contrato).
 
 O cabeçalho X-CSRF-TOKEN dos exemplos HTTP é ilustrativo: usar o nome retornado pelo endpoint de CSRF. Ações de aprovação/rejeição continuam exclusivas de RESPONSAVEL; não atribuir a ADMINISTRADOR por hierarquia visual.
 
@@ -79,7 +79,7 @@ Formato único: `{ "codigo": "...", "mensagem": "...", "correlationId": "..." }`
 | `ReservaNaoEncontradaException`, `RecursoNaoEncontradoException` | 404 | `NAO_ENCONTRADO` |
 | `ConflitoDisponibilidadeException` | 409 | `RECURSO_INDISPONIVEL` |
 | `RecursoIndisponivelException` (recurso desativado) | 409 | `RECURSO_DESATIVADO` |
-| `ForaDoExpedienteException` | 409 (a confirmar, Q6) | `FORA_DO_EXPEDIENTE` |
+| `ForaDoExpedienteException` | 409 (aceito pelo cliente) | `FORA_DO_EXPEDIENTE` |
 | `TransicaoInvalidaException` | 409 | `TRANSICAO_INVALIDA` |
 | `AlteracaoConcorrenteException` (reserva mudou durante o bloqueio) | 409 | `TENTE_NOVAMENTE` |
 | método sem mapeamento | 405 | `METODO_NAO_PERMITIDO` |

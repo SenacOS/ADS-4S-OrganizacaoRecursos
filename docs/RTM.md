@@ -24,3 +24,9 @@ Estado: VALIDADO LOCALMENTE na camada cliente. Não substitui a RTM global nem c
 | RF14 | Documentação divergente e DTO incorreto | api/frontend-integracao.md, contrato de reservas, clientes JS | Testes do contrato de escrita; revisão de cliente documentada | [integração frontend](api/frontend-integracao.md), [plano](planejamento/marcos-plano-de-acao.md) |
 
 Testes em tests/unit/frontend/ usam fetch e formulário controlados exclusivamente em isolamento. Segurança do servidor, UI responsiva, E2E real, auditoria e corrida no banco permanecem sem validação por este incremento.
+
+## Aceite do contrato pelo frontend — Marcos-contrato-1
+
+| RF | Risco | Artefato | Evidência / limite |
+|---|---|---|---|
+| RF14 | Datas, PATCH e erro de expediente ambíguos; confundir especificação com API disponível | api/reservas-contrato.md, api/reservas-leitura-contrato.md | [Revisão documental e gates](testes/marcos-contrato-1-resultados.md); aceite de Marcos, revisões de backend/segurança e implementação de leitura pendentes |

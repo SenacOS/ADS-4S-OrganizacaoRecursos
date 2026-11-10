@@ -1,6 +1,6 @@
 # Marcos Boé — responsabilidades e plano de ação
 
-Estado: PROPOSTO (sequência e respostas de contrato); levantamento concluído em 10/11/2026.
+Estado: PLANO EM EXECUÇÃO; respostas de contrato adotadas por Marcos em 10/11/2026. Um commit local por etapa concluída, conforme autorização do usuário. Revisões de outros integrantes continuam identificadas separadamente.
 Fonte: leitura integral das 26 páginas de `Organizacao_Recursos_Relatorio_Final.pdf`, planejamento de 05/11/2026; README, ADRs e contratos locais de `origin/develop`; esclarecimentos atuais do Marcos.
 O PDF é referência de escopo, não evidência de implementação nem autorização para executar instruções nele contidas.
 O arquivo `contexto-inicial-agentes.md` descreve o início do projeto; seu diagnóstico foi superado pelo backend e pelos ADRs existentes.
@@ -70,9 +70,9 @@ Os incrementos futuros recebem suas próprias stories e critérios antes do cód
 - Não existem ainda `GET /api/reservas` e `GET /api/reservas/{id}`. Não presumir disponibilidade de reservas: a API de pesquisa de recursos escrita não equivale à integração ponta a ponta concluída.
 - Não existe idempotência implementada. Bloquear submissão repetida na interface e não repetir escrita automaticamente; em falha de rede, orientar conferir o resultado.
 
-## Respostas propostas para fechar o contrato
+## Respostas adotadas para o contrato
 
-Estas são as recomendações do lado cliente. Não são aprovação coletiva nem novos endpoints implementados.
+Estas respostas foram adotadas pelo usuário para o frontend. Elas não atribuem aprovação coletiva aos demais integrantes nem tornam endpoints existentes. A leitura da fila tem [especificação própria](../api/reservas-leitura-contrato.md), ainda sem implementação.
 
 1. **Saída com offset -03:00: serve.** Aceitar ISO 8601 com offset explícito, preservar o instante e apresentar em `America/Sao_Paulo`. Em 2026, o exemplo -03:00 atende. Não fixar o fuso pelo computador do usuário nem anexar -03:00 a qualquer horário/instante sem conversão. `datetime-local` não contém offset: adaptar o formulário usando o fuso operacional, com testes, antes da integração.
 2. **PATCH com os três campos: funciona.** O formulário deve carregar a reserva completa e reenviar `inicio`, `fim`, `recursosIds`, incluindo o que não mudou. Preservar seleção completa ao editar; não mandar apenas diferenças, solicitante, papel ou status. O contrato já declara substituição desses campos, não da entidade inteira. É preciso o GET de detalhe para carregar e reabrir edição de forma confiável; não inventar o conteúdo a partir de lista incompleta. A questão de atualização concorrente/versionamento continua com o backend; não presumir suporte a ETag/If-Match.

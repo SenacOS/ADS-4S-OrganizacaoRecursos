@@ -63,7 +63,7 @@ O módulo `reserva/` foi escrito de modo que **tudo o que depende de outro integ
 | Q3 | O Responsável pode aprovar a própria reserva se também for Solicitante? | Permitido (a regra é por papel) | Equipe |
 | Q4 | Manutenção que colide com reserva existente | Fora do módulo; Fausto implementa a política (ADR-005) | Fausto + Silva |
 | Q5 | Quem cancela uma reserva APROVADA? | Dono ou Administrador | Equipe |
-| Q6 | Código HTTP para fora do expediente (409 ou 422) | 409 no contrato | Marcos + Silva |
+| Q6 | Código HTTP para fora do expediente (409 ou 422) | 409 aceito por Marcos em 10/11/2026; confirmação de Silva pendente | Marcos + Silva |
 | Q7 | Duração mínima/máxima e antecedência da reserva | Sem limite | Equipe |
 | Q8 | Aprovação revalida conflito? | Não revalida, pois a pendente já bloqueia a agenda | Equipe |
 | Q9 | Quem pode consultar uma reserva (GET)? | Dono, Responsável e Administrador (não implementado) | Equipe + Débora |
