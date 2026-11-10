@@ -30,3 +30,11 @@ O desalinhamento entre o contexto (Java 21/Spring Boot 3.x) e o preset `nextjs-r
 ## Primeiro artefato
 
 - [Proposta de dominio e ciclo de vida das reservas](dominio/proposta-dominio-reservas.md) — **PROPOSTO**; depende de validacao da equipe e esclarecimento de ambiguidades.
+
+## Incremento de Marcos — 10/11/2026
+
+O diagnóstico de outubro acima é histórico. O backend e os contratos já estão na develop; este incremento acrescenta a base do cliente.
+- [Responsabilidades completas, mapa de telas, plano e quatro respostas para a equipe](planejamento/marcos-plano-de-acao.md).
+- [Story Marcos-1](stories/marcos-1.md).
+- [Autenticação atual e consumo dos clientes JS](api/frontend-integracao.md).
+- [Resultados locais e limites da validação](testes/marcos-1-resultados.md).

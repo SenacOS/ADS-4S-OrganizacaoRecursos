@@ -253,3 +253,10 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](./LICENSE) para 
 ## Implementação do item 18
 
 Recursos, manutenção, MySQL, locks e movimentações foram acrescentados na branch do Fausto. Consulte [execução e integração](docs/integracao/item18.md), [contratos](docs/api/item18.md), [modelo e concorrência](docs/arquitetura/item18-persistencia.md) e [RTM](docs/RTM.md). Os demais módulos continuam pendentes; APIs são desligadas por padrão.
+
+
+## Base do frontend — Marcos-1
+
+Os clientes JavaScript estão em backend/src/main/resources/static/js/, conforme ADR-001. O frontend continua servido pelo Spring Boot, sem compilação. Node 24+ e npm são usados apenas para verificações de desenvolvimento: na raiz, execute npm ci e npm run build (lint, checkJs e testes isolados).
+
+Consulte o [plano completo de Marcos](docs/planejamento/marcos-plano-de-acao.md), a [integração do frontend](docs/api/frontend-integracao.md) e as [evidências locais](docs/testes/marcos-1-resultados.md). Telas e E2E reais são os próximos incrementos; a base de clientes não ativa as APIs nem integra a branch de autenticação.

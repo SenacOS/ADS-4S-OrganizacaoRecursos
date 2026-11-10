@@ -1,10 +1,21 @@
 # Contrato da API de reservas
 
-**Estado: PROPOSTO** — a revisar por Marcos (cliente) e Débora (segurança). Os 8 endpoints de escrita abaixo estão **escritos** em `reserva/api/` (PR `feature/rf04-api-rest`), mas desligados por padrão (`reservas.api.enabled=true` para ativar) até existirem o bean `ReservaService` e o `AtorAutenticadoProvider`. Não validados ponta a ponta.
+**Estado: PROPOSTO** — em revisão por Marcos (cliente) e Débora (segurança). Os 8 endpoints de escrita estão escritos, mas desligados por padrão (reservas.api.enabled=false). A integração depende da sessão e dos provedores reais de auditoria/notificação; não foram validados ponta a ponta. A autenticação entregue em branch separada ainda precisa ser integrada à develop.
 
 **Fora deste contrato por enquanto:** `GET /api/reservas`, `GET /api/reservas/{id}` e disponibilidade. Dependem de uma porta de leitura (Fausto), da regra de quem pode consultar (Q9) e do dono do endpoint de disponibilidade (`GET /api/recursos`, Fausto).
 
-Convenções (ADR-004, ADR-006): sessão com cookie HttpOnly, CSRF no cabeçalho `X-CSRF-TOKEN`, JSON em UTF-8, datas ISO 8601 **com offset** (`2026-11-10T13:00:00-03:00`), persistidas em UTC, exibidas em `America/Sao_Paulo`.
+Convenções (ADR-004, ADR-006): sessão com cookie HttpOnly, CSRF no cabeçalho informado por `GET /api/auth/csrf` (`{token,header}`; não fixar o nome no cliente), JSON em UTF-8 nas operações de domínio, datas ISO 8601 **com offset** (`2026-11-10T13:00:00-03:00`), persistidas em UTC, exibidas em `America/Sao_Paulo`.
+
+## Autenticação — atualização comunicada em 10/11/2026
+
+| Método e rota | Envio / retorno |
+|---|---|
+| GET /api/auth/csrf | Retorna {token,header}; disponível antes do login |
+| POST /api/auth/login | application/x-www-form-urlencoded: email e senha; 204 sem corpo ou 401/CREDENCIAIS_INVALIDAS |
+| POST /api/auth/logout | 204 sem corpo |
+| GET /api/auth/me | Retorna {usuarioId,email,papel} |
+
+Todas as escritas, inclusive login/logout, usam o cabeçalho CSRF retornado pelo servidor e credentials same-origin. O cookie é HttpOnly. Renovar o token após login/logout. Não usar as rotas ilustrativas antigas do PDF. Detalhes de consumo em [frontend-integracao.md](frontend-integracao.md).
 
 ## Endpoints
 
@@ -49,6 +60,12 @@ Respostas trazem datas em `America/Sao_Paulo` com offset (ADR-006); o banco guar
 { "motivo": "Equipamento reservado para a coordenação." }
 ```
 `motivo` é obrigatório (400 se vazio).
+
+## Revisão de cliente — proposta de Marcos
+
+O cliente aceita datas ISO com offset e PATCH com substituição conjunta de inicio/fim/recursosIds. Recomenda manter 409/FORA_DO_EXPEDIENTE. Leitura/detalhes da fila, identificação legível de recursos/solicitante, filtros e paginação precisam ser fechados com Silva, Fausto e Débora; não estão implementados por esta revisão. Ver [respostas completas e proposta de fila](../planejamento/marcos-plano-de-acao.md#respostas-propostas-para-fechar-o-contrato).
+
+O cabeçalho X-CSRF-TOKEN dos exemplos HTTP é ilustrativo: usar o nome retornado pelo endpoint de CSRF. Ações de aprovação/rejeição continuam exclusivas de RESPONSAVEL; não atribuir a ADMINISTRADOR por hierarquia visual.
 
 ## Erros
 

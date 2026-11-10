@@ -1,0 +1,17 @@
+{
+  "name": "organizacao-recursos-frontend-checks",
+  "private": true,
+  "type": "module",
+  "description": "Verificações de desenvolvimento; o frontend estático não exige Node em execução.",
+  "scripts": {
+    "lint": "eslint backend/src/main/resources/static/js tests/unit/frontend eslint.config.js",
+    "typecheck": "tsc --project jsconfig.json",
+    "test": "node --test tests/unit/frontend/*.test.js",
+    "build": "npm run lint && npm run typecheck && npm test"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.14.0",
+    "typescript": "^5.0.0"
+  }
+}
