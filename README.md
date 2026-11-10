@@ -248,3 +248,8 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](./LICENSE) para 
 ---
 
 *Projeto acadêmico desenvolvido como parte da formação em tecnologia no Senac Brasil, hospedado na organização [SenacOS](https://github.com/SenacOS).*
+
+
+## Implementação do item 18
+
+Recursos, manutenção, MySQL, locks e movimentações foram acrescentados na branch do Fausto. Consulte [execução e integração](docs/integracao/item18.md), [contratos](docs/api/item18.md), [modelo e concorrência](docs/arquitetura/item18-persistencia.md) e [RTM](docs/RTM.md). Os demais módulos continuam pendentes; APIs são desligadas por padrão.

@@ -288,7 +288,7 @@ class ReservaServiceTest {
     }
 
     @Test
-    void conjuntoDeRecursosAlteradoEntreLeituraELockRepeteOBloqueio() {
+    void conjuntoAlteradoAbortaSemAdquirirNovosLocks() {
         AmbienteFake amb = ambiente();
         ReservaService s = amb.servico();
         Reserva r = s.criar(cmd("09:00", "10:00", 1L), ANA);
@@ -297,10 +297,8 @@ class ReservaServiceTest {
         amb.aposPrimeiraBusca = () -> amb.armazem.put(r.id(),
                 new Reserva(r.id(), r.solicitanteId(), r.intervalo(), List.of(1L, 2L), false, r.status(), null));
 
-        Reserva cancelada = s.cancelar(r.id(), ANA);
-
-        assertEquals(List.of(List.of(1L), List.of(1L, 2L)), amb.ordensDeBloqueio);
-        assertEquals(StatusReserva.CANCELADA, cancelada.status());
-        assertEquals(List.of(1L, 2L), cancelada.recursoIds());
+        assertThrows(br.senac.recursos.reserva.dominio.AlteracaoConcorrenteException.class, () -> s.cancelar(r.id(), ANA));
+        assertEquals(List.of(List.of(1L)), amb.ordensDeBloqueio);
+        assertEquals(StatusReserva.APROVADA, amb.armazem.get(r.id()).status());
     }
 }
