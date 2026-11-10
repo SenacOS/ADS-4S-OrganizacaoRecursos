@@ -2,7 +2,9 @@
 
 ## Status
 
-In Progress
+Ready for Review
+
+Incremento local do frontend encerrado com aceite de Marcos em 10/11/2026. Integração real, revisão de outro integrante, CodeRabbit e CI permanecem pendentes antes da entrega integrada e do merge.
 
 ## Story
 
@@ -35,7 +37,8 @@ Responsável: Marcos Boé. RF01, RF13, RF14. Story definida com AIOX SM. Depend�
 - [x] Executar testes de navegador em móvel/desktop e manter a suíte unitária.
 - [x] Executar lint, typecheck, test e build.
 - [x] Atualizar docs, RTM, evidências, checklist e File List; preparar commit local.
-- [ ] Integrar autenticação real e obter revisão humana/CodeRabbit/CI antes de fechar a entrega integrada.
+- [x] Registrar execução dos testes pelo Marcos e seu aceite visual do incremento local.
+- [ ] Integrar autenticação real e obter revisão de outro integrante/CodeRabbit/CI antes de fechar a entrega integrada.
 
 ## Dev Notes
 
@@ -50,6 +53,8 @@ Login URL-encoded + CSRF dinâmico/204; credenciais inválidas; me/sessão expir
 ### Completion Notes
 
 Implementação do incremento validada localmente: lint, checkJs, 21 testes unitários e 30 execuções de navegador em Chrome headless. Backend de autenticação ainda fora deste checkout; não se declara integração real. Playwright adotado como ferramenta de desenvolvimento após experimento com Chrome instalado. Dependência instalada com autorização; não há compilação do frontend no produto. FE-001 foi encontrado e corrigido durante os testes. [Resultados e limites](../testes/marcos-2-resultados.md).
+
+Marcos repetiu npm run build no próprio terminal: lint e tipos sem diagnósticos, 21 testes unitários e 30 testes de navegador aprovados em 17,1 s. Após orientação para visualizar a tela no Chrome, informou que estava perfeita e solicitou o encerramento da etapa. Aceite registrado em 10/11/2026; não equivale a revisão independente nem a teste manual de todos os cenários. A saída fornecida foi preservada separadamente em docs/testes/marcos-2-verificacao-marcos.txt. Esta atualização altera somente documentação e conserva as evidências da execução anterior.
 
 ### File List
 
@@ -77,6 +82,7 @@ Implementação do incremento validada localmente: lint, checkJs, 21 testes unit
 - docs/stories/marcos-2.md
 - docs/testes/marcos-2-resultados.md
 - docs/testes/marcos-2-verificacao.txt
+- docs/testes/marcos-2-verificacao-marcos.txt
 - docs/testes/marcos-2/resultados.json
 - docs/testes/marcos-2/login-desktop.png
 - docs/testes/marcos-2/login-mobile.png
@@ -86,4 +92,4 @@ Implementação do incremento validada localmente: lint, checkJs, 21 testes unit
 
 ## QA Results
 
-Parecer AIOX QA: PASS no incremento local, sem defeitos materiais/bloqueantes identificados. Evidências e escopo conferidos, sem nova execução redundante dos testes. CodeRabbit, CI e revisão humana permanecem pendentes. A story continua In Progress quanto à entrega integrada; o commit registra a implementação validada localmente.
+Parecer AIOX QA anterior: PASS no incremento local, sem defeitos materiais/bloqueantes identificados. Evidências e escopo conferidos, sem nova execução redundante dos testes. Acrescentados execução dos testes e aceite visual informados por Marcos. A story fica Ready for Review com o incremento local encerrado; integração real, revisão de outro integrante, CodeRabbit e CI permanecem pendentes. Esta atualização documental não constitui novo parecer de QA.

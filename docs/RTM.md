@@ -40,3 +40,5 @@ Testes em tests/unit/frontend/ usam fetch e formulário controlados exclusivamen
 | RF14 | Confundir mock de navegador com autenticação real | api/frontend-integracao.md, stories/marcos-2.md | Contratos reais mantidos; testes interceptam API somente em isolamento; E2E real permanece pendente |
 
 Esta etapa não comprova autorização no servidor, cookie HttpOnly real, CSRF real do Spring, auditoria ou concorrência MySQL. As 21 verificações unitárias existentes também passaram.
+
+Encerramento do incremento local registrado com aceite visual de Marcos em 10/11/2026. O autor repetiu o build com lint/tipos sem diagnósticos, 21 testes unitários e 30 testes de navegador aprovados; [saída fornecida pelo autor](testes/marcos-2-verificacao-marcos.txt). Story Ready for Review; integração real, revisão de outro integrante, CodeRabbit e CI continuam pendentes antes do merge.

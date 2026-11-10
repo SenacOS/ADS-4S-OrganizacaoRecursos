@@ -50,7 +50,7 @@ Protótipos simples devem mostrar navegação, estados vazio/carregando/erro/suc
 |---|---|---|---|
 | 0 | Ler PDF, inspecionar branches/contratos e levantar responsabilidades | Fontes e dependências identificadas neste documento | CONCLUÍDO |
 | 1 | Story Marcos-1: base `api.js`, `auth.js`, `reservas.js`, `forms.js` | Testes isolados relevantes, lint e verificação JS; docs de consumo | VALIDADO LOCALMENTE; revisão pendente |
-| 2 | Login, logout, navegação por perfil e estrutura visual responsiva | Formulário, perfil, erro/expiração e teclado em navegador | VALIDADO LOCALMENTE com API controlada; integração/revisão pendentes ([evidência](../testes/marcos-2-resultados.md)) |
+| 2 | Login, logout, navegação por perfil e estrutura visual responsiva | Formulário, perfil, erro/expiração e teclado em navegador | INCREMENTO LOCAL ENCERRADO com aceite de Marcos em 10/11/2026; testes reexecutados pelo autor aprovados; story Ready for Review; integração/revisão de outro integrante/CodeRabbit/CI pendentes ([evidência](../testes/marcos-2-resultados.md)) |
 | 3 | Pesquisa/disponibilidade + criar/editar/cancelar reservas | Formulários e estados com mock explícito de desenvolvimento; troca pelo backend quando habilitado | PENDENTE |
 | 4 | Aprovação/rejeição e fila | Revisar proposta de leitura; testar RESPONSAVEL e acessos negados com Débora | PENDENTE |
 | 5 | Recursos/cadastros/manutenção e movimentações | Consumir item18; validar retirada, atraso, devolução e restrições por perfil | PENDENTE |

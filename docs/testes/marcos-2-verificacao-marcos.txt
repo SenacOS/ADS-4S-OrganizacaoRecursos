@@ -1,0 +1,89 @@
+C:\Users\fsouza\OneDrive - C Kennedy - 2025.old\Documentos\Cods\QS_Project\ADS-4S-OrganizacaoRecursos>npm run build
+
+> build
+> npm run lint && npm run typecheck && npm test
+
+
+> lint
+> eslint backend/src/main/resources/static/js tests/unit/frontend tests/browser eslint.config.js playwright.config.js
+
+
+> typecheck
+> tsc --project jsconfig.json
+
+
+> test
+> npm run test:unit && npm run test:browser
+
+
+> test:unit
+> node --test tests/unit/frontend/*.test.js
+
+✔ GET usa sessão e não busca CSRF; me devolve perfil (22.3063ms)
+✔ POST envia CSRF dinâmico e sessão (0.7006ms)
+✔ PUT envia CSRF dinâmico e sessão (0.4181ms)
+✔ PATCH envia CSRF dinâmico e sessão (0.9753ms)
+✔ DELETE envia CSRF dinâmico e sessão (0.378ms)
+✔ login codifica email/senha como formulário e aceita 204; logout renova CSRF (2.7454ms)
+✔ credenciais inválidas ficam no login; sessão ausente aciona redirecionamento (1.2822ms)
+✔ erro 400 preserva contrato e não repete escrita (0.7464ms)
+✔ erro 403 preserva contrato e não repete escrita (0.3544ms)
+✔ erro 404 preserva contrato e não repete escrita (0.3816ms)
+✔ erro 409 preserva contrato e não repete escrita (0.3405ms)
+✔ 403 invalida token para próxima ação explícita, sem replay da anterior (0.4753ms)
+✔ PATCH completo preserva offset e remove campos de identidade/status (0.5475ms)
+✔ datas sem offset, fim não posterior e recursos inválidos falham antes do fetch (0.297ms)
+✔ cancelamento, aprovação e rejeição usam rotas e motivo contratados (0.6547ms)
+✔ somente RESPONSAVEL recebe conveniência visual de aprovação (0.1001ms)
+✔ falha de rede e HTML inesperado não vazam detalhes nem repetem escrita (0.7271ms)
+✔ CSRF ausente não permite escrita e falha inicial pode ser recuperada (0.3853ms)
+✔ origem externa e correlação inválida falham antes de buscar token (0.3779ms)
+✔ escritas paralelas compartilham somente a busca de CSRF (0.9736ms)
+✔ guard ignora duplo envio, indica busy e restaura controles em sucesso e erro (1.0394ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 186.2568
+
+> test:browser
+> playwright test
+
+
+Running 30 tests using 1 worker
+
+  ✓   1 [desktop] › tests\browser\acesso.spec.js:61:1 › login por teclado envia formulário e CSRF, depois consulta o perfil (738ms)
+  ✓   2 [desktop] › tests\browser\acesso.spec.js:81:1 › credenciais inválidas preservam formulário e mostram HTML como texto (460ms)
+  ✓   3 [desktop] › tests\browser\acesso.spec.js:96:1 › envios simultâneos de login executam uma escrita e indicam busy (476ms)
+  ✓   4 [desktop] › tests\browser\acesso.spec.js:111:1 › sessão expirada volta ao login sem loop nem dados privados (417ms)
+  ✓   5 [desktop] › tests\browser\acesso.spec.js:122:1 › sessão já válida evita novo login e ignora destinos externos (412ms)
+  ✓   6 [desktop] › tests\browser\acesso.spec.js:131:3 › navegação do perfil SOLICITANTE sem ações ou links indevidos (376ms)
+  ✓   7 [desktop] › tests\browser\acesso.spec.js:131:3 › navegação do perfil RESPONSAVEL sem ações ou links indevidos (394ms)
+  ✓   8 [desktop] › tests\browser\acesso.spec.js:131:3 › navegação do perfil ADMINISTRADOR sem ações ou links indevidos (388ms)
+  ✓   9 [desktop] › tests\browser\acesso.spec.js:143:1 › logout usa CSRF e confirma saída somente após 204 (661ms)
+  ✓  10 [desktop] › tests\browser\acesso.spec.js:155:1 › falha no logout restaura botão e não afirma sessão encerrada (469ms)
+  ✓  11 [desktop] › tests\browser\acesso.spec.js:168:1 › envios simultâneos de logout executam uma escrita (546ms)
+  ✓  12 …ktop] › tests\browser\acesso.spec.js:182:1 › falha na leitura da sessão mantém painel oculto e permite nova leitura (419ms)
+  ✓  13 [desktop] › tests\browser\acesso.spec.js:195:1 › perfil não reconhecido não revela painel nem ações (348ms)
+  ✓  14 [desktop] › tests\browser\acesso.spec.js:202:1 › 403 no login não repete envio; nova ação busca outro token (539ms)
+  ✓  15 [desktop] › tests\browser\acesso.spec.js:218:1 › login e entrada cabem na viewport sem rolagem horizontal (678ms)
+  ✓  16 [mobile] › tests\browser\acesso.spec.js:61:1 › login por teclado envia formulário e CSRF, depois consulta o perfil (729ms)
+  ✓  17 [mobile] › tests\browser\acesso.spec.js:81:1 › credenciais inválidas preservam formulário e mostram HTML como texto (472ms)
+  ✓  18 [mobile] › tests\browser\acesso.spec.js:96:1 › envios simultâneos de login executam uma escrita e indicam busy (443ms)
+  ✓  19 [mobile] › tests\browser\acesso.spec.js:111:1 › sessão expirada volta ao login sem loop nem dados privados (389ms)
+  ✓  20 [mobile] › tests\browser\acesso.spec.js:122:1 › sessão já válida evita novo login e ignora destinos externos (395ms)
+  ✓  21 [mobile] › tests\browser\acesso.spec.js:131:3 › navegação do perfil SOLICITANTE sem ações ou links indevidos (329ms)
+  ✓  22 [mobile] › tests\browser\acesso.spec.js:131:3 › navegação do perfil RESPONSAVEL sem ações ou links indevidos (350ms)
+  ✓  23 [mobile] › tests\browser\acesso.spec.js:131:3 › navegação do perfil ADMINISTRADOR sem ações ou links indevidos (346ms)
+  ✓  24 [mobile] › tests\browser\acesso.spec.js:143:1 › logout usa CSRF e confirma saída somente após 204 (593ms)
+  ✓  25 [mobile] › tests\browser\acesso.spec.js:155:1 › falha no logout restaura botão e não afirma sessão encerrada (418ms)
+  ✓  26 [mobile] › tests\browser\acesso.spec.js:168:1 › envios simultâneos de logout executam uma escrita (532ms)
+  ✓  27 …bile] › tests\browser\acesso.spec.js:182:1 › falha na leitura da sessão mantém painel oculto e permite nova leitura (428ms)
+  ✓  28 [mobile] › tests\browser\acesso.spec.js:195:1 › perfil não reconhecido não revela painel nem ações (299ms)
+  ✓  29 [mobile] › tests\browser\acesso.spec.js:202:1 › 403 no login não repete envio; nova ação busca outro token (502ms)
+  ✓  30 [mobile] › tests\browser\acesso.spec.js:218:1 › login e entrada cabem na viewport sem rolagem horizontal (674ms)
+
+  30 passed (17.1s)
