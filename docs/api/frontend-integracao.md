@@ -1,6 +1,6 @@
 # Consumo da API pelo frontend
 
-Estado: IMPLEMENTAÇÃO INICIAL. Escopo: clientes de escrita e autenticação, sem telas ou integração real.
+Estado: CLIENTES E TELAS DE ACESSO IMPLEMENTADOS E VALIDADOS LOCALMENTE. Integração real com autenticação/backend pendente. Login e entrada autenticada estão em login.html e index.html.
 Fontes: contrato de reservas, item18, ADR-001/004/006 e esclarecimentos do Marcos em 10/11/2026.
 
 ## Autenticação comunicada pela equipe
@@ -54,15 +54,29 @@ O exemplo ilustra a ligação futura da UI; não é uma tela entregue. Usar `tex
 Criar/editar recebem `{inicio,fim,recursosIds}`; datas ISO com offset e fim posterior. PATCH envia os três campos juntos. Identidade, papel e status nunca entram no corpo. Rejeição exige motivo não vazio.
 A validação do cliente é amigável; o servidor revalida datas, expediente, propriedade, estado, restrição e concorrência.
 
-401/NAO_AUTENTICADO redireciona para `/login.html` (tela do próximo incremento); 401/CREDENCIAIS_INVALIDAS continua no formulário de login.
+401/NAO_AUTENTICADO redireciona de páginas protegidas para `/login.html?sessao=expirada`; se já estiver no login, não redireciona novamente. A tela explica sessão ausente/expirada. 401/CREDENCIAIS_INVALIDAS continua no formulário de login.
 Erros expõem `status`, `codigo`, `message`, `correlationId`; apresentarErro separa mensagem da referência de suporte.
 409 não é sucesso: apresentar a mensagem e manter o formulário para correção. Não fazer retry automático, inclusive para TENTE_NOVAMENTE.
 O cliente aceita `correlationId` opcional em `api.requisitar`, validando o padrão do contrato.
 
 ## Testes e limites
 
-Node 24+ e `npm ci` são ferramentas de desenvolvimento; Spring continua servindo os módulos ES sem build/Node no produto.
+Node 24+, npm e Playwright são ferramentas de desenvolvimento; Spring continua servindo os módulos ES sem build/Node no produto.
+Na raiz, execute `npm ci` e `npx playwright install chromium` antes da suíte completa. Alternativamente, com Chrome já instalado, defina `$env:PLAYWRIGHT_CHANNEL = 'chrome'` no PowerShell.
 Execute na raiz: `npm run lint`, `npm run typecheck`, `npm test`; `npm run build` agrega as verificações e não compila a interface.
-ESLint verifica o JS; TypeScript verifica JSDoc com checkJs/noEmit; node:test usa fetch/formulários controlados em testes isolados.
+ESLint verifica o JS; TypeScript verifica JSDoc com checkJs/noEmit; `npm run test:unit` usa node:test com fetch/formulários controlados. `npm run test:browser` usa Playwright com API interceptada, Chrome/Chromium real e viewports desktop/móvel. `npm test` executa ambas as suítes.
+
+## Telas de acesso — Marcos-2
+
+- login.html verifica me antes de habilitar o formulário. Uma sessão válida segue para index.html; uma sessão ausente permite entrar. Campos possuem labels/autocomplete, validação nativa e envio por teclado. Login continua form-urlencoded com CSRF pelo cliente existente.
+- index.html mantém o conteúdo oculto até obter e validar usuarioId/email/papel. Perfis desconhecidos não revelam o painel. Erro de leitura exibe mensagem/referência e permite nova tentativa explícita do GET.
+- Login/logout usam um guard por formulário e restauram o texto do botão dentro da operação protegida. Um segundo evento não altera o estado visual da primeira operação.
+- Logout só informa saída após 204. Falha mantém feedback de erro; 401 aciona o fluxo central de expiração.
+- Mensagens/referências e dados da sessão usam textContent. Nenhuma senha/token é persistida em storage. Parâmetros de destino externo não são aceitos.
+- A navegação deriva do perfil validado. Aprovações aparece somente a RESPONSAVEL. Áreas futuras estão marcadas Em breve e não contêm links para páginas ausentes nem dados inventados.
+
+Para inspecionar somente o layout local: `npm run preview` e abrir http://127.0.0.1:4173/login.html. O servidor serve arquivos estáticos e não simula autenticação: login real requer a aplicação Spring com o módulo de segurança integrado. Mocks estão somente em tests/browser/acesso.spec.js.
+
+O teste de navegador desta etapa não substitui o E2E integrado. [Resultados, capturas e limites](../testes/marcos-2-resultados.md). Referências da ferramenta: [servidor de teste](https://playwright.dev/docs/test-webserver), [API controlada](https://playwright.dev/docs/network) e [Chrome instalado](https://playwright.dev/docs/browsers#google-chrome--microsoft-edge).
 
 A autenticação ainda está em branch separada e reservas estão desligadas. Não há GET de reservas/detalhes nem cliente inventado para eles. Fila e formulário de edição dependem desses contratos. Nenhum resultado de teste isolado comprova segurança do servidor, cookie real, corrida no banco ou E2E.

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Início · Organização de Recursos</title>
+  <link rel="stylesheet" href="/css/app.css">
+  <script type="module" src="/js/dashboard-page.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+  <div id="estado-sessao" class="session-check">
+    <div class="brand brand-dark"><span class="brand-mark" aria-hidden="true">OR</span><span>Organização de Recursos</span></div>
+    <p id="feedback-inicial" class="feedback" role="status" aria-live="polite" aria-atomic="true" tabindex="-1">Verificando seu acesso…</p>
+    <p id="referencia-inicial" class="support-reference" hidden></p>
+    <button id="tentar-sessao" class="button button-secondary" type="button" hidden>Tentar novamente</button>
+    <noscript><p>Ative o JavaScript no navegador para acessar o sistema.</p></noscript>
+  </div>
+  <div id="painel" class="app-layout" hidden>
+    <aside class="sidebar">
+      <a class="brand" href="/index.html" aria-label="Organização de Recursos, início"><span class="brand-mark" aria-hidden="true">OR</span><span>Organização<br>de Recursos</span></a>
+      <p class="sidebar-label">SEU ESPAÇO</p>
+      <nav aria-label="Navegação principal">
+        <ul id="navegacao" class="nav-list"></ul>
+      </nav>
+      <div class="sidebar-footer"><span class="small-dot" aria-hidden="true"></span>Recursos bem compartilhados.</div>
+    </aside>
+    <div class="app-main">
+      <header class="topbar">
+        <p class="breadcrumb">Seu espaço <span aria-hidden="true">/</span> <strong>Início</strong></p>
+        <form id="form-logout" class="logout-form">
+          <button class="button button-secondary" type="submit">Sair da conta</button>
+        </form>
+      </header>
+      <main id="conteudo" class="dashboard-content" tabindex="-1">
+        <div class="page-heading"><div><p class="eyebrow">ORGANIZAÇÃO DE RECURSOS</p><h1>Seu ponto de partida.</h1></div><span id="perfil-badge" class="profile-badge"></span></div>
+        <p id="feedback-painel" class="feedback" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" hidden></p>
+        <p id="referencia-painel" class="support-reference" hidden></p>
+        <section class="welcome-panel" aria-labelledby="welcome-title">
+          <div><p class="eyebrow">ACESSO CONFIRMADO</p><h2 id="welcome-title">Bom ter você por aqui.</h2><p>Este é o seu espaço para organizar o uso de salas, docentes e materiais.</p></div>
+          <div class="resource-symbol" aria-hidden="true"><span>SALA</span><span>DOCENTE</span><span>MATERIAL</span></div>
+        </section>
+        <section class="account-panel" aria-labelledby="conta-title">
+          <div class="section-heading"><h2 id="conta-title">Sua conta</h2><span class="session-label"><span class="small-dot" aria-hidden="true"></span>Sessão ativa</span></div>
+          <dl class="account-details"><div><dt>E-mail</dt><dd id="usuario-email"></dd></div><div><dt>Perfil de acesso</dt><dd id="usuario-perfil"></dd></div><div><dt>Horários do sistema</dt><dd>São Paulo <span class="muted">(America/Sao_Paulo)</span></dd></div></dl>
+        </section>
+        <section aria-labelledby="areas-title" class="areas-section">
+          <div class="section-heading"><h2 id="areas-title">Áreas do seu perfil</h2><p class="muted">Novos fluxos estão a caminho.</p></div>
+          <div id="areas-perfil" class="areas-grid"></div>
+        </section>
+        <footer class="dashboard-footer">Organização de Recursos <span>Planejar juntos faz a diferença.</span></footer>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

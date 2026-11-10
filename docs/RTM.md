@@ -30,3 +30,13 @@ Testes em tests/unit/frontend/ usam fetch e formulário controlados exclusivamen
 | RF | Risco | Artefato | Evidência / limite |
 |---|---|---|---|
 | RF14 | Datas, PATCH e erro de expediente ambíguos; confundir especificação com API disponível | api/reservas-contrato.md, api/reservas-leitura-contrato.md | [Revisão documental e gates](testes/marcos-contrato-1-resultados.md); aceite de Marcos, revisões de backend/segurança e implementação de leitura pendentes |
+
+## Telas de acesso — Marcos-2
+
+| RF | Risco / comportamento | Implementação | Testes executados / evidência |
+|---|---|---|---|
+| RF01 | Login, expiração e logout inconsistentes; perfil não reconhecido | login.html, index.html, login-page.js, dashboard-page.js, auth.js/api.js | tests/browser/acesso.spec.js: login por teclado, sessão expirada, sessão válida, logout sucesso/falha, perfil desconhecido; [resultados](testes/marcos-2-resultados.md) |
+| RF13 | Duplo envio, erro interpretado como HTML, navegação indevida ou largura móvel inutilizável | forms.js, ui.js, navegacao.js, css/app.css | 15 cenários em desktop e móvel (30 execuções); capturas e saída em [resultados](testes/marcos-2-resultados.md) |
+| RF14 | Confundir mock de navegador com autenticação real | api/frontend-integracao.md, stories/marcos-2.md | Contratos reais mantidos; testes interceptam API somente em isolamento; E2E real permanece pendente |
+
+Esta etapa não comprova autorização no servidor, cookie HttpOnly real, CSRF real do Spring, auditoria ou concorrência MySQL. As 21 verificações unitárias existentes também passaram.

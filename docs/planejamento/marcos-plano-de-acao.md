@@ -50,7 +50,7 @@ Protótipos simples devem mostrar navegação, estados vazio/carregando/erro/suc
 |---|---|---|---|
 | 0 | Ler PDF, inspecionar branches/contratos e levantar responsabilidades | Fontes e dependências identificadas neste documento | CONCLUÍDO |
 | 1 | Story Marcos-1: base `api.js`, `auth.js`, `reservas.js`, `forms.js` | Testes isolados relevantes, lint e verificação JS; docs de consumo | VALIDADO LOCALMENTE; revisão pendente |
-| 2 | Login, logout, navegação por perfil e estrutura visual responsiva | Prototipar e validar formulário com autenticação; erro/expiração e teclado | PENDENTE |
+| 2 | Login, logout, navegação por perfil e estrutura visual responsiva | Formulário, perfil, erro/expiração e teclado em navegador | VALIDADO LOCALMENTE com API controlada; integração/revisão pendentes ([evidência](../testes/marcos-2-resultados.md)) |
 | 3 | Pesquisa/disponibilidade + criar/editar/cancelar reservas | Formulários e estados com mock explícito de desenvolvimento; troca pelo backend quando habilitado | PENDENTE |
 | 4 | Aprovação/rejeição e fila | Revisar proposta de leitura; testar RESPONSAVEL e acessos negados com Débora | PENDENTE |
 | 5 | Recursos/cadastros/manutenção e movimentações | Consumir item18; validar retirada, atraso, devolução e restrições por perfil | PENDENTE |
@@ -65,7 +65,7 @@ Os incrementos futuros recebem suas próprias stories e critérios antes do cód
 - **Débora:** integrar sessão/CSRF/`me` à develop; entregar auditoria/notificação/eventos e testes de segurança. Conferir permissões e quais leituras podem expor solicitante.
 - **Silva:** consolidar escritas/erros e edição; implementar consulta de reservas, detalhes e fila junto à leitura do Fausto. Confirmar estados editáveis e comportamento da mudança comum/restrita.
 - **Fausto:** disponibilizar porta de leitura de reservas e validar DTOs de recurso/expediente/disponibilidade. `GET /api/recursos` com filtros já está escrito e documentado no item18; ativação e integração ainda são condicionais.
-- **Equipe:** fechar política de leitura (Q9), filtros/paginação da fila e escolher ferramenta E2E após experimento curto (Playwright/Selenium); nenhuma marca é exigida.
+- **Equipe:** fechar política geral de leitura (Q9) e revisar/implementar a especificação de fila aceita pelo cliente. Playwright foi adotado no experimento da Marcos-2 para testes de navegador do frontend; o E2E integrado ainda precisa ser executado com o backend real.
 - `reservas.api.enabled=false`: manter desligada até as dependências reais. Não criar provedores vazios de auditoria/autenticação para habilitar produção.
 - Não existem ainda `GET /api/reservas` e `GET /api/reservas/{id}`. Não presumir disponibilidade de reservas: a API de pesquisa de recursos escrita não equivale à integração ponta a ponta concluída.
 - Não existe idempotência implementada. Bloquear submissão repetida na interface e não repetir escrita automaticamente; em falha de rede, orientar conferir o resultado.

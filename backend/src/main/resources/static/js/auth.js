@@ -1,4 +1,4 @@
-import { api } from './api.js';
+import { api, ErroApi } from './api.js';
 
 /** @typedef {{usuarioId: number, email: string,
  * papel: 'SOLICITANTE'|'RESPONSAVEL'|'ADMINISTRADOR'}} Usuario */
@@ -18,8 +18,14 @@ export function criarAuth(cliente = api) {
       cliente.limparCsrf();
     },
     /** @returns {Promise<Usuario>} */
-    me() {
-      return cliente.requisitar('/api/auth/me');
+    async me() {
+      const usuario = await cliente.requisitar('/api/auth/me');
+      if (!Number.isSafeInteger(usuario?.usuarioId) || usuario.usuarioId <= 0
+        || typeof usuario.email !== 'string' || !usuario.email.trim()
+        || !['SOLICITANTE', 'RESPONSAVEL', 'ADMINISTRADOR'].includes(usuario.papel)) {
+        throw new ErroApi(200, 'RESPOSTA_INVALIDA', 'Não foi possível identificar sua conta. Tente novamente.');
+      }
+      return { usuarioId: usuario.usuarioId, email: usuario.email, papel: usuario.papel };
     },
   };
 }

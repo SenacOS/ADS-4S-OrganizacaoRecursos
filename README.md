@@ -257,6 +257,6 @@ Recursos, manutenção, MySQL, locks e movimentações foram acrescentados na br
 
 ## Base do frontend — Marcos-1
 
-Os clientes JavaScript estão em backend/src/main/resources/static/js/, conforme ADR-001. O frontend continua servido pelo Spring Boot, sem compilação. Node 24+ e npm são usados apenas para verificações de desenvolvimento: na raiz, execute npm ci e npm run build (lint, checkJs e testes isolados).
+Os clientes JavaScript estão em backend/src/main/resources/static/js/, conforme ADR-001. Login e entrada autenticada estão em login.html e index.html da mesma pasta static/. O frontend continua servido pelo Spring Boot, sem compilação. Node 24+, npm e Playwright são usados apenas para verificações de desenvolvimento: na raiz, execute npm ci, npx playwright install chromium e npm run build (lint, checkJs, testes unitários e navegador com API controlada). Com Chrome instalado, também é possível definir PLAYWRIGHT_CHANNEL=chrome para usar esse navegador.
 
-Consulte o [plano completo de Marcos](docs/planejamento/marcos-plano-de-acao.md), a [integração do frontend](docs/api/frontend-integracao.md) e as [evidências locais](docs/testes/marcos-1-resultados.md). Telas e E2E reais são os próximos incrementos; a base de clientes não ativa as APIs nem integra a branch de autenticação.
+Consulte o [plano completo de Marcos](docs/planejamento/marcos-plano-de-acao.md), a [integração do frontend](docs/api/frontend-integracao.md) e as [evidências de acesso](docs/testes/marcos-2-resultados.md). npm run preview serve o layout em http://127.0.0.1:4173/login.html, sem simular a API. Autenticação real depende da integração do módulo de segurança. Reservas e demais telas continuam nos próximos incrementos; APIs não foram habilitadas nesta etapa.

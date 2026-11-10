@@ -29,7 +29,11 @@ export function apresentarErro(erro) {
  */
 export function criarApi({
   fetchImpl = globalThis.fetch.bind(globalThis),
-  aoExpirarSessao = () => globalThis.location.assign('/login.html'),
+  aoExpirarSessao = () => {
+    if (globalThis.location.pathname !== '/login.html') {
+      globalThis.location.replace('/login.html?sessao=expirada');
+    }
+  },
 } = {}) {
   /** @type {Promise<Csrf>|undefined} */
   let csrfPendente;
