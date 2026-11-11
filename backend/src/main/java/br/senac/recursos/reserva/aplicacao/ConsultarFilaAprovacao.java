@@ -1,8 +1,17 @@
 package br.senac.recursos.reserva.aplicacao;
 
 import br.senac.recursos.reserva.dominio.AtorReserva;
+import br.senac.recursos.reserva.dominio.OperacaoNaoPermitidaException;
+import br.senac.recursos.reserva.dominio.PapelAtor;
+import br.senac.recursos.reserva.dominio.StatusReserva;
 import br.senac.recursos.shared.Pagina;
+import java.util.Objects;
 
+/**
+ * Fila de aprovação (RF07): somente o Responsável lê reservas restritas em SOLICITADA.
+ * Filtros, ordenação e paginação são responsabilidade da porta (no banco); este caso de uso
+ * garante a autorização e recusa respostas que violem o contrato.
+ */
 public class ConsultarFilaAprovacao {
 
     private final ReservaFilaPort fila;
@@ -12,6 +21,28 @@ public class ConsultarFilaAprovacao {
     }
 
     public Pagina<ItemFilaAprovacao> executar(FiltroFilaAprovacao filtro, AtorReserva ator) {
-        throw new UnsupportedOperationException("não implementado");
+        Objects.requireNonNull(filtro, "filtro");
+        Objects.requireNonNull(ator, "ator");
+        if (ator.papel() != PapelAtor.RESPONSAVEL) {
+            throw new OperacaoNaoPermitidaException("Somente o Responsável consulta a fila de aprovação.");
+        }
+        Pagina<ItemFilaAprovacao> pagina = fila.buscarFila(filtro);
+        validar(pagina, filtro);
+        return pagina;
+    }
+
+    private static void validar(Pagina<ItemFilaAprovacao> pagina, FiltroFilaAprovacao filtro) {
+        if (pagina == null
+                || pagina.pagina() != filtro.pagina()
+                || pagina.tamanho() != filtro.tamanho()
+                || pagina.itens().size() > filtro.tamanho()
+                || pagina.total() < pagina.itens().size()) {
+            throw new IllegalStateException("A porta da fila devolveu uma página fora do contrato.");
+        }
+        for (ItemFilaAprovacao item : pagina.itens()) {
+            if (item.reserva().status() != StatusReserva.SOLICITADA || !item.reserva().restrita()) {
+                throw new IllegalStateException("A fila só pode conter reservas restritas em SOLICITADA.");
+            }
+        }
     }
 }
