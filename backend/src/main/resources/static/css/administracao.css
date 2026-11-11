@@ -1,0 +1,25 @@
+.admin-controls { min-width: 0; border: 0; padding: 0; margin: 0; }
+.admin-shortcuts { display: flex; gap: 24px; margin-bottom: 24px; font-size: .86rem; color: var(--blue); }
+.admin-list { display: grid; gap: 12px; margin: 18px 0; }
+.admin-row { border: 1px solid var(--line); border-radius: 9px; padding: 18px; display: flex; align-items: center; justify-content: space-between; gap: 20px; min-width: 0; }
+.admin-row > div { min-width: 0; overflow-wrap: anywhere; }
+.admin-row h3 { margin: 0 0 6px; font-size: 1rem; }
+.admin-row p { margin: 0; font-size: .82rem; color: var(--muted); }
+.admin-row .button { flex-shrink: 0; }
+.admin-checks { display: flex; flex-wrap: wrap; align-content: center; gap: 8px 24px; }
+.admin-checks label, .check-line { display: flex; align-items: flex-start; gap: 10px; font-size: .85rem; }
+.admin-controls input[type="checkbox"] { flex: 0 0 auto; width: 20px; height: 20px; min-height: 20px; margin: 2px 0 0; accent-color: var(--blue); }
+.type-fields { border: 0; border-top: 1px solid var(--line); min-width: 0; margin: 24px 0 0; padding: 16px 0 0; }
+.type-fields legend { padding-right: 16px; font-size: .85rem; font-weight: 600; }
+.admin-controls textarea { box-sizing: border-box; width: 100%; min-width: 0; max-width: 100%; font: inherit; color: var(--ink); background: white; border: 1px solid #becbce; border-radius: 7px; padding: 10px 13px; resize: vertical; }
+.wide-field { grid-column: span 2; }
+.admin-confirm { border: 1px solid #d7c9ad; border-radius: 8px; background: #fcf8f0; padding: 17px; margin: 24px 0; }
+.admin-confirm p { font-size: .85rem; }
+.admin-confirm .button { margin-top: 12px; }
+.maintenance-panel { border-top: 1px solid var(--line); padding-top: 24px; margin-top: 28px; }
+.schedule-row { display: grid; grid-template-columns: 1.2fr 1fr 1fr auto; gap: 14px; align-items: end; margin-bottom: 18px; min-width: 0; }
+.schedule-row > div { min-width: 0; }
+.schedule-row input, .schedule-row select { width: 100%; min-width: 0; margin: 0; }
+#editor-title:focus { outline-offset: 7px; }
+@media (max-width: 1000px) { .schedule-row { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 700px) { .admin-row { flex-direction: column; align-items: stretch; gap: 14px; } .wide-field { grid-column: auto; } .schedule-row { grid-template-columns: 1fr; padding-bottom: 20px; border-bottom: 1px solid var(--line); } }

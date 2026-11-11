@@ -55,3 +55,18 @@ Estado: VALIDADO LOCALMENTE no primeiro recorte da etapa 3, em 10/11/2026. Não 
 | RF14 | Presumir GETs de reservas ou integração pronta | frontend-integracao.md, stories/marcos-3.md, plano | Clientes usam apenas contratos atuais; testes verificam ausência de GET de reservas. [Ambiente/resultados](testes/marcos-3/resultados.json) |
 
 `npm run build` passou com 32 testes unitários e 76 execuções de navegador, zero falhas/ignorados/retries na rodada aprovada. O primeiro timeout no setup e a reexecução de quatro capturas são registrados separadamente. Integração real, revisão humana/CodeRabbit e CI pendentes. Listagem/reabertura para edição/cancelamento de reservas existentes aguardam GETs e política Q9; a etapa 3 completa permanece em execução.
+
+## Administração de recursos — Marcos-5
+
+| RF | Risco / comportamento | Implementação | Testes e evidência |
+|---|---|---|---|
+| RF02 | Cadastro incorreto por tipo, edição parcial, tipo alterado ou desativação sem confirmação | administracao-recursos.js, gestao-recursos-page.js, gestao-recursos.html | administracao-recursos.test.js e administracao-recursos.spec.js: três tipos, GET de detalhe, PUT completo, whitelist, 204 e conflito; [resultados](testes/marcos-5-resultados.md) |
+| RF03 | Paginação ou filtros administrativos indevidos | pesquisa compartilhada de recursos.js e lista administrativa | Filtros, paginação do servidor, inativos, falha/recuperação, sem filtro ativo inventado; [resultados](testes/marcos-5-resultados.md) |
+| RF08 | Bloqueio com fuso incorreto, cancelamento indevido ou perda de expediente | administracao-recursos.js, datas.js, gestao-recursos-page.js | Multidia, snake_case, cancelamento confirmado, todas as janelas, precisão, sobreposição/fechamento e 409; [resultados](testes/marcos-5-resultados.md) |
+| RF13/14 | Acesso visual indevido, repetição de escrita, XSS e confusão entre mock e integração | guarda por perfil, forms.js/api.js, administracao.css, documentação | Ausência de GET administrativo para perfil indevido, envio único, CSRF/rede/403, textos seguros, teclado e viewports; [resultados e limites](testes/marcos-5-resultados.md) |
+
+Evidência desta etapa é da camada cliente com API controlada; não comprova autorização no servidor, persistência, auditoria ou concorrência. Movimentações, Q9, fila e integração real permanecem fora do recorte.
+
+Rodada final da Marcos-5: lint e checkJs aprovados, 45 unitários e 130 execuções de navegador aprovados (54 administrativas e 76 regressões), zero falhas/ignorados/retries. [Saída real](testes/marcos-5-verificacao.txt) e [JSON](testes/marcos-5/resultados.json). A primeira rodada e o defeito FE-002 estão registrados separadamente; revisão humana de outro integrante, CodeRabbit, CI e integração real permanecem pendentes.
+
+Reexecução pelo autor recebida em 11/11/2026: lint/tipos sem diagnósticos, 45 unitários e 130 testes de navegador aprovados (1,3 min), com Chrome selecionado no CMD. [Saída fornecida pelo Marcos](testes/marcos-5-verificacao-marcos.txt). Após abertura da revisão visual no Chrome com dados fictícios, Marcos deu o aceite local e solicitou o commit. Revisão de outro integrante, CodeRabbit, CI e integração continuam pendentes; movimentações ficam para outro recorte.
