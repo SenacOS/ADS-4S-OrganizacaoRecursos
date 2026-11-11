@@ -20,6 +20,7 @@ public class MovimentacaoService {
   private final ReservaRepositorio reservas;
   private final OcupacoesPort ocupacoes;
   private final EventosDominioPort eventos;
+  private final NotificacaoPort notificacoes;
   private final Clock clock;
 
   public MovimentacaoService(
@@ -30,6 +31,7 @@ public class MovimentacaoService {
       ReservaRepositorio r,
       OcupacoesPort o,
       EventosDominioPort e,
+      NotificacaoPort notificacoes,
       Clock clock) {
     this.b = b;
     mov = m;
@@ -38,6 +40,7 @@ public class MovimentacaoService {
     reservas = r;
     ocupacoes = o;
     eventos = e;
+    this.notificacoes = notificacoes;
     this.clock = clock;
   }
 
@@ -98,6 +101,9 @@ public class MovimentacaoService {
         id);
     var atual = mov.obter(id);
     evento(atual, a, "DEVOLUCAO", m.toString());
+    notificacoes.registrarPendente(new EventoNotificacao(
+        atual.reservaId(), TipoEventoNotificacao.MATERIAL_DEVOLVIDO,
+        UUID.randomUUID().toString(), agora));
     return atual;
   }
 
