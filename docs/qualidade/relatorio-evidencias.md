@@ -25,9 +25,9 @@ a CI ainda precisa validar a **execução efetiva em Java 21**.
 | Entrega | Arquivo(s) | Resultado atualmente verificável |
 |---|---|---|
 | Segurança 401/403/CSRF/ownership | `SegurancaComplementarTest`, `LoginMysqlIT`, `docs/qualidade/seguranca.md` | Suítes implementadas, **não executadas** |
-| CI e cobertura | `.github/workflows/ci.yml`, Surefire, Failsafe, JaCoCo | Workflow proposto; sem execução CI/URL de artefato |
-| SonarCloud | `.github/workflows/ci.yml`, `docs/qualidade/sonarcloud.md` | Configuração pronta, **chaves, token e análise pendentes** |
-| JMeter | Quatro planos `.jmx`, CSV e `docs/qualidade/jmeter/README.md` | Cenários gerados, sem medição `.jtl` |
+| CI e cobertura | `.github/workflows/ci.yml`, Surefire, Failsafe, JaCoCo | [Execução PR #11 em 10/11](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/42940260477): Maven/Testcontainers/JaCoCo **passaram**; job geral falhou apenas na checagem de credenciais SonarCloud. Workflow ajustado para pular Sonar pendente e preservar checks obrigatórios; nova execução deve ser verificada. |
+| SonarCloud | `.github/workflows/ci.yml`, `docs/qualidade/sonarcloud.md` | **Pendente de acesso de administrador da organização SenacOS**. Etapa opcional até configuração; não significa Quality Gate verde. |
+| JMeter | Quatro planos `.jmx`, CSV, script `rodar_local.py` e guia | Preparação automática isolada criada; sem medição `.jtl` real |
 | RTM completa | `docs/RTM.md` | RF01–RF14 vinculados; lacunas marcadas |
 | E2E / UX | Testes de Marcos e evidências de tela | Aguardando execução/integração do frontend |
 | ATAM / aceite | Registro abaixo | Análise preliminar, validação coletiva pendente |
@@ -41,7 +41,7 @@ a CI ainda precisa validar a **execução efetiva em Java 21**.
 | DEF-03 | Teste antigo exigia ausência de provedor de ator | `Item18MysqlIT` incompatível com RF01 | Teste corrigido, build local aprovado |
 | DEF-04 | Falha Flyway MySQL 1419 ao criar triggers | Log RF10: binary logging e falta de privilégio SUPER | Triggers retiradas da V3; restrição de grants SQL ainda pendente para ambiente real |
 | DEF-05 | Falha de compilação WireMock (`options()`) | PR #10, `GatewayNotificacaoWireMockTest.java` | Configurador de WireMock qualificado, build local aprovado |
-| DEF-06 | PR #7 de CI em conflito e sem SonarCloud | Verificar PR #7 antes do merge | **Aberto**: conciliar workflows, credenciais e CI |
+| DEF-06 | PR #7 de CI em conflito e sem SonarCloud | Verificar PR #7 antes do merge | **Parcial**: PR #11 traz CI integrada e teste Maven verde no run 42940260477; Sonar depende de administrador, PR #7 ainda precisa ser conciliado |
 | DEF-07 | Consulta de reservas e IDOR GET sem endpoint | API de reservas atual tem apenas escritas | **Aberto**: definir porta GET e teste integrado com Silva/Marcos |
 | DEF-08 | Ausência de dados JMeter e dashboard Sonar | Nenhum resultado publicado | **Aberto**: executar e anexar evidências reais |
 

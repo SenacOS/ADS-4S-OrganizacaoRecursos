@@ -30,6 +30,19 @@ jobs:
           cache: maven
           cache-dependency-path: backend/pom.xml
 
+      - name: Validar estrutura dos planos JMeter e scripts de evidencia
+        run: |
+          python3 -m py_compile docs/qualidade/jmeter/analisar_jtl.py docs/qualidade/jmeter/rodar_local.py
+          python3 - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          planos = sorted(Path("docs/qualidade/jmeter").glob("*.jmx"))
+          assert len(planos) == 4, f"Esperados 4 planos, encontrados {len(planos)}"
+          for plano in planos:
+              ET.parse(plano)
+              print(f"JMeter XML valido: {plano.name}")
+          PY
+
       - name: Executar unitarios, integracao MySQL e quality gates
         working-directory: backend
         run: mvn -B --no-transfer-progress clean verify

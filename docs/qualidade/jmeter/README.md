@@ -4,6 +4,33 @@ O guia exige plano, resultados e interpretação: **a simples existência dos ar
 .jmx não é uma evidência de desempenho**. Estes planos usam a API Spring Boot
 local e **nunca devem apontar para produção ou serviços de terceiros**.
 
+## Execucao automatizada, isolada e reproduzivel
+
+Se ja tiver **Docker Desktop**, **Maven**, **Python 3** e **JMeter 5.6.x**
+instalados, na raiz do projeto execute:
+
+```bash
+python3 docs/qualidade/jmeter/rodar_local.py
+```
+
+O script cria um **container MySQL descartavel**, na porta 33316 acessivel
+apenas por `127.0.0.1`, sobe o Spring Boot temporariamente na porta 18080,
+executa as migracoes, popula cinco salas e janelas de expediente, cadastra
+contas ficticias (admin e solicitante) pelo fluxo real de autenticacao e roda
+os quatro cenarios. Ao final, encerra a aplicacao e remove **apenas o
+container criado pelo script**. Se o container com esse nome ja existir,
+o script aborta para nao apagar nada preexistente.
+
+Senhas sao geradas aleatoriamente em memoria e nao sao comitadas. As
+evidencias ficam em `quality-output/jmeter/<data>/`, ignoradas pelo Git:
+`.jtl`, HTML, logs e `resultado.json`. O script verifica status HTTP
+inesperados e, nos cenarios de disputa e recursos distintos, a quantidade de
+reservas ativas persistidas. Se algum cenario falhar, ele preserva as
+evidencias e retorna codigo de erro.
+
+**Nao esta executado ate rodar no Mac com Docker/JMeter**. A CI valida
+sintaxe dos scripts e XML dos planos, nao os resultados de performance.
+
 ## Preparar ambiente antes da execução
 - Java 21, Maven, Docker/MySQL 8.4, Apache JMeter 5.6.x.
 - Subir backend local com `recursos.api.enabled=true` e
@@ -30,7 +57,8 @@ local e **nunca devem apontar para produção ou serviços de terceiros**.
 
 Cada thread faz GET CSRF → POST login (form URL-encoded) → GET CSRF novamente
 (renovado após login) antes da chamada de negócio. As sessões não são compartilhadas
-entre usuários virtuais. Os 409 de **disputa/manutenção** são classificados como
+entre usuários virtuais. O cenário de disputa sincroniza oito chamadas antes do POST para aumentar a concorrência.
+Os 409 de **disputa/manutenção** são classificados como
 resultado de negócio esperado; 409 em **recursos distintos** não é aceito.
 
 **Limite metodológico:** os grupos concorrentes aproximam o instante da disputa,

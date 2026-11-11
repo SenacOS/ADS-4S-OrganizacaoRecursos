@@ -19,9 +19,12 @@ for Maven. O scan exige um Quality Gate bem-sucedido
 4. Executar workflow e anexar URL do painel (apenas após criá-lo), URL da
    análise e resultado do Quality Gate ao relatório de evidências.
 
-**Proteção contra falso positivo:** se qualquer variável ou token faltar, o
-workflow falha explicitamente na etapa de configuração; JaCoCo passar não
-substitui SonarCloud.
+**Comportamento temporario sem admin:** se alguma variavel ou token faltar, o
+workflow **registra aviso e marca SonarCloud como PENDENTE no resumo da CI**;
+o scanner nao executa, mas os testes Java/MySQL e os limites de JaCoCo
+permanecem obrigatorios. CI verde nesse caso **nao significa** Sonar Quality Gate
+aprovado. Assim que as credenciais existirem, o scan passa a rodar e o Quality
+Gate passa a ser exigido para o aceite. JaCoCo nao substitui SonarCloud.
 
 O arquivo `backend/target/site/jacoco/jacoco.xml` é consumido pelo scanner.
 A análise executa depois do `mvn clean verify` no mesmo job.
