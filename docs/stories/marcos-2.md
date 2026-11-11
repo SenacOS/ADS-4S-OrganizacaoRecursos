@@ -38,6 +38,7 @@ Responsável: Marcos Boé. RF01, RF13, RF14. Story definida com AIOX SM. Depend�
 - [x] Executar lint, typecheck, test e build.
 - [x] Atualizar docs, RTM, evidências, checklist e File List; preparar commit local.
 - [x] Registrar execução dos testes pelo Marcos e seu aceite visual do incremento local.
+- [x] Reexecutar os gates na máquina atual após atualizar o Node e registrar ambiente, saída e resultados (10/11/2026).
 - [ ] Integrar autenticação real e obter revisão de outro integrante/CodeRabbit/CI antes de fechar a entrega integrada.
 
 ## Dev Notes
@@ -55,6 +56,8 @@ Login URL-encoded + CSRF dinâmico/204; credenciais inválidas; me/sessão expir
 Implementação do incremento validada localmente: lint, checkJs, 21 testes unitários e 30 execuções de navegador em Chrome headless. Backend de autenticação ainda fora deste checkout; não se declara integração real. Playwright adotado como ferramenta de desenvolvimento após experimento com Chrome instalado. Dependência instalada com autorização; não há compilação do frontend no produto. FE-001 foi encontrado e corrigido durante os testes. [Resultados e limites](../testes/marcos-2-resultados.md).
 
 Marcos repetiu npm run build no próprio terminal: lint e tipos sem diagnósticos, 21 testes unitários e 30 testes de navegador aprovados em 17,1 s. Após orientação para visualizar a tela no Chrome, informou que estava perfeita e solicitou o encerramento da etapa. Aceite registrado em 10/11/2026; não equivale a revisão independente nem a teste manual de todos os cenários. A saída fornecida foi preservada separadamente em docs/testes/marcos-2-verificacao-marcos.txt. Esta atualização altera somente documentação e conserva as evidências da execução anterior.
+
+Reexecução na máquina atual em 10/11/2026: Node instalado atualizado para 24.22.2, npm 11.19.1 e dependências do lockfile preparadas. `npm run build` passou com 21 testes unitários e 30 testes de navegador em Chrome headless. [Ambiente, evidências e limites](../testes/marcos-2-resultados.md#reexecução-na-máquina-atual--10112026). Sem alterações no código da aplicação ou nos testes; status Ready for Review e pendências de integração/revisão/CI preservados.
 
 ### File List
 
@@ -83,7 +86,9 @@ Marcos repetiu npm run build no próprio terminal: lint e tipos sem diagnóstico
 - docs/testes/marcos-2-resultados.md
 - docs/testes/marcos-2-verificacao.txt
 - docs/testes/marcos-2-verificacao-marcos.txt
+- docs/testes/marcos-2-verificacao-maquina-atual.txt
 - docs/testes/marcos-2/resultados.json
+- docs/testes/marcos-2/resultados-maquina-atual.json
 - docs/testes/marcos-2/login-desktop.png
 - docs/testes/marcos-2/login-mobile.png
 - docs/testes/marcos-2/inicio-desktop.png

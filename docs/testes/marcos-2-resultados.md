@@ -44,6 +44,16 @@ Marcos forneceu a [saída do próprio terminal](marcos-2-verificacao-marcos.txt)
 
 Após a orientação para abrir o preview no Chrome, Marcos informou que a tela estava perfeita e pediu o encerramento da etapa. Registrado o aceite visual do autor em 10/11/2026 e encerrado o incremento local. Não se atribui revisão independente a outro integrante nem teste manual de todos os cenários. As evidências da execução original foram preservadas. Esta atualização é documental e não altera o código testado.
 
+## Reexecução na máquina atual — 10/11/2026
+
+A pedido de Marcos, o Node instalado nesta máquina foi atualizado de 22.19.0 para 24.22.2, com npm 11.19.1, pelo MSI oficial após conferência de SHA256 e assinatura digital da OpenJS Foundation. A atualização em `C:/Program Files/nodejs` exigiu confirmação UAC do Windows. As dependências foram instaladas conforme o lockfile com `npm ci --ignore-scripts --no-audit --no-fund`, usando `NODE_USE_SYSTEM_CA=1` apenas no processo.
+
+`npm run build`, com `PLAYWRIGHT_CHANNEL=chrome`, passou com exit code 0: lint e typecheck sem diagnósticos, 21 testes unitários aprovados e 30 testes de navegador aprovados em 37,5 s, sem falhas, ignorados ou retries. Ambiente: Windows x64, Playwright 1.65.0 e Chrome 157.0.8103.39 headless; viewports desktop 1366 × 900 e móvel 390 × 844. Código testado: `5036ed3` na branch `feature/marcos-base-frontend`.
+
+A captura da primeira tentativa foi interrompida pelo PowerShell ao interpretar um aviso sobre `NO_COLOR`/`FORCE_COLOR` como erro; o relatório do navegador já registrava 30 aprovações. A execução completa foi repetida com essas variáveis removidas somente do processo e captura de saída corrigida. Nenhum código da aplicação, teste ou configuração versionada foi alterado.
+
+[Saída integral da reexecução aprovada](marcos-2-verificacao-maquina-atual.txt) e [resumo do ambiente e resultados](marcos-2/resultados-maquina-atual.json). As evidências anteriores foram preservadas. Esta reexecução usa API controlada no navegador; integração com backend real, revisão independente e CI permanecem pendentes. Auditoria de dependências não foi executada.
+
 ## O que foi verificado
 
 Login por teclado; codificação especial de email/senha; cabeçalho CSRF dinâmico; 204; identificação do perfil via me; credenciais inválidas sem saída do formulário; HTML de erro mostrado como texto; referência de suporte separada; submissões simultâneas; sessão expirada sem loop; sessão existente sem novo login; destinos externos ignorados; três perfis; aprovação exclusiva de RESPONSAVEL; ausência de links para páginas inexistentes; logout confirmado somente após sucesso; falhas de logout e leitura da sessão; perfil desconhecido mantendo painel oculto; 403 sem replay e token novo para ação futura; ausência de persistência em localStorage/sessionStorage; largura móvel/desktop sem rolagem horizontal e ausência de erros JS não tratados.
