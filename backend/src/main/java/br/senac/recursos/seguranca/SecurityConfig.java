@@ -49,6 +49,8 @@ public class SecurityConfig {
                     .hasRole("ADMINISTRADOR")
                 .requestMatchers(HttpMethod.DELETE, "/api/recursos/**", "/api/bloqueios/**")
                     .hasRole("ADMINISTRADOR")
+                .requestMatchers(HttpMethod.GET, "/api/auditoria/**")
+                    .hasRole("ADMINISTRADOR")
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll())
             .formLogin(form -> form
