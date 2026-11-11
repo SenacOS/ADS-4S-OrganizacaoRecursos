@@ -1,86 +1,94 @@
 # Dependências do módulo `reserva/` e plano de revisão
 
 **Estado: PROPOSTO** · Autor do módulo: Gabriel Silva Gomes · Base: ADR-001 a ADR-006
+**Atualizado em 11/11/2026** sobre a `develop` no commit `395ac73` (PRs #1 a #6 integrados). O que está em PR ou em branch não é tratado aqui como integrado.
 
 O módulo `reserva/` foi escrito de modo que **tudo o que depende de outro integrante é uma porta (interface)** em `br.senac.recursos.reserva.aplicacao`. Cada responsável implementa a sua porta; o serviço não muda.
 
-## 1. O que cada integrante precisa entregar
+**Níveis de validação usados neste documento:** escrito · testado com fake · testado com MySQL/Testcontainers · integrado na `develop` · revisado · validado em CI · aceito pela equipe. Um item só recebe o nível que tem evidência.
+
+## 1. O que cada integrante entregou ou ainda precisa entregar
 
 ### Gabriel Rodrigues Fausto (recursos, MySQL, movimentações)
 
-| ID | Entrega | Porta / contrato | Requisitos | Bloqueia |
-|---|---|---|---|---|
-| F1 | Migração Flyway: `recursos`, `reservas`, `reserva_recursos` (+ índices do ADR-002) | esquema | RF02, RF06 | F2–F5, teste CT09/CT10 |
-| F2 | Lock `SELECT id FROM recursos WHERE id = ? FOR UPDATE` na ordem recebida; lança `RecursoNaoEncontradoException` | `RecursosPort` | RF06 | serviço sobre MySQL |
-| F3 | Repositório JPA de `Reserva` (salvar atribui id; ler dados atuais, READ COMMITTED) | `ReservaRepositorio` | RF04 | idem |
-| F4 | Consulta de ocupações: reservas SOLICITADA/APROVADA/EM_USO, manutenção e retirada aberta (`Instant.MAX`) | `OcupacoesPort` | RF05, RF08, RF09 | CT15, CT16 |
-| F5 | Leitura do expediente configurado pelo Administrador | `ExpedientePort` | RF02 | validação de horário |
-| F6 | Gravar conflito evitado em transação independente (`REQUIRES_NEW`) | `ConflitosEvitadosPort` (com Débora) | RF12 | relatório de conflitos |
-| F7 | Mesma ordem crescente de IDs nos locks de manutenção, retirada e devolução | convenção ADR-003 | RF08, RF09 | evita deadlock |
-| F8 | Teste de corrida com MySQL em Testcontainers usando o `ReservaService` real | teste de integração (com Silva) | RF06 | **limitador de nota** |
+| ID | Entrega | Porta / contrato | Estado em 11/11/2026 |
+|----|---------|------------------|----------------------|
+| F1 | Migração Flyway (`recursos`, `reservas`, `reserva_recursos`, índices) | esquema | **Integrada** (V1, PR #6) |
+| F2 | Lock `SELECT ... FOR UPDATE` na ordem recebida | `RecursosPort` | **Integrada** (`RecursosMysql`) |
+| F3 | Repositório de `Reserva` | `ReservaRepositorio` | **Integrada** (`ReservaMysql`) |
+| F4 | Ocupações: reservas ativas, manutenção e retirada aberta | `OcupacoesPort` | **Integrada** (`OcupacoesMysql`) |
+| F5 | Expediente configurado | `ExpedientePort` | **Integrada** (`ExpedienteMysql`) |
+| F6 | Conflito evitado em transação independente | `ConflitosEvitadosPort` | **Integrada** (`ConflitosMysql`); falta a consulta dos registros para o RF12 |
+| F7 | Mesma ordem crescente de IDs em manutenção, retirada e devolução | convenção ADR-003 | **Integrada**, com testes em `Item18MysqlIT` |
+| F8 | Corrida real com MySQL e o `ReservaService` real | teste de integração | **Integrada** para criação (`Item18MysqlIT`); **pendente** para edição concorrente (CT19, ver F9) |
+| F9 | CT19 no MySQL: edições concorrentes de reservas distintas no mesmo recurso e horário | `Item18MysqlIT` | **Pendente.** Roteiro em `ReservaEdicaoConcorrenteTest` (fake) |
+| F10 | Adaptador MySQL da fila de aprovação (`ReservaFilaPort`), com filtro, ordem e paginação no banco | `ReservaFilaPort` | **Pendente.** Validar estendendo `ReservaFilaPortContrato` |
+| F11 | Consulta de reservas por período, status e recurso, e de conflitos evitados | porta de leitura a definir | **Pendente** (RF12) |
 
 ### Débora dos Santos (segurança, auditoria, notificação, CI, qualidade)
 
-| ID | Entrega | Porta / contrato | Requisitos | Bloqueia |
-|---|---|---|---|---|
-| D1 | Implementar `AtorAutenticadoProvider` (`reserva.api`): usuário autenticado → `AtorReserva(usuarioId, PapelAtor)`; papel nunca vem do corpo | `AtorAutenticadoProvider` | RF01 | controllers |
-| D2 | Enum/entidade de perfis e usuários; confirmar o mapeamento para `PapelAtor` | `usuario/`, `seguranca/` | RF01 | D1 |
-| D3 | Gravar `RegistroAuditoria` na mesma transação; tabela imutável | `AuditoriaPort` | RF10 | CT13, CT20 |
-| D4 | Persistir `EventoNotificacao` pendente; envio simulado/WireMock após commit | `NotificacaoPort` | RF11 | notificações |
-| D5 | CI no PR (Java 21, Maven, Testcontainers, JaCoCo, Sonar) | `.github/workflows/ci.yml` | RF-qualidade | meta 80%/70% |
-| D6 | Mapear exceções de domínio para HTTP (ver contrato) com `correlationId` | `@RestControllerAdvice` | RF01, RF13 | contrato da API |
-| D7 | RTM: linhas RF04–RF07 e RF12 com os testes citados no relatório | `docs/RTM.md` | todos | 100% crítica |
-| D8 | Testes de segurança: 401/403, CSRF (CT18), IDOR em reservas alheias | suíte de segurança | RF01 | limitador de nota |
+Todas as entregas abaixo estão em **PRs abertos, ainda não integrados à `develop`**. Sequência indicada pela própria Débora: #8, #9, #10, #11, #12. Em 11/11/2026 nenhuma revisão por pares foi encontrada nesses PRs.
+
+| ID | Entrega | Onde está | Observação |
+|----|---------|-----------|------------|
+| D1, D2 | `AtorAutenticadoProvider` (`SpringSecurityAtorProvider`), perfis, usuários, sessão, CSRF | PR #8 (`feat/session-aauth`) | O papel nunca vem do corpo da requisição |
+| D3 | `AuditoriaPort` na mesma transação, tabela de auditoria | PR #9 | Rever privilégios da conta de runtime do banco (sem UPDATE/DELETE na auditoria) |
+| D4 | `NotificacaoPort`, outbox, gateway simulado e WireMock | PR #10 | |
+| D5 | CI no PR (Java 21, Maven, Testcontainers, JaCoCo) | PR #11 | O PR #7 (`ci/quality-gates`) diverge e deve ser conciliado ou encerrado. SonarCloud depende de autorização do administrador da organização |
+| D6 | Mapeamento de exceções para HTTP com `correlationId` | `ReservaExceptionHandler` na `develop` | Global, também atende recursos e movimentações. Falta mapear `ConsultaInvalidaException` (400) com o endpoint da fila |
+| D7 | RTM RF01 a RF14 | PRs #11 e #12 | Não editar `docs/RTM.md` da `develop` em paralelo. As linhas do módulo entram depois dessa integração |
+| D8 | Testes de segurança (401/403, CSRF, IDOR) | PRs #11 e #12 | O teste de IDOR em GET depende de existir o endpoint |
 
 ### Marcos Boé (frontend, contratos, E2E)
 
-| ID | Entrega | Referência | Requisitos |
-|---|---|---|---|
-| M1 | Revisar e aprovar o contrato `docs/api/reservas-contrato.md` (campos, datas ISO 8601, códigos de erro) | contrato | RF14 |
-| M2 | Tratar 400/401/403/404/409 com as mensagens do contrato; impedir duplo clique | `js/api.js`, `js/reservas.js` | RF13 |
-| M3 | Telas de reserva, aprovação (só Responsável) e cancelamento | `pages/` | RF04, RF07 |
-| M4 | E2E: reserva comum, conflito 409, restrita pendente e aprovação | `tests/e2e` | RF13 |
+| ID | Entrega | Onde está | Estado |
+|----|---------|-----------|--------|
+| M1 | Contrato `docs/api/reservas-contrato.md` e contrato de leitura `reservas-leitura-contrato.md` | `develop` (escrita) e `feature/marcos-base-frontend` (leitura) | O de leitura foi aceito por Marcos e **não** foi revisado por backend e segurança. A revisão está em `docs/integracao/revisao-contrato-fila-rf07.md` |
+| M2, M3 | Tratamento de erros e telas | `feature/marcos-base-frontend` | Login, pesquisa, seleção e criação de reservas. Listagem, edição, cancelamento e fila dependem de leituras do backend |
+| M4 | E2E | `feature/marcos-base-frontend` | Testes Playwright locais da branch, sem integração com o backend nem CI |
 
-### Equipe (decisões ainda abertas, ver seção 3)
+## 2. O que Silva já fez e o que ainda precisa fazer
 
-## 2. O que Silva ainda precisa fazer depois dessas entregas
-
-| ID | Tarefa | Depende de |
-|---|---|---|
-| S1 | Controller REST `/api/reservas/**` e DTOs | **Escrito** (8 endpoints de escrita, desligado por padrão); falta ativar com D1 e integração; GET e disponibilidade pendentes (porta de leitura do Fausto) |
-| S2 | Anotar o serviço com `@Transactional(isolation = READ_COMMITTED)` e criar o bean | F1–F3 |
-| S3 | Idempotência por chave de requisição (duplo clique/retentativa) | contrato (M1) |
-| S4 | Consulta de disponibilidade reutilizando `DetectorConflitos` (RF03/RF05) | **Escrito no serviço** (`consultarDisponibilidade`, sem endpoint); falta o dono do endpoint (V9) e F4 real |
-| S5 | Agregações de horas (RF12) | **Cálculo puro escrito** (`UtilizacaoReservas`); faltam a consulta de reservas por período (F1/F3), a API de relatório e a contagem de conflitos evitados (F6) |
-| S6 | Teste de corrida real e caso TDD/BDD documentado (RED/GREEN/REFACTOR) | F8 |
+| ID | Tarefa | Estado em 11/11/2026 |
+|----|--------|----------------------|
+| S1 | Controller REST `/api/reservas/**` e DTOs | **Integrado na `develop`**, 8 endpoints de escrita, desligado por padrão (`reservas.api.enabled=false`). A ativação depende da segurança (#8) e da auditoria e notificação reais (#9, #10) |
+| S2 | `@Transactional(isolation = READ_COMMITTED)` e bean do serviço | **Integrado** por Fausto (`ReservaTransacional` e `Item18Config`). Não é mais pendência |
+| S3 | Idempotência por chave de requisição | **Pendente.** Falta decisão da equipe (escopo, retenção, mesma chave com corpo diferente, resposta na repetição) |
+| S4 | Consulta de disponibilidade | **Escrita no serviço** (`consultarDisponibilidade`), sem endpoint. Falta definir o dono do endpoint |
+| S5 | Horas de utilização (RF12) | `UtilizacaoReservas` (cálculo puro) na `develop`. Falta a consulta persistida (F11), o serviço e a API de relatório |
+| S6 | Teste de corrida real | Criação: **feito** no MySQL (`Item18MysqlIT`, Fausto). Edição: **testada com fake** (`ReservaEdicaoConcorrenteTest`, 5 cenários, em patch); MySQL pendente (F9) |
+| S7 | Fila de aprovação RF07, camada de aplicação | **Feita em patch** (5 commits, ciclo RED, GREEN, REFACTOR registrado em `docs/testes/rf07-fila-tdd.md`), testada com fake. Integração na `develop` depende de PR e revisão. Sem controller nem consulta MySQL |
+| S8 | Controller da fila de aprovação e DTOs de leitura | **Pendente**, depende de F10, do contrato revisado e de D1 |
+| S9 | `GET /api/reservas/{id}` e reservas próprias | **Pendente**, bloqueado por Q9 |
+| S10 | Consulta, serviço e API de relatório RF12 | **Pendente**, depende de F11 |
 
 ## 3. Decisões abertas que afetam o módulo (PROPOSTO no código)
 
 | # | Pergunta | O que o código assume hoje | Quem decide |
-|---|---|---|---|
+|---|----------|----------------------------|-------------|
 | Q1 | Quem dispara EM_USO, CONCLUÍDA e NÃO_COMPARECEU? | Responsável ou Administrador, ação manual | Equipe |
 | Q2 | Editar reserva APROVADA reinicia a aprovação? | Não edita restrita aprovada; comum aprovada pode editar sem mudar a necessidade de aprovação | Equipe |
 | Q3 | O Responsável pode aprovar a própria reserva se também for Solicitante? | Permitido (a regra é por papel) | Equipe |
-| Q4 | Manutenção que colide com reserva existente | Fora do módulo; Fausto implementa a política (ADR-005) | Fausto + Silva |
+| Q4 | Manutenção que colide com reserva existente | Fora do módulo; os testes do item 18 mostram o comportamento, falta formalizar | Fausto + Silva |
 | Q5 | Quem cancela uma reserva APROVADA? | Dono ou Administrador | Equipe |
 | Q6 | Código HTTP para fora do expediente (409 ou 422) | 409 aceito por Marcos em 10/11/2026; confirmação de Silva pendente | Marcos + Silva |
+| Q6 | Código HTTP para fora do expediente (409 ou 422) | 409 no contrato (recomendação de Marcos) | Marcos + Silva, com ratificação coletiva |
 | Q7 | Duração mínima/máxima e antecedência da reserva | Sem limite | Equipe |
 | Q8 | Aprovação revalida conflito? | Não revalida, pois a pendente já bloqueia a agenda | Equipe |
-| Q9 | Quem pode consultar uma reserva (GET)? | Dono, Responsável e Administrador (não implementado) | Equipe + Débora |
+| Q9 | Quem pode consultar uma reserva (GET)? E 403 ou 404 para reserva alheia? | Dono, Responsável e Administrador (não implementado) | Equipe + Débora |
 
-## 4. Quem deve revisar cada PR
+A fila de aprovação (apenas Responsável, restritas em SOLICITADA) é uma leitura específica e **não** resolve Q9.
 
-Regra do guia (cap. 21): o revisor é um integrante diferente do autor, e o merge exige CI verde. O autor de todos os PRs abaixo é **Silva**. A escolha considera quem conhece a área tocada.
+## 4. Revisão por pares
 
-| PR | Conteúdo | Revisor principal | Segundo revisor (opcional) | Motivo |
-|---|---|---|---|---|
-| 1 `docs/adrs-e-alinhamento` | ADR-001–006, README, contexto dos agentes, preset AIOX | **Débora** | Fausto (ADR-002/003) | Débora mantém ADR/RTM/qualidade; Fausto valida as decisões de banco e lock |
-| 2 `feature/esqueleto-backend` | `pom.xml` e classe principal | **Débora** | — | Dona do build/CI; confere versões e Java 21 |
-| 3 `feature/rf05-intervalo-e-estados` | Intervalo `[inicio, fim)` e matriz de estados | **Fausto** | Débora | Mesma regra vira SQL de conflito e índices; Débora confere cobertura e casos de borda |
-| 4 `feature/rf04-reserva-servico` | Reserva, detector, expediente, serviço, portas, testes | **Fausto** | Débora | Fausto implementa as portas de lock/repositório/ocupações; Débora, auditoria, permissões e qualidade dos testes |
-| 5 `docs/reserva-contrato-e-relatorio` | Contrato da API, sequências, dependências, relatório | **Marcos** | Débora | Marcos consome o contrato; Débora integra RTM e relatório final |
+Regra do guia (cap. 21): o revisor é um integrante diferente do autor, e o merge exige CI verde. O plano inicial previa cinco PRs revisados por Fausto, Débora e Marcos. Os PRs #1 a #6 foram integrados, mas **a existência de revisão aprovada em cada um não foi verificada neste documento**. Conferir em cada PR (aba Reviews) antes de citar revisão como evidência.
 
-Observações:
-- O PR 4 é o mais crítico (RF06, limitador de nota): peça as duas revisões e rode `mvn verify` antes.
-- Se o revisor sugerido estiver indisponível, qualquer outro integrante pode revisar; Marcos cobre bem contratos e UX, Débora cobre segurança e testes.
-- Não faça merge de PR 3 e 4 sem PR 2 (esqueleto), pois dependem do `pom.xml`.
+Próximos PRs de Silva e revisores sugeridos:
+
+| Conteúdo | Revisor principal | Segundo revisor | Motivo |
+|----------|-------------------|-----------------|--------|
+| Fila de aprovação RF07 (aplicação, testes, TDD, revisão do contrato) | **Fausto** | Débora | Fausto implementa o adaptador SQL; Débora revisa autorização e dados expostos |
+| CT19 com fake (`ReservaEdicaoConcorrenteTest`) | **Fausto** | Débora | Fausto reproduz o cenário no MySQL; Débora confere a qualidade do teste |
+| Atualização deste documento e do relatório do módulo | **Marcos** | Débora | Marcos consome o contrato; Débora integra a RTM e o relatório final |
+
+Se o revisor sugerido estiver indisponível, qualquer outro integrante pode revisar.
