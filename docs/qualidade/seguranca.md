@@ -46,3 +46,11 @@ mínimo de 80% LINE e 70% BRANCH no bundle.
 - `application.yml`: cookie `HttpOnly` e `SameSite=Lax`. Para HTTPS habilitar `SESSION_COOKIE_SECURE=true`; não confundir testes HTTP locais com validação de cookie real em HTTPS.
 
 **Resultado confirmado:** [GitHub Actions 42949100353](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/42949100353), 240 testes aprovados, sem falhas; 91,53% linhas e 73,18% branches. Os testes HTTP locais não comprovam flags Secure em HTTPS real.
+
+## RF01 — complementar de integracao HTTP/MySQL (PR #18)
+
+- `ReservaIdorSessaoMysqlIT`: login real no MySQL, obtenção de CSRF por sessao, PATCH em reserva persistida; alteracao pelo solicitante estranho e pelo administrador deve dar 403, sem atualizar reserva/auditoria/notificacoes; dono deve editar e gerar trilha.
+- `SecurityConfigTest`: os POSTs `/inicio`, `/conclusao` e `/nao-comparecimento` exigem Responsavel ou Administrador na URL, alem do dominio.
+- RF10: `AuditoriaPrivilegiosMysqlIT` usa conta SQL restrita em MySQL descartavel. Nao substitui os grants em producao.
+
+**Status no momento da autoria:** testes adicionados ao PR #18, ainda aguardando CI. Nao considerar aprovados antes do run.

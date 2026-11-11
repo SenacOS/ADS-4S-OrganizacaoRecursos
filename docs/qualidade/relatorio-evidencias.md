@@ -91,3 +91,7 @@ Detalhes: [evidencias de carga](jmeter/evidencias-2026-11-10.md).
 - Cookie de sessão: `HttpOnly=true`, `SameSite=Lax`; em HTTPS, a variável `SESSION_COOKIE_SECURE=true` é obrigatória para o ambiente de deploy (padrão false somente para HTTP local).
 
 **Resultado do PR #12:** CI verde em [42949100353](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/42949100353): **207 testes unitários/API, 33 de integração, zero falhas**, JaCoCo acima das metas e JMeter quatro cenários aprovado. Revisão e integração continuam pendentes.
+
+## 8. Revisao de seguranca e privileges (PR #18)
+
+Implementado em branch separada: reforco de role nas URLs de inicio/conclusao/nao comparecimento; teste de IDOR de edicao com login+CSRF+sessao real e dados no MySQL; testes de grants SELECT/INSERT para auditoria em MySQL isolado; script de configuracao para DBA. **Nao aplicado em banco de equipe/produçao**. A execucao propria do PR #18 precisa ser registrada antes do aceite.
