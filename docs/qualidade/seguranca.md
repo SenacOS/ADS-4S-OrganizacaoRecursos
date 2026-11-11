@@ -53,4 +53,4 @@ mínimo de 80% LINE e 70% BRANCH no bundle.
 - `SecurityConfigTest`: os POSTs `/inicio`, `/conclusao` e `/nao-comparecimento` exigem Responsavel ou Administrador na URL, alem do dominio.
 - RF10: `AuditoriaPrivilegiosMysqlIT` usa conta SQL restrita em MySQL descartavel. Nao substitui os grants em producao.
 
-**Status no momento da autoria:** testes adicionados ao PR #18, ainda aguardando CI. Nao considerar aprovados antes do run.
+**Resultado comprovado no PR #18:** [CI 43046498091](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43046498091), 247 testes aprovados (210 unitarios/API e 37 integracoes), 91,63% linhas e 73,39% branches. O MySQL limitado foi testado em conteiner isolado; para o ambiente real os grants ainda dependem do administrador do banco.

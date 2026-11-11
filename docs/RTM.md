@@ -48,4 +48,4 @@ deve ser interpretada como aprovação final de CI ou Sonar sem relatório publi
 
 **JMeter:** [relatorio de execucao em CI](qualidade/jmeter/evidencias-2026-11-10.md).
 
-**Fechamento RF01/RF10 (PR #18):** politica por URL para inicio, conclusao e nao-comparecimento; suite integrada `ReservaIdorSessaoMysqlIT` com login, sessao real, CSRF, EDICAO de dono e IDOR 403 com MySQL; `AuditoriaPrivilegiosMysqlIT` com grants limitados no Testcontainers. Resultados novos devem ser vinculados apos CI verde. A configuracao do banco da equipe continua dependendo do responsavel pelo ambiente.
+**Fechamento RF01/RF10 (PR #18):** politica por URL para inicio, conclusao e nao-comparecimento; suite integrada `ReservaIdorSessaoMysqlIT` com login, sessao real, CSRF, EDICAO de dono e IDOR 403 com MySQL; `AuditoriaPrivilegiosMysqlIT` com grants limitados no Testcontainers. CI verde para os novos casos: run 43046498091 (210 unitarios/API, 37 integracoes, 0 falhas); cobertura 91,63% linhas e 73,39% branches. A configuracao do banco da equipe continua dependendo do responsavel pelo ambiente.
