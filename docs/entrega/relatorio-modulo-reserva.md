@@ -1,10 +1,16 @@
 # Relatório do módulo `reserva/` — material de estudo e manutenção
 
 **Estado: PROPOSTO** · Autor: Gabriel Silva Gomes · Versão alinhada ao *Guia Técnico Definitivo* (05/11/2026)
+**Atualizado em 11/11/2026** sobre a `develop` no commit `395ac73` (PRs #1 a #6 integrados).
 
 Este relatório explica o que foi construído no módulo de reservas, como testá-lo, como ele se encaixa no restante do sistema e como mantê-lo. Serve para estudo da equipe, para a apresentação e para a prova oral.
 
-> **Honestidade sobre evidências.** Os testes deste módulo foram executados localmente com um executor mínimo, no lugar do JUnit, porque o Maven Central estava inacessível no ambiente de desenvolvimento. O resultado oficial vem de `mvn verify` e do CI. Os testes de concorrência usam locks **em memória**, que validam o algoritmo; a prova do InnoDB depende do teste com MySQL em Testcontainers (ver seção 5).
+> **Honestidade sobre evidências.** Esta atualização separa o que está **integrado na `develop`** do que está só em PR, branch ou patch.
+>
+> - Testes de concorrência com locks **em memória** (`ReservaConcorrenciaSimuladaTest`, `ReservaEdicaoConcorrenteTest`) validam o algoritmo, não o InnoDB.
+> - A prova com **MySQL 8.4 em Testcontainers** existe na `develop` em `Item18MysqlIT` (Fausto): corrida de criação em sala, professor e material, multirecurso, manutenção contra reserva, retirada e devolução. O resultado registrado pelo grupo (`docs/testes/item18-resultados.md`, 09/11/2026) é de execução **local** de `mvn verify`; não há execução em CI na `develop`.
+> - Os resultados de `mvn test` de 11/11/2026 (194 testes sem falhas) e do CT19 (5 testes) são execuções locais de Silva sobre as branches de trabalho, com os patches da fila RF07 e do CT19 aplicados. Não são CI.
+> - Evidências de segurança, auditoria e notificação reais, SonarCloud e revisão por pares **não** existem na `develop`.
 
 ---
 
@@ -54,7 +60,7 @@ Pacote base: `backend/src/main/java/br/senac/recursos/reserva/`
 | `NotificacaoPort` | Débora | Evento pendente (envio fora do commit) |
 | `ConflitosEvitadosPort` | Fausto/Débora | Conta tentativas barradas, em transação independente |
 
-O serviço **não** tem `@Transactional` ainda: a anotação entra no PR de integração (`READ_COMMITTED`), junto com o bean e o controller.
+O `ReservaService` em si não abre transação. A transação `READ_COMMITTED` é aplicada por `ReservaTransacional` (subclasse em `reserva/infraestrutura/`), registrada como bean `@Lazy` em `Item18Config`. Ambos foram integrados por Fausto no PR #6.
 
 ### 2.3 Fluxo de `criar` (resumo)
 
@@ -81,7 +87,7 @@ mvn test          # testes unitários e de serviço (sem banco)
 mvn verify        # o mesmo comando que o CI deve usar
 ```
 
-Não há testes que exijam Docker neste módulo ainda. Quando Fausto entregar o MySQL, os de integração (Testcontainers) exigirão Docker ativo.
+Os testes de `reserva/` (`mvn test`) não exigem Docker. Os de integração com MySQL (`Item18MysqlIT`, executados por `mvn verify`) exigem Docker ativo por causa do Testcontainers.
 
 ### 3.2 Mapa dos testes e dos casos críticos (CT) do guia
 
@@ -91,12 +97,15 @@ Não há testes que exijam Docker neste módulo ainda. Quando Fausto entregar o 
 | CT03, CT04 encostar × sobrepor | `sobreposicaoSemiaberta` (parametrizado) | `IntervaloReservaTest` |
 | CT05, CT06, CT07, CT08 recursos compartilhados | `conflitosPorRecursoCompartilhado_…` | `ReservaServiceTest` |
 | CT09 duas threads, uma vence | `ct09_mesmoRecursoEIntervalo_exatamenteUmaVence` (**simulado**) | `ReservaConcorrenciaSimuladaTest` |
+| CT09 real (MySQL) | `reservasConcorrentesUmaVenceEConflitoSobreviveRollback` (sala, professor e material) | `Item18MysqlIT` |
 | CT10 multi-recurso sem gravação parcial | `ct10_conflitoNaoDeixa…` | `ReservaServiceTest` |
 | CT11 restrita bloqueia, CT12 rejeitada libera | `ct11_…`, `ct12_…` | `ReservaServiceTest` |
 | CT13 comum autoaprovada e auditada | `ct13_…` | `ReservaServiceTest` |
 | CT14 Solicitante não aprova | `ct14_…` | `ReservaDominioTest`, `ReservaServiceTest` |
 | CT15 manutenção, CT16 retirada aberta | `ct15_ct16_…` | `ReservaServiceTest` |
 | CT19 edição detecta conflito | `ct19_…` | `ReservaServiceTest` |
+| CT19 edições concorrentes (**simulado**, 5 cenários) | `seisEdicoes…`, `edicoesQueTrocamRecursos…`, `edicoesComRecursosOriginais…`, `edicaoContraCriacao…`, `controleNegativo_…` | `ReservaEdicaoConcorrenteTest` (patch, fora da `develop`) |
+| RF07 fila de aprovação (aplicação, **fake**) | filtro, projeções, autorização e contrato da porta | `FiltroFilaAprovacaoTest`, `ItemFilaAprovacaoTest`, `ConsultarFilaAprovacaoTest`, `FilaEmMemoriaContratoTest` (patch, fora da `develop`) |
 | Matriz de estados (49 pares) | `matrizCompletaDeTransicoes` | `StatusReservaTest` |
 | Expediente e fuso | `expediente…` | `DetectorConflitosEExpedienteTest` |
 | CT20 auditoria na mesma transação | **parcial**: gera os registros; a atomicidade real depende do adaptador de Débora | — |
@@ -114,10 +123,12 @@ Não há testes que exijam Docker neste módulo ainda. Quando Fausto entregar o 
 
 ### 3.4 O que ainda precisa de teste real
 
-- Corrida com MySQL/Testcontainers para sala, professor, material e multi-recurso (CT09/CT10 reais, risco R-CONC-01).
-- Rollback verdadeiro: nenhum vínculo ou auditoria órfãos após falha.
-- API caixa-preta, segurança (403/IDOR), E2E e JMeter.
-- Um ciclo TDD/BDD **documentado** (RED → GREEN → REFACTOR com commits e prints), exigido em ao menos uma funcionalidade. Sugestão: a aprovação restrita (RF07) ou a idempotência.
+- CT19 no MySQL/Testcontainers (edições concorrentes de reservas distintas). Cenários prontos em `ReservaEdicaoConcorrenteTest`; implementação com Fausto.
+- Adaptador MySQL da fila de aprovação, validado pelo contrato `ReservaFilaPortContrato`.
+- Rollback verdadeiro: nenhum vínculo ou auditoria órfãos após falha, com os adaptadores reais de auditoria (PR #9).
+- API caixa-preta com sessão real, segurança (403, IDOR) e E2E, que dependem dos PRs #8 a #12 e da branch de Marcos.
+- JMeter e CI na versão integrada (PR #11).
+- Ciclo TDD documentado: o da fila RF07 está em `docs/testes/rf07-fila-tdd.md` (RED, GREEN e REFACTOR em commits separados), com execução local sem CI.
 
 ## 4. Como o módulo se relaciona com os demais (resumo do guia)
 
@@ -165,10 +176,15 @@ Convenções: pacotes sem acento; mensagens ao usuário em português; nenhum da
 
 ## 7. Limites desta entrega
 
-- Sem controller REST, DTOs, JPA, migrações, segurança, auditoria e notificação reais: dependem das portas listadas acima.
-- Sem `@Transactional` e sem idempotência por chave.
-- Consulta de disponibilidade (`ReservaService.consultarDisponibilidade`) e cálculo de horas (`UtilizacaoReservas`) existem como código de serviço/domínio, **sem endpoint** e sem busca real de dados; relatórios (RF12) completos dependem de persistência.
-- Nenhum requisito deve ser marcado como **IMPLEMENTADO/VALIDADO** na RTM até existirem execução no CI e evidência.
+Situação na `develop` (`395ac73`):
+
+- **Integrado:** domínio, `ReservaService`, `ReservaTransacional`, persistência MySQL, locks, ocupações, expediente, conflito evitado persistido, controller com 8 endpoints de escrita e `UtilizacaoReservas`.
+- **API desligada por padrão** (`reservas.api.enabled=false`). Não ativar isoladamente: faltam a segurança, a auditoria e a notificação reais, hoje em PRs (#8, #9, #10).
+- **Não existem na `develop`:** `GET /api/reservas`, `GET /api/reservas/{id}` (bloqueado por Q9), endpoint da fila de aprovação, endpoint de disponibilidade e API de relatórios RF12.
+- **RF12:** o cálculo de horas e a gravação de conflitos evitados existem. Faltam a consulta persistida de reservas e de conflitos, o serviço e a API.
+- **Sem idempotência por chave** no backend (decisão da equipe pendente).
+- **Fora da `develop`, em patch ou branch:** fila de aprovação RF07 (camada de aplicação) e CT19 com fake.
+- **RTM:** nenhum requisito deve ser marcado como IMPLEMENTADO ou VALIDADO sem execução em CI e revisão. A RTM da `develop` só tem as linhas do item 18; a RTM completa (RF01 a RF14) está na cadeia de PRs da Débora.
 
 ## 8. Glossário rápido
 
