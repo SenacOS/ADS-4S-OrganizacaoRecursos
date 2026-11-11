@@ -119,3 +119,19 @@ Expediente é uma lista completa de janelas LocalTime: não são datas UTC. O ed
 As ações da área são serializadas enquanto houver requisição pendente, evitando troca de alvo durante leitura ou gravação. Guard por formulário, CSRF dinâmico, mensagens textContent e referência de suporte seguem os módulos existentes. Falhas recuperáveis preservam os campos; rede/resposta incoerente orientam consultar o estado antes de reenviar.
 
 Não inclui movimentações, consultas de reservas nem fila. Q9 e Marcos-4 continuam independentes deste recorte. Não foram alterados Java, configuração, dependências npm ou flags. A validação usa API interceptada exclusivamente nos testes; integração real permanece pendente. [Story](../stories/marcos-5.md) e [resultados](../testes/marcos-5-resultados.md).
+
+## Movimentações — complemento da etapa 5
+
+`pages/movimentacoes.html` consulta retiradas abertas para RESPONSAVEL e ADMINISTRADOR. Somente RESPONSAVEL recebe formulários de retirada/devolução. O perfil de `auth.me` é conferido antes de qualquer consulta de dados. A sessão, navegação, CSRF e erros seguem os módulos compartilhados; a guarda visual não substitui a segurança do servidor.
+
+`movimentacoes.js` usa GET /api/movimentacoes?abertas=true e valida o array simples, sem inventar filtros/paginação. Este recorte não consulta histórico completo. Instantes `Z` ou com offset são aceitos e exibidos em São Paulo. O par devolvidoEm/devolvidoPor deve estar nulo nas abertas e preenchido nas devolvidas. A lista recusa duplicatas/inconsistências; falha de atualização preserva a última lista confirmada com aviso.
+
+Para retirada, o usuário informa o número da reserva do comprovante, pesquisa MATERIAL por patrimônio, pagina pelo servidor e escolhe explicitamente a unidade. Seleção/página/patrimônio/número da reserva invalidam confirmações anteriores. O POST /api/movimentacoes/retiradas envia somente reservaId e recursoId; o servidor valida vínculo, reserva APROVADA/EM_USO, horário, material ativo e ocupações. A pesquisa não comprova essas condições. Não foi criado GET de reservas nem seletor de reservas sem contrato/Q9.
+
+As pendências consultam GET /api/recursos/{id} para identificação legível em pequenos lotes, sem bloquear a operação. Falha, cadastro inacessível ou material inativo não apagam a pendência nem impedem a devolução: o número do material permanece como referência. Respostas antigas de identificação/pesquisa não contaminam consultas posteriores.
+
+O backend mantém atrasoSegundos zero nas retiradas abertas. A interface identifica prazo ultrapassado pelo relógio do navegador como estimativa e mantém a retirada aberta. Não libera o material pela passagem do prazo. Após devolução, o atraso final exibido vem exclusivamente da resposta da API.
+
+Devolução exige confirmação identificando movimentação, reserva e material, e envia POST /api/movimentacoes/{id}/devolucao sem corpo. O retorno idempotente pode registrar outro operador; a UI mostra devolvidoPor da resposta e não atribui falsamente a ação ao usuário atual. Escrita confirmada seguida de falha de GET mantém a confirmação da escrita e o aviso de atualização, sem repetir POST nem prometer nova disponibilidade/notificação.
+
+As operações usam um guard por formulário e bloqueio da área durante requisições para impedir envios simultâneos/troca de contexto. Campos e pendências são preservados em falhas recuperáveis. Mocks continuam somente nos testes; não houve alteração de Java, application.yml, flags ou dependências. A administração/PR 20 segue separada na branch anterior. [Story de movimentações](../stories/marcos-5-movimentacoes.md) e [evidências e limites](../testes/marcos-5-movimentacoes-resultados.md).

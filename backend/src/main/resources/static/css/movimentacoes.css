@@ -1,0 +1,20 @@
+.movement-controls { border: 0; padding: 0; margin: 0; min-width: 0; }
+.movement-materials { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 20px; }
+.movement-material { padding: 18px; border: 1px solid var(--line); border-radius: 9px; overflow-wrap: anywhere; min-width: 0; }
+.movement-material h3 { margin: 0 0 8px; font-size: 1rem; }
+.movement-material p { font-size: .83rem; color: var(--muted); }
+.movement-confirm { padding: 20px; border: 1px solid #c8d5bd; background: #f4f7ef; border-radius: 9px; margin-top: 25px; }
+.movement-confirm p { overflow-wrap: anywhere; }
+.movement-confirm .button { margin-top: 14px; }
+.movement-check { display: flex; gap: 10px; align-items: flex-start; font-size: .86rem; }
+.movement-check input { flex: 0 0 auto; width: 20px; height: 20px; min-height: 20px; margin: 2px 0 0; accent-color: var(--blue); }
+.movement-list { display: grid; gap: 18px; }
+.movement-card { border: 1px solid var(--line); border-radius: 10px; padding: 22px; min-width: 0; overflow-wrap: anywhere; }
+.movement-card h3 { margin: 10px 0 6px; font-size: 1.1rem; }
+.movement-card .field-help { margin-bottom: 12px; }
+.movement-meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 24px; margin: 18px 0; }
+.movement-meta dt { font-size: .75rem; color: var(--muted); }
+.movement-meta dd { margin: 0; font-size: .87rem; overflow-wrap: anywhere; }
+.movement-status { display: inline-block; color: #31522e; background: #eaf3e6; border-radius: 5px; padding: 5px 9px; font-size: .78rem; }
+.movement-status[data-atrasado="true"] { color: #795015; background: #fff0d5; }
+@media (max-width: 700px) { .movement-materials, .movement-meta { grid-template-columns: 1fr; } .movement-card { padding: 18px; } .movement-confirm { padding: 16px; } }

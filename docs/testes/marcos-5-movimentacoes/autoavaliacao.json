@@ -1,0 +1,22 @@
+{
+  "story": "Marcos-5-Movimentacoes",
+  "data": "2026-11-11",
+  "tipo": "autoavaliacao_de_desenvolvimento",
+  "parecer_independente": false,
+  "riscos": [
+    "Confirmação antiga após operação incerta: flags bloqueiam POST até GET válido e nova confirmação; FE-003 corrigido e coberto em ambas as escritas.",
+    "Resposta antiga de detalhe: versão da consulta é conferida antes de aplicar identificação; teste captura snapshot antes da espera.",
+    "Prazo ultrapassado esconder pendência: material permanece aberto; atraso estimado identificado como local e atraso final fornecido pela API.",
+    "Idempotência por outro operador: devolvidoPor real é preservado e não precisa coincidir com o usuário atual.",
+    "GET falho após escrita confirmada: mantém confirmação e estado derivado da resposta de escrita, sem novo POST."
+  ],
+  "fronteiras": [
+    "Lista vazia não equivale a consulta indisponível.",
+    "Cadastro inativo ou 404 não impede devolver uma retirada aberta.",
+    "Busca parcial exige seleção explícita de patrimônio.",
+    "Campos devolvidoEm e devolvidoPor são nullable juntos.",
+    "Instantes com Z/fração são exibidos em São Paulo, mesmo com navegador em Tokyo."
+  ],
+  "gates": { "lint": "PASS", "typecheck": "PASS", "unitarios": 57, "navegador": 190, "falhas": 0 },
+  "limites": "API controlada nos testes; integração real, revisão humana, CI e aceite do autor não são inferidos destes gates."
+}
