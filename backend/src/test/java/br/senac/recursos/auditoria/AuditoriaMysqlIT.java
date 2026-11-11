@@ -11,7 +11,6 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -100,18 +99,24 @@ class AuditoriaMysqlIT {
     }
 
     @Test
-    void bancoProibeUpdateEDeleteDoHistorico() {
+    void eventosSaoAcrescentadosSemSobrescreverHistorico() {
         long id = 9004L;
         transacao().executeWithoutResult(t ->
                 reservas.registrar(new RegistroAuditoria(
                         "RESERVA", id, 3, AcaoReserva.CRIACAO,
                         null, "SOLICITADA", UUID.randomUUID().toString(), MOMENTO)));
-        assertThrows(DataAccessException.class, () ->
-                jdbc.update("UPDATE auditoria SET acao='EDICAO' "
-                        + "WHERE entidade='RESERVA' AND entidade_id=?", id));
-        assertThrows(DataAccessException.class, () ->
-                jdbc.update("DELETE FROM auditoria WHERE entidade='RESERVA' AND entidade_id=?", id));
-        assertEquals(1, consulta.consultar("RESERVA", id).size());
+
+        var primeiro = consulta.consultar("RESERVA", id).getFirst();
+        transacao().executeWithoutResult(t ->
+                reservas.registrar(new RegistroAuditoria(
+                        "RESERVA", id, 2, AcaoReserva.APROVACAO,
+                        "SOLICITADA", "APROVADA",
+                        UUID.randomUUID().toString(), MOMENTO.plusSeconds(60))));
+
+        var eventos = consulta.consultar("RESERVA", id);
+        assertEquals(2, eventos.size());
+        assertEquals(primeiro, eventos.getFirst());
+        assertEquals("APROVACAO", eventos.get(1).acao());
     }
 
     @Test

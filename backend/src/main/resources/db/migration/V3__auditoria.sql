@@ -14,11 +14,7 @@ CREATE TABLE auditoria (
     INDEX idx_auditoria_correlacao (correlacao_id)
 ) ENGINE=InnoDB;
 
--- Defesa em profundidade: nem comandos SQL comuns podem reescrever ou apagar eventos.
-CREATE TRIGGER auditoria_bloquear_update BEFORE UPDATE ON auditoria
-FOR EACH ROW SIGNAL SQLSTATE '45000'
-SET MESSAGE_TEXT = 'Auditoria imutavel: UPDATE proibido';
-
-CREATE TRIGGER auditoria_bloquear_delete BEFORE DELETE ON auditoria
-FOR EACH ROW SIGNAL SQLSTATE '45000'
-SET MESSAGE_TEXT = 'Auditoria imutavel: DELETE proibido';
+-- A aplicacao expoe apenas INSERT e SELECT para esta tabela.
+-- Em producao, utilizar conta de runtime com somente SELECT/INSERT nesta tabela;
+-- a conta de migracao deve ser separada e privilegiada para executar Flyway.
+-- Nao criar triggers aqui: MySQL com binary logging pode exigir SUPER (erro 1419).
