@@ -10,3 +10,4 @@
 | RF14 | Contrato incompatível / vazamento SQL | Controllers e ReservaExceptionHandler | Item18ApiTest e ReservaControllerTest | api/item18.md, testes/item18-resultados.md |
 
 Os testes Item18MysqlIT usam MySQL real/Testcontainers e transações independentes. Fixtures de auditoria/notificação são somente de teste. RF01, RF10 e RF11 não são declarados validados: aguardam os provedores reais da equipe. RTM completa do projeto/CI/Sonar permanecem com Débora. Arquivo BDD: testes/item18-bdd.feature; asserções em JUnit, sem dependência Cucumber.
+| RF10 | Mudança sem trilha ou auditabilidade perdida em rollback | AuditoriaJdbc, AuditoriaResumo, V3__auditoria.sql, AuditoriaController | AuditoriaMysqlIT, AuditoriaControllerTest | docs/qualidade/rf10-auditoria.md; relatorios Maven/JaCoCo apos execucao |
