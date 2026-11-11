@@ -12,6 +12,8 @@ export default [
         HTMLButtonElement: 'readonly', HTMLInputElement: 'readonly', Response: 'readonly',
         document: 'readonly', window: 'readonly', FormData: 'readonly',
         HTMLFormElement: 'readonly', HTMLFieldSetElement: 'readonly',
+        HTMLAnchorElement: 'readonly',
+        queueMicrotask: 'readonly',
       },
     },
   },

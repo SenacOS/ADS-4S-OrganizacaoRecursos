@@ -80,3 +80,26 @@ Para inspecionar somente o layout local: `npm run preview` e abrir http://127.0.
 O teste de navegador desta etapa não substitui o E2E integrado. [Resultados, capturas e limites](../testes/marcos-2-resultados.md). Referências da ferramenta: [servidor de teste](https://playwright.dev/docs/test-webserver), [API controlada](https://playwright.dev/docs/network) e [Chrome instalado](https://playwright.dev/docs/browsers#google-chrome--microsoft-edge).
 
 A autenticação ainda está em branch separada e reservas estão desligadas. Não há GET de reservas/detalhes nem cliente inventado para eles. Fila e formulário de edição dependem desses contratos. Nenhum resultado de teste isolado comprova segurança do servidor, cookie real, corrida no banco ou E2E.
+
+## Pesquisa e criação — Marcos-3
+
+`pages/recursos.html` consulta recursos e disponibilidade; `pages/reservas.html` permite pesquisar um período, selecionar recursos e criar uma solicitação. A entrada autenticada oferece os dois links. Cadastros, fila, movimentações, relatórios e consulta de reservas anteriores permanecem para outros recortes. A sessão/navegação/logout das páginas são compartilhados em `sessao-page.js` e `navegacao.js`; os testes de acesso foram ajustados para verificar a existência dos novos destinos, mantendo as restrições por perfil.
+
+`recursos.js` expõe `pesquisar(filtros)` e `expediente()`, usando somente GETs de recursos/funcionamento contratados no item18. A pesquisa retorna `{itens,pagina,tamanho,total}` e não é repaginada no navegador. Cada recurso mantém `{id,dados,disponivel}`. Tipos usam `PROFESSOR` no contrato e “Docente” na interface. O cliente valida o envelope antes de renderizar e não confunde `disponivel:null` com disponibilidade confirmada.
+
+```js
+import { recursos } from '/js/recursos.js';
+import { intervaloDoFormulario } from '/js/datas.js';
+
+const periodo = intervaloDoFormulario('2026-11-10T13:00', '2026-11-10T14:00', true);
+const pagina = await recursos.pesquisar({ ...periodo, tipo: 'SALA', capacidadeMinima: 20,
+  disponivel: true, pagina: 0, tamanho: 20 });
+```
+
+`datas.js` interpreta datetime-local no fuso `America/Sao_Paulo` com Intl, calcula o offset desse horário e recusa dias inválidos, fim não posterior, limite diário e horários ambíguos/inexistentes de transições históricas. Não depende do timezone do navegador. O expediente consultado é exibido; a API decide se o período cabe nas janelas e se há conflito. A interface não cria uma regra paralela de ocupação.
+
+A seleção mantém recursos entre páginas/filtros do mesmo período. Alterar início/fim limpa a seleção; atualizar a pesquisa remove itens selecionados que voltarem inativos/indisponíveis. Uma resposta atrasada é descartada se os filtros mudarem enquanto a consulta está pendente. Mudanças de filtros reiniciam a página na próxima pesquisa.
+
+Na criação, apenas `inicio`, `fim` e `recursosIds` seguem para `reservas.criar`. `confirmarCriacao` valida id, identidade da sessão, instantes, conjunto de recursos e coerência status/restrita antes de mostrar sucesso. A tela apresenta o status do servidor e não afirma entrega de notificação. Resposta inválida ou falha de rede pode ocorrer após persistência: orientar conferir o resultado, sem replay automático. Após sucesso, a ação “Fazer outra solicitação” exige nova pesquisa/seleção.
+
+Os mocks continuam exclusivamente nos testes de navegador. `npm run preview` não cria uma sessão de demonstração nem simula os GETs/POSTs; integrar segurança e provedores reais continua necessário para operar o fluxo no Spring. Listagem/reabertura para edição/cancelamento de reservas existentes continuam dependentes dos GETs e da Q9. [Story e critérios](../stories/marcos-3.md); [evidências e limites](../testes/marcos-3-resultados.md).

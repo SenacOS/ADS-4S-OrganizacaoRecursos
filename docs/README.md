@@ -40,3 +40,4 @@ O diagnóstico de outubro acima é histórico. O backend e os contratos já est�
 - [Resultados locais e limites da validação](testes/marcos-1-resultados.md).
 - [Aceite do contrato pelo cliente](stories/marcos-contrato-1.md) e [leitura da fila ainda não implementada](api/reservas-leitura-contrato.md).
 - [Login/logout e entrada por perfil — Marcos-2](stories/marcos-2.md), com [evidências de navegador](testes/marcos-2-resultados.md).
+- [Pesquisa e criação de reservas — Marcos-3](stories/marcos-3.md): primeiro recorte da etapa 3, com [evidências e limites](testes/marcos-3-resultados.md). Listagem/edição/cancelamento de reservas existentes continuam dependentes da leitura autorizada.

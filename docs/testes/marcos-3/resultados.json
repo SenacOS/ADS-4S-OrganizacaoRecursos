@@ -1,0 +1,59 @@
+{
+  "data": "2026-11-10",
+  "story": "Marcos-3",
+  "base": "5036ed3 com alterações locais da story",
+  "escopo": "Frontend com API controlada; sem E2E integrado de Spring/MySQL",
+  "ambiente": {
+    "sistema": "Windows x64",
+    "node": "v24.22.2",
+    "npm": "11.19.1",
+    "playwright": "1.65.0",
+    "chrome": "157.0.8103.39",
+    "canal": "chrome",
+    "headless": true,
+    "timezoneId_marcos3": "Asia/Tokyo"
+  },
+  "viewports": {
+    "desktop": {
+      "width": 1366,
+      "height": 900
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844
+    }
+  },
+  "gates": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unitarios": {
+      "pass": 32,
+      "fail": 0
+    },
+    "navegador": {
+      "startTime": "2026-11-11T01:31:59.472Z",
+      "duration": 112932.842,
+      "expected": 76,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "build_exit_code": 0
+  },
+  "capturas": {
+    "comando": "node node_modules/@playwright/test/cli.js test --grep \"capturas de pesquisa|teclado, texto seguro\"",
+    "motivo": "Posicionar o scroll no topo antes das capturas completas; sem alteração na aplicação",
+    "resultado": {
+      "startTime": "2026-11-11T01:35:02.038Z",
+      "duration": 27486.791999999998,
+      "expected": 4,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "revisao_independente": "PENDENTE",
+  "coderabbit": "INDISPONIVEL: WSL/CLI não instalados",
+  "ci": "PENDENTE",
+  "integracao_real": "PENDENTE"
+}

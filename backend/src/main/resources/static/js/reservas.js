@@ -1,13 +1,30 @@
 import { api, ErroApi } from './api.js';
+import { dataComOffset } from './datas.js';
 
 /** @typedef {{inicio: string, fim: string, recursosIds: number[]}} DadosReserva */
 
-/** Validação de formato, sem presumir o fuso do navegador.
- * @param {string} valor */
-function dataComOffset(valor) {
-  return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,9})?(?:Z|[+-]\d{2}:\d{2})$/.test(valor)
-    && Number.isFinite(Date.parse(valor))
-    && new Date(valor.slice(0, 10) + 'T00:00:00Z').toISOString().slice(0, 10) === valor.slice(0, 10);
+/** @typedef {{id: number, solicitanteId: number, status: 'APROVADA'|'SOLICITADA',
+ * restrita: boolean, inicio: string, fim: string, recursosIds: number[]}} ReservaCriada */
+
+/** Uma resposta inválida após a escrita não autoriza repetir o POST.
+ * @param {any} resposta @param {DadosReserva} envio @param {number} usuarioId
+ * @returns {ReservaCriada} */
+export function confirmarCriacao(resposta, envio, usuarioId) {
+  const ids = resposta?.recursosIds;
+  const esperados = [...new Set(envio.recursosIds)];
+  if (!Number.isSafeInteger(resposta?.id) || resposta.id <= 0
+    || resposta.solicitanteId !== usuarioId || typeof resposta.restrita !== 'boolean'
+    || resposta.status !== (resposta.restrita ? 'SOLICITADA' : 'APROVADA')
+    || !dataComOffset(resposta.inicio) || !dataComOffset(resposta.fim)
+    || Date.parse(resposta.inicio) !== Date.parse(envio.inicio)
+    || Date.parse(resposta.fim) !== Date.parse(envio.fim)
+    || !Array.isArray(ids) || ids.length !== esperados.length
+    || new Set(ids).size !== ids.length || ids.some((id) => !esperados.includes(id))) {
+    throw new ErroApi(0, 'RESPOSTA_INVALIDA',
+      'Não foi possível confirmar os dados da reserva. Confira o resultado antes de reenviar.');
+  }
+  return { id: resposta.id, solicitanteId: usuarioId, status: resposta.status,
+    restrita: resposta.restrita, inicio: resposta.inicio, fim: resposta.fim, recursosIds: [...ids] };
 }
 
 /** @param {DadosReserva} dados */

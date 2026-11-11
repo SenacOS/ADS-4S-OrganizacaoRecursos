@@ -51,7 +51,7 @@ Protótipos simples devem mostrar navegação, estados vazio/carregando/erro/suc
 | 0 | Ler PDF, inspecionar branches/contratos e levantar responsabilidades | Fontes e dependências identificadas neste documento | CONCLUÍDO |
 | 1 | Story Marcos-1: base `api.js`, `auth.js`, `reservas.js`, `forms.js` | Testes isolados relevantes, lint e verificação JS; docs de consumo | VALIDADO LOCALMENTE; revisão pendente |
 | 2 | Login, logout, navegação por perfil e estrutura visual responsiva | Formulário, perfil, erro/expiração e teclado em navegador | INCREMENTO LOCAL ENCERRADO com aceite de Marcos em 10/11/2026; testes reexecutados pelo autor aprovados; story Ready for Review; integração/revisão de outro integrante/CodeRabbit/CI pendentes ([evidência](../testes/marcos-2-resultados.md)) |
-| 3 | Pesquisa/disponibilidade + criar/editar/cancelar reservas | Formulários e estados com mock explícito de desenvolvimento; troca pelo backend quando habilitado | PENDENTE |
+| 3 | Pesquisa/disponibilidade + criar/editar/cancelar reservas | Formulários e estados com API controlada nos testes; integração quando habilitada | EM EXECUÇÃO — [Marcos-3](../stories/marcos-3.md): pesquisa/seleção/criação implementadas e validadas localmente (32 testes unitários, 76 de navegador; [evidências](../testes/marcos-3-resultados.md)). Listagem, reabertura para edição e cancelamento de reservas existentes continuam pendentes dos GETs/Q9; não se encerra toda a etapa 3 com este recorte. |
 | 4 | Aprovação/rejeição e fila | Revisar proposta de leitura; testar RESPONSAVEL e acessos negados com Débora | PENDENTE |
 | 5 | Recursos/cadastros/manutenção e movimentações | Consumir item18; validar retirada, atraso, devolução e restrições por perfil | PENDENTE |
 | 6 | Relatórios e mensagens de eventos | Consumir API confirmada; validar filtros, unidades e períodos vazios | PENDENTE |
@@ -59,6 +59,8 @@ Protótipos simples devem mostrar navegação, estados vazio/carregando/erro/suc
 | 8 | Revisão e entrega | Revisão humana, CI verde, defeitos tratados e demonstração reproduzível | PENDENTE |
 
 Os incrementos futuros recebem suas próprias stories e critérios antes do código. Não se considera a entrega inteira concluída pela implementação da primeira base.
+
+Recorte autorizado nesta sessão: Marcos confirmou seguir os contratos atuais. `pages/recursos.html` e `pages/reservas.html` usam consultas de recursos/expediente e POST já contratados, com mocks apenas nos testes. O preview não simula APIs. A listagem de reservas anteriores e a reabertura para editar/cancelar aguardam leitura autorizada; não são criados GETs fictícios. A parte restante da etapa 3 precisa de critérios próprios assim que o contrato de leitura existir.
 
 ## Dependências concretas para integração
 

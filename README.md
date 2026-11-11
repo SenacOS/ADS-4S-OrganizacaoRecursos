@@ -259,4 +259,10 @@ Recursos, manutenção, MySQL, locks e movimentações foram acrescentados na br
 
 Os clientes JavaScript estão em backend/src/main/resources/static/js/, conforme ADR-001. Login e entrada autenticada estão em login.html e index.html da mesma pasta static/. O frontend continua servido pelo Spring Boot, sem compilação. Node 24+, npm e Playwright são usados apenas para verificações de desenvolvimento: na raiz, execute npm ci, npx playwright install chromium e npm run build (lint, checkJs, testes unitários e navegador com API controlada). Com Chrome instalado, também é possível definir PLAYWRIGHT_CHANNEL=chrome para usar esse navegador.
 
-Consulte o [plano completo de Marcos](docs/planejamento/marcos-plano-de-acao.md), a [integração do frontend](docs/api/frontend-integracao.md) e as [evidências de acesso](docs/testes/marcos-2-resultados.md). npm run preview serve o layout em http://127.0.0.1:4173/login.html, sem simular a API. Autenticação real depende da integração do módulo de segurança. Reservas e demais telas continuam nos próximos incrementos; APIs não foram habilitadas nesta etapa.
+Consulte o [plano completo de Marcos](docs/planejamento/marcos-plano-de-acao.md), a [integração do frontend](docs/api/frontend-integracao.md) e as [evidências de acesso](docs/testes/marcos-2-resultados.md). npm run preview serve o layout em http://127.0.0.1:4173/login.html, sem simular a API. Autenticação real depende da integração do módulo de segurança. APIs não foram habilitadas nesta etapa.
+
+## Pesquisa e solicitação de recursos — Marcos-3
+
+As páginas `static/pages/recursos.html` e `static/pages/reservas.html` oferecem filtros, disponibilidade por período, paginação, seleção de múltiplos recursos e criação de reservas comuns/restritas com confirmação do servidor. O frontend continua HTML/CSS/JS nativo; Node serve apenas às verificações. Datas do formulário usam São Paulo independentemente do fuso do navegador.
+
+A [story Marcos-3](docs/stories/marcos-3.md) cobre o primeiro recorte da etapa 3. Listagem de reservas anteriores, reabertura para edição/cancelamento e integração real continuam dependentes das entregas da equipe. Mocks existem apenas nos testes; o preview não substitui o backend. Execute `npm run build` na raiz com `PLAYWRIGHT_CHANNEL=chrome` quando usar o Chrome instalado. [Resultados e capturas](docs/testes/marcos-3-resultados.md).

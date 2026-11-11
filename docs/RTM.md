@@ -42,3 +42,16 @@ Testes em tests/unit/frontend/ usam fetch e formulário controlados exclusivamen
 Esta etapa não comprova autorização no servidor, cookie HttpOnly real, CSRF real do Spring, auditoria ou concorrência MySQL. As 21 verificações unitárias existentes também passaram.
 
 Encerramento do incremento local registrado com aceite visual de Marcos em 10/11/2026. O autor repetiu o build com lint/tipos sem diagnósticos, 21 testes unitários e 30 testes de navegador aprovados; [saída fornecida pelo autor](testes/marcos-2-verificacao-marcos.txt). Story Ready for Review; integração real, revisão de outro integrante, CodeRabbit e CI continuam pendentes antes do merge.
+
+## Pesquisa e criação — Marcos-3
+
+Estado: VALIDADO LOCALMENTE no primeiro recorte da etapa 3, em 10/11/2026. Não comprova os RFs inteiros nem integração real.
+
+| RF | Risco / comportamento | Implementação | Testes e evidência |
+|---|---|---|---|
+| RF03 | Filtros/paginação incompatíveis, recurso indisponível selecionado, resposta antiga exibida | recursos.js, recursos-page.js, pages/recursos.html | recursos-datas.test.js: filtros/envelope/expediente; recursos.spec.js: pesquisa, páginas, seleção, vazio, indisponibilidade e resposta atrasada; [resultados](testes/marcos-3-resultados.md) |
+| RF04 | Fuso incorreto, DTO indevido, duplicação de POST, sucesso sem confirmação | datas.js, reservas.js, pages/reservas.html | recursos-datas.test.js: instantes/DST/intervalo e resposta; recursos.spec.js: comum/restrita, seleção multi-recurso, duplo envio, erros/rede/resposta inválida; [log aprovado](testes/marcos-3-verificacao.txt) |
+| RF13 | Formulário móvel inutilizável, HTML interpretado, foco perdido, sessão expirada | css/app.css, sessao-page.js, navegacao.js, recursos-page.js | 23 cenários novos em duas viewports (46 execuções), mais 30 regressões de acesso; [capturas e limites](testes/marcos-3-resultados.md#primeira-rodada-e-capturas) |
+| RF14 | Presumir GETs de reservas ou integração pronta | frontend-integracao.md, stories/marcos-3.md, plano | Clientes usam apenas contratos atuais; testes verificam ausência de GET de reservas. [Ambiente/resultados](testes/marcos-3/resultados.json) |
+
+`npm run build` passou com 32 testes unitários e 76 execuções de navegador, zero falhas/ignorados/retries na rodada aprovada. O primeiro timeout no setup e a reexecução de quatro capturas são registrados separadamente. Integração real, revisão humana/CodeRabbit e CI pendentes. Listagem/reabertura para edição/cancelamento de reservas existentes aguardam GETs e política Q9; a etapa 3 completa permanece em execução.
