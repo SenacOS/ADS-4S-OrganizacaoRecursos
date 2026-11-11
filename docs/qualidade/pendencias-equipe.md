@@ -37,7 +37,7 @@ Data: 10/11/2026. Este arquivo complementa o PDF de encaminhamento para a equipe
 - PR #12: [CI 42949100353](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/42949100353) com 207 unitários/API, 33 de integração, JaCoCo 91,53% linhas e 73,18% branches.
 - JMeter quatro cenários aprovados; a aplicação e MySQL de teste foram descartáveis.
 - PR #18: [CI 43046498091](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43046498091) com 247 testes aprovados e JaCoCo 91,63% linhas / 73,39% branches.
-- SonarCloud NAO executado: Quality Gate continua pendente de admin. PRs #7–#12 e #15–#18 nao tinham review APPROVED na verificacao de 11/11/2026.
+- SonarCloud NÃO executado; Quality Gate continua pendente de admin. PR #12 foi validado na CI, mas faltava revisão de pares e merge. PRs #7–#12 e #15–#18 não tinham review APPROVED na verificação de 11/11/2026.
 
 PR de fechamento: https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/12
 
