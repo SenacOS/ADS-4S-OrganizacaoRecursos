@@ -1,0 +1,34 @@
+-- MODELO RF10: grants minimos para runtime do MySQL 8.4.
+-- NUNCA aplicar sem revisar schema/host/credencial com DBA.
+-- Substitua valores e forneca senha por gerenciador de segredos fora do Git.
+-- A conta de migracao Flyway e DISTINTA e possui privilegios DDL.
+-- Nao conceder UPDATE/DELETE no schema inteiro: nao e possivel negar
+-- essas permissoes apenas na tabela auditoria.
+
+CREATE USER 'recursos_runtime'@'%' IDENTIFIED BY 'SUBSTITUIR_SENHA_FORA_DO_GIT';
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON organizacao_recursos.usuarios TO 'recursos_runtime'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON organizacao_recursos.recursos TO 'recursos_runtime'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON organizacao_recursos.salas TO 'recursos_runtime'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON organizacao_recursos.professores TO 'recursos_runtime'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON organizacao_recursos.professor_competencias TO 'recursos_runtime'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON organizacao_recursos.materiais TO 'recursos_runtime'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON organizacao_recursos.configuracao_expediente TO 'recursos_runtime'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON organizacao_recursos.horarios_funcionamento TO 'recursos_runtime'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON organizacao_recursos.reservas TO 'recursos_runtime'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON organizacao_recursos.reserva_recursos TO 'recursos_runtime'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON organizacao_recursos.bloqueios_recursos TO 'recursos_runtime'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON organizacao_recursos.movimentacoes TO 'recursos_runtime'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON organizacao_recursos.conflitos_evitados TO 'recursos_runtime'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON organizacao_recursos.notificacoes TO 'recursos_runtime'@'%';
+
+-- AUDITORIA: apenas leitura e insercao. Sem UPDATE, DELETE nem DDL.
+GRANT SELECT, INSERT ON organizacao_recursos.auditoria TO 'recursos_runtime'@'%';
+
+SHOW GRANTS FOR 'recursos_runtime'@'%';
+
+-- Para validar, abra conexao de teste como recursos_runtime.
+-- UPDATE auditoria SET ... -> deve retornar acesso negado (MySQL 1142).
+-- DELETE FROM auditoria WHERE ... -> deve retornar acesso negado.
+-- Usuario administrativo MySQL continua podendo alterar; grants nao
+-- substituem backup, observabilidade ou controle de acesso ao banco.
