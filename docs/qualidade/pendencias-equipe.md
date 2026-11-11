@@ -29,8 +29,9 @@ Data: 10/11/2026. Este arquivo complementa o PDF de encaminhamento para a equipe
 
 ## Evidências já disponíveis
 - CI PR #11: https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/42945777138
-- 205 testes unitários/API e 31 integrações; JaCoCo 90,88% linhas, 73,46% branches.
+- PR #11: 205 testes unitários/API e 31 integrações; JaCoCo 90,88% linhas, 73,46% branches.
+- PR #12: [CI 42949100353](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/42949100353) com 207 unitários/API, 33 de integração, JaCoCo 91,53% linhas e 73,18% branches.
 - JMeter quatro cenários aprovados; a aplicação e MySQL de teste foram descartáveis.
-- SonarCloud NÃO executado. PR #12 precisa de execução própria.
+- SonarCloud NÃO executado. PR #12 foi validado na CI, mas falta revisão de pares e merge.
 
 PR de fechamento: https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/12
