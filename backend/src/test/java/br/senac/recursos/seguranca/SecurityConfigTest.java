@@ -76,6 +76,24 @@ class SecurityConfigTest {
                 .andExpect(status().isNotFound());
     }
 
+    @org.junit.jupiter.params.ParameterizedTest
+    @org.junit.jupiter.params.provider.ValueSource(strings = {
+            "/api/reservas/99/inicio",
+            "/api/reservas/99/conclusao",
+            "/api/reservas/99/nao-comparecimento"
+    })
+    void transicoesOperacionaisExigemResponsavelOuAdministrador(String rota) throws Exception {
+        mvc.perform(post(rota).with(csrf()).with(user("sol").roles("SOLICITANTE")))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.codigo").value("OPERACAO_NAO_PERMITIDA"));
+        // A API esta desligada nesta fatia; 404 demonstra que o filtro
+        // permitiu os papeis autorizados prosseguirem ate o MVC.
+        mvc.perform(post(rota).with(csrf()).with(user("resp").roles("RESPONSAVEL")))
+                .andExpect(status().isNotFound());
+        mvc.perform(post(rota).with(csrf()).with(user("admin").roles("ADMINISTRADOR")))
+                .andExpect(status().isNotFound());
+    }
+
     @Test void usuarioAutenticadoNaoPodeAlterarSemCsrf() throws Exception {
         mvc.perform(post("/api/auth/logout").with(user("ana").roles("SOLICITANTE")))
                 .andExpect(status().isForbidden());
