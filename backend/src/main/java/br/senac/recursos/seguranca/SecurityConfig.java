@@ -39,6 +39,13 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST,
                         "/api/reservas/*/aprovacao", "/api/reservas/*/rejeicao")
                     .hasRole("RESPONSAVEL")
+                // Defesa em profundidade: operacoes de movimentacao de estado
+                // exigem operador no filtro, alem da verificacao no dominio.
+                .requestMatchers(HttpMethod.POST,
+                        "/api/reservas/*/inicio",
+                        "/api/reservas/*/conclusao",
+                        "/api/reservas/*/nao-comparecimento")
+                    .hasAnyRole("RESPONSAVEL", "ADMINISTRADOR")
                 .requestMatchers(HttpMethod.POST, "/api/usuarios", "/api/usuarios/**")
                     .hasRole("ADMINISTRADOR")
                 .requestMatchers(HttpMethod.POST, "/api/recursos/**", "/api/bloqueios/**")

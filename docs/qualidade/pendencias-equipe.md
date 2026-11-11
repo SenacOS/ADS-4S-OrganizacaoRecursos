@@ -22,8 +22,12 @@ Data: 10/11/2026. Este arquivo complementa o PDF de encaminhamento para a equipe
 - Demonstrar fluxos de login, busca, reservas, aprovação/rejeição, cancelamento, retirada e devolução com evidências E2E.
 - Revisar RF13/RF14 e validar flags Secure/SameSite do cookie em HTTPS no deploy.
 
+## RF07 — contrato da fila (Gabriel Silva e Marcos)
+- Revisar proposta sem dados pessoais em `docs/integracao/revisao-contrato-fila-rf07.md` antes de publicar endpoints HTTP da fila do PR #15.
+- Confirmar projecao `SolicitanteResumo`, nome de campos e ausencia de email/contato; front e API devem seguir contrato comum.
+
 ## Todos — revisão e aceite
-- Revisar e integrar na ordem PR #8 → #9 → #10 → #11 → #12, atualizando bases para `develop` após cada merge e rodando CI novamente.
+- Revisar e integrar na ordem PR #8 → #9 → #10 → #11 → #12 → #18, atualizando bases para `develop` após cada merge e rodando CI novamente.
 - Conciliar ou encerrar PR #7 antigo de CI (em conflito) para não manter workflows duplicados.
 - Consolidar E2E, TDD/BDD, RF12, contratos, ATAM, registro de defeitos e decisão de aceite coletiva.
 
@@ -32,6 +36,9 @@ Data: 10/11/2026. Este arquivo complementa o PDF de encaminhamento para a equipe
 - PR #11: 205 testes unitários/API e 31 integrações; JaCoCo 90,88% linhas, 73,46% branches.
 - PR #12: [CI 42949100353](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/42949100353) com 207 unitários/API, 33 de integração, JaCoCo 91,53% linhas e 73,18% branches.
 - JMeter quatro cenários aprovados; a aplicação e MySQL de teste foram descartáveis.
-- SonarCloud NÃO executado. PR #12 foi validado na CI, mas falta revisão de pares e merge.
+- PR #18: [CI 43046498091](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43046498091) com 247 testes aprovados e JaCoCo 91,63% linhas / 73,39% branches.
+- SonarCloud NÃO executado; Quality Gate continua pendente de admin. PR #12 foi validado na CI, mas faltava revisão de pares e merge. PRs #7–#12 e #15–#18 não tinham review APPROVED na verificação de 11/11/2026.
 
 PR de fechamento: https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/12
+
+PR complementar RF01/RF10: https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/18
