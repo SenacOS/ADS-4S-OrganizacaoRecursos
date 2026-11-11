@@ -12,7 +12,7 @@
     <artifactId>organizacao-recursos</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>organizacao-recursos</name>
-    <description>OrganizaÃ§Ã£o de Recursos - SENAC ADS 2026.2</description>
+    <description>Organização de Recursos - SENAC ADS 2026.2</description>
     <properties>
         <java.version>21</java.version>
     </properties>
@@ -80,7 +80,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.13</version>
+                <version>0.8.16</version>
                 <executions>
                     <execution>
                         <goals>
@@ -88,11 +88,37 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>report</id>
+                        <id>coverage-report</id>
                         <phase>verify</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
+                    </execution>
+                    <execution>
+                        <id>coverage-check</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <rule>
+                                    <element>BUNDLE</element>
+                                    <limits>
+                                        <limit>
+                                            <counter>LINE</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>0.80</minimum>
+                                        </limit>
+                                        <limit>
+                                            <counter>BRANCH</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>0.70</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
