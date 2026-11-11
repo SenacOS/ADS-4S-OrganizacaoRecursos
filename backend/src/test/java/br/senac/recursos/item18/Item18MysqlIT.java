@@ -71,6 +71,7 @@ class Item18MysqlIT {
     }
 
     @Bean
+    @Primary
     NotificacaoPort notificacao() {
       return e -> {};
     }

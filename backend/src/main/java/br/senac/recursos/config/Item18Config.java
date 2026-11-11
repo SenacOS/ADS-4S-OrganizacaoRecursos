@@ -42,8 +42,9 @@ public class Item18Config {
       ReservaRepositorio r,
       OcupacoesPort o,
       EventosDominioPort e,
+      NotificacaoPort n,
       Clock clock) {
-    return new MovimentacaoService(b, m, c, l, r, o, e, clock);
+    return new MovimentacaoService(b, m, c, l, r, o, e, n, clock);
   }
 
   @Bean
