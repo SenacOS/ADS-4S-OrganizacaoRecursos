@@ -11,3 +11,4 @@
 
 Os testes Item18MysqlIT usam MySQL real/Testcontainers e transações independentes. Fixtures de auditoria/notificação são somente de teste. RF01, RF10 e RF11 não são declarados validados: aguardam os provedores reais da equipe. RTM completa do projeto/CI/Sonar permanecem com Débora. Arquivo BDD: testes/item18-bdd.feature; asserções em JUnit, sem dependência Cucumber.
 | RF10 | Mudança sem trilha ou auditabilidade perdida em rollback | AuditoriaJdbc, AuditoriaResumo, V3__auditoria.sql, AuditoriaController | AuditoriaMysqlIT, AuditoriaControllerTest | docs/qualidade/rf10-auditoria.md; relatorios Maven/JaCoCo apos execucao |
+| RF11 | Evento perdido, falha externa reverte reserva, duplicidade de envio | NotificacaoJdbc, ProcessadorNotificacoes, GatewayNotificacaoPadrao, V4__notificacoes.sql | NotificacaoMysqlIT, GatewayNotificacaoWireMockTest | docs/qualidade/rf11-notificacoes.md; relatórios Maven após execução |
