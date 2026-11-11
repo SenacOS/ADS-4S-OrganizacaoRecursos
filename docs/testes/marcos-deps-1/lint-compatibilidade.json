@@ -1,0 +1,131 @@
+{
+  "arquivosIguais": true,
+  "quantidade": 20,
+  "arquivos": [
+    {
+      "filePath": "backend/src/main/resources/static/js/api.js",
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "filePath": "backend/src/main/resources/static/js/auth.js",
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "filePath": "backend/src/main/resources/static/js/dashboard-page.js",
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "filePath": "backend/src/main/resources/static/js/datas.js",
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "filePath": "backend/src/main/resources/static/js/forms.js",
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "filePath": "backend/src/main/resources/static/js/login-page.js",
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "filePath": "backend/src/main/resources/static/js/navegacao.js",
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "filePath": "backend/src/main/resources/static/js/recursos-page.js",
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "filePath": "backend/src/main/resources/static/js/recursos.js",
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "filePath": "backend/src/main/resources/static/js/reservas.js",
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "filePath": "backend/src/main/resources/static/js/sessao-page.js",
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "filePath": "backend/src/main/resources/static/js/ui.js",
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "filePath": "eslint.config.js",
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "filePath": "playwright.config.js",
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "filePath": "tests/browser/acesso.spec.js",
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "filePath": "tests/browser/recursos.spec.js",
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "filePath": "tests/browser/static-server.mjs",
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "filePath": "tests/unit/frontend/clientes.test.js",
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "filePath": "tests/unit/frontend/forms.test.js",
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    {
+      "filePath": "tests/unit/frontend/recursos-datas.test.js",
+      "errorCount": 0,
+      "warningCount": 0
+    }
+  ],
+  "regras": [
+    {
+      "source": "const naoUsado = 1;",
+      "expectedRule": "no-unused-vars",
+      "actualRules": [
+        "no-unused-vars"
+      ],
+      "status": "PASS"
+    },
+    {
+      "source": "nomeInexistente();",
+      "expectedRule": "no-undef",
+      "actualRules": [
+        "no-undef"
+      ],
+      "status": "PASS"
+    },
+    {
+      "source": "export const valor = 1;",
+      "expectedRule": null,
+      "actualRules": [],
+      "status": "PASS"
+    }
+  ],
+  "eslint": "10.14.0"
+}
