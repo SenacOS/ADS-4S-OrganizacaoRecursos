@@ -17,7 +17,7 @@ class GatewayNotificacaoWireMockTest {
 
     @BeforeEach
     void iniciar() {
-        servidor = new WireMockServer(options().dynamicPort());
+        servidor = new WireMockServer(com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig().dynamicPort());
         servidor.start();
         gateway = new GatewayNotificacaoPadrao(
                 "http://localhost:" + servidor.port() + "/notificacoes", new ObjectMapper());
