@@ -25,12 +25,21 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 @RequestMapping("/api/usuarios")
 public class UsuarioAdminController {
+    private static final java.util.regex.Pattern CORRELACAO =
+            java.util.regex.Pattern.compile("[A-Za-z0-9._-]{1,64}");
+
     private final JdbcTemplate jdbc;
     private final PasswordEncoder senhas;
+    private final br.senac.recursos.reserva.aplicacao.AuditoriaPort auditoria;
+    private final java.time.Clock clock;
 
-    public UsuarioAdminController(JdbcTemplate jdbc, PasswordEncoder senhas) {
+    public UsuarioAdminController(JdbcTemplate jdbc, PasswordEncoder senhas,
+                                  br.senac.recursos.reserva.aplicacao.AuditoriaPort auditoria,
+                                  java.time.Clock clock) {
         this.jdbc = jdbc;
         this.senhas = senhas;
+        this.auditoria = auditoria;
+        this.clock = clock;
     }
 
     public record CriarUsuario(
@@ -41,7 +50,15 @@ public class UsuarioAdminController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Map<String, Long> cadastrar(@Valid @RequestBody CriarUsuario corpo) {
+    @org.springframework.transaction.annotation.Transactional
+    public Map<String, Long> cadastrar(
+            @Valid @RequestBody CriarUsuario corpo,
+            @org.springframework.security.core.annotation.AuthenticationPrincipal UsuarioPrincipal ator,
+            @org.springframework.web.bind.annotation.RequestHeader(
+                name = "X-Correlation-Id", required = false) String correlacaoRecebida) {
+        if (ator == null || ator.papel() != PapelAtor.ADMINISTRADOR) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Apenas administrador pode cadastrar usuários");
+        }
         var chave = new GeneratedKeyHolder();
         try {
             jdbc.update(connection -> {
@@ -60,6 +77,15 @@ public class UsuarioAdminController {
         }
         Number id = chave.getKey();
         if (id == null) throw new IllegalStateException("Banco não retornou o ID do usuário");
+        String correlacao = correlacaoRecebida != null
+                && CORRELACAO.matcher(correlacaoRecebida).matches()
+                ? correlacaoRecebida : java.util.UUID.randomUUID().toString();
+        // Nunca inclui e-mail, nome nem hash nos snapshots da auditoria.
+        auditoria.registrar(new br.senac.recursos.reserva.aplicacao.RegistroAuditoria(
+                "USUARIO", id.longValue(), ator.id(),
+                br.senac.recursos.reserva.dominio.AcaoReserva.CRIACAO,
+                null, "perfil=" + corpo.perfil().name() + "; ativo=true",
+                correlacao, clock.instant()));
         return Map.of("id", id.longValue());
     }
 }

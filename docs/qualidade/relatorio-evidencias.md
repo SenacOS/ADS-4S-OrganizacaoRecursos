@@ -16,16 +16,14 @@ evidências locais observadas de tarefas planejadas e de resultados ausentes.
 | 10/11/2026 | PR #9 / RF10 | `mvn -f backend/pom.xml clean verify` informado pela equipe após remoção das triggers que exigiam SUPER | BUILD SUCCESS local, incluindo integração MySQL |
 | 10/11/2026 22:17 | PR #10 / RF11, commit 8bc0efc | `mvn -f backend/pom.xml clean verify`; 90 classes analisadas pelo JaCoCo, `All coverage checks have been met` | BUILD SUCCESS local; limites de 80% LINE e 70% BRANCH atendidos |
 
-Não há percentuais **atuais exatos** de JaCoCo anexados aqui. A execução local
-ocorreu com Java 27 compilando para `--release 21` (conforme log), portanto
-a CI do PR #11 ja validou a **execucao efetiva em Java 21**, run 42944280415.
+Na CI Java 21 do PR #11 (run 42945777138), o XML JaCoCo registra **90,88% de linhas (1136/1250) e 73,46% de branches (335/456)**. Esses números são da versão do PR #11. Na CI do PR #12 (run 42949100353), os resultados atualizados foram **91,53% de linhas (1157/1264)** e **73,18% de branches (341/466)**.
 
 ## 2. Evidência esperada do novo PR de qualidade
 
 | Entrega | Arquivo(s) | Resultado atualmente verificável |
 |---|---|---|
 | Segurança 401/403/CSRF/ownership | `SegurancaComplementarTest`, `LoginMysqlIT`, `docs/qualidade/seguranca.md` | Suítes aprovadas na CI Java21 (7 testes MVC + 3 MySQL) |
-| CI e cobertura | `.github/workflows/ci.yml`, Surefire, Failsafe, JaCoCo | [Execução PR #11 em 10/11](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/42940260477): Maven/Testcontainers/JaCoCo **passaram**; job geral falhou apenas na checagem de credenciais SonarCloud. Workflow ajustado para pular Sonar pendente e preservar checks obrigatórios; nova execução deve ser verificada. |
+| CI e cobertura | `.github/workflows/ci.yml`, Surefire, Failsafe, JaCoCo | [Execução PR #11 42945777138](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/42945777138): **SUCCESS** nos jobs Maven/Testcontainers/JaCoCo e JMeter, com SonarCloud sinalizado como PENDENTE. |
 | SonarCloud | `.github/workflows/ci.yml`, `docs/qualidade/sonarcloud.md` | **Pendente de acesso de administrador da organização SenacOS**. Etapa opcional até configuração; não significa Quality Gate verde. |
 | JMeter | Quatro planos `.jmx`, CSV, script `rodar_local.py` e guia | **4 cenários aprovados na CI**, JTL/HTML/resultado.json arquivados (run 42945127066) |
 | RTM completa | `docs/RTM.md` | RF01–RF14 vinculados; lacunas marcadas |
@@ -62,11 +60,11 @@ da equipe, não atribuir aceite retroativamente.
 
 ## 5. Checklist para fechar evidências sem falsificar resultados
 
-- [ ] Java 21 real, Docker e `mvn -f backend/pom.xml clean verify` no PR de qualidade.
-- [ ] Arquivar XML Surefire/Failsafe, `target/site/jacoco/index.html` e XML.
+- [x] Java 21 real, Docker, `mvn clean verify` e JMeter aprovados na CI do PR #11 (run 42945777138).
+- [x] XML Surefire/Failsafe e JaCoCo HTML/XML arquivados no artefato `quality-evidence` do run 42945777138.
 - [ ] Criar projeto SonarCloud, configurar token/variáveis e arquivar URL do gate.
 - [x] JMeter: 4 cenarios executados com MySQL isolado; JTL/HTML/JSON no artefato do run 42945127066.
-- [ ] Relacionar cada caso executado à RTM, defeito ou risco.
+- [x] RF01–RF14 rastreados na RTM; lacunas identificadas explicitamente.
 - [ ] Rever API de consultas/ownership e contrato com os responsáveis.
 - [ ] Validar E2E, TDD RED/GREEN/REFACTOR com seus respectivos autores.
 - [ ] Integrar PR #8 → #9 → #10 → PR de qualidade; revisão externa e CI verde.
@@ -84,3 +82,12 @@ Fonte: [run 42945127066](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/a
 
 Carga pequena, em runner compartilhado com banco descartavel; nao constitui SLA de producao.
 Detalhes: [evidencias de carga](jmeter/evidencias-2026-11-10.md).
+
+## 7. Lacunas complementares tratadas no PR #12
+
+- CT17: login com MySQL, logout com CSRF e invalidação da sessão HTTP.
+- RF11: timeout de 6 segundos no WireMock diante do timeout de 5 segundos do cliente HTTP.
+- RF10: cadastro administrativo de usuários com auditoria transacional, snapshots sem nome, e-mail ou senha, incluindo testes MySQL.
+- Cookie de sessão: `HttpOnly=true`, `SameSite=Lax`; em HTTPS, a variável `SESSION_COOKIE_SECURE=true` é obrigatória para o ambiente de deploy (padrão false somente para HTTP local).
+
+**Resultado do PR #12:** CI verde em [42949100353](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/42949100353): **207 testes unitários/API, 33 de integração, zero falhas**, JaCoCo acima das metas e JMeter quatro cenários aprovado. Revisão e integração continuam pendentes.

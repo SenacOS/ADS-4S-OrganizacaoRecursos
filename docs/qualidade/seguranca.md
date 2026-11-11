@@ -37,3 +37,12 @@ mínimo de 80% LINE e 70% BRANCH no bundle.
   prova comportamento do navegador em produção.
 - Expor apenas API de teste local; não usar credenciais de usuários reais.
 - Os testes novos **foram executados na CI do PR #11**: SegurancaComplementarTest (7) e LoginMysqlIT (3), 0 falhas no [run 42944280415](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/42944280415). XML disponível no artefato quality-evidence.
+
+## Testes complementares do PR #12 (executados na CI)
+
+- `LoginMysqlIT.logoutComCsrfInvalidaSessaoRealEImpedeAcesso`: CT17 com login no MySQL, CSRF, invalidação real da `MockHttpSession` e 401 após logout.
+- `GatewayNotificacaoWireMockTest.timeoutNoGatewayEhFalhaDeEntregaSemExporRespostaInterna`: servidor atrasa 6s; cliente HTTP tem timeout de 5s; erro tratado, sem resposta interna.
+- `UsuarioAuditoriaMysqlIT` e `AuditoriaResumoTest`: auditoria de criação de usuário no mesmo commit, com ator e correlação, sem nome, e-mail ou senha no histórico.
+- `application.yml`: cookie `HttpOnly` e `SameSite=Lax`. Para HTTPS habilitar `SESSION_COOKIE_SECURE=true`; não confundir testes HTTP locais com validação de cookie real em HTTPS.
+
+**Resultado confirmado:** [GitHub Actions 42949100353](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/42949100353), 240 testes aprovados, sem falhas; 91,53% linhas e 73,18% branches. Os testes HTTP locais não comprovam flags Secure em HTTPS real.

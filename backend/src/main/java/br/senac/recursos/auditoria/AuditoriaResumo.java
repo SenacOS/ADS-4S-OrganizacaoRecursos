@@ -22,6 +22,10 @@ final class AuditoriaResumo {
             if (ids.find()) campos.add("recursos=[" + ids.group(1) + "]");
             return resumo(campos);
         }
+        if ("USUARIO".equals(entidade)) {
+            // Somente dados de autorização. Exclui email, nome e credenciais.
+            return resumo(campos(valor, "perfil", "ativo"));
+        }
         if ("RECURSO".equals(entidade)) {
             return resumo(campos(valor, "tipo", "ativo", "restrito", "capacidade"));
         }

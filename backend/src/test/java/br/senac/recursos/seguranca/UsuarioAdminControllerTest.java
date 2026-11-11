@@ -18,7 +18,12 @@ import org.springframework.web.server.ResponseStatusException;
 
 class UsuarioAdminControllerTest {
     private final JdbcTemplate jdbc = mock(JdbcTemplate.class);
-    private final UsuarioAdminController controller = new UsuarioAdminController(jdbc, new BCryptPasswordEncoder());
+    private final br.senac.recursos.reserva.aplicacao.AuditoriaPort auditoria =
+            mock(br.senac.recursos.reserva.aplicacao.AuditoriaPort.class);
+    private final UsuarioAdminController controller = new UsuarioAdminController(
+            jdbc, new BCryptPasswordEncoder(), auditoria, java.time.Clock.systemUTC());
+    private final UsuarioPrincipal administrador = new UsuarioPrincipal(
+            7, "admin@teste.local", "hash", PapelAtor.ADMINISTRADOR, true);
     private final UsuarioAdminController.CriarUsuario usuario =
             new UsuarioAdminController.CriarUsuario("Ana", "ana@example.com", "senha-MuitoForte123", PapelAtor.SOLICITANTE);
 
@@ -29,18 +34,29 @@ class UsuarioAdminControllerTest {
                     holder.getKeyList().add(Map.of("GENERATED_KEY", 42L));
                     return 1;
                 });
-        assertEquals(42L, controller.cadastrar(usuario).get("id"));
+        assertEquals(42L, controller.cadastrar(usuario, administrador, "cadastro-qualidade").get("id"));
+        var captor = org.mockito.ArgumentCaptor.forClass(
+                br.senac.recursos.reserva.aplicacao.RegistroAuditoria.class);
+        org.mockito.Mockito.verify(auditoria).registrar(captor.capture());
+        var evento = captor.getValue();
+        assertEquals("USUARIO", evento.entidade());
+        assertEquals(42L, evento.entidadeId());
+        assertEquals(7L, evento.atorId());
+        assertEquals("cadastro-qualidade", evento.correlacaoId());
+        org.junit.jupiter.api.Assertions.assertTrue(evento.depois().contains("perfil=SOLICITANTE"));
+        org.junit.jupiter.api.Assertions.assertFalse(evento.depois().contains("ana@example.com"));
+        org.junit.jupiter.api.Assertions.assertFalse(evento.depois().contains("senha-MuitoForte123"));
     }
 
     @Test void emailDuplicadoRetornaConflito() {
         when(jdbc.update(any(PreparedStatementCreator.class), any(KeyHolder.class)))
                 .thenThrow(new DuplicateKeyException("unique"));
-        var ex = assertThrows(ResponseStatusException.class, () -> controller.cadastrar(usuario));
+        var ex = assertThrows(ResponseStatusException.class, () -> controller.cadastrar(usuario, administrador, "cadastro-qualidade"));
         assertEquals(409, ex.getStatusCode().value());
     }
 
     @Test void ausenciaDeIdNaoEhIgnorada() {
         when(jdbc.update(any(PreparedStatementCreator.class), any(KeyHolder.class))).thenReturn(1);
-        assertThrows(IllegalStateException.class, () -> controller.cadastrar(usuario));
+        assertThrows(IllegalStateException.class, () -> controller.cadastrar(usuario, administrador, "cadastro-qualidade"));
     }
 }
