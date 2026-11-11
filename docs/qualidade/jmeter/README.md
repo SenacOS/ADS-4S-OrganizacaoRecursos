@@ -6,13 +6,13 @@ local e **nunca devem apontar para produção ou serviços de terceiros**.
 
 ## Preparar ambiente antes da execução
 - Java 21, Maven, Docker/MySQL 8.4, Apache JMeter 5.6.x.
-- Subir backend local com \`recursos.api.enabled=true\` e
-  \`reservas.api.enabled=true\`. O padrão no \`application.yml\` é **false**.
+- Subir backend local com `recursos.api.enabled=true` e
+  `reservas.api.enabled=true`. O padrão no `application.yml` é **false**.
 - Usar banco de teste isolado e credenciais **fictícias** de Solicitante e
   Administrador com sessão HTTP e cookie (sem tokens reais).
 - Criar antes da carga recursos disponíveis e configurar expediente contendo
   todo o intervalo informado. Confirmar que o calendário local e UTC batem.
-- Preparar \`dados-recursos-exemplo.csv\`: os IDs 101–105 são **apenas exemplos**;
+- Preparar `dados-recursos-exemplo.csv`: os IDs 101–105 são **apenas exemplos**;
   substitua por IDs reais e diferentes que existam no banco de teste.
 - Antes de cada execução de disputa, limpar reservas/bloqueios do intervalo
   sem tocar em dados de terceiros. Não faça DELETE em banco compartilhado.
@@ -23,10 +23,10 @@ local e **nunca devem apontar para produção ou serviços de terceiros**.
 
 | Plano | Grupo(s) | Amostra principal | Esperado |
 |---|---|---|---|
-| \`01-consultas.jmx\` | Solicitantes autenticados | GET /api/recursos | 200, tempo p50/p95/p99, taxa de erro |
-| \`02-disputa-reserva.jmx\` | 8 solicitantes simultâneos | POST /api/reservas com mesmo recurso e intervalo | Uma 201, demais 409 sob banco inicial vazio |
-| \`03-recursos-distintos.jmx\` | 5 solicitantes com CSV de recursos distintos | POST /api/reservas | 201 para cada usuário, throughput sem lock global |
-| \`04-manutencao-vs-reserva.jmx\` | Solicitante e Admin | POST /api/reservas e POST /api/recursos/{id}/bloqueios | Uma operação válida e outra conflito 409, sem agenda contraditória |
+| `01-consultas.jmx` | Solicitantes autenticados | GET /api/recursos | 200, tempo p50/p95/p99, taxa de erro |
+| `02-disputa-reserva.jmx` | 8 solicitantes simultâneos | POST /api/reservas com mesmo recurso e intervalo | Uma 201, demais 409 sob banco inicial vazio |
+| `03-recursos-distintos.jmx` | 5 solicitantes com CSV de recursos distintos | POST /api/reservas | 201 para cada usuário, throughput sem lock global |
+| `04-manutencao-vs-reserva.jmx` | Solicitante e Admin | POST /api/reservas e POST /api/recursos/{id}/bloqueios | Uma operação válida e outra conflito 409, sem agenda contraditória |
 
 Cada thread faz GET CSRF → POST login (form URL-encoded) → GET CSRF novamente
 (renovado após login) antes da chamada de negócio. As sessões não são compartilhadas
@@ -41,7 +41,7 @@ Valide estados e contagens no MySQL **depois** da execução; não avalie só st
 
 Ajustar argumentos de acordo com o ambiente; usar SOMENTE contas artificiais.
 
-\`\`\`bash
+```bash
 # Exemplo: teste de consulta com 5 threads, 10 consultas por thread
 jmeter -n -t docs/qualidade/jmeter/01-consultas.jmx \
   -l consulta.jtl -e -o relatorio-consulta \
@@ -72,27 +72,27 @@ jmeter -n -t docs/qualidade/jmeter/04-manutencao-vs-reserva.jmx \
   -JemailAdmin=admin@teste.local -JsenhaAdmin=SENHA_ADMIN_TESTE \
   -JrecursoConflito=101 -Jthreads=1 -JthreadsAdmin=1 -Jramp=1 \
   -Jinicio=2026-11-13T14:00:00-03:00 -Jfim=2026-11-13T15:00:00-03:00
-\`\`\`
+```
 
 As datas acima são **exemplos**: devem estar no futuro em relação ao relógio da
 aplicação e dentro do expediente. Caso o período já tenha passado, troque por datas
 futuras. Os relatórios HTML exigem diretório de saída ainda inexistente.
 
 ## Consolidar métricas
-\`\`\`bash
+```bash
 python3 docs/qualidade/jmeter/analisar_jtl.py consulta.jtl --cenario consultas
 python3 docs/qualidade/jmeter/analisar_jtl.py disputa.jtl --cenario disputa
 python3 docs/qualidade/jmeter/analisar_jtl.py distintos.jtl --cenario distintos
 python3 docs/qualidade/jmeter/analisar_jtl.py manutencao.jtl --cenario manutencao
-\`\`\`
+```
 
 O analisador informa throughput, p50/p95/p99, sucessos HTTP, 409 esperados e
-falhas inesperadas por amostra, sem inventar números. Anexar saída, \`.jtl\` e
+falhas inesperadas por amostra, sem inventar números. Anexar saída, `.jtl` e
 dashboard HTML **somente após executar**. Sem .jtl não há medição.
 
 ## Consultas SQL após a disputa (em banco isolado)
 
-\`\`\`sql
+```sql
 -- Contagem de reservas ativas para recurso e período de teste
 SELECT r.status, COUNT(*) AS quantidade
 FROM reservas r
@@ -106,7 +106,7 @@ GROUP BY r.status;
 SELECT id, recurso_id, status, inicio_utc, fim_utc
 FROM bloqueios_recursos
 WHERE recurso_id = 101 AND status = 'ATIVO';
-\`\`\`
+```
 
 **Corrigir datas UTC** e ID ao seu cenário (10h–11h -03:00 = 13h–14h UTC).
 Uma única reserva ativa deve existir no cenário de mesmo recurso/horário; no

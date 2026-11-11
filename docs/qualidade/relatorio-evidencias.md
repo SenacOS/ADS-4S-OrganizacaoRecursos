@@ -11,24 +11,24 @@ evidências locais observadas de tarefas planejadas e de resultados ausentes.
 
 | Data (America/Sao_Paulo) | Branch/escopo | Comando/evidência observada | Resultado |
 |---|---|---|---|
-| 09/11/2026 | Item18 do Fausto, antes do RF01 | \`docs/testes/item18-resultados.md\`: 167 testes unitários/API, 15 de integração MySQL/Testcontainers, Java 21, JaCoCo 90,81% linhas e 75,0% branches | Aprovado **naquela versão**; não representa o build atual |
-| 10/11/2026 | PR #8 / RF01 | \`mvn -f backend/pom.xml clean verify\` informado pela equipe | BUILD SUCCESS local após correções de segurança, cobertura atendida |
-| 10/11/2026 | PR #9 / RF10 | \`mvn -f backend/pom.xml clean verify\` informado pela equipe após remoção das triggers que exigiam SUPER | BUILD SUCCESS local, incluindo integração MySQL |
-| 10/11/2026 22:17 | PR #10 / RF11, commit 8bc0efc | \`mvn -f backend/pom.xml clean verify\`; 90 classes analisadas pelo JaCoCo, \`All coverage checks have been met\` | BUILD SUCCESS local; limites de 80% LINE e 70% BRANCH atendidos |
+| 09/11/2026 | Item18 do Fausto, antes do RF01 | `docs/testes/item18-resultados.md`: 167 testes unitários/API, 15 de integração MySQL/Testcontainers, Java 21, JaCoCo 90,81% linhas e 75,0% branches | Aprovado **naquela versão**; não representa o build atual |
+| 10/11/2026 | PR #8 / RF01 | `mvn -f backend/pom.xml clean verify` informado pela equipe | BUILD SUCCESS local após correções de segurança, cobertura atendida |
+| 10/11/2026 | PR #9 / RF10 | `mvn -f backend/pom.xml clean verify` informado pela equipe após remoção das triggers que exigiam SUPER | BUILD SUCCESS local, incluindo integração MySQL |
+| 10/11/2026 22:17 | PR #10 / RF11, commit 8bc0efc | `mvn -f backend/pom.xml clean verify`; 90 classes analisadas pelo JaCoCo, `All coverage checks have been met` | BUILD SUCCESS local; limites de 80% LINE e 70% BRANCH atendidos |
 
 Não há percentuais **atuais exatos** de JaCoCo anexados aqui. A execução local
-ocorreu com Java 27 compilando para \`--release 21\` (conforme log), portanto
+ocorreu com Java 27 compilando para `--release 21` (conforme log), portanto
 a CI ainda precisa validar a **execução efetiva em Java 21**.
 
 ## 2. Evidência esperada do novo PR de qualidade
 
 | Entrega | Arquivo(s) | Resultado atualmente verificável |
 |---|---|---|
-| Segurança 401/403/CSRF/ownership | \`SegurancaComplementarTest\`, \`LoginMysqlIT\`, \`docs/qualidade/seguranca.md\` | Suítes implementadas, **não executadas** |
-| CI e cobertura | \`.github/workflows/ci.yml\`, Surefire, Failsafe, JaCoCo | Workflow proposto; sem execução CI/URL de artefato |
-| SonarCloud | \`.github/workflows/ci.yml\`, \`docs/qualidade/sonarcloud.md\` | Configuração pronta, **chaves, token e análise pendentes** |
-| JMeter | Quatro planos \`.jmx\`, CSV e \`docs/qualidade/jmeter/README.md\` | Cenários gerados, sem medição \`.jtl\` |
-| RTM completa | \`docs/RTM.md\` | RF01–RF14 vinculados; lacunas marcadas |
+| Segurança 401/403/CSRF/ownership | `SegurancaComplementarTest`, `LoginMysqlIT`, `docs/qualidade/seguranca.md` | Suítes implementadas, **não executadas** |
+| CI e cobertura | `.github/workflows/ci.yml`, Surefire, Failsafe, JaCoCo | Workflow proposto; sem execução CI/URL de artefato |
+| SonarCloud | `.github/workflows/ci.yml`, `docs/qualidade/sonarcloud.md` | Configuração pronta, **chaves, token e análise pendentes** |
+| JMeter | Quatro planos `.jmx`, CSV e `docs/qualidade/jmeter/README.md` | Cenários gerados, sem medição `.jtl` |
+| RTM completa | `docs/RTM.md` | RF01–RF14 vinculados; lacunas marcadas |
 | E2E / UX | Testes de Marcos e evidências de tela | Aguardando execução/integração do frontend |
 | ATAM / aceite | Registro abaixo | Análise preliminar, validação coletiva pendente |
 
@@ -36,11 +36,11 @@ a CI ainda precisa validar a **execução efetiva em Java 21**.
 
 | ID | Defeito | Evidência / causa | Ação e estado |
 |---|---|---|---|
-| DEF-01 | Conflito POM ao integrar MySQL + segurança | PR #8, \`backend/pom.xml\`; dependências divergentes | Resolvido localmente e publicado no PR #8 |
-| DEF-02 | Quatro respostas HTTP erradas em \`Item18ApiTest\` | Interceptação nova por autenticação/CSRF, esperado 200/404/409 virou 401/403 | Testes adaptados à segurança, build local aprovado |
-| DEF-03 | Teste antigo exigia ausência de provedor de ator | \`Item18MysqlIT\` incompatível com RF01 | Teste corrigido, build local aprovado |
+| DEF-01 | Conflito POM ao integrar MySQL + segurança | PR #8, `backend/pom.xml`; dependências divergentes | Resolvido localmente e publicado no PR #8 |
+| DEF-02 | Quatro respostas HTTP erradas em `Item18ApiTest` | Interceptação nova por autenticação/CSRF, esperado 200/404/409 virou 401/403 | Testes adaptados à segurança, build local aprovado |
+| DEF-03 | Teste antigo exigia ausência de provedor de ator | `Item18MysqlIT` incompatível com RF01 | Teste corrigido, build local aprovado |
 | DEF-04 | Falha Flyway MySQL 1419 ao criar triggers | Log RF10: binary logging e falta de privilégio SUPER | Triggers retiradas da V3; restrição de grants SQL ainda pendente para ambiente real |
-| DEF-05 | Falha de compilação WireMock (\`options()\`) | PR #10, \`GatewayNotificacaoWireMockTest.java\` | Configurador de WireMock qualificado, build local aprovado |
+| DEF-05 | Falha de compilação WireMock (`options()`) | PR #10, `GatewayNotificacaoWireMockTest.java` | Configurador de WireMock qualificado, build local aprovado |
 | DEF-06 | PR #7 de CI em conflito e sem SonarCloud | Verificar PR #7 antes do merge | **Aberto**: conciliar workflows, credenciais e CI |
 | DEF-07 | Consulta de reservas e IDOR GET sem endpoint | API de reservas atual tem apenas escritas | **Aberto**: definir porta GET e teste integrado com Silva/Marcos |
 | DEF-08 | Ausência de dados JMeter e dashboard Sonar | Nenhum resultado publicado | **Aberto**: executar e anexar evidências reais |
@@ -49,7 +49,7 @@ a CI ainda precisa validar a **execução efetiva em Java 21**.
 
 | Cenário | Atributo | Decisão | Benefício | Risco/trade-off | Verificação |
 |---|---|---|---|---|---|
-| Duas reservas mesmo horário | Consistência | Lock \`FOR UPDATE\` e READ_COMMITTED | Evita dupla reserva | Contenção e timeouts | Item18MysqlIT + JMeter disputa |
+| Duas reservas mesmo horário | Consistência | Lock `FOR UPDATE` e READ_COMMITTED | Evita dupla reserva | Contenção e timeouts | Item18MysqlIT + JMeter disputa |
 | Falha na entrega de notificação | Disponibilidade | Outbox transacional + retry | Não desfaz a reserva | Pode entregar mais de uma vez | NotificacaoMysqlIT + WireMock |
 | Mudança auditável com rollback | Auditabilidade | Auditoria na mesma transação | Não cria trilhas órfãs | Rollback também elimina a tentativa malsucedida; acessos SQL elevados podem alterar histórico sem grants | AuditoriaMysqlIT + permissões de banco |
 | Sessão HTTP/CSRF | Segurança | Cookie HttpOnly, autenticação Spring, CSRF | Evita papel vindo do cliente | Configurar Secure/SameSite em HTTPS; renovar sessão corretamente | SecurityConfigTest, LoginMysqlIT, revisão de deploy |
@@ -63,8 +63,8 @@ da equipe, não atribuir aceite retroativamente.
 
 ## 5. Checklist para fechar evidências sem falsificar resultados
 
-- [ ] Java 21 real, Docker e \`mvn -f backend/pom.xml clean verify\` no PR de qualidade.
-- [ ] Arquivar XML Surefire/Failsafe, \`target/site/jacoco/index.html\` e XML.
+- [ ] Java 21 real, Docker e `mvn -f backend/pom.xml clean verify` no PR de qualidade.
+- [ ] Arquivar XML Surefire/Failsafe, `target/site/jacoco/index.html` e XML.
 - [ ] Criar projeto SonarCloud, configurar token/variáveis e arquivar URL do gate.
 - [ ] Rodar os quatro cenários JMeter com massa isolada e guardar JTL/HTML/SQL final.
 - [ ] Relacionar cada caso executado à RTM, defeito ou risco.
