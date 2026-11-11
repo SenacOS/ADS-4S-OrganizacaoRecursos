@@ -23,3 +23,8 @@ movimentacoes:
 reservas:
   api:
     enabled: false
+notificacoes:
+  worker:
+    enabled: ${NOTIFICACOES_WORKER_ENABLED:false}
+  gateway:
+    url: ${NOTIFICACOES_GATEWAY_URL:}
