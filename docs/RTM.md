@@ -22,6 +22,8 @@ deve ser interpretada como aprovação final de CI ou Sonar sem relatório publi
 | RF13 — UX e mensagens de erro | Erro 500 indevido, mensagens inadequadas | ReservaExceptionHandler, ErroApi, componentes JS de Marcos por integrar | ReservaControllerTest, Item18ApiTest; E2E de Marcos pendente | Backend local; E2E e experiência real pendentes |
 | RF14 — Contrato/API | Divergência frontend/backend | docs/api/reservas-contrato.md, docs/api/item18.md, controllers | ReservaControllerTest, Item18ApiTest, revisão de Marcos | **Parcial:** contrato PROPOSTO, revisão e disponibilidade endpoint ainda pendentes |
 
+Os testes Item18MysqlIT usam MySQL real/Testcontainers e transações independentes. O cenário BDD está em [docs/testes/item18-bdd.feature](testes/item18-bdd.feature); as asserções são executadas em JUnit, sem dependência Cucumber.
+
 ## Evidência verificável (não confundir com planos)
 
 - [Execução histórica do Item18](testes/item18-resultados.md): datada de 09/11/2026,
