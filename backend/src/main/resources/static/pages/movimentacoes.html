@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light"><title>Movimentações · Organização de Recursos</title>
+  <link rel="stylesheet" href="/css/app.css"><link rel="stylesheet" href="/css/movimentacoes.css">
+  <script type="module" src="/js/movimentacoes-page.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+  <div id="estado-sessao" class="session-check">
+    <div class="brand brand-dark"><span class="brand-mark" aria-hidden="true">OR</span><span>Organização de Recursos</span></div>
+    <p id="feedback-inicial" class="feedback" role="status" aria-live="polite" tabindex="-1">Verificando seu acesso…</p>
+    <p id="referencia-inicial" class="support-reference" hidden></p>
+    <button id="tentar-sessao" class="button button-secondary" type="button" hidden>Tentar novamente</button>
+    <noscript><p>Ative o JavaScript no navegador para acessar o sistema.</p></noscript>
+  </div>
+  <div id="painel" class="app-layout" hidden>
+    <aside class="sidebar">
+      <a class="brand" href="/index.html" aria-label="Organização de Recursos, início"><span class="brand-mark" aria-hidden="true">OR</span><span>Organização<br>de Recursos</span></a>
+      <p class="sidebar-label">SEU ESPAÇO</p><nav aria-label="Navegação principal"><ul id="navegacao" class="nav-list"></ul></nav>
+      <div class="sidebar-footer">Recursos bem compartilhados.</div>
+    </aside>
+    <div class="app-main">
+      <header class="topbar"><p class="breadcrumb">Seu espaço <span aria-hidden="true">/</span> <strong>Movimentações</strong></p><form id="form-logout"><button class="button button-secondary" type="submit">Sair da conta</button></form></header>
+      <main id="conteudo" class="dashboard-content" tabindex="-1">
+        <div class="page-heading"><div><p class="eyebrow">CUIDADO COM OS MATERIAIS</p><h1>Da retirada ao retorno.</h1></div><span id="perfil-badge" class="profile-badge"></span></div>
+        <p class="page-description">Acompanhe os materiais em uso e registre seu retorno. Uma retirada permanece aberta até a devolução confirmada.</p>
+        <p id="perfil-leitura" class="schedule-panel" hidden>Seu perfil permite consultar as pendências. Retirada e devolução são operações do Responsável.</p>
+        <p id="feedback-painel" class="feedback" role="status" aria-live="polite" tabindex="-1" hidden></p><p id="referencia-painel" class="support-reference" hidden></p>
+        <fieldset id="controles-mov" class="movement-controls"><legend class="sr-only">Movimentações de materiais</legend>
+          <section id="retirada" class="account-panel" aria-labelledby="retirada-title" hidden>
+            <div class="section-heading"><h2 id="retirada-title">Registrar retirada</h2><span class="muted">Responsável</span></div>
+            <form id="form-pesquisa-material">
+              <div class="filters-grid">
+                <div><label for="numero-reserva">Número da reserva</label><input id="numero-reserva" type="number" min="1" step="1" max="9007199254740991" inputmode="numeric" aria-describedby="reserva-ajuda"></div>
+                <div><label for="patrimonio-material">Buscar por patrimônio</label><input id="patrimonio-material" type="search" maxlength="80" placeholder="Ex.: PAT-01"></div>
+              </div>
+              <p id="reserva-ajuda" class="field-help">Use o número apresentado no comprovante da reserva. Escolha o material; o vínculo, o estado da reserva e o horário serão conferidos ao registrar.</p>
+              <button class="button button-secondary" type="submit">Pesquisar materiais</button>
+            </form>
+            <p id="feedback-materiais" class="feedback" role="status" aria-live="polite" tabindex="-1" hidden></p><p id="referencia-materiais" class="support-reference" hidden></p>
+            <p id="resumo-materiais" role="status">Pesquise o patrimônio para escolher uma unidade.</p><div id="materiais" class="movement-materials"></div>
+            <nav class="pagination" aria-label="Páginas de materiais"><button id="anterior-material" class="button button-secondary" type="button" disabled>Anterior</button><span id="pagina-material">Nenhuma consulta</span><button id="seguinte-material" class="button button-secondary" type="button" disabled>Próxima</button></nav>
+            <form id="form-retirada" class="movement-confirm" hidden>
+              <p id="alvo-retirada"></p>
+              <label class="movement-check"><input id="confirmar-retirada" type="checkbox" required> Conferi a reserva e o patrimônio e confirmo a retirada deste material.</label>
+              <button class="button button-primary" type="submit">Confirmar retirada</button>
+            </form>
+            <div id="confirmacao-retirada" class="confirmation-panel" tabindex="-1" hidden><h3>Retirada confirmada</h3><p id="detalhes-retirada"></p><button id="outra-retirada" class="button button-secondary" type="button">Registrar outra retirada</button></div>
+            <p id="feedback-retirada" class="feedback" role="status" aria-live="polite" tabindex="-1" hidden></p><p id="referencia-retirada" class="support-reference" hidden></p>
+          </section>
+          <section class="account-panel" aria-labelledby="pendencias-title">
+            <div class="section-heading"><h2 id="pendencias-title">Retiradas abertas</h2><form id="form-pendencias"><button class="button button-secondary" type="submit">Atualizar pendências</button></form></div>
+            <p class="field-help">Prazo ultrapassado é uma estimativa pelo relógio deste navegador. O material continua pendente até a devolução; o atraso final vem do servidor.</p>
+            <p id="feedback-pendencias" class="feedback" role="status" aria-live="polite" tabindex="-1" hidden></p><p id="referencia-pendencias" class="support-reference" hidden></p>
+            <p id="resumo-pendencias" role="status">Consultando retiradas abertas…</p><div id="pendencias" class="movement-list"></div>
+            <form id="form-devolucao" class="movement-confirm" hidden>
+              <h3>Conferir devolução</h3><p id="alvo-devolucao"></p>
+              <label class="movement-check"><input id="confirmar-devolucao" type="checkbox" required> Recebi o material identificado e confirmo sua devolução.</label>
+              <div class="form-actions"><button class="button button-primary" type="submit">Confirmar devolução</button><button id="voltar-devolucao" class="button button-secondary" type="button">Voltar sem devolver</button></div>
+            </form>
+            <div id="confirmacao-devolucao" class="confirmation-panel" tabindex="-1" hidden><h3>Devolução confirmada</h3><p id="detalhes-devolucao"></p><p>A disponibilidade continua sujeita às reservas e aos períodos de manutenção.</p></div>
+            <p id="feedback-devolucao" class="feedback" role="status" aria-live="polite" tabindex="-1" hidden></p><p id="referencia-devolucao" class="support-reference" hidden></p>
+          </section>
+        </fieldset>
+        <footer class="dashboard-footer">Organização de Recursos <span>Fuso: America/Sao_Paulo</span></footer>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
