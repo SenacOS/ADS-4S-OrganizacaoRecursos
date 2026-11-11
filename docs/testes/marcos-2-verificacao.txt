@@ -1,0 +1,98 @@
+Execução local em 10/11/2026 — Marcos-2
+Comando: PLAYWRIGHT_CHANNEL=chrome npm run build (variável definida no PowerShell)
+Node v24.22.2 / npm 11.19.1 / Playwright 1.65.0 / Chrome headless
+Resultado: exit code 0
+
+> build
+> npm run lint && npm run typecheck && npm test
+
+
+> lint
+> eslint backend/src/main/resources/static/js tests/unit/frontend tests/browser eslint.config.js playwright.config.js
+
+
+> typecheck
+> tsc --project jsconfig.json
+
+
+> test
+> npm run test:unit && npm run test:browser
+
+
+> test:unit
+> node --test tests/unit/frontend/*.test.js
+
+✔ GET usa sessão e não busca CSRF; me devolve perfil (26.7115ms)
+✔ POST envia CSRF dinâmico e sessão (0.8ms)
+✔ PUT envia CSRF dinâmico e sessão (0.4748ms)
+✔ PATCH envia CSRF dinâmico e sessão (0.3793ms)
+✔ DELETE envia CSRF dinâmico e sessão (0.3885ms)
+✔ login codifica email/senha como formulário e aceita 204; logout renova CSRF (3.6488ms)
+✔ credenciais inválidas ficam no login; sessão ausente aciona redirecionamento (1.3834ms)
+✔ erro 400 preserva contrato e não repete escrita (0.8595ms)
+✔ erro 403 preserva contrato e não repete escrita (0.3917ms)
+✔ erro 404 preserva contrato e não repete escrita (0.4038ms)
+✔ erro 409 preserva contrato e não repete escrita (0.3412ms)
+✔ 403 invalida token para próxima ação explícita, sem replay da anterior (0.527ms)
+✔ PATCH completo preserva offset e remove campos de identidade/status (0.4566ms)
+✔ datas sem offset, fim não posterior e recursos inválidos falham antes do fetch (0.3263ms)
+✔ cancelamento, aprovação e rejeição usam rotas e motivo contratados (0.6161ms)
+✔ somente RESPONSAVEL recebe conveniência visual de aprovação (0.1105ms)
+✔ falha de rede e HTML inesperado não vazam detalhes nem repetem escrita (0.7137ms)
+✔ CSRF ausente não permite escrita e falha inicial pode ser recuperada (0.4291ms)
+✔ origem externa e correlação inválida falham antes de buscar token (0.3983ms)
+✔ escritas paralelas compartilham somente a busca de CSRF (0.3758ms)
+✔ guard ignora duplo envio, indica busy e restaura controles em sucesso e erro (1.2414ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 167.3674
+
+> test:browser
+> playwright test
+
+[WebServer] (node:19512) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 30 tests using 1 worker
+
+(node:22612) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [desktop] › tests\browser\acesso.spec.js:61:1 › login por teclado envia formulário e CSRF, depois consulta o perfil (723ms)
+  ok  2 [desktop] › tests\browser\acesso.spec.js:81:1 › credenciais inválidas preservam formulário e mostram HTML como texto (463ms)
+  ok  3 [desktop] › tests\browser\acesso.spec.js:96:1 › envios simultâneos de login executam uma escrita e indicam busy (474ms)
+  ok  4 [desktop] › tests\browser\acesso.spec.js:111:1 › sessão expirada volta ao login sem loop nem dados privados (420ms)
+  ok  5 [desktop] › tests\browser\acesso.spec.js:122:1 › sessão já válida evita novo login e ignora destinos externos (412ms)
+  ok  6 [desktop] › tests\browser\acesso.spec.js:131:3 › navegação do perfil SOLICITANTE sem ações ou links indevidos (358ms)
+  ok  7 [desktop] › tests\browser\acesso.spec.js:131:3 › navegação do perfil RESPONSAVEL sem ações ou links indevidos (366ms)
+  ok  8 [desktop] › tests\browser\acesso.spec.js:131:3 › navegação do perfil ADMINISTRADOR sem ações ou links indevidos (363ms)
+  ok  9 [desktop] › tests\browser\acesso.spec.js:143:1 › logout usa CSRF e confirma saída somente após 204 (671ms)
+  ok 10 [desktop] › tests\browser\acesso.spec.js:155:1 › falha no logout restaura botão e não afirma sessão encerrada (408ms)
+  ok 11 [desktop] › tests\browser\acesso.spec.js:168:1 › envios simultâneos de logout executam uma escrita (590ms)
+  ok 12 [desktop] › tests\browser\acesso.spec.js:182:1 › falha na leitura da sessão mantém painel oculto e permite nova leitura (378ms)
+  ok 13 [desktop] › tests\browser\acesso.spec.js:195:1 › perfil não reconhecido não revela painel nem ações (296ms)
+  ok 14 [desktop] › tests\browser\acesso.spec.js:202:1 › 403 no login não repete envio; nova ação busca outro token (601ms)
+  ok 15 [desktop] › tests\browser\acesso.spec.js:218:1 › login e entrada cabem na viewport sem rolagem horizontal (662ms)
+(node:16844) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 16 [mobile] › tests\browser\acesso.spec.js:61:1 › login por teclado envia formulário e CSRF, depois consulta o perfil (592ms)
+  ok 17 [mobile] › tests\browser\acesso.spec.js:81:1 › credenciais inválidas preservam formulário e mostram HTML como texto (405ms)
+  ok 18 [mobile] › tests\browser\acesso.spec.js:96:1 › envios simultâneos de login executam uma escrita e indicam busy (470ms)
+  ok 19 [mobile] › tests\browser\acesso.spec.js:111:1 › sessão expirada volta ao login sem loop nem dados privados (366ms)
+  ok 20 [mobile] › tests\browser\acesso.spec.js:122:1 › sessão já válida evita novo login e ignora destinos externos (436ms)
+  ok 21 [mobile] › tests\browser\acesso.spec.js:131:3 › navegação do perfil SOLICITANTE sem ações ou links indevidos (340ms)
+  ok 22 [mobile] › tests\browser\acesso.spec.js:131:3 › navegação do perfil RESPONSAVEL sem ações ou links indevidos (415ms)
+  ok 23 [mobile] › tests\browser\acesso.spec.js:131:3 › navegação do perfil ADMINISTRADOR sem ações ou links indevidos (347ms)
+  ok 24 [mobile] › tests\browser\acesso.spec.js:143:1 › logout usa CSRF e confirma saída somente após 204 (641ms)
+  ok 25 [mobile] › tests\browser\acesso.spec.js:155:1 › falha no logout restaura botão e não afirma sessão encerrada (474ms)
+  ok 26 [mobile] › tests\browser\acesso.spec.js:168:1 › envios simultâneos de logout executam uma escrita (647ms)
+  ok 27 [mobile] › tests\browser\acesso.spec.js:182:1 › falha na leitura da sessão mantém painel oculto e permite nova leitura (377ms)
+  ok 28 [mobile] › tests\browser\acesso.spec.js:195:1 › perfil não reconhecido não revela painel nem ações (323ms)
+  ok 29 [mobile] › tests\browser\acesso.spec.js:202:1 › 403 no login não repete envio; nova ação busca outro token (534ms)
+  ok 30 [mobile] › tests\browser\acesso.spec.js:218:1 › login e entrada cabem na viewport sem rolagem horizontal (732ms)
+
+  30 passed (17.1s)

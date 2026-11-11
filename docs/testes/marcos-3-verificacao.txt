@@ -1,0 +1,155 @@
+﻿Execução: 2026-11-10 22:31:52 America/Sao_Paulo
+Story: docs/stories/marcos-3.md
+Branch: feature/marcos-base-frontend
+Base: 5036ed3; alterações locais Marcos-3
+Node: v24.22.2
+npm: 11.19.1
+Chrome: 157.0.8103.39
+PLAYWRIGHT_CHANNEL=chrome; testes Marcos-3 com timezoneId=Asia/Tokyo
+Comando: npm run build
+
+> build
+> npm run lint && npm run typecheck && npm test
+
+
+> lint
+> eslint backend/src/main/resources/static/js tests/unit/frontend tests/browser eslint.config.js playwright.config.js
+
+
+> typecheck
+> tsc --project jsconfig.json
+
+
+> test
+> npm run test:unit && npm run test:browser
+
+
+> test:unit
+> node --test tests/unit/frontend/*.test.js
+
+✔ GET usa sessão e não busca CSRF; me devolve perfil (40.7574ms)
+✔ POST envia CSRF dinâmico e sessão (1.4534ms)
+✔ PUT envia CSRF dinâmico e sessão (2.0004ms)
+✔ PATCH envia CSRF dinâmico e sessão (0.7903ms)
+✔ DELETE envia CSRF dinâmico e sessão (0.6678ms)
+✔ login codifica email/senha como formulário e aceita 204; logout renova CSRF (2.5101ms)
+✔ credenciais inválidas ficam no login; sessão ausente aciona redirecionamento (1.9356ms)
+✔ erro 400 preserva contrato e não repete escrita (1.2424ms)
+✔ erro 403 preserva contrato e não repete escrita (0.5266ms)
+✔ erro 404 preserva contrato e não repete escrita (0.555ms)
+✔ erro 409 preserva contrato e não repete escrita (0.441ms)
+✔ 403 invalida token para próxima ação explícita, sem replay da anterior (0.725ms)
+✔ PATCH completo preserva offset e remove campos de identidade/status (0.6344ms)
+✔ datas sem offset, fim não posterior e recursos inválidos falham antes do fetch (0.4327ms)
+✔ cancelamento, aprovação e rejeição usam rotas e motivo contratados (0.836ms)
+✔ somente RESPONSAVEL recebe conveniência visual de aprovação (0.163ms)
+✔ falha de rede e HTML inesperado não vazam detalhes nem repetem escrita (1.2025ms)
+✔ CSRF ausente não permite escrita e falha inicial pode ser recuperada (0.597ms)
+✔ origem externa e correlação inválida falham antes de buscar token (0.5783ms)
+✔ escritas paralelas compartilham somente a busca de CSRF (0.5005ms)
+✔ guard ignora duplo envio, indica busy e restaura controles em sucesso e erro (2.0586ms)
+✔ datetime-local é convertido com o fuso operacional, incluindo horário de verão histórico (4.8597ms)
+✔ horários ausentes e ambíguos durante transições de São Paulo são recusados (0.8726ms)
+✔ dias inexistentes, normalização de 24 horas e formato incompleto não viram instantes (1.5527ms)
+✔ intervalo opcional/obrigatório, fim posterior e limite diário têm mensagens específicas (1.874ms)
+✔ filtros de recursos codificam textos/offset, booleano false e paginação sem campos extras (1.2109ms)
+✔ filtros inválidos falham antes da chamada HTTP (1.1569ms)
+✔ pesquisa usa GET contratado e preserva envelope; não repagina a lista no cliente (0.4827ms)
+✔ página vazia além da última é válida; envelopes e recursos incoerentes são recusados (0.686ms)
+✔ expediente lê somente a rota contratada e recusa zona/horário inválidos (0.58ms)
+✔ confirmação da criação aceita mesmos instantes e IDs sem depender da ordem (0.4967ms)
+✔ confirmação recusa identidade, status, datas e recursos divergentes sem afirmar sucesso (0.374ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 32
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 263.569
+
+> test:browser
+> playwright test
+
+
+Running 76 tests using 1 worker
+
+  ok  1 [desktop] › tests\browser\acesso.spec.js:61:1 › login por teclado envia formulário e CSRF, depois consulta o perfil (883ms)
+  ok  2 [desktop] › tests\browser\acesso.spec.js:81:1 › credenciais inválidas preservam formulário e mostram HTML como texto (628ms)
+  ok  3 [desktop] › tests\browser\acesso.spec.js:96:1 › envios simultâneos de login executam uma escrita e indicam busy (636ms)
+  ok  4 [desktop] › tests\browser\acesso.spec.js:111:1 › sessão expirada volta ao login sem loop nem dados privados (589ms)
+  ok  5 [desktop] › tests\browser\acesso.spec.js:122:1 › sessão já válida evita novo login e ignora destinos externos (525ms)
+  ok  6 [desktop] › tests\browser\acesso.spec.js:131:3 › navegação do perfil SOLICITANTE sem ações ou links indevidos (547ms)
+  ok  7 [desktop] › tests\browser\acesso.spec.js:131:3 › navegação do perfil RESPONSAVEL sem ações ou links indevidos (516ms)
+  ok  8 [desktop] › tests\browser\acesso.spec.js:131:3 › navegação do perfil ADMINISTRADOR sem ações ou links indevidos (545ms)
+  ok  9 [desktop] › tests\browser\acesso.spec.js:146:1 › logout usa CSRF e confirma saída somente após 204 (811ms)
+  ok 10 [desktop] › tests\browser\acesso.spec.js:158:1 › falha no logout restaura botão e não afirma sessão encerrada (607ms)
+  ok 11 [desktop] › tests\browser\acesso.spec.js:171:1 › envios simultâneos de logout executam uma escrita (733ms)
+  ok 12 [desktop] › tests\browser\acesso.spec.js:185:1 › falha na leitura da sessão mantém painel oculto e permite nova leitura (600ms)
+  ok 13 [desktop] › tests\browser\acesso.spec.js:198:1 › perfil não reconhecido não revela painel nem ações (375ms)
+  ok 14 [desktop] › tests\browser\acesso.spec.js:205:1 › 403 no login não repete envio; nova ação busca outro token (767ms)
+  ok 15 [desktop] › tests\browser\acesso.spec.js:221:1 › login e entrada cabem na viewport sem rolagem horizontal (1.0s)
+  ok 16 [desktop] › tests\browser\recursos.spec.js:90:1 › pesquisa combina filtros, mostra expediente real e codifica datas no fuso operacional (842ms)
+  ok 17 [desktop] › tests\browser\recursos.spec.js:108:1 › reserva comum seleciona sala e docente, envia DTO completo/CSRF e confirma resposta (932ms)
+  ok 18 [desktop] › tests\browser\recursos.spec.js:124:1 › reserva restrita exibe SOLICITADA e espera sem inventar aprovação ou notificação (812ms)
+  ok 19 [desktop] › tests\browser\recursos.spec.js:133:1 › seleção atravessa páginas e nova pesquisa reinicia a página sem perder o mesmo período (1.2s)
+  ok 20 [desktop] › tests\browser\recursos.spec.js:150:1 › alterar o período limpa seleção e resultados antes de permitir outra solicitação (881ms)
+  ok 21 [desktop] › tests\browser\recursos.spec.js:160:1 › não oferece seleção de recurso indisponível ou inativo (860ms)
+  ok 22 [desktop] › tests\browser\recursos.spec.js:171:1 › vazio e erro de consulta permitem corrigir e pesquisar novamente (819ms)
+  ok 23 [desktop] › tests\browser\recursos.spec.js:185:3 › falha 400 na criação preserva período/seleção e não repete POST (875ms)
+  ok 24 [desktop] › tests\browser\recursos.spec.js:185:3 › falha 403 na criação preserva período/seleção e não repete POST (830ms)
+  ok 25 [desktop] › tests\browser\recursos.spec.js:185:3 › falha 404 na criação preserva período/seleção e não repete POST (867ms)
+  ok 26 [desktop] › tests\browser\recursos.spec.js:185:3 › falha 409 na criação preserva período/seleção e não repete POST (929ms)
+  ok 27 [desktop] › tests\browser\recursos.spec.js:201:1 › submissões simultâneas mantêm uma escrita e carregamento até a confirmação (1.0s)
+  ok 28 [desktop] › tests\browser\recursos.spec.js:215:1 › falha de rede não afirma sucesso e orienta conferir antes de reenviar (858ms)
+  ok 29 [desktop] › tests\browser\recursos.spec.js:225:1 › resposta incoerente após POST não mostra sucesso nem repete a escrita (810ms)
+  ok 30 [desktop] › tests\browser\recursos.spec.js:234:1 › resposta atrasada é descartada se o período mudar durante a consulta (770ms)
+  ok 31 [desktop] › tests\browser\recursos.spec.js:255:1 › sessão ausente não consulta recursos e retorna ao login (514ms)
+  ok 32 [desktop] › tests\browser\recursos.spec.js:264:1 › sessão expirada durante escrita segue fluxo central e não repete POST (857ms)
+  ok 33 [desktop] › tests\browser\recursos.spec.js:274:1 › período inválido não dispara consultas (781ms)
+  ok 34 [desktop] › tests\browser\recursos.spec.js:288:1 › disponibilidade sem período é recusada e limpar filtros restaura a consulta geral (954ms)
+  ok 35 [desktop] › tests\browser\recursos.spec.js:301:1 › atualizar a pesquisa remove seleção que ficou indisponível (865ms)
+  ok 36 [desktop] › tests\browser\recursos.spec.js:311:1 › expediente vazio não inventa horários e falha de leitura não impede consulta (725ms)
+  ok 37 [desktop] › tests\browser\recursos.spec.js:323:1 › teclado, texto seguro e layout cabem em móvel/desktop com confirmação acessível (1.1s)
+  ok 38 [desktop] › tests\browser\recursos.spec.js:340:1 › capturas de pesquisa e confirmação com recursos de teste identificados (1.3s)
+  ok 39 [mobile] › tests\browser\acesso.spec.js:61:1 › login por teclado envia formulário e CSRF, depois consulta o perfil (935ms)
+  ok 40 [mobile] › tests\browser\acesso.spec.js:81:1 › credenciais inválidas preservam formulário e mostram HTML como texto (566ms)
+  ok 41 [mobile] › tests\browser\acesso.spec.js:96:1 › envios simultâneos de login executam uma escrita e indicam busy (578ms)
+  ok 42 [mobile] › tests\browser\acesso.spec.js:111:1 › sessão expirada volta ao login sem loop nem dados privados (457ms)
+  ok 43 [mobile] › tests\browser\acesso.spec.js:122:1 › sessão já válida evita novo login e ignora destinos externos (496ms)
+  ok 44 [mobile] › tests\browser\acesso.spec.js:131:3 › navegação do perfil SOLICITANTE sem ações ou links indevidos (454ms)
+  ok 45 [mobile] › tests\browser\acesso.spec.js:131:3 › navegação do perfil RESPONSAVEL sem ações ou links indevidos (452ms)
+  ok 46 [mobile] › tests\browser\acesso.spec.js:131:3 › navegação do perfil ADMINISTRADOR sem ações ou links indevidos (453ms)
+  ok 47 [mobile] › tests\browser\acesso.spec.js:146:1 › logout usa CSRF e confirma saída somente após 204 (721ms)
+  ok 48 [mobile] › tests\browser\acesso.spec.js:158:1 › falha no logout restaura botão e não afirma sessão encerrada (487ms)
+  ok 49 [mobile] › tests\browser\acesso.spec.js:171:1 › envios simultâneos de logout executam uma escrita (709ms)
+  ok 50 [mobile] › tests\browser\acesso.spec.js:185:1 › falha na leitura da sessão mantém painel oculto e permite nova leitura (514ms)
+  ok 51 [mobile] › tests\browser\acesso.spec.js:198:1 › perfil não reconhecido não revela painel nem ações (350ms)
+  ok 52 [mobile] › tests\browser\acesso.spec.js:205:1 › 403 no login não repete envio; nova ação busca outro token (640ms)
+  ok 53 [mobile] › tests\browser\acesso.spec.js:221:1 › login e entrada cabem na viewport sem rolagem horizontal (996ms)
+  ok 54 [mobile] › tests\browser\recursos.spec.js:90:1 › pesquisa combina filtros, mostra expediente real e codifica datas no fuso operacional (821ms)
+  ok 55 [mobile] › tests\browser\recursos.spec.js:108:1 › reserva comum seleciona sala e docente, envia DTO completo/CSRF e confirma resposta (1.0s)
+  ok 56 [mobile] › tests\browser\recursos.spec.js:124:1 › reserva restrita exibe SOLICITADA e espera sem inventar aprovação ou notificação (880ms)
+  ok 57 [mobile] › tests\browser\recursos.spec.js:133:1 › seleção atravessa páginas e nova pesquisa reinicia a página sem perder o mesmo período (982ms)
+  ok 58 [mobile] › tests\browser\recursos.spec.js:150:1 › alterar o período limpa seleção e resultados antes de permitir outra solicitação (759ms)
+  ok 59 [mobile] › tests\browser\recursos.spec.js:160:1 › não oferece seleção de recurso indisponível ou inativo (724ms)
+  ok 60 [mobile] › tests\browser\recursos.spec.js:171:1 › vazio e erro de consulta permitem corrigir e pesquisar novamente (748ms)
+  ok 61 [mobile] › tests\browser\recursos.spec.js:185:3 › falha 400 na criação preserva período/seleção e não repete POST (778ms)
+  ok 62 [mobile] › tests\browser\recursos.spec.js:185:3 › falha 403 na criação preserva período/seleção e não repete POST (773ms)
+  ok 63 [mobile] › tests\browser\recursos.spec.js:185:3 › falha 404 na criação preserva período/seleção e não repete POST (762ms)
+  ok 64 [mobile] › tests\browser\recursos.spec.js:185:3 › falha 409 na criação preserva período/seleção e não repete POST (856ms)
+  ok 65 [mobile] › tests\browser\recursos.spec.js:201:1 › submissões simultâneas mantêm uma escrita e carregamento até a confirmação (695ms)
+  ok 66 [mobile] › tests\browser\recursos.spec.js:215:1 › falha de rede não afirma sucesso e orienta conferir antes de reenviar (717ms)
+  ok 67 [mobile] › tests\browser\recursos.spec.js:225:1 › resposta incoerente após POST não mostra sucesso nem repete a escrita (722ms)
+  ok 68 [mobile] › tests\browser\recursos.spec.js:234:1 › resposta atrasada é descartada se o período mudar durante a consulta (672ms)
+  ok 69 [mobile] › tests\browser\recursos.spec.js:255:1 › sessão ausente não consulta recursos e retorna ao login (485ms)
+  ok 70 [mobile] › tests\browser\recursos.spec.js:264:1 › sessão expirada durante escrita segue fluxo central e não repete POST (782ms)
+  ok 71 [mobile] › tests\browser\recursos.spec.js:274:1 › período inválido não dispara consultas (658ms)
+  ok 72 [mobile] › tests\browser\recursos.spec.js:288:1 › disponibilidade sem período é recusada e limpar filtros restaura a consulta geral (662ms)
+  ok 73 [mobile] › tests\browser\recursos.spec.js:301:1 › atualizar a pesquisa remove seleção que ficou indisponível (782ms)
+  ok 74 [mobile] › tests\browser\recursos.spec.js:311:1 › expediente vazio não inventa horários e falha de leitura não impede consulta (731ms)
+  ok 75 [mobile] › tests\browser\recursos.spec.js:323:1 › teclado, texto seguro e layout cabem em móvel/desktop com confirmação acessível (961ms)
+  ok 76 [mobile] › tests\browser\recursos.spec.js:340:1 › capturas de pesquisa e confirmação com recursos de teste identificados (957ms)
+
+  76 passed (1.9m)
+Exit code: 0

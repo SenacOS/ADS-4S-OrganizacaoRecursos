@@ -71,6 +71,7 @@ Todas as entregas abaixo estão em **PRs abertos, ainda não integrados à `deve
 | Q3 | O Responsável pode aprovar a própria reserva se também for Solicitante? | Permitido (a regra é por papel) | Equipe |
 | Q4 | Manutenção que colide com reserva existente | Fora do módulo; os testes do item 18 mostram o comportamento, falta formalizar | Fausto + Silva |
 | Q5 | Quem cancela uma reserva APROVADA? | Dono ou Administrador | Equipe |
+| Q6 | Código HTTP para fora do expediente (409 ou 422) | 409 aceito por Marcos em 10/11/2026; confirmação de Silva pendente | Marcos + Silva |
 | Q6 | Código HTTP para fora do expediente (409 ou 422) | 409 no contrato (recomendação de Marcos) | Marcos + Silva, com ratificação coletiva |
 | Q7 | Duração mínima/máxima e antecedência da reserva | Sem limite | Equipe |
 | Q8 | Aprovação revalida conflito? | Não revalida, pois a pendente já bloqueia a agenda | Equipe |
