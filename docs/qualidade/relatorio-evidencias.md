@@ -16,7 +16,7 @@ evidências locais observadas de tarefas planejadas e de resultados ausentes.
 | 10/11/2026 | PR #9 / RF10 | `mvn -f backend/pom.xml clean verify` informado pela equipe após remoção das triggers que exigiam SUPER | BUILD SUCCESS local, incluindo integração MySQL |
 | 10/11/2026 22:17 | PR #10 / RF11, commit 8bc0efc | `mvn -f backend/pom.xml clean verify`; 90 classes analisadas pelo JaCoCo, `All coverage checks have been met` | BUILD SUCCESS local; limites de 80% LINE e 70% BRANCH atendidos |
 
-Na CI Java 21 do PR #11 (run 42945777138), o XML JaCoCo registra **90,88% de linhas (1136/1250) e 73,46% de branches (335/456)**. Esses números são da versão do PR #11 e serão revalidados após os novos testes do PR #12.
+Na CI Java 21 do PR #11 (run 42945777138), o XML JaCoCo registra **90,88% de linhas (1136/1250) e 73,46% de branches (335/456)**. Esses números são da versão do PR #11. Na CI do PR #12 (run 42949100353), os resultados atualizados foram **91,53% de linhas (1157/1264)** e **73,18% de branches (341/466)**.
 
 ## 2. Evidência esperada do novo PR de qualidade
 
@@ -90,4 +90,4 @@ Detalhes: [evidencias de carga](jmeter/evidencias-2026-11-10.md).
 - RF10: cadastro administrativo de usuários com auditoria transacional, snapshots sem nome, e-mail ou senha, incluindo testes MySQL.
 - Cookie de sessão: `HttpOnly=true`, `SameSite=Lax`; em HTTPS, a variável `SESSION_COOKIE_SECURE=true` é obrigatória para o ambiente de deploy (padrão false somente para HTTP local).
 
-**Resultado do PR #12:** aguarda sua própria CI e revisão; não se deve inferir aprovação a partir do run anterior do PR #11.
+**Resultado do PR #12:** CI verde em [42949100353](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/42949100353): **207 testes unitários/API, 33 de integração, zero falhas**, JaCoCo acima das metas e JMeter quatro cenários aprovado. Revisão e integração continuam pendentes.
