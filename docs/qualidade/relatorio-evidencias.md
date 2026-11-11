@@ -18,16 +18,16 @@ evidências locais observadas de tarefas planejadas e de resultados ausentes.
 
 Não há percentuais **atuais exatos** de JaCoCo anexados aqui. A execução local
 ocorreu com Java 27 compilando para `--release 21` (conforme log), portanto
-a CI ainda precisa validar a **execução efetiva em Java 21**.
+a CI do PR #11 ja validou a **execucao efetiva em Java 21**, run 42944280415.
 
 ## 2. Evidência esperada do novo PR de qualidade
 
 | Entrega | Arquivo(s) | Resultado atualmente verificável |
 |---|---|---|
-| Segurança 401/403/CSRF/ownership | `SegurancaComplementarTest`, `LoginMysqlIT`, `docs/qualidade/seguranca.md` | Suítes implementadas, **não executadas** |
+| Segurança 401/403/CSRF/ownership | `SegurancaComplementarTest`, `LoginMysqlIT`, `docs/qualidade/seguranca.md` | Suítes aprovadas na CI Java21 (7 testes MVC + 3 MySQL) |
 | CI e cobertura | `.github/workflows/ci.yml`, Surefire, Failsafe, JaCoCo | [Execução PR #11 em 10/11](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/42940260477): Maven/Testcontainers/JaCoCo **passaram**; job geral falhou apenas na checagem de credenciais SonarCloud. Workflow ajustado para pular Sonar pendente e preservar checks obrigatórios; nova execução deve ser verificada. |
 | SonarCloud | `.github/workflows/ci.yml`, `docs/qualidade/sonarcloud.md` | **Pendente de acesso de administrador da organização SenacOS**. Etapa opcional até configuração; não significa Quality Gate verde. |
-| JMeter | Quatro planos `.jmx`, CSV, script `rodar_local.py` e guia | Preparação automática isolada criada; sem medição `.jtl` real |
+| JMeter | Quatro planos `.jmx`, CSV, script `rodar_local.py` e guia | **4 cenários aprovados na CI**, JTL/HTML/resultado.json arquivados (run 42945127066) |
 | RTM completa | `docs/RTM.md` | RF01–RF14 vinculados; lacunas marcadas |
 | E2E / UX | Testes de Marcos e evidências de tela | Aguardando execução/integração do frontend |
 | ATAM / aceite | Registro abaixo | Análise preliminar, validação coletiva pendente |
@@ -43,7 +43,7 @@ a CI ainda precisa validar a **execução efetiva em Java 21**.
 | DEF-05 | Falha de compilação WireMock (`options()`) | PR #10, `GatewayNotificacaoWireMockTest.java` | Configurador de WireMock qualificado, build local aprovado |
 | DEF-06 | PR #7 de CI em conflito e sem SonarCloud | Verificar PR #7 antes do merge | **Parcial**: PR #11 traz CI integrada e teste Maven verde no run 42940260477; Sonar depende de administrador, PR #7 ainda precisa ser conciliado |
 | DEF-07 | Consulta de reservas e IDOR GET sem endpoint | API de reservas atual tem apenas escritas | **Aberto**: definir porta GET e teste integrado com Silva/Marcos |
-| DEF-08 | Ausência de dados JMeter e dashboard Sonar | Nenhum resultado publicado | **Aberto**: executar e anexar evidências reais |
+| DEF-08 | Ausência de dados JMeter e dashboard Sonar | JMeter executado na CI, Sonar pendente | **Parcialmente fechado**: 4 cenarios JMeter aprovados, Sonar aguarda admin |
 
 ## 4. Análise ATAM preliminar (trade-offs, não substitui revisão coletiva)
 
@@ -56,9 +56,8 @@ a CI ainda precisa validar a **execução efetiva em Java 21**.
 | CI obrigatória por PR | Manutenibilidade | Maven+Testcontainers+JaCoCo+Sonar | Regressões visíveis antes do merge | Exige segredos Sonar e runner Docker | GitHub Actions e Quality Gate |
 
 **Decisão de aceite proposta:** **NÃO APROVADO PARA ENTREGA FINAL AINDA**.
-A base funcional apresenta builds locais bem-sucedidos, mas SonarCloud, CI,
-testes complementares, carga, E2E e revisão por colegas ainda dependem de
-execução objetiva. Na revisão final, anexar links reais e registrar a decisão
+A CI validou testes Java21, seguranca e JMeter em banco isolado. SonarCloud,
+E2E, revisao por colegas e merges ainda impedem o aceite final. Na revisão final, anexar links reais e registrar a decisão
 da equipe, não atribuir aceite retroativamente.
 
 ## 5. Checklist para fechar evidências sem falsificar resultados
@@ -66,8 +65,22 @@ da equipe, não atribuir aceite retroativamente.
 - [ ] Java 21 real, Docker e `mvn -f backend/pom.xml clean verify` no PR de qualidade.
 - [ ] Arquivar XML Surefire/Failsafe, `target/site/jacoco/index.html` e XML.
 - [ ] Criar projeto SonarCloud, configurar token/variáveis e arquivar URL do gate.
-- [ ] Rodar os quatro cenários JMeter com massa isolada e guardar JTL/HTML/SQL final.
+- [x] JMeter: 4 cenarios executados com MySQL isolado; JTL/HTML/JSON no artefato do run 42945127066.
 - [ ] Relacionar cada caso executado à RTM, defeito ou risco.
 - [ ] Rever API de consultas/ownership e contrato com os responsáveis.
 - [ ] Validar E2E, TDD RED/GREEN/REFACTOR com seus respectivos autores.
 - [ ] Integrar PR #8 → #9 → #10 → PR de qualidade; revisão externa e CI verde.
+
+## 6. Resultado verificado: carga no GitHub Actions (10/11/2026, São Paulo)
+
+Fonte: [run 42945127066](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/42945127066), artefato jmeter-evidence.
+
+| Cenario | Amostras HTTP | p95 do endpoint | Resultado |
+|---|---|---:|---|
+| Consulta de recursos | 50 × 200 | 6,0 ms | Aprovado |
+| Disputa mesma reserva | 1 × 201; 7 × 409; somente 1 reserva ativa no MySQL | 123,0 ms | Aprovado |
+| Recursos distintos | 5 × 201; uma reserva em cada recurso 101–105 | 41,2 ms | Aprovado |
+| Manutencao × reserva | Reserva: 1 × 201 e 4 × 409; manutencao: 1 × 409 | 32,0 ms (reserva) | Aprovado |
+
+Carga pequena, em runner compartilhado com banco descartavel; nao constitui SLA de producao.
+Detalhes: [evidencias de carga](jmeter/evidencias-2026-11-10.md).

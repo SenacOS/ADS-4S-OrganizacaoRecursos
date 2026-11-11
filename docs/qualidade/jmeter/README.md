@@ -1,4 +1,4 @@
-# JMeter — teste de carga e robustez (planos preparados, sem execução)
+# JMeter — teste de carga e robustez (4 cenarios executados na CI)
 
 O guia exige plano, resultados e interpretação: **a simples existência dos arquivos
 .jmx não é uma evidência de desempenho**. Estes planos usam a API Spring Boot
@@ -28,8 +28,7 @@ inesperados e, nos cenarios de disputa e recursos distintos, a quantidade de
 reservas ativas persistidas. Se algum cenario falhar, ele preserva as
 evidencias e retorna codigo de erro.
 
-**Nao esta executado ate rodar no Mac com Docker/JMeter**. A CI valida
-sintaxe dos scripts e XML dos planos, nao os resultados de performance.
+**Ja executado automaticamente na CI em 10/11/2026:** [run 42945127066](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/42945127066), com quatro cenarios aprovados, JTL, HTML e JSON publicados. O Mac pode reproduzir a carga, mas nao e obrigatorio para obter os resultados da CI. A CI valida sintaxe e tambem executa os planos em MySQL descartavel.
 
 ## Preparar ambiente antes da execução
 - Java 21, Maven, Docker/MySQL 8.4, Apache JMeter 5.6.x.

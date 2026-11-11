@@ -36,5 +36,4 @@ mínimo de 80% LINE e 70% BRANCH no bundle.
   no deploy, além das sessões de desenvolvimento; nenhum teste local HTTP
   prova comportamento do navegador em produção.
 - Expor apenas API de teste local; não usar credenciais de usuários reais.
-- Os testes novos ainda **não foram executados** no momento da autoria desta
-  documentação; atualizar status só após salvar XML/CI.
+- Os testes novos **foram executados na CI do PR #11**: SegurancaComplementarTest (7) e LoginMysqlIT (3), 0 falhas no [run 42944280415](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/42944280415). XML disponível no artefato quality-evidence.
