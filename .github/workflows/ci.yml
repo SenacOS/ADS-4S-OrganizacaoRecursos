@@ -2,7 +2,7 @@ name: CI e SonarCloud
 
 on:
   pull_request:
-    branches: [develop, feat/rf11-notificacoes, test/qualidade-final]
+    branches: [develop, feat/rf11-notificacoes, test/qualidade-final, test/fechamento-rf01-rf10-rf11]
   push:
     branches: [develop]
 
