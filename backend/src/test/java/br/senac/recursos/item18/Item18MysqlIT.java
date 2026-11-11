@@ -54,6 +54,7 @@ class Item18MysqlIT {
     }
 
     @Bean
+    @Primary
     EventosDominioPort eventos(JdbcTemplate j) {
       return e -> {
         j.update("INSERT INTO eventos_teste(acao) VALUES(?)", e.acao());
@@ -64,11 +65,13 @@ class Item18MysqlIT {
     }
 
     @Bean
+    @Primary
     AuditoriaPort auditoria(JdbcTemplate j) {
       return e -> j.update("INSERT INTO eventos_teste(acao) VALUES(?)", e.acao().name());
     }
 
     @Bean
+    @Primary
     NotificacaoPort notificacao() {
       return e -> {};
     }
@@ -452,20 +455,22 @@ class Item18MysqlIT {
                 "--spring.datasource.username=" + mysql.getUsername(),
                 "--spring.datasource.password=" + mysql.getPassword(),
                 "--spring.main.banner-mode=off")) {
-      assertTrue(
-          contexto
-              .getBeansOfType(br.senac.recursos.reserva.api.AtorAutenticadoProvider.class)
-              .isEmpty());
-      assertTrue(contexto.getBeansOfType(EventosDominioPort.class).isEmpty());
+          assertInstanceOf(
+              br.senac.recursos.seguranca.SpringSecurityAtorProvider.class,
+              contexto.getBean(
+                  br.senac.recursos.reserva.api.AtorAutenticadoProvider.class
+              )
+          );
+      assertInstanceOf(
+          br.senac.recursos.auditoria.AuditoriaJdbc.class,
+          contexto.getBean(EventosDominioPort.class));
       assertTrue(
           contexto.getBeansOfType(br.senac.recursos.recurso.api.RecursoController.class).isEmpty());
       assertTrue(
           contexto
               .getBeansOfType(br.senac.recursos.movimentacao.api.MovimentacaoController.class)
               .isEmpty());
-      assertThrows(
-          org.springframework.beans.BeansException.class,
-          () -> contexto.getBean(RecursoService.class));
+      assertNotNull(contexto.getBean(RecursoService.class));
     }
   }
 }
