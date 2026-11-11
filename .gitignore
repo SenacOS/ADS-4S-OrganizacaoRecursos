@@ -63,3 +63,6 @@ CLAUDE.local.md
 # .gemini/
 # .grok/
 # .kimi/
+
+# Arquivos e dashboards gerados pela carga JMeter local
+quality-output/
