@@ -52,6 +52,18 @@ class GatewayNotificacaoWireMockTest {
     }
 
     @Test
+    void timeoutNoGatewayEhFalhaDeEntregaSemExporRespostaInterna() {
+        servidor.stubFor(post(urlEqualTo("/notificacoes"))
+                .willReturn(aResponse().withStatus(202).withFixedDelay(6000)));
+        IllegalStateException falha = assertThrows(IllegalStateException.class,
+                () -> gateway.enviar(mensagem));
+        assertEquals("Gateway de notificacao indisponivel", falha.getMessage());
+        assertInstanceOf(java.io.IOException.class, falha.getCause());
+        servidor.verify(1, postRequestedFor(urlEqualTo("/notificacoes"))
+                .withHeader("X-Idempotency-Key", equalTo("42")));
+    }
+
+    @Test
     void modoSimuladoNaoUsaRede() {
         var local = new GatewayNotificacaoPadrao("", new ObjectMapper());
         assertDoesNotThrow(() -> local.enviar(mensagem));

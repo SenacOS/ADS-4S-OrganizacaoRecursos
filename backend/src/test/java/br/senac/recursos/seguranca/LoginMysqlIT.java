@@ -83,6 +83,32 @@ class LoginMysqlIT {
     }
 
     @Test
+    void logoutComCsrfInvalidaSessaoRealEImpedeAcesso() throws Exception {
+        MvcResult inicial = mvc.perform(get("/api/auth/csrf"))
+                .andExpect(status().isOk()).andReturn();
+        MockHttpSession sessaoInicial =
+                (MockHttpSession) inicial.getRequest().getSession(false);
+        assertNotNull(sessaoInicial);
+
+        MvcResult login = mvc.perform(post("/api/auth/login")
+                    .session(sessaoInicial).with(csrf())
+                    .param("email", "login-qualidade@teste.local")
+                    .param("senha", "SenhaForte123!"))
+                .andExpect(status().isNoContent()).andReturn();
+        MockHttpSession autenticada =
+                (MockHttpSession) login.getRequest().getSession(false);
+        assertNotNull(autenticada);
+
+        mvc.perform(get("/api/auth/me").session(autenticada))
+                .andExpect(status().isOk());
+        mvc.perform(post("/api/auth/logout").session(autenticada).with(csrf()))
+                .andExpect(status().isNoContent());
+        assertTrue(autenticada.isInvalid(), "Logout deve invalidar a sessão HTTP");
+        mvc.perform(get("/api/auth/me"))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
     void usuarioInativoNaoConsegueLoginMesmoComSenhaCorreta() throws Exception {
         mvc.perform(post("/api/auth/login").with(csrf())
                     .param("email", "bloqueado-qualidade@teste.local")
