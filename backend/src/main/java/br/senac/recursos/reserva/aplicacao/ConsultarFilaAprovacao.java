@@ -32,17 +32,23 @@ public class ConsultarFilaAprovacao {
     }
 
     private static void validar(Pagina<ItemFilaAprovacao> pagina, FiltroFilaAprovacao filtro) {
-        if (pagina == null
+        if (envelopeForaDoContrato(pagina, filtro)) {
+            throw new IllegalStateException("A porta da fila devolveu uma página fora do contrato.");
+        }
+        if (pagina.itens().stream().anyMatch(ConsultarFilaAprovacao::naoEPendenteRestrita)) {
+            throw new IllegalStateException("A fila só pode conter reservas restritas em SOLICITADA.");
+        }
+    }
+
+    private static boolean envelopeForaDoContrato(Pagina<ItemFilaAprovacao> pagina, FiltroFilaAprovacao filtro) {
+        return pagina == null
                 || pagina.pagina() != filtro.pagina()
                 || pagina.tamanho() != filtro.tamanho()
                 || pagina.itens().size() > filtro.tamanho()
-                || pagina.total() < pagina.itens().size()) {
-            throw new IllegalStateException("A porta da fila devolveu uma página fora do contrato.");
-        }
-        for (ItemFilaAprovacao item : pagina.itens()) {
-            if (item.reserva().status() != StatusReserva.SOLICITADA || !item.reserva().restrita()) {
-                throw new IllegalStateException("A fila só pode conter reservas restritas em SOLICITADA.");
-            }
-        }
+                || pagina.total() < pagina.itens().size();
+    }
+
+    private static boolean naoEPendenteRestrita(ItemFilaAprovacao item) {
+        return item.reserva().status() != StatusReserva.SOLICITADA || !item.reserva().restrita();
     }
 }
