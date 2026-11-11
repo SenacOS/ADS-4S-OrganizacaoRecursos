@@ -452,10 +452,12 @@ class Item18MysqlIT {
                 "--spring.datasource.username=" + mysql.getUsername(),
                 "--spring.datasource.password=" + mysql.getPassword(),
                 "--spring.main.banner-mode=off")) {
-      assertTrue(
-          contexto
-              .getBeansOfType(br.senac.recursos.reserva.api.AtorAutenticadoProvider.class)
-              .isEmpty());
+          assertInstanceOf(
+              br.senac.recursos.seguranca.SpringSecurityAtorProvider.class,
+              contexto.getBean(
+                  br.senac.recursos.reserva.api.AtorAutenticadoProvider.class
+              )
+          );
       assertTrue(contexto.getBeansOfType(EventosDominioPort.class).isEmpty());
       assertTrue(
           contexto.getBeansOfType(br.senac.recursos.recurso.api.RecursoController.class).isEmpty());

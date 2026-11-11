@@ -43,6 +43,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -52,6 +53,7 @@ import org.springframework.test.web.servlet.MockMvc;
  * (sem Spring Security ainda), concorrência nem banco.
  */
 @WebMvcTest(controllers = ReservaController.class, properties = "reservas.api.enabled=true")
+@AutoConfigureMockMvc(addFilters = false)
 class ReservaControllerTest {
 
     private static final AtorReserva ANA = new AtorReserva(7, PapelAtor.SOLICITANTE);
