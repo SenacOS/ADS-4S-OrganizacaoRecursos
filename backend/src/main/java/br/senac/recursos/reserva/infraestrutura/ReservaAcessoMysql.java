@@ -3,14 +3,14 @@ package br.senac.recursos.reserva.infraestrutura;
 import br.senac.recursos.reserva.dominio.AtorReserva;
 import br.senac.recursos.reserva.dominio.OperacaoNaoPermitidaException;
 import br.senac.recursos.reserva.dominio.PapelAtor;
-import br.senac.recursos.reserva.dominio.ReservaNaoEncontradaException;
+import br.senac.recursos.reserva.dominio.Reserva;
 import java.util.Map;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 /**
- * Autorização de operações por recurso, sempre a partir do ID da sessão.
- * Falha fechada quando não há vínculo; não confia em IDs enviados pelo navegador.
+ * Acesso por vínculo efetivo, validado após bloquear/reler a reserva na mesma
+ * transação da alteração. Nenhum vínculo significa nenhum privilégio.
  */
 @Repository
 public class ReservaAcessoMysql {
@@ -20,33 +20,21 @@ public class ReservaAcessoMysql {
         this.jdbc = jdbc;
     }
 
-    public void exigirResponsavelDeTodos(long reservaId, AtorReserva ator) {
+    public void exigirResponsavelDeTodos(Reserva reserva, AtorReserva ator) {
         if (ator.papel() != PapelAtor.RESPONSAVEL) {
             throw new OperacaoNaoPermitidaException("Operação exclusiva de Responsável.");
         }
-        Map<String, Object> parametros = Map.of("reservaId", reservaId, "usuarioId", ator.usuarioId());
-
-        Long quantidade = jdbc.queryForObject(
-                "SELECT COUNT(*) FROM reserva_recursos WHERE reserva_id = :reservaId",
-                parametros, Long.class);
-        if (quantidade == null || quantidade == 0) {
-            throw new ReservaNaoEncontradaException(reservaId);
-        }
-
-        Long foraDoEscopo = jdbc.queryForObject("""
+        Long autorizados = jdbc.queryForObject("""
                 SELECT COUNT(*)
-                FROM reserva_recursos rr
-                WHERE rr.reserva_id = :reservaId
-                  AND NOT EXISTS (
-                      SELECT 1 FROM responsaveis_recursos vinculo
-                      JOIN usuarios u ON u.id = vinculo.usuario_id
-                      WHERE vinculo.recurso_id = rr.recurso_id
-                        AND vinculo.usuario_id = :usuarioId
-                        AND u.perfil = 'RESPONSAVEL' AND u.ativo = TRUE
-                  )
-                """, parametros, Long.class);
-        if (foraDoEscopo == null || foraDoEscopo > 0) {
-            throw new OperacaoNaoPermitidaException("Responsável sem autorização para todos os recursos da reserva.");
+                FROM responsaveis_recursos vinculo
+                JOIN usuarios u ON u.id = vinculo.usuario_id
+                WHERE vinculo.usuario_id = :usuarioId
+                  AND vinculo.recurso_id IN (:recursos)
+                  AND u.perfil = 'RESPONSAVEL' AND u.ativo = TRUE
+                """, Map.of("usuarioId", ator.usuarioId(), "recursos", reserva.recursoIds()), Long.class);
+        if (autorizados == null || autorizados.longValue() != reserva.recursoIds().size()) {
+            throw new OperacaoNaoPermitidaException(
+                    "Responsável sem autorização para todos os recursos da reserva.");
         }
     }
 }
