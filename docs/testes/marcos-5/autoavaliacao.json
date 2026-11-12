@@ -1,0 +1,44 @@
+{
+  "story": "Marcos-5",
+  "data": "2026-11-11",
+  "tipo": "autoavaliacao_de_desenvolvimento",
+  "parecer_independente": false,
+  "riscos_examinados": [
+    {
+      "risco": "Resposta de detalhe misturar campos de dois recursos ou permitir PUT parcial",
+      "tratamento": "GET de detalhe antes de abrir editor; alvo preservado e área bloqueada durante requisição; PUT por lista explícita de campos do tipo."
+    },
+    {
+      "risco": "Troca de tipo ou desativação pelo formulário contornar confirmação",
+      "tratamento": "Tipo fixado pelo original e validado no cliente; transição ativo para inativo exige confirmação identificada também pelo PUT."
+    },
+    {
+      "risco": "Substituição do expediente perder dias ou nanossegundos",
+      "tratamento": "Carrega coleção completa antes da edição; LocalTime preservado como texto, inclusive frações; confirmação explícita para a substituição total."
+    },
+    {
+      "risco": "Falha de GET após POST confirmado induzir reenvio",
+      "tratamento": "Preserva identificação da escrita confirmada e aviso da consulta; permite atualizar com GET e nunca repete escrita automaticamente."
+    },
+    {
+      "risco": "Erro de pesquisa manter estado de carregamento permanente",
+      "tratamento": "Correção identificada pela revisão QA: resumo indica Consulta não concluída; teste de falha e recuperação por ação explícita."
+    }
+  ],
+  "fronteiras": [
+    "Zero janelas significa fechado e exige confirmação.",
+    "Janelas adjacentes são válidas; sobreposição positiva no mesmo dia é recusada.",
+    "Competências vazias são válidas; a normalização do servidor é aceita.",
+    "Condição de material é texto livre, sem enum inventado.",
+    "Bloqueios podem atravessar vários dias e sempre usam conversão em São Paulo.",
+    "Perfis indevidos não consultam dados administrativos ao abrir a URL direta.",
+    "Rede ou resposta incoerente não demonstram que a escrita falhou antes da persistência."
+  ],
+  "gates": "consultar marcos-5-resultados.md e a saída real de build",
+  "limites": [
+    "API controlada nos testes não prova sessão, CSRF ou autorização reais do Spring.",
+    "Não foram alterados Java, flags, dependências ou contratos de backend.",
+    "Não inclui movimentações, fila, Q9 ou integração MySQL.",
+    "Aceite do Marcos, revisão humana independente e CI permanecem separados da autoavaliação."
+  ]
+}

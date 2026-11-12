@@ -60,6 +60,37 @@ Estado: VALIDADO LOCALMENTE no primeiro recorte da etapa 3, em 10/11/2026. Não 
 | RF14 | Presumir GETs de reservas ou integração pronta | frontend-integracao.md, stories/marcos-3.md, plano | Clientes usam apenas contratos atuais; testes verificam ausência de GET de reservas. [Ambiente/resultados](testes/marcos-3/resultados.json) |
 
 `npm run build` passou com 32 testes unitários e 76 execuções de navegador, zero falhas/ignorados/retries na rodada aprovada. O primeiro timeout no setup e a reexecução de quatro capturas são registrados separadamente. Integração real, revisão humana/CodeRabbit e CI pendentes. Listagem/reabertura para edição/cancelamento de reservas existentes aguardam GETs e política Q9; a etapa 3 completa permanece em execução.
+
+## Administração de recursos — Marcos-5
+
+| RF | Risco / comportamento | Implementação | Testes e evidência |
+|---|---|---|---|
+| RF02 | Cadastro incorreto por tipo, edição parcial, tipo alterado ou desativação sem confirmação | administracao-recursos.js, gestao-recursos-page.js, gestao-recursos.html | administracao-recursos.test.js e administracao-recursos.spec.js: três tipos, GET de detalhe, PUT completo, whitelist, 204 e conflito; [resultados](testes/marcos-5-resultados.md) |
+| RF03 | Paginação ou filtros administrativos indevidos | pesquisa compartilhada de recursos.js e lista administrativa | Filtros, paginação do servidor, inativos, falha/recuperação, sem filtro ativo inventado; [resultados](testes/marcos-5-resultados.md) |
+| RF08 | Bloqueio com fuso incorreto, cancelamento indevido ou perda de expediente | administracao-recursos.js, datas.js, gestao-recursos-page.js | Multidia, snake_case, cancelamento confirmado, todas as janelas, precisão, sobreposição/fechamento e 409; [resultados](testes/marcos-5-resultados.md) |
+| RF13/14 | Acesso visual indevido, repetição de escrita, XSS e confusão entre mock e integração | guarda por perfil, forms.js/api.js, administracao.css, documentação | Ausência de GET administrativo para perfil indevido, envio único, CSRF/rede/403, textos seguros, teclado e viewports; [resultados e limites](testes/marcos-5-resultados.md) |
+
+Evidência desta etapa é da camada cliente com API controlada; não comprova autorização no servidor, persistência, auditoria ou concorrência. Movimentações, Q9, fila e integração real permanecem fora do recorte.
+
+Rodada final da Marcos-5: lint e checkJs aprovados, 45 unitários e 130 execuções de navegador aprovados (54 administrativas e 76 regressões), zero falhas/ignorados/retries. [Saída real](testes/marcos-5-verificacao.txt) e [JSON](testes/marcos-5/resultados.json). A primeira rodada e o defeito FE-002 estão registrados separadamente; revisão humana de outro integrante, CodeRabbit, CI e integração real permanecem pendentes.
+
+Reexecução pelo autor recebida em 11/11/2026: lint/tipos sem diagnósticos, 45 unitários e 130 testes de navegador aprovados (1,3 min), com Chrome selecionado no CMD. [Saída fornecida pelo Marcos](testes/marcos-5-verificacao-marcos.txt). Após abertura da revisão visual no Chrome com dados fictícios, Marcos deu o aceite local e solicitou o commit. Revisão de outro integrante, CodeRabbit, CI e integração continuam pendentes; movimentações ficam para outro recorte.
+
+## Movimentações — complemento da etapa 5
+
+| RF | Risco / comportamento | Implementação | Testes e evidências |
+|---|---|---|---|
+| RF09 | Retirada sem conferência ou DTO divergente | movimentacoes.js, movimentacoes-page.js, movimentacoes.html | Número da reserva, seleção explícita de patrimônio e POST somente IDs, confirmação coerente; [resultados](testes/marcos-5-movimentacoes-resultados.md) |
+| RF09 | Pendência desaparecer por prazo/cadastro ou devolução atribuída ao operador errado | lista aberta, enriquecimento com fallback, confirmação idempotente | Prazo estimado/atraso final, recurso inacessível, operador de devolução real, confirmação/falhas e atualização sem replay; [resultados](testes/marcos-5-movimentacoes-resultados.md) |
+| RF13/14 | Perfil indevido consultar/escrever, escrita duplicada ou texto inseguro | sessão/guard/api compartilhados, CSS específico e consumo documentado | Perfis antes dos GETs, Administrador em leitura, CSRF, duplo envio, erros, resposta antiga, teclado/fuso/viewports; [resultados e limites](testes/marcos-5-movimentacoes-resultados.md) |
+
+API controlada exclusivamente nos testes; não se comprova Spring Security, MySQL, eventos, notificação ou concorrência. Q9, Marcos-4, relatórios e histórico completo permanecem fora deste recorte. Administração/PR 20 não recebe alterações desta branch.
+
+Rodada final: lint/checkJs/build aprovados, 57 testes unitários (12 novos) e 190 de navegador (60 de movimentações, 130 regressões), zero falhas/ignorados/retries. [Saída integral](testes/marcos-5-movimentacoes-verificacao.txt) e [JSON](testes/marcos-5-movimentacoes/resultados.json). FE-003 corrigido após revisão; primeira rodada preservada. Revisão humana de outro integrante, integração e CI pendentes.
+
+Reexecução pelo autor recebida em 11/11/2026: lint/tipos sem diagnósticos, 57 unitários e 190 testes de navegador aprovados (1,9 min). [Saída fornecida pelo Marcos](testes/marcos-5-movimentacoes-verificacao-marcos.txt), preservada integralmente. Aceite visual, revisão de outro integrante, CI e integração não são inferidos dessa execução.
+
+Posteriormente, Marcos confirmou o teste visual no Chrome com dados fictícios e solicitou o commit em 11/11/2026. Auxiliar temporário fora do repositório, sem mudanças no produto para a prévia. Administração e movimentações encerram a implementação local da etapa 5 com aceite do autor; revisão da equipe, CodeRabbit/CI e integração real permanecem pendentes. [Registro do aceite](testes/marcos-5-movimentacoes-resultados.md#aceite-visual-e-autorização-de-commit).
 | RF01 — Sessão e autorização | Usuário indevido, CSRF e IDOR | SecurityConfig, UsuarioDetailsService, SpringSecurityAtorProvider, UsuarioAdminController, ADR-004 | SecurityConfigTest, SpringSecurityAtorProviderTest, SegurancaComplementarTest, LoginMysqlIT | [RF01](qualidade/relatorio-evidencias.md); SegurancaComplementarTest (7) e LoginMysqlIT (3) aprovados na CI Java21; CT17/logout complementar aprovado na CI do PR #12; PR #8 aberto |
 | RF02 — Cadastro de recursos | Patrimônio duplicado, subtipo errado | RecursoService, CadastroMysql, V1__item18.sql | Item18MysqlIT.migracaoIntegridadeRollbackETipos, filtrosCompetenciasEPaginacao | [Item18 executado em 09/11](testes/item18-resultados.md); revisar CI após integração |
 | RF03 — Consulta/disponibilidade | Filtro incorreto, agenda ocupada aparece livre | RecursoService.pesquisar, OcupacoesMysql, ExpedienteMysql, GET /api/recursos | Item18MysqlIT.filtrosCompetenciasEPaginacao, retiradaMantemIndisponivelEDevolucaoRespeitaAgenda; JMeter 01-consultas | JMeter CI: 50 consultas HTTP 200, p95=6 ms (banco isolado) |

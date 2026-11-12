@@ -1,0 +1,386 @@
+
+> build
+> npm run lint && npm run typecheck && npm test
+
+
+> lint
+> eslint backend/src/main/resources/static/js tests/unit/frontend tests/browser eslint.config.js playwright.config.js
+
+
+> typecheck
+> tsc --project jsconfig.json
+
+
+> test
+> npm run test:unit && npm run test:browser
+
+
+> test:unit
+> node --test tests/unit/frontend/*.test.js
+
+✔ cadastro SALA usa somente campos de domínio e aceita seu retorno (2.7776ms)
+✔ cadastro PROFESSOR usa somente campos de domínio e aceita seu retorno (0.7451ms)
+✔ cadastro MATERIAL usa somente campos de domínio e aceita seu retorno (0.3056ms)
+✔ PUT preserva cadastro completo e tipo imutável; normalização de competências é permitida (1.2693ms)
+✔ validação recusa campos inválidos antes do HTTP, sem impor enum de condição ou competências obrigatórias (1.4428ms)
+✔ detalhe e retornos de escrita exigem identidade, subtipo e conteúdo coerentes (0.6925ms)
+✔ desativação aceita somente o retorno sem corpo e valida ID sem HTTP (0.5459ms)
+✔ bloqueio aceita intervalo multidia e projeta retorno snake_case sem metadados privados (1.8717ms)
+✔ bloqueios rejeitam offset ausente, fim inválido, motivo vazio e retorno de outro recurso (0.6404ms)
+✔ cancelamento exige resposta CANCELADO do mesmo bloqueio/recurso (0.5815ms)
+✔ expediente preserva frações, todas as janelas e aceita adjacência e lista vazia (0.6134ms)
+✔ expediente recusa sobreposição, janela invertida, 24h e dias não contratados antes do HTTP (0.4732ms)
+✔ escritas administrativas compartilham sessão e CSRF, sem retry após 409 (27.0911ms)
+✔ GET usa sessão e não busca CSRF; me devolve perfil (34.1693ms)
+✔ POST envia CSRF dinâmico e sessão (0.867ms)
+✔ PUT envia CSRF dinâmico e sessão (0.5557ms)
+✔ PATCH envia CSRF dinâmico e sessão (1.4589ms)
+✔ DELETE envia CSRF dinâmico e sessão (0.5623ms)
+✔ login codifica email/senha como formulário e aceita 204; logout renova CSRF (1.8942ms)
+✔ credenciais inválidas ficam no login; sessão ausente aciona redirecionamento (1.1433ms)
+✔ erro 400 preserva contrato e não repete escrita (0.8551ms)
+✔ erro 403 preserva contrato e não repete escrita (0.4079ms)
+✔ erro 404 preserva contrato e não repete escrita (0.3838ms)
+✔ erro 409 preserva contrato e não repete escrita (0.346ms)
+✔ 403 invalida token para próxima ação explícita, sem replay da anterior (0.5129ms)
+✔ PATCH completo preserva offset e remove campos de identidade/status (0.4435ms)
+✔ datas sem offset, fim não posterior e recursos inválidos falham antes do fetch (0.2749ms)
+✔ cancelamento, aprovação e rejeição usam rotas e motivo contratados (0.589ms)
+✔ somente RESPONSAVEL recebe conveniência visual de aprovação (0.1204ms)
+✔ falha de rede e HTML inesperado não vazam detalhes nem repetem escrita (0.694ms)
+✔ CSRF ausente não permite escrita e falha inicial pode ser recuperada (0.4128ms)
+✔ origem externa e correlação inválida falham antes de buscar token (0.531ms)
+✔ escritas paralelas compartilham somente a busca de CSRF (1.0379ms)
+✔ guard ignora duplo envio, indica busy e restaura controles em sucesso e erro (1.1985ms)
+✔ datetime-local é convertido com o fuso operacional, incluindo horário de verão histórico (4.3265ms)
+✔ horários ausentes e ambíguos durante transições de São Paulo são recusados (1.3502ms)
+✔ dias inexistentes, normalização de 24 horas e formato incompleto não viram instantes (0.8289ms)
+✔ intervalo opcional/obrigatório, fim posterior e limite diário têm mensagens específicas (2.0611ms)
+✔ filtros de recursos codificam textos/offset, booleano false e paginação sem campos extras (0.5192ms)
+✔ filtros inválidos falham antes da chamada HTTP (0.8147ms)
+✔ pesquisa usa GET contratado e preserva envelope; não repagina a lista no cliente (1.5585ms)
+✔ página vazia além da última é válida; envelopes e recursos incoerentes são recusados (0.4202ms)
+✔ expediente lê somente a rota contratada e recusa zona/horário inválidos (0.463ms)
+✔ confirmação da criação aceita mesmos instantes e IDs sem depender da ordem (0.4662ms)
+✔ confirmação recusa identidade, status, datas e recursos divergentes sem afirmar sucesso (0.3036ms)
+ℹ tests 45
+ℹ suites 0
+ℹ pass 45
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 236.7267
+
+> test:browser
+> playwright test
+
+npm.cmd : [WebServer] (node:4184) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+No linha:5 caractere:1
++ npm.cmd run build 2>&1 | Tee-Object -FilePath 'docs/testes/marcos-5-p ...
++ ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([WebServer] (no... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 122 tests using 1 worker
+
+(node:26088) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok   1 [desktop] › tests\browser\acesso.spec.js:61:1 › login por teclado envia formulário e CSRF, depois consulta o perfil (953ms)
+  ok   2 [desktop] › tests\browser\acesso.spec.js:81:1 › credenciais inválidas preservam formulário e mostram HTML como texto (511ms)
+  ok   3 [desktop] › tests\browser\acesso.spec.js:96:1 › envios simultâneos de login executam uma escrita e indicam busy (481ms)
+  ok   4 [desktop] › tests\browser\acesso.spec.js:111:1 › sessão expirada volta ao login sem loop nem dados privados (461ms)
+  ok   5 [desktop] › tests\browser\acesso.spec.js:122:1 › sessão já válida evita novo login e ignora destinos externos (487ms)
+  ok   6 [desktop] › tests\browser\acesso.spec.js:131:3 › navegação do perfil SOLICITANTE sem ações ou links indevidos (389ms)
+  ok   7 [desktop] › tests\browser\acesso.spec.js:131:3 › navegação do perfil RESPONSAVEL sem ações ou links indevidos (392ms)
+  ok   8 [desktop] › tests\browser\acesso.spec.js:131:3 › navegação do perfil ADMINISTRADOR sem ações ou links indevidos (462ms)
+  ok   9 [desktop] › tests\browser\acesso.spec.js:146:1 › logout usa CSRF e confirma saída somente após 204 (591ms)
+  ok  10 [desktop] › tests\browser\acesso.spec.js:158:1 › falha no logout restaura botão e não afirma sessão encerrada (451ms)
+  ok  11 [desktop] › tests\browser\acesso.spec.js:171:1 › envios simultâneos de logout executam uma escrita (587ms)
+  ok  12 [desktop] › tests\browser\acesso.spec.js:185:1 › falha na leitura da sessão mantém painel oculto e permite nova leitura (440ms)
+  ok  13 [desktop] › tests\browser\acesso.spec.js:198:1 › perfil não reconhecido não revela painel nem ações (317ms)
+  ok  14 [desktop] › tests\browser\acesso.spec.js:205:1 › 403 no login não repete envio; nova ação busca outro token (573ms)
+  ok  15 [desktop] › tests\browser\acesso.spec.js:221:1 › login e entrada cabem na viewport sem rolagem horizontal (764ms)
+  ok  16 [desktop] › tests\browser\administracao-recursos.spec.js:100:3 › SOLICITANTE não acessa nem consulta dados administrativos pela URL direta (345ms)
+  ok  17 [desktop] › tests\browser\administracao-recursos.spec.js:100:3 › RESPONSAVEL não acessa nem consulta dados administrativos pela URL direta (352ms)
+  ok  18 [desktop] › tests\browser\administracao-recursos.spec.js:106:1 › sem sessão redireciona ao login sem consultas administrativas (390ms)
+  ok  19 [desktop] › tests\browser\administracao-recursos.spec.js:110:1 › consulta paginada inclui inativos, combina filtros e reinicia página (525ms)
+  ok  20 [desktop] › tests\browser\administracao-recursos.spec.js:121:1 › cadastro de sala por teclado envia somente DTO e CSRF (623ms)
+  ok  21 [desktop] › tests\browser\administracao-recursos.spec.js:129:1 › cadastro docente aceita competências vazias e não envia dados da sala (570ms)
+  ok  22 [desktop] › tests\browser\administracao-recursos.spec.js:136:1 › cadastro material aceita condição livre e restrição (646ms)
+  ok  23 [desktop] › tests\browser\administracao-recursos.spec.js:143:1 › edição consulta detalhe, fixa tipo e preserva campos no PUT completo (561ms)
+  ok  24 [desktop] › tests\browser\administracao-recursos.spec.js:149:1 › detalhe ausente impede edição e não aproveita resumo incompleto (660ms)
+  x   25 [desktop] › tests\browser\administracao-recursos.spec.js:154:1 › detalhe pendente bloqueia troca de alvo e respostas não se misturam (7.3s)
+(node:31244) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  26 [desktop] › tests\browser\administracao-recursos.spec.js:162:1 › desativação exige confirmação e só muda estado após 204 (3.8s)
+  ok  27 [desktop] › tests\browser\administracao-recursos.spec.js:170:1 › 409 na desativação mantém recurso ativo, dados e referência de suporte (3.6s)
+  ok  28 [desktop] › tests\browser\administracao-recursos.spec.js:177:1 › bloqueio multidia converte fuso, preserva 409 e permite correção explícita (2.7s)
+  ok  29 [desktop] › tests\browser\administracao-recursos.spec.js:188:1 › cancelamento de bloqueio exige confirmação e remove ação do cancelado (698ms)
+  ok  30 [desktop] › tests\browser\administracao-recursos.spec.js:196:1 › expediente preserva todas as janelas e nanossegundos sem arredondamento (494ms)
+  ok  31 [desktop] › tests\browser\administracao-recursos.spec.js:203:1 › expediente vazio exige confirmação e deixa fechamento explícito (617ms)
+  ok  32 [desktop] › tests\browser\administracao-recursos.spec.js:210:1 › expediente com sobreposição não envia; 409 conserva a edição (729ms)
+  ok  33 [desktop] › tests\browser\administracao-recursos.spec.js:219:1 › falha de leitura do expediente impede salvar e permite recuperação por GET (435ms)
+  x   34 [desktop] › tests\browser\administracao-recursos.spec.js:225:1 › duplo envio mantém uma escrita e controles bloqueados até resposta (5.6s)
+(node:32220) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  35 [desktop] › tests\browser\administracao-recursos.spec.js:233:3 › rede mantém cadastro sem sucesso falso nem retry (837ms)
+  ok  36 [desktop] › tests\browser\administracao-recursos.spec.js:233:3 › respostaInvalida mantém cadastro sem sucesso falso nem retry (572ms)
+  ok  37 [desktop] › tests\browser\administracao-recursos.spec.js:239:1 › 403 não repete escrita e nova ação explícita renova token (716ms)
+  ok  38 [desktop] › tests\browser\administracao-recursos.spec.js:245:1 › textos da API são literais e página cabe em desktop/móvel (728ms)
+  ok  39 [desktop] › tests\browser\recursos.spec.js:90:1 › pesquisa combina filtros, mostra expediente real e codifica datas no fuso operacional (669ms)
+  ok  40 [desktop] › tests\browser\recursos.spec.js:108:1 › reserva comum seleciona sala e docente, envia DTO completo/CSRF e confirma resposta (698ms)
+  ok  41 [desktop] › tests\browser\recursos.spec.js:124:1 › reserva restrita exibe SOLICITADA e espera sem inventar aprovação ou notificação (613ms)
+  ok  42 [desktop] › tests\browser\recursos.spec.js:133:1 › seleção atravessa páginas e nova pesquisa reinicia a página sem perder o mesmo período (860ms)
+  ok  43 [desktop] › tests\browser\recursos.spec.js:150:1 › alterar o período limpa seleção e resultados antes de permitir outra solicitação (649ms)
+  ok  44 [desktop] › tests\browser\recursos.spec.js:160:1 › não oferece seleção de recurso indisponível ou inativo (607ms)
+  ok  45 [desktop] › tests\browser\recursos.spec.js:171:1 › vazio e erro de consulta permitem corrigir e pesquisar novamente (704ms)
+  ok  46 [desktop] › tests\browser\recursos.spec.js:185:3 › falha 400 na criação preserva período/seleção e não repete POST (605ms)
+  ok  47 [desktop] › tests\browser\recursos.spec.js:185:3 › falha 403 na criação preserva período/seleção e não repete POST (623ms)
+  ok  48 [desktop] › tests\browser\recursos.spec.js:185:3 › falha 404 na criação preserva período/seleção e não repete POST (664ms)
+  ok  49 [desktop] › tests\browser\recursos.spec.js:185:3 › falha 409 na criação preserva período/seleção e não repete POST (959ms)
+  ok  50 [desktop] › tests\browser\recursos.spec.js:201:1 › submissões simultâneas mantêm uma escrita e carregamento até a confirmação (644ms)
+  ok  51 [desktop] › tests\browser\recursos.spec.js:215:1 › falha de rede não afirma sucesso e orienta conferir antes de reenviar (688ms)
+  ok  52 [desktop] › tests\browser\recursos.spec.js:225:1 › resposta incoerente após POST não mostra sucesso nem repete a escrita (626ms)
+  ok  53 [desktop] › tests\browser\recursos.spec.js:234:1 › resposta atrasada é descartada se o período mudar durante a consulta (553ms)
+  ok  54 [desktop] › tests\browser\recursos.spec.js:255:1 › sessão ausente não consulta recursos e retorna ao login (472ms)
+  ok  55 [desktop] › tests\browser\recursos.spec.js:264:1 › sessão expirada durante escrita segue fluxo central e não repete POST (703ms)
+  ok  56 [desktop] › tests\browser\recursos.spec.js:274:1 › período inválido não dispara consultas (526ms)
+  ok  57 [desktop] › tests\browser\recursos.spec.js:288:1 › disponibilidade sem período é recusada e limpar filtros restaura a consulta geral (522ms)
+  ok  58 [desktop] › tests\browser\recursos.spec.js:301:1 › atualizar a pesquisa remove seleção que ficou indisponível (603ms)
+  ok  59 [desktop] › tests\browser\recursos.spec.js:311:1 › expediente vazio não inventa horários e falha de leitura não impede consulta (624ms)
+  ok  60 [desktop] › tests\browser\recursos.spec.js:323:1 › teclado, texto seguro e layout cabem em móvel/desktop com confirmação acessível (823ms)
+  ok  61 [desktop] › tests\browser\recursos.spec.js:342:1 › capturas de pesquisa e confirmação com recursos de teste identificados (870ms)
+(node:12196) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  62 [mobile] › tests\browser\acesso.spec.js:61:1 › login por teclado envia formulário e CSRF, depois consulta o perfil (631ms)
+  ok  63 [mobile] › tests\browser\acesso.spec.js:81:1 › credenciais inválidas preservam formulário e mostram HTML como texto (421ms)
+  ok  64 [mobile] › tests\browser\acesso.spec.js:96:1 › envios simultâneos de login executam uma escrita e indicam busy (434ms)
+  ok  65 [mobile] › tests\browser\acesso.spec.js:111:1 › sessão expirada volta ao login sem loop nem dados privados (385ms)
+  ok  66 [mobile] › tests\browser\acesso.spec.js:122:1 › sessão já válida evita novo login e ignora destinos externos (448ms)
+  ok  67 [mobile] › tests\browser\acesso.spec.js:131:3 › navegação do perfil SOLICITANTE sem ações ou links indevidos (373ms)
+  ok  68 [mobile] › tests\browser\acesso.spec.js:131:3 › navegação do perfil RESPONSAVEL sem ações ou links indevidos (347ms)
+  ok  69 [mobile] › tests\browser\acesso.spec.js:131:3 › navegação do perfil ADMINISTRADOR sem ações ou links indevidos (346ms)
+  ok  70 [mobile] › tests\browser\acesso.spec.js:146:1 › logout usa CSRF e confirma saída somente após 204 (550ms)
+  ok  71 [mobile] › tests\browser\acesso.spec.js:158:1 › falha no logout restaura botão e não afirma sessão encerrada (423ms)
+  ok  72 [mobile] › tests\browser\acesso.spec.js:171:1 › envios simultâneos de logout executam uma escrita (564ms)
+  ok  73 [mobile] › tests\browser\acesso.spec.js:185:1 › falha na leitura da sessão mantém painel oculto e permite nova leitura (418ms)
+  ok  74 [mobile] › tests\browser\acesso.spec.js:198:1 › perfil não reconhecido não revela painel nem ações (346ms)
+  ok  75 [mobile] › tests\browser\acesso.spec.js:205:1 › 403 no login não repete envio; nova ação busca outro token (549ms)
+  ok  76 [mobile] › tests\browser\acesso.spec.js:221:1 › login e entrada cabem na viewport sem rolagem horizontal (658ms)
+  ok  77 [mobile] › tests\browser\administracao-recursos.spec.js:100:3 › SOLICITANTE não acessa nem consulta dados administrativos pela URL direta (334ms)
+  ok  78 [mobile] › tests\browser\administracao-recursos.spec.js:100:3 › RESPONSAVEL não acessa nem consulta dados administrativos pela URL direta (324ms)
+  ok  79 [mobile] › tests\browser\administracao-recursos.spec.js:106:1 › sem sessão redireciona ao login sem consultas administrativas (390ms)
+  ok  80 [mobile] › tests\browser\administracao-recursos.spec.js:110:1 › consulta paginada inclui inativos, combina filtros e reinicia página (489ms)
+  ok  81 [mobile] › tests\browser\administracao-recursos.spec.js:121:1 › cadastro de sala por teclado envia somente DTO e CSRF (526ms)
+  ok  82 [mobile] › tests\browser\administracao-recursos.spec.js:129:1 › cadastro docente aceita competências vazias e não envia dados da sala (621ms)
+  ok  83 [mobile] › tests\browser\administracao-recursos.spec.js:136:1 › cadastro material aceita condição livre e restrição (710ms)
+  ok  84 [mobile] › tests\browser\administracao-recursos.spec.js:143:1 › edição consulta detalhe, fixa tipo e preserva campos no PUT completo (550ms)
+  ok  85 [mobile] › tests\browser\administracao-recursos.spec.js:149:1 › detalhe ausente impede edição e não aproveita resumo incompleto (456ms)
+  x   86 [mobile] › tests\browser\administracao-recursos.spec.js:154:1 › detalhe pendente bloqueia troca de alvo e respostas não se misturam (5.4s)
+(node:32832) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  87 [mobile] › tests\browser\administracao-recursos.spec.js:162:1 › desativação exige confirmação e só muda estado após 204 (8.0s)
+  ok  88 [mobile] › tests\browser\administracao-recursos.spec.js:170:1 › 409 na desativação mantém recurso ativo, dados e referência de suporte (953ms)
+  ok  89 [mobile] › tests\browser\administracao-recursos.spec.js:177:1 › bloqueio multidia converte fuso, preserva 409 e permite correção explícita (784ms)
+  ok  90 [mobile] › tests\browser\administracao-recursos.spec.js:188:1 › cancelamento de bloqueio exige confirmação e remove ação do cancelado (906ms)
+  ok  91 [mobile] › tests\browser\administracao-recursos.spec.js:196:1 › expediente preserva todas as janelas e nanossegundos sem arredondamento (3.9s)
+  ok  92 [mobile] › tests\browser\administracao-recursos.spec.js:203:1 › expediente vazio exige confirmação e deixa fechamento explícito (700ms)
+  ok  93 [mobile] › tests\browser\administracao-recursos.spec.js:210:1 › expediente com sobreposição não envia; 409 conserva a edição (664ms)
+  ok  94 [mobile] › tests\browser\administracao-recursos.spec.js:219:1 › falha de leitura do expediente impede salvar e permite recuperação por GET (455ms)
+  x   95 [mobile] › tests\browser\administracao-recursos.spec.js:225:1 › duplo envio mantém uma escrita e controles bloqueados até resposta (5.6s)
+(node:8640) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  96 [mobile] › tests\browser\administracao-recursos.spec.js:233:3 › rede mantém cadastro sem sucesso falso nem retry (832ms)
+  ok  97 [mobile] › tests\browser\administracao-recursos.spec.js:233:3 › respostaInvalida mantém cadastro sem sucesso falso nem retry (605ms)
+  ok  98 [mobile] › tests\browser\administracao-recursos.spec.js:239:1 › 403 não repete escrita e nova ação explícita renova token (727ms)
+  ok  99 [mobile] › tests\browser\administracao-recursos.spec.js:245:1 › textos da API são literais e página cabe em desktop/móvel (589ms)
+  ok 100 [mobile] › tests\browser\recursos.spec.js:90:1 › pesquisa combina filtros, mostra expediente real e codifica datas no fuso operacional (603ms)
+  ok 101 [mobile] › tests\browser\recursos.spec.js:108:1 › reserva comum seleciona sala e docente, envia DTO completo/CSRF e confirma resposta (679ms)
+  ok 102 [mobile] › tests\browser\recursos.spec.js:124:1 › reserva restrita exibe SOLICITADA e espera sem inventar aprovação ou notificação (611ms)
+  ok 103 [mobile] › tests\browser\recursos.spec.js:133:1 › seleção atravessa páginas e nova pesquisa reinicia a página sem perder o mesmo período (868ms)
+  ok 104 [mobile] › tests\browser\recursos.spec.js:150:1 › alterar o período limpa seleção e resultados antes de permitir outra solicitação (524ms)
+  ok 105 [mobile] › tests\browser\recursos.spec.js:160:1 › não oferece seleção de recurso indisponível ou inativo (564ms)
+  ok 106 [mobile] › tests\browser\recursos.spec.js:171:1 › vazio e erro de consulta permitem corrigir e pesquisar novamente (619ms)
+  ok 107 [mobile] › tests\browser\recursos.spec.js:185:3 › falha 400 na criação preserva período/seleção e não repete POST (643ms)
+  ok 108 [mobile] › tests\browser\recursos.spec.js:185:3 › falha 403 na criação preserva período/seleção e não repete POST (623ms)
+  ok 109 [mobile] › tests\browser\recursos.spec.js:185:3 › falha 404 na criação preserva período/seleção e não repete POST (606ms)
+  ok 110 [mobile] › tests\browser\recursos.spec.js:185:3 › falha 409 na criação preserva período/seleção e não repete POST (632ms)
+  ok 111 [mobile] › tests\browser\recursos.spec.js:201:1 › submissões simultâneas mantêm uma escrita e carregamento até a confirmação (576ms)
+  ok 112 [mobile] › tests\browser\recursos.spec.js:215:1 › falha de rede não afirma sucesso e orienta conferir antes de reenviar (580ms)
+  ok 113 [mobile] › tests\browser\recursos.spec.js:225:1 › resposta incoerente após POST não mostra sucesso nem repete a escrita (621ms)
+  ok 114 [mobile] › tests\browser\recursos.spec.js:234:1 › resposta atrasada é descartada se o período mudar durante a consulta (712ms)
+  ok 115 [mobile] › tests\browser\recursos.spec.js:255:1 › sessão ausente não consulta recursos e retorna ao login (391ms)
+  ok 116 [mobile] › tests\browser\recursos.spec.js:264:1 › sessão expirada durante escrita segue fluxo central e não repete POST (628ms)
+  ok 117 [mobile] › tests\browser\recursos.spec.js:274:1 › período inválido não dispara consultas (518ms)
+  ok 118 [mobile] › tests\browser\recursos.spec.js:288:1 › disponibilidade sem período é recusada e limpar filtros restaura a consulta geral (607ms)
+  ok 119 [mobile] › tests\browser\recursos.spec.js:301:1 › atualizar a pesquisa remove seleção que ficou indisponível (699ms)
+  ok 120 [mobile] › tests\browser\recursos.spec.js:311:1 › expediente vazio não inventa horários e falha de leitura não impede consulta (561ms)
+  ok 121 [mobile] › tests\browser\recursos.spec.js:323:1 › teclado, texto seguro e layout cabem em móvel/desktop com confirmação acessível (806ms)
+  ok 122 [mobile] › tests\browser\recursos.spec.js:342:1 › capturas de pesquisa e confirmação com recursos de teste identificados (804ms)
+
+
+  1) [desktop] › tests\browser\administracao-recursos.spec.js:154:1 › detalhe pendente bloqueia troca de alvo e respostas não se misturam
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  locator('#controles-admin')
+    Expected: disabled
+    Received: enabled
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeDisabled" locator('#controles-admin') with timeout 5000ms
+      - waiting for locator('#controles-admin')
+        14 × locator resolved to <fieldset disabled id="controles-admin" class="admin-controls">…</fieldset>
+           - unexpected value "enabled"
+
+
+      155 |   const estado = await abrir(page); let liberar; estado.esperarDetalhe = new Promise((r) => { liberar = r; });
+      156 |   await page.getByRole('button', { name: 'Gerenciar SALA-01', exact: true }).click();
+    > 157 |   await expect(page.locator('#controles-admin')).toBeDisabled();
+          |                                                  ^
+      158 |   await page.getByRole('button', { name: 'Gerenciar Ana · DOC-01', exact: true }).evaluate((b) => b.click());
+      159 |   liberar(); await expect(page.locator('#cad-codigo')).toHaveValue('SALA-01');
+      160 |   expect(estado.consultas.filter((u) => /^\/api\/recursos\/\d+$/.test(u))).toEqual(['/api/recursos/7']);
+        at C:\Users\fsouza\OneDrive - C Kennedy - 2025.old\Documentos\Cods\QS_Project\ADS-4S-OrganizacaoRecursos\tests\browser\administracao-recursos.spec.js:157:50
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\frontend\administracao-recursos-det-a11c8-e-respostas-não-se-misturam-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\frontend\administracao-recursos-det-a11c8-e-respostas-não-se-misturam-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\frontend\administracao-recursos-det-a11c8-e-respostas-não-se-misturam-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\frontend\administracao-recursos-det-a11c8-e-respostas-não-se-misturam-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [desktop] › tests\browser\administracao-recursos.spec.js:225:1 › duplo envio mantém uma escrita e controles bloqueados até resposta
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  locator('#controles-admin')
+    Expected: disabled
+    Received: enabled
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeDisabled" locator('#controles-admin') with timeout 5000ms
+      - waiting for locator('#controles-admin')
+        14 × locator resolved to <fieldset disabled id="controles-admin" class="admin-controls">…</fieldset>
+           - unexpected value "enabled"
+
+
+      227 |   await enviarCadastro(page); await expect(page.locator('#form-cadastro')).toHaveAttribute('aria-busy', 'true');
+      228 |   await page.locator('#form-cadastro').dispatchEvent('submit'); expect(estado.escritas).toHaveLength(1);
+    > 229 |   await expect(page.locator('#controles-admin')).toBeDisabled(); liberar();
+          |                                                  ^
+      230 |   await expect(page.locator('#feedback-cadastro')).toContainText('Recurso salvo'); await expect(page.locator('#controles-admin')).toBeEnabled(); expect(estado.escritas).toHaveLength(1);
+      231 | });
+      232 | for (const problema of ['rede', 'respostaInvalida']) {
+        at C:\Users\fsouza\OneDrive - C Kennedy - 2025.old\Documentos\Cods\QS_Project\ADS-4S-OrganizacaoRecursos\tests\browser\administracao-recursos.spec.js:229:50
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\frontend\administracao-recursos-dup-ba4a7-les-bloqueados-até-resposta-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\frontend\administracao-recursos-dup-ba4a7-les-bloqueados-até-resposta-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\frontend\administracao-recursos-dup-ba4a7-les-bloqueados-até-resposta-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\frontend\administracao-recursos-dup-ba4a7-les-bloqueados-até-resposta-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [mobile] › tests\browser\administracao-recursos.spec.js:154:1 › detalhe pendente bloqueia troca de alvo e respostas não se misturam
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  locator('#controles-admin')
+    Expected: disabled
+    Received: enabled
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeDisabled" locator('#controles-admin') with timeout 5000ms
+      - waiting for locator('#controles-admin')
+        14 × locator resolved to <fieldset disabled id="controles-admin" class="admin-controls">…</fieldset>
+           - unexpected value "enabled"
+
+
+      155 |   const estado = await abrir(page); let liberar; estado.esperarDetalhe = new Promise((r) => { liberar = r; });
+      156 |   await page.getByRole('button', { name: 'Gerenciar SALA-01', exact: true }).click();
+    > 157 |   await expect(page.locator('#controles-admin')).toBeDisabled();
+          |                                                  ^
+      158 |   await page.getByRole('button', { name: 'Gerenciar Ana · DOC-01', exact: true }).evaluate((b) => b.click());
+      159 |   liberar(); await expect(page.locator('#cad-codigo')).toHaveValue('SALA-01');
+      160 |   expect(estado.consultas.filter((u) => /^\/api\/recursos\/\d+$/.test(u))).toEqual(['/api/recursos/7']);
+        at C:\Users\fsouza\OneDrive - C Kennedy - 2025.old\Documentos\Cods\QS_Project\ADS-4S-OrganizacaoRecursos\tests\browser\administracao-recursos.spec.js:157:50
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\frontend\administracao-recursos-det-a11c8-e-respostas-não-se-misturam-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\frontend\administracao-recursos-det-a11c8-e-respostas-não-se-misturam-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\frontend\administracao-recursos-det-a11c8-e-respostas-não-se-misturam-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\frontend\administracao-recursos-det-a11c8-e-respostas-não-se-misturam-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [mobile] › tests\browser\administracao-recursos.spec.js:225:1 › duplo envio mantém uma escrita e controles bloqueados até resposta
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  locator('#controles-admin')
+    Expected: disabled
+    Received: enabled
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeDisabled" locator('#controles-admin') with timeout 5000ms
+      - waiting for locator('#controles-admin')
+        14 × locator resolved to <fieldset disabled id="controles-admin" class="admin-controls">…</fieldset>
+           - unexpected value "enabled"
+
+
+      227 |   await enviarCadastro(page); await expect(page.locator('#form-cadastro')).toHaveAttribute('aria-busy', 'true');
+      228 |   await page.locator('#form-cadastro').dispatchEvent('submit'); expect(estado.escritas).toHaveLength(1);
+    > 229 |   await expect(page.locator('#controles-admin')).toBeDisabled(); liberar();
+          |                                                  ^
+      230 |   await expect(page.locator('#feedback-cadastro')).toContainText('Recurso salvo'); await expect(page.locator('#controles-admin')).toBeEnabled(); expect(estado.escritas).toHaveLength(1);
+      231 | });
+      232 | for (const problema of ['rede', 'respostaInvalida']) {
+        at C:\Users\fsouza\OneDrive - C Kennedy - 2025.old\Documentos\Cods\QS_Project\ADS-4S-OrganizacaoRecursos\tests\browser\administracao-recursos.spec.js:229:50
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\frontend\administracao-recursos-dup-ba4a7-les-bloqueados-até-resposta-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\frontend\administracao-recursos-dup-ba4a7-les-bloqueados-até-resposta-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\frontend\administracao-recursos-dup-ba4a7-les-bloqueados-até-resposta-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\frontend\administracao-recursos-dup-ba4a7-les-bloqueados-até-resposta-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    [desktop] › tests\browser\administracao-recursos.spec.js:154:1 › detalhe pendente bloqueia troca de alvo e respostas não se misturam
+    [desktop] › tests\browser\administracao-recursos.spec.js:225:1 › duplo envio mantém uma escrita e controles bloqueados até resposta
+    [mobile] › tests\browser\administracao-recursos.spec.js:154:1 › detalhe pendente bloqueia troca de alvo e respostas não se misturam
+    [mobile] › tests\browser\administracao-recursos.spec.js:225:1 › duplo envio mantém uma escrita e controles bloqueados até resposta
+  118 passed (2.0m)

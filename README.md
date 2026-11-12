@@ -266,3 +266,13 @@ Consulte o [plano completo de Marcos](docs/planejamento/marcos-plano-de-acao.md)
 As páginas `static/pages/recursos.html` e `static/pages/reservas.html` oferecem filtros, disponibilidade por período, paginação, seleção de múltiplos recursos e criação de reservas comuns/restritas com confirmação do servidor. O frontend continua HTML/CSS/JS nativo; Node serve apenas às verificações. Datas do formulário usam São Paulo independentemente do fuso do navegador.
 
 A [story Marcos-3](docs/stories/marcos-3.md) cobre o primeiro recorte da etapa 3. Listagem de reservas anteriores, reabertura para edição/cancelamento e integração real continuam dependentes das entregas da equipe. Mocks existem apenas nos testes; o preview não substitui o backend. Execute `npm run build` na raiz com `PLAYWRIGHT_CHANNEL=chrome` quando usar o Chrome instalado. [Resultados e capturas](docs/testes/marcos-3-resultados.md).
+
+## Administração de recursos — Marcos-5
+
+`static/pages/gestao-recursos.html` oferece cadastro e edição de salas/docentes/materiais, desativação lógica, bloqueios de manutenção e expediente completo para Administrador, seguindo o item18. O link aparece na navegação desse perfil. Este recorte é independente da fila/Q9; movimentações estão no incremento complementar abaixo. [Story](docs/stories/marcos-5.md), [contratos de consumo](docs/api/frontend-integracao.md#administração-de-recursos--marcos-5) e [resultados locais](docs/testes/marcos-5-resultados.md). As APIs permanecem desligadas por padrão; o preview estático não simula sessão nem dados.
+
+## Movimentações — complemento da etapa 5
+
+`static/pages/movimentacoes.html` oferece pendências de materiais para Responsável/Administrador e registro de retirada/devolução somente para Responsável. A retirada usa número da reserva e seleção do material por patrimônio, sem depender de consultas de reservas da Q9. Prazo ultrapassado é estimativa identificada; devolução e atraso final são confirmados pela API. [Story](docs/stories/marcos-5-movimentacoes.md), [integração](docs/api/frontend-integracao.md#movimentações--complemento-da-etapa-5) e [evidências](docs/testes/marcos-5-movimentacoes-resultados.md). Testes locais não comprovam integração Spring/MySQL; o preview não simula APIs.
+
+Implementação local da etapa 5 encerrada com o aceite visual de Marcos em 11/11/2026 nos incrementos administrativo e de movimentações. Revisão da equipe, CI e integração real permanecem pendentes para a entrega integrada.

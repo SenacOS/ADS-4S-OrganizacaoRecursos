@@ -16,10 +16,10 @@ export function areasDoPerfil(usuario) {
     areas.push({ titulo: 'Aprovações', descricao: 'Avalie solicitações de recursos restritos.' });
   }
   if (usuario.papel === 'ADMINISTRADOR') {
-    areas.push({ titulo: 'Gerenciar recursos', descricao: 'Cuide dos cadastros e dos períodos de manutenção.' });
+    areas.push({ titulo: 'Gerenciar recursos', descricao: 'Cuide dos cadastros e dos períodos de manutenção.', href: '/pages/gestao-recursos.html' });
   }
   if (usuario.papel === 'RESPONSAVEL' || usuario.papel === 'ADMINISTRADOR') {
-    areas.push({ titulo: 'Movimentações', descricao: 'Acompanhe materiais retirados e devoluções pendentes.' });
+    areas.push({ titulo: 'Movimentações', descricao: 'Acompanhe materiais retirados e devoluções pendentes.', href: '/pages/movimentacoes.html' });
   }
   return areas;
 }

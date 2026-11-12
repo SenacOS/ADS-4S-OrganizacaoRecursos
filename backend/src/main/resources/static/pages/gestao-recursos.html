@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light"><title>Gerenciar recursos · Organização de Recursos</title>
+  <link rel="stylesheet" href="/css/app.css"><link rel="stylesheet" href="/css/administracao.css">
+  <script type="module" src="/js/gestao-recursos-page.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+  <div id="estado-sessao" class="session-check">
+    <div class="brand brand-dark"><span class="brand-mark" aria-hidden="true">OR</span><span>Organização de Recursos</span></div>
+    <p id="feedback-inicial" class="feedback" role="status" aria-live="polite" tabindex="-1">Verificando seu acesso…</p>
+    <p id="referencia-inicial" class="support-reference" hidden></p>
+    <button id="tentar-sessao" class="button button-secondary" type="button" hidden>Tentar novamente</button>
+    <noscript><p>Ative o JavaScript no navegador para acessar o sistema.</p></noscript>
+  </div>
+  <div id="painel" class="app-layout" hidden>
+    <aside class="sidebar">
+      <a class="brand" href="/index.html" aria-label="Organização de Recursos, início"><span class="brand-mark" aria-hidden="true">OR</span><span>Organização<br>de Recursos</span></a>
+      <p class="sidebar-label">SEU ESPAÇO</p><nav aria-label="Navegação principal"><ul id="navegacao" class="nav-list"></ul></nav>
+      <div class="sidebar-footer">Recursos bem compartilhados.</div>
+    </aside>
+    <div class="app-main">
+      <header class="topbar"><p class="breadcrumb">Seu espaço <span aria-hidden="true">/</span> <strong>Gerenciar recursos</strong></p><form id="form-logout"><button class="button button-secondary" type="submit">Sair da conta</button></form></header>
+      <main id="conteudo" class="dashboard-content" tabindex="-1">
+        <div class="page-heading"><div><p class="eyebrow">ADMINISTRAÇÃO</p><h1>Cuide de cada recurso.</h1></div><span id="perfil-badge" class="profile-badge"></span></div>
+        <p class="page-description">Mantenha os cadastros, planeje a manutenção e ajuste os horários de funcionamento.</p>
+        <p id="feedback-painel" class="feedback" role="status" aria-live="polite" tabindex="-1" hidden></p><p id="referencia-painel" class="support-reference" hidden></p>
+        <fieldset id="controles-admin" class="admin-controls">
+          <legend class="sr-only">Administração de recursos</legend>
+          <nav class="admin-shortcuts" aria-label="Seções administrativas"><a href="#cadastros">Cadastros</a><a href="#expediente-title">Funcionamento</a></nav>
+          <section id="cadastros" class="account-panel" aria-labelledby="cadastros-title">
+            <div class="section-heading"><h2 id="cadastros-title">Recursos cadastrados</h2><button id="novo-recurso" class="button button-primary" type="button">Novo recurso</button></div>
+            <form id="form-busca-admin">
+              <div class="filters-grid">
+                <div><label for="filtro-tipo">Tipo de recurso</label><select id="filtro-tipo"><option value="">Todos</option><option value="SALA">Sala</option><option value="PROFESSOR">Docente</option><option value="MATERIAL">Material</option></select></div>
+                <div><label for="filtro-local">Localização</label><input id="filtro-local" type="search" maxlength="200"></div>
+                <div><label for="filtro-competencia">Competência</label><input id="filtro-competencia" type="search" maxlength="120"></div>
+                <div><label for="filtro-patrimonio">Patrimônio</label><input id="filtro-patrimonio" type="search" maxlength="80"></div>
+                <div><label for="filtro-tamanho">Resultados por página</label><select id="filtro-tamanho"><option value="20">20</option><option value="50">50</option><option value="100">100</option></select></div>
+              </div>
+              <div class="form-actions"><button class="button button-secondary" type="submit">Consultar cadastros</button></div>
+            </form>
+            <p id="feedback-busca" class="feedback" role="status" aria-live="polite" tabindex="-1" hidden></p><p id="referencia-busca" class="support-reference" hidden></p>
+            <p id="resumo-admin" role="status">Consultando recursos…</p><div id="lista-admin" class="admin-list"></div>
+            <nav class="pagination" aria-label="Páginas de cadastros"><button id="anterior-admin" class="button button-secondary" type="button" disabled>Anterior</button><span id="pagina-admin">Nenhuma consulta</span><button id="seguinte-admin" class="button button-secondary" type="button" disabled>Próxima</button></nav>
+          </section>
+          <section id="editor-recurso" class="account-panel" aria-labelledby="editor-title" hidden>
+            <div class="section-heading"><h2 id="editor-title" tabindex="-1">Novo recurso</h2><button id="fechar-editor" class="button button-secondary" type="button">Fechar edição</button></div>
+            <p class="field-help">Campos com * são obrigatórios. A edição preserva o tipo do recurso.</p>
+            <form id="form-cadastro">
+              <div class="filters-grid">
+                <div><label for="cad-tipo">Tipo *</label><select id="cad-tipo" required><option value="SALA">Sala</option><option value="PROFESSOR">Docente</option><option value="MATERIAL">Material</option></select></div>
+                <div><label for="cad-codigo">Código *</label><input id="cad-codigo" required maxlength="80"></div>
+                <div class="admin-checks"><label><input id="cad-ativo" type="checkbox" checked> Recurso ativo</label><label><input id="cad-restrito" type="checkbox"> Exige aprovação</label></div>
+              </div>
+              <fieldset data-tipo="SALA" class="type-fields"><legend>Dados da sala</legend><div class="filters-grid">
+                <div><label for="cad-capacidade">Capacidade *</label><input id="cad-capacidade" type="number" min="1" max="2147483647" step="1" required></div>
+                <div><label for="cad-localizacao">Localização da sala *</label><input id="cad-localizacao" maxlength="200" required></div>
+                <div><label for="cad-tipoSala">Tipo de sala *</label><input id="cad-tipoSala" maxlength="80" required></div>
+              </div></fieldset>
+              <fieldset data-tipo="PROFESSOR" class="type-fields" hidden disabled><legend>Dados do docente</legend><div class="filters-grid">
+                <div><label for="cad-nome">Nome *</label><input id="cad-nome" maxlength="120" required></div>
+                <div class="wide-field"><label for="cad-competencias">Competências</label><textarea id="cad-competencias" rows="3" aria-describedby="competencias-ajuda"></textarea><p id="competencias-ajuda" class="field-help">Uma competência por linha, até 120 caracteres cada. A lista pode ficar vazia.</p></div>
+              </div></fieldset>
+              <fieldset data-tipo="MATERIAL" class="type-fields" hidden disabled><legend>Dados do material</legend><div class="filters-grid">
+                <div><label for="cad-patrimonio">Patrimônio do material *</label><input id="cad-patrimonio" maxlength="80" required></div>
+                <div><label for="cad-descricao">Descrição *</label><textarea id="cad-descricao" rows="2" maxlength="500" required></textarea></div>
+                <div><label for="cad-condicao">Condição *</label><input id="cad-condicao" maxlength="120" required></div>
+              </div></fieldset>
+              <div class="form-actions"><button id="salvar-recurso" class="button button-primary" type="submit">Salvar recurso</button></div>
+            </form>
+            <p id="feedback-cadastro" class="feedback" role="status" aria-live="polite" tabindex="-1" hidden></p><p id="referencia-cadastro" class="support-reference" hidden></p>
+            <div id="acoes-recurso" hidden>
+              <form id="form-desativacao" class="admin-confirm">
+                <p id="alvo-desativacao"></p><label class="check-line"><input id="confirmar-desativacao" type="checkbox" required> Confirmo a desativação deste recurso, preservando o histórico.</label>
+                <button id="desativar-recurso" class="button button-secondary" type="submit">Confirmar desativação</button>
+              </form>
+              <section class="maintenance-panel" aria-labelledby="bloqueios-title">
+                <div class="section-heading"><h3 id="bloqueios-title">Manutenção e bloqueios</h3><button id="consultar-bloqueios" class="button button-secondary" type="button">Atualizar bloqueios</button></div>
+                <p id="resumo-bloqueios" role="status">Consulte os bloqueios deste recurso.</p><div id="lista-bloqueios" class="admin-list"></div>
+                <form id="form-bloqueio">
+                  <div class="filters-grid">
+                    <div><label for="bloqueio-inicio">Início do bloqueio *</label><input id="bloqueio-inicio" type="datetime-local" step="60" required></div>
+                    <div><label for="bloqueio-fim">Fim do bloqueio *</label><input id="bloqueio-fim" type="datetime-local" step="60" required></div>
+                    <div><label for="bloqueio-motivo">Motivo *</label><textarea id="bloqueio-motivo" maxlength="500" rows="2" required></textarea></div>
+                  </div><p class="field-help">Horários de São Paulo. O bloqueio pode abranger mais de um dia.</p>
+                  <button class="button button-primary" type="submit">Criar bloqueio</button>
+                </form>
+                <form id="form-cancelar-bloqueio" class="admin-confirm" hidden>
+                  <p id="alvo-cancelamento"></p><label class="check-line"><input id="confirmar-cancelamento" type="checkbox" required> Confirmo o cancelamento deste bloqueio.</label>
+                  <div class="form-actions"><button class="button button-secondary" type="submit">Confirmar cancelamento</button><button id="desistir-cancelamento" class="button button-secondary" type="button">Voltar sem cancelar</button></div>
+                </form>
+                <p id="feedback-bloqueios" class="feedback" role="status" aria-live="polite" tabindex="-1" hidden></p><p id="referencia-bloqueios" class="support-reference" hidden></p>
+              </section>
+            </div>
+          </section>
+          <section class="account-panel" aria-labelledby="expediente-title">
+            <div class="section-heading"><h2 id="expediente-title">Horários de funcionamento</h2><button id="consultar-expediente" class="button button-secondary" type="button">Recarregar expediente</button></div>
+            <p class="field-help">Fuso: America/Sao_Paulo. Ao salvar, todas as janelas serão substituídas. Sem janelas, o funcionamento fica fechado.</p>
+            <form id="form-expediente" hidden>
+              <div id="janelas"></div><p id="resumo-janelas" role="status"></p>
+              <button id="adicionar-janela" class="button button-secondary" type="button">Adicionar janela</button>
+              <label class="check-line admin-confirm"><input id="confirmar-expediente" type="checkbox" required> Confirmo a substituição de todo o expediente, inclusive o fechamento se não houver janelas.</label>
+              <button class="button button-primary" type="submit">Salvar expediente</button>
+            </form>
+            <p id="feedback-expediente" class="feedback" role="status" aria-live="polite" tabindex="-1" hidden></p><p id="referencia-expediente" class="support-reference" hidden></p>
+          </section>
+        </fieldset>
+        <footer class="dashboard-footer">Organização de Recursos <span>Fuso: America/Sao_Paulo</span></footer>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

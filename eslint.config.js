@@ -13,6 +13,7 @@ export default [
         document: 'readonly', window: 'readonly', FormData: 'readonly',
         HTMLFormElement: 'readonly', HTMLFieldSetElement: 'readonly',
         HTMLAnchorElement: 'readonly',
+        HTMLElement: 'readonly',
         queueMicrotask: 'readonly',
       },
     },

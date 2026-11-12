@@ -38,7 +38,7 @@ Entregáveis autorais (p. 23): interface estática funcional/responsiva, cliente
 | `pages/recursos.html` | Pesquisa/disponibilidade, cadastros e bloqueios administrativos | Contrato item18 + autenticação/eventos |
 | `pages/reservas.html` | Escolher período/recursos → criar → status; editar/cancelar próprias | Escritas existentes; GETs pendentes |
 | `pages/aprovacoes.html` | Fila restrita → detalhes → aprovar ou rejeitar com motivo | Leitura e autorização da fila pendentes |
-| `pages/movimentacoes.html` | Patrimônio/reserva → retirada → pendências → devolução | Contrato item18 |
+| `pages/movimentacoes.html` | Número da reserva do comprovante + seleção de patrimônio → retirada → pendências → devolução; Administrador em leitura | Contrato item18; validação real no servidor |
 | `pages/relatorios.html` | Período/recurso → agregados e estados | API de relatórios pendente |
 
 Fonte única: `backend/src/main/resources/static/`, com `pages/`, `components/`, `css/`, `js/` e `assets/` criados conforme necessidade. Sem framework ou compilação do produto. Scripts Node são somente ferramentas de desenvolvimento.
@@ -53,7 +53,7 @@ Protótipos simples devem mostrar navegação, estados vazio/carregando/erro/suc
 | 2 | Login, logout, navegação por perfil e estrutura visual responsiva | Formulário, perfil, erro/expiração e teclado em navegador | INCREMENTO LOCAL ENCERRADO com aceite de Marcos em 10/11/2026; testes reexecutados pelo autor aprovados; story Ready for Review; integração/revisão de outro integrante/CodeRabbit/CI pendentes ([evidência](../testes/marcos-2-resultados.md)) |
 | 3 | Pesquisa/disponibilidade + criar/editar/cancelar reservas | Formulários e estados com API controlada nos testes; integração quando habilitada | EM EXECUÇÃO — [Marcos-3](../stories/marcos-3.md): pesquisa/seleção/criação implementadas e validadas localmente (32 testes unitários, 76 de navegador; [evidências](../testes/marcos-3-resultados.md)). Listagem, reabertura para edição e cancelamento de reservas existentes continuam pendentes dos GETs/Q9; não se encerra toda a etapa 3 com este recorte. |
 | 4 | Aprovação/rejeição e fila | Revisar proposta de leitura; testar RESPONSAVEL e acessos negados com Débora | PENDENTE |
-| 5 | Recursos/cadastros/manutenção e movimentações | Consumir item18; validar retirada, atraso, devolução e restrições por perfil | PENDENTE |
+| 5 | Recursos/cadastros/manutenção e movimentações | Consumir item18; validar retirada, atraso, devolução e restrições por perfil | IMPLEMENTAÇÃO LOCAL ENCERRADA — [Marcos-5 administrativa](../stories/marcos-5.md) com aceite/commit, PR 20 separado; [movimentações](../stories/marcos-5-movimentacoes.md) em feature/marcos-movimentacoes com 57 unitários/190 navegador aprovados e aceite visual/solicitação de commit por Marcos em 11/11/2026 ([evidências](../testes/marcos-5-movimentacoes-resultados.md)). Cadastros, manutenção, expediente e movimentações validados no frontend. Revisão de outro integrante, CodeRabbit, integração real e CI permanecem pendentes antes da entrega integrada. Sem dependência da fila/Q9 neste recorte. |
 | 6 | Relatórios e mensagens de eventos | Consumir API confirmada; validar filtros, unidades e períodos vazios | PENDENTE |
 | 7 | E2E real e acabamento | Fluxos completos, larguras móveis/desktop, falhas e evidências; RTM/README atualizados | PENDENTE |
 | 8 | Revisão e entrega | Revisão humana, CI verde, defeitos tratados e demonstração reproduzível | PENDENTE |
