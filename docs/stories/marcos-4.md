@@ -42,6 +42,8 @@ O contrato da fila é uma especificação do cliente, não um endpoint implement
 
 ## Tasks / Subtasks
 
+- [x] Atualizar com backend/base consolidada em 11/11/2026; conciliar RTM e revalidar 68 unitários/238 navegador, mantendo a evidência anterior.
+
 - [x] Implementar cliente da fila/decisão e validação com testes unitários (AC 2, 3, 6, 7, 9).
 - [x] Criar página responsiva e guarda visual por perfil (AC 1, 5, 11).
 - [x] Implementar filtros, paginação, detalhes, decisão e atualização segura (AC 4–10).
@@ -68,6 +70,8 @@ Tipo: Frontend/Integração. @dev executa gates e autoavaliação; revisão visu
 ## Dev Agent Record
 
 ### Completion Notes
+
+Atualização autorizada após o push de `e33de6d`: importada a base consolidada `8df312e` (etapa 5 e entregas da equipe), com conflito somente na RTM. Matriz e evidências preservadas; nenhum arquivo estático/teste/configuração do frontend mudou. Nova regressão completa aprovada: lint/tipos, 68 unitários e 238 navegador, zero falhas/ignorados/flaky/retries. [Resultados desta atualização](../testes/marcos-integracao-2026-11-11-resultados.md). A etapa 5 tem PR #23 para develop; Marcos-4 segue separadamente. Leitura HTTP/Q9 e E2E real continuam pendentes.
 
 Autorização de versionamento recebida em 11/11/2026: após apresentar a execução aprovada de 68 unitários/238 testes de navegador no checkout conciliado, Marcos pediu "vamos fazer o commit". Registrado o pedido sem atribuir revisão visual detalhada não informada, revisão de outro integrante ou validação com backend real. Commit preparado somente para o incremento da Marcos-4 sobre a base de movimentações; sem push automático. Os registros abaixo mantêm a sequência das validações anteriores.
 
@@ -106,6 +110,13 @@ Codex, preparação AIOX SM e implementação AIOX Dev.
 | 2026-11-11 | Marcos solicitou explicitamente o commit após a reexecução aprovada; versionamento local autorizado, sem atribuir aceite visual detalhado, integração real ou push. |
 
 ### File List
+
+Registro adicional desta atualização (arquivos Java/documentação da equipe são importados por merge, sem atribuição autoral a Marcos):
+
+- docs/testes/marcos-integracao-2026-11-11-resultados.md
+- docs/testes/marcos-integracao-2026-11-11.json
+- docs/testes/marcos-integracao-2026-11-11-etapa-5.txt
+- docs/testes/marcos-integracao-2026-11-11-marcos-4.txt
 
 Arquivos novos/alterados neste preparo sobre a base de movimentações, incluindo os registros de contexto recebidos e as evidências da conciliação:
 
