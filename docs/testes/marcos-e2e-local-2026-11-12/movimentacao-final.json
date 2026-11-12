@@ -1,0 +1,17 @@
+{
+  "camada": "GET HTTP real apos rodada final; nenhuma escrita de negocio repetida",
+  "rota": "/api/movimentacoes?abertas=false",
+  "status": 200,
+  "movimentacao": {
+    "id": 3,
+    "recursoId": 10,
+    "reservaId": 5,
+    "responsavelId": 3,
+    "retiradoEm": "2026-11-12T12:32:50.925809-03:00",
+    "devolvidoEm": "2026-11-12T12:32:51.188390-03:00",
+    "devolvidoPor": 3,
+    "fimPrevisto": "2026-11-12T13:15-03:00",
+    "atrasoSegundos": 0
+  },
+  "consultadoEm": "2026-11-12T15:35:47.939Z"
+}

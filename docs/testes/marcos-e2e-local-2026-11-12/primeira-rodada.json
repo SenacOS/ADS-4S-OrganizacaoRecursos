@@ -1,0 +1,172 @@
+{
+  "inicio": "2026-11-12T15:25:20.818Z",
+  "baseURL": "http://127.0.0.1:18080",
+  "base": "da5881bcb65dcf048678b784ed14ae3013feabc2",
+  "branch": "fix/marcos-qualidade-frontend",
+  "arvore": "worktree sem commit; hashes dos arquivos efetivamente usados abaixo",
+  "ferramentas": {
+    "java": "21.0.13+9",
+    "maven": "3.9.16",
+    "mysql": "8.4.13",
+    "chrome": "157.0.8103.78"
+  },
+  "camadas": "API HTTP real e Chrome headless real; sem route/intercept/mock. SQL somente SELECT para conferir persistência.",
+  "cenarios": [
+    {
+      "nome": "Flyway e identidade da base isolada",
+      "camada": "SQL real",
+      "inicio": "2026-11-12T15:25:21.664Z",
+      "evidencia": {
+        "migracoes": [
+          "1\titem18\t1",
+          "2\tperfil usuarios\t1",
+          "3\tauditoria\t1",
+          "4\tnotificacoes\t1",
+          "5\tindice fila aprovacao\t1"
+        ],
+        "banco": "qs_marcos_e2e",
+        "porta": 13307
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Sem sessão retorna 401 NAO_AUTENTICADO",
+      "camada": "HTTP real",
+      "inicio": "2026-11-12T15:25:21.736Z",
+      "evidencia": {
+        "status": 401,
+        "codigo": "NAO_AUTENTICADO"
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Bootstrap local e cadastro dos outros dois perfis",
+      "camada": "HTTP real",
+      "inicio": "2026-11-12T15:25:21.755Z",
+      "evidencia": {
+        "perfis": [
+          "ADMINISTRADOR",
+          "SOLICITANTE",
+          "RESPONSAVEL"
+        ],
+        "usuariosIds": {
+          "admin": 1,
+          "solicitante": 2,
+          "responsavel": 3
+        }
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "CSRF real e escritas proibidas por perfil",
+      "camada": "HTTP real",
+      "inicio": "2026-11-12T15:25:22.328Z",
+      "evidencia": {
+        "semCsrf": 403,
+        "solicitanteCadastrandoRecurso": 403,
+        "administradorRetirando": 403
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Expediente e recursos exclusivos da rodada",
+      "camada": "HTTP real; preparação",
+      "inicio": "2026-11-12T15:25:22.362Z",
+      "evidencia": {
+        "material": 1,
+        "restrito": 2,
+        "janelas": 7
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Login e cookie HttpOnly nos três perfis",
+      "camada": "Chrome + HTTP reais",
+      "inicio": "2026-11-12T15:25:22.899Z",
+      "evidencia": {
+        "perfis": 3,
+        "cookie": {
+          "nome": "JSESSIONID",
+          "httpOnly": true,
+          "sameSite": "Lax",
+          "ambiente": "HTTP loopback"
+        }
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Cadastro dos três tipos e edição de competências",
+      "camada": "Chrome + HTTP + MySQL reais",
+      "inicio": "2026-11-12T15:25:24.634Z",
+      "estado": "FAIL",
+      "erro": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Editar Docente E2E b3ede7cfa5 · UI-PROFESSOR-b3ede7cfa5', exact: true })\u001b[22m\n"
+    },
+    {
+      "nome": "Pesquisar e criar reserva comum com offset de São Paulo",
+      "camada": "Chrome + HTTP reais",
+      "inicio": "2026-11-12T15:25:55.201Z",
+      "evidencia": {
+        "id": 1,
+        "status": "APROVADA",
+        "inicio": "2026-11-12T12:23:00-03:00",
+        "fim": "2026-11-12T13:08:00-03:00",
+        "recursosIds": [
+          1
+        ]
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Reserva restrita, conflito e PATCH/cancelamento conhecidos por ID",
+      "camada": "HTTP real; não é tela de edição",
+      "inicio": "2026-11-12T15:25:55.819Z",
+      "evidencia": {
+        "restrita": 2,
+        "criacao": "SOLICITADA",
+        "patch": 200,
+        "cancelamento": 200,
+        "conflito": 409
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Retirada e devolução pelo Responsável",
+      "camada": "Chrome + HTTP reais",
+      "inicio": "2026-11-12T15:25:55.977Z",
+      "estado": "FAIL",
+      "erro": "expect(locator).toBeVisible() failed\n\nLocator:  locator('#confirmacao-retirada')\nExpected: visible\nReceived: hidden\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toBeVisible\" locator('#confirmacao-retirada') with timeout 5000ms\n  - waiting for locator('#confirmacao-retirada')\n    14 × locator resolved to <div hidden=\"\" tabindex=\"-1\" id=\"confirmacao-retirada\" class=\"confirmation-panel\">…</div>\n       - unexpected value \"hidden\"\n"
+    },
+    {
+      "nome": "Fila/lista/detalhe e autorização Q9",
+      "estado": "BLOQUEADO",
+      "motivo": "Endpoints HTTP de leitura ausentes nesta base; sem E2E de aprovação/rejeição pela fila nem de reabertura de edição/cancelamento."
+    },
+    {
+      "nome": "GETs de reservas ausentes são registrados como bloqueio",
+      "camada": "HTTP real; diagnóstico",
+      "inicio": "2026-11-12T15:26:01.492Z",
+      "evidencia": [
+        {
+          "rota": "/api/reservas",
+          "status": 405
+        },
+        {
+          "rota": "/api/reservas/1",
+          "status": 405
+        },
+        {
+          "rota": "/api/reservas/pendentes",
+          "status": 405
+        }
+      ],
+      "estado": "PASS"
+    }
+  ],
+  "hashes": {
+    "backend/src/main/resources/static/js/administracao-recursos.js": "b3885630bcaaad766275d14599855d657753e7cfe80ed8df2fad90f77589e70a",
+    "tests/unit/frontend/administracao-recursos.test.js": "72aef55369da2448e7656901c3dc995a885c278acfaf05ab4f793cf952b5515a",
+    "tests/e2e-local/controle.cjs": "833a5a89f335a10595873420fe3f0d4459dafee995aa1fc97b73447f8a35eed6",
+    "tests/e2e-local/validar.cjs": "c26313cbdb2df47a25955b12db8127a4f7bf24240df85608e21696907e71d4fb",
+    "backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar": "35d811222c1d84c68fdc36ea772498cacf72d7afb55d6e473fd9bff23e82e093"
+  }
+}

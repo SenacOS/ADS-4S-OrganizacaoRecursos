@@ -1,5 +1,22 @@
 # Matriz de rastreabilidade - item 18
 
+## Fechamento local de Marcos — 12/11/2026, após PR #24
+
+Base develop da5881b; branch `fix/marcos-qualidade-frontend`, alterações novas não commitadas. PRs #23/#24 mesclados; registros abaixo mantêm seus contextos históricos.
+
+| RF | Incremento / evidência atual | Limite |
+|---|---|---|
+| RF02/RF08/RF13/RF14 | Comparação textual explícita para confirmação administrativa; [qualidade](testes/marcos-qualidade-1-resultados.md) e regressão posterior 72 unitários/240 navegador | CI scanner Sonar ainda depende de autorização/configuração da equipe |
+| RF09/RF13/RF14 | FE-004: datas em minutos com offset aceitas; [regressão RED e build](testes/marcos-integracao-datas-1-resultados.md), JAR servido conferido e retirada/devolução reais | Não muda identidade, transições ou formatos enviados; não prova concorrência/atraso positivo |
+| RF01/RF02/RF03/RF04/RF08/RF09/RF13/RF14, nos cenários exercitados | [Smoke real](testes/marcos-e2e-local-2026-11-12-resultados.md): 16 PASS/0 FAIL/1 BLOQUEADO, três perfis, Chrome/Spring/MySQL, sem mock | GETs de reservas 405; não há E2E de fila/Q9, reabertura de edição ou matriz completa do plano |
+| RF10/RF11, evidência complementar | SELECTs confirmaram auditoria/outbox reais nos fluxos; worker desligado | Não prova imutabilidade por grants nem envio externo |
+
+As contagens são por execução e não se somam. [Guia local](integracao/marcos-e2e-local.md), [handoff de dependências](integracao/marcos-pendencias-2026-11-12.md). Revisão assistida independente, revisão humana, aceite de Marcos e checks remotos são estados separados; os RFs completos não são encerrados por este incremento.
+
+Reexecução de Marcos em 12/11/2026, 13:19 (-03:00): ambiente pronto e smoke real **16 PASS/0 FAIL/1 BLOQUEADO**; [JSON original do autor](testes/marcos-e2e-local-2026-11-12/resultados-marcos.json) preservado, com nove hashes conferidos. Confirma os cenários disponíveis, sem novo aceite visual ou encerramento de fila/lista/detalhe/Q9.
+
+Posteriormente Marcos informou **aceite visual** do roteiro no Chrome com backend real e os três perfis. [Registro e limites](testes/marcos-qualidade-aceite-visual-2026-11-12.md). Sem ajuste solicitado ou nova suíte; revisão da equipe, contratos/GETs/Q9 e checks remotos continuam pendentes. Commit depende de solicitação própria.
+
 | RF | Risco crítico | Implementação / contrato | Testes relacionados | Evidência e condição |
 |---|---|---|---|---|
 | RF01 — Sessão e autorização | Usuário indevido, CSRF e IDOR | SecurityConfig, UsuarioDetailsService, SpringSecurityAtorProvider, UsuarioAdminController, ADR-004 | SecurityConfigTest, SpringSecurityAtorProviderTest, SegurancaComplementarTest, LoginMysqlIT | [RF01](qualidade/relatorio-evidencias.md); SegurancaComplementarTest (7) e LoginMysqlIT (3) aprovados na CI Java21; CT17/logout complementar aprovado na CI do PR #12; PR #8 aberto |

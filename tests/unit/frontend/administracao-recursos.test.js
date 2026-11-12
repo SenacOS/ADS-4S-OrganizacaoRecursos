@@ -30,6 +30,15 @@ test('PUT preserva cadastro completo e tipo imutável; normalização de compet�
   await assert.rejects(admin.salvar(sala, { id: 7, dados: professor, disponivel: null }), /tipo/);
   assert.equal(chamadas.length, 1);
 });
+test('confirma competências reordenadas sem confundir textos Unicode distintos', async () => {
+  const entrada = { ...professor, competencias: ['Ética', 'e\u0301tica', 'Tecnologia 10', 'Tecnologia 2'] };
+  const dados = { ...professor, competencias: ['tecnologia 2', 'ética', 'tecnologia 10', 'e\u0301tica'] };
+  const { admin, chamadas } = cliente({ id: 7, dados, disponivel: null });
+  assert.deepEqual((await admin.salvar(entrada)).dados.competencias, dados.competencias);
+  assert.deepEqual(chamadas[0].body.competencias, entrada.competencias);
+  const incompleto = { ...dados, competencias: ['tecnologia 2', 'ética', 'tecnologia 10'] };
+  await assert.rejects(cliente({ id: 7, dados: incompleto, disponivel: null }).admin.salvar(entrada), { codigo: 'RESPOSTA_INVALIDA' });
+});
 test('validação recusa campos inválidos antes do HTTP, sem impor enum de condição ou competências obrigatórias', async () => {
   const { admin, chamadas } = cliente(null);
   for (const dados of [{ ...sala, capacidade: 0 }, { ...sala, capacidade: 1.5 }, { ...sala, tipoSala: '' },
@@ -81,6 +90,15 @@ test('expediente preserva frações, todas as janelas e aceita adjacência e lis
   assert.deepEqual(await admin.salvarExpediente(janelas), { zona: 'America/Sao_Paulo', janelas });
   assert.deepEqual(chamadas[0].body, { janelas });
   assert.deepEqual(dadosExpediente([]), { janelas: [] });
+});
+test('confirma expediente retornado em outra ordem e rejeita horário diferente', async () => {
+  const janelas = [janela, { dia: 'MONDAY', inicio: '12:00', fim: '17:30' }, { dia: 'FRIDAY', inicio: '08:00', fim: '18:00' }];
+  const retorno = [...janelas].reverse();
+  const { admin, chamadas } = cliente({ zona: 'America/Sao_Paulo', janelas: retorno });
+  assert.deepEqual(await admin.salvarExpediente(janelas), { zona: 'America/Sao_Paulo', janelas: retorno });
+  assert.deepEqual(chamadas[0].body, { janelas });
+  const diferente = retorno.map((j) => j.dia === 'FRIDAY' ? { ...j, fim: '17:00' } : j);
+  await assert.rejects(cliente({ zona: 'America/Sao_Paulo', janelas: diferente }).admin.salvarExpediente(janelas), { codigo: 'RESPOSTA_INVALIDA' });
 });
 test('expediente recusa sobreposição, janela invertida, 24h e dias não contratados antes do HTTP', async () => {
   const { admin, chamadas } = cliente(null);

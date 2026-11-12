@@ -27,6 +27,19 @@ test('dias inexistentes, normalização de 24 horas e formato incompleto não vi
   assert.equal(dataComOffset('2026-02-30T10:00:00-03:00'), false);
 });
 
+test('respostas aceitam precisão de minuto com offset e preservam limites civis', () => {
+  for (const valor of ['2026-11-12T13:08-03:00', '2026-11-12T16:08Z',
+    '2026-11-12T12:25:56.446048-03:00', '2026-11-12T15:25:56.123456789Z']) {
+    assert.equal(dataComOffset(valor), true, valor);
+  }
+  assert.match(apresentarData('2026-11-12T16:08Z'), /12\/11\/2026.*13:08/);
+  for (const valor of ['2026-11-12T13:08', '2026-11-12T13-03:00', '2026-11-12T13:08.5-03:00',
+    '2026-02-30T13:08-03:00', '2026-11-12T24:00Z', '2026-11-12T13:60Z',
+    '2026-11-12T13:08:60Z', '2026-11-12T13:08+24:00', '2026-11-12T13:08+03:60']) {
+    assert.equal(dataComOffset(valor), false, valor);
+  }
+});
+
 test('intervalo opcional/obrigatório, fim posterior e limite diário têm mensagens específicas', () => {
   assert.deepEqual(intervaloDoFormulario('', ''), {});
   assert.deepEqual(intervaloDoFormulario('2026-11-10T13:00', '2026-11-10T14:00', true), intervalo);

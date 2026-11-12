@@ -22,7 +22,7 @@ function invalida(mensagem) {
  * @param {string} valor */
 export function dataComOffset(valor) {
   if (typeof valor !== 'string'
-    || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,9})?(?:Z|[+-]\d{2}:\d{2})$/.test(valor)
+    || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,9})?)?(?:Z|[+-]\d{2}:\d{2})$/.test(valor)
     || !Number.isFinite(Date.parse(valor))) return false;
   return new Date(valor.slice(0, 10) + 'T00:00:00Z').toISOString().slice(0, 10) === valor.slice(0, 10)
     && Number(valor.slice(11, 13)) < 24;

@@ -1,0 +1,30 @@
+{
+  "dataLocal": "2026-11-12",
+  "base": "da5881bcb65dcf048678b784ed14ae3013feabc2",
+  "branch": "fix/marcos-qualidade-frontend",
+  "arvore": "WORKTREE_NAO_COMMITADA",
+  "comando": "PLAYWRIGHT_CHANNEL=chrome; npm.cmd run build",
+  "buildExitCode": 0,
+  "lint": "PASS",
+  "typecheck": "PASS",
+  "unitarios": {
+    "aprovados": 70,
+    "falhas": 0,
+    "ignorados": 0
+  },
+  "navegador": {
+    "startTime": "2026-11-12T15:02:49.056Z",
+    "duration": 156173.26799999998,
+    "expected": 238,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "hashesSHA256": {
+    "backend/src/main/resources/static/js/administracao-recursos.js": "b3885630bcaaad766275d14599855d657753e7cfe80ed8df2fad90f77589e70a",
+    "tests/unit/frontend/administracao-recursos.test.js": "72aef55369da2448e7656901c3dc995a885c278acfaf05ab4f793cf952b5515a"
+  },
+  "logSHA256": "5e6803add538ee983ecb1f2e1649a834479c34d5a49e13b52b5691474c9081e6",
+  "e2eReal": "SEPARADO_DA_REGRESSAO_CONTROLADA",
+  "sonarRemoto": "NAO_EXECUTADO_PARA_ESTA_CORRECAO"
+}

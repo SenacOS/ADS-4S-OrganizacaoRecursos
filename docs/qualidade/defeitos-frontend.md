@@ -1,5 +1,16 @@
 # Defeitos encontrados no frontend
 
+## FE-004 — Retirada persistida sem confirmação por data sem segundos zerados
+
+- Estado: CORRIGIDO E VALIDADO LOCALMENTE, inclusive com Spring/MySQL reais, em 12/11/2026.
+- Story: [Marcos-integracao-datas-1](../stories/marcos-integracao-datas-1.md). RF09/RF13/RF14. Severidade: média; uma retirada já gravada não era confirmada e a lista de pendências era recusada.
+- Reprodução: executar uma retirada real cujo prazo tenha segundos zero. O servidor retorna 201 com `fimPrevisto: 2026-11-12T13:08-03:00`; consultar abertas retorna o mesmo formato. O validador exigia segundos e levantava RESPOSTA_INVALIDA.
+- Causa: `DatasConfig` usa `OffsetDateTime.toString()` para Instant; a precisão de minuto com offset é uma saída válida que as fixtures anteriores não cobriam.
+- Correção: segundos opcionais em `dataComOffset`, mantendo offset obrigatório, fração somente após segundos e controles de calendário/hora/instante. Formatos enviados, backend, identidade e guard de operação incerta preservados.
+- Regressão: dois novos unitários (executados antes da correção com falha) e cenário de retirada/pendência/devolução em desktop/móvel; build final com 72 unitários e 240 navegador aprovado. [Resultados e RED](../testes/marcos-integracao-datas-1-resultados.md).
+- Integração: JAR atualizado e fontes servidas conferidas por SHA256; retirada/devolução reais confirmadas, prazo `2026-11-12T13:15-03:00`. [Consulta real da movimentação final](../testes/marcos-e2e-local-2026-11-12/movimentacao-final.json). O registro inicial persistido foi preservado, sem exclusão ou reenvio automático.
+- Limites: não encerra fila/Q9, concorrência, todas as transições, CI/CodeRabbit ou revisão humana da equipe.
+
 ## FE-001 — Rótulo de carregamento restaurado por submit repetido
 
 - Estado: CORRIGIDO E VALIDADO LOCALMENTE em 10/11/2026.
