@@ -6,7 +6,7 @@ Ready for Review
 
 Incremento local conciliado com administração/movimentações em `feature/marcos-4-aprovacoes`, base `f7360a2`, conforme autorização de Marcos em 11/11/2026. O checkout separado reúne as etapas 4 e 5; pasta original e evidências anteriores preservadas. Regressão conjunta aprovada e reexecutada pelo autor: 68 unitários e 238 execuções de navegador. [Resultados e reprodução](../testes/marcos-4-conciliacao-resultados.md). Após os testes, Marcos solicitou explicitamente o commit em 11/11/2026. O pedido autoriza o versionamento local; não descreve separadamente a revisão visual nem aprova a entrega integrada. Push pelo usuário permanece separado.
 
-A [Q9 comunicada por Marcos](../api/reservas-politica-leitura-q9.md) define a consulta do Responsável para recursos sob sua responsabilidade. Contrato revisado, vínculo de responsabilidade, adaptador SQL, controller, autorização real e E2E integrado permanecem necessários à entrega integrada. Essa autorização para conciliar o cliente não comprova essas dependências. Ver [plano e contexto](../planejamento/marcos-plano-de-acao.md).
+A [Q9 comunicada por Marcos](../api/reservas-politica-leitura-q9.md) define a consulta do Responsável para recursos sob sua responsabilidade. O adaptador SQL da fila já chegou à develop pelo PR #22 e foi incorporado neste checkout em 12/11/2026. Contrato revisado, vínculo de responsabilidade, controller HTTP, autorização real e E2E integrado continuam necessários à entrega integrada. Ver [plano e contexto](../planejamento/marcos-plano-de-acao.md) e [sincronização após o PR #23](../testes/marcos-sincronizacao-2026-11-12-resultados.md).
 
 ## Story
 
@@ -42,6 +42,7 @@ O contrato da fila é uma especificação do cliente, não um endpoint implement
 
 ## Tasks / Subtasks
 
+- [x] Sincronizar em 12/11/2026 a Marcos-4 df57063 com a develop 23cf839, sem conflitos ou mudanças no frontend; registrar regressão de 68 unitários/238 navegador e preservar o plano local.
 - [x] Atualizar com backend/base consolidada em 11/11/2026; conciliar RTM e revalidar 68 unitários/238 navegador, mantendo a evidência anterior.
 
 - [x] Implementar cliente da fila/decisão e validação com testes unitários (AC 2, 3, 6, 7, 9).
@@ -70,6 +71,8 @@ Tipo: Frontend/Integração. @dev executa gates e autoavaliação; revisão visu
 ## Dev Agent Record
 
 ### Completion Notes
+
+Em 12/11/2026, Marcos solicitou a sincronização. Plano local preservado por cópia/hash, referências atualizadas com fetch e criada a branch local acompanhando origin/feature/marcos-4-aprovacoes. Merge de develop 23cf839 sobre df57063 preparado sem commit automático e sem conflitos; 45 arquivos de frontend/testes/configuração preservados. Regressão completa aprovada: lint/typecheck, 68 unitários e 238 navegador (119 por viewport), zero falhas/ignorados/flaky/retries, 2,4 min no navegador. Registro local da incorporação após validação; sem push ou alteração do PR #24, que já aponta à develop e continua Draft. [Evidências desta sincronização](../testes/marcos-sincronizacao-2026-11-12-resultados.md). Não se atribui novo aceite visual, revisão independente, Maven ou E2E real a esta execução.
 
 Atualização autorizada após o push de `e33de6d`: importada a base consolidada `8df312e` (etapa 5 e entregas da equipe), com conflito somente na RTM. Matriz e evidências preservadas; nenhum arquivo estático/teste/configuração do frontend mudou. Nova regressão completa aprovada: lint/tipos, 68 unitários e 238 navegador, zero falhas/ignorados/flaky/retries. [Resultados desta atualização](../testes/marcos-integracao-2026-11-11-resultados.md). A etapa 5 tem PR #23 para develop; Marcos-4 segue separadamente. Leitura HTTP/Q9 e E2E real continuam pendentes.
 
@@ -108,8 +111,18 @@ Codex, preparação AIOX SM e implementação AIOX Dev.
 | 2026-11-11 | Registrada saída do autor na pasta original: 43 unitários/124 navegador aprovados; reexecução conjunta na branch conciliada continua pendente. |
 | 2026-11-11 | Registrada reexecução do autor no checkout conciliado: 68 unitários/238 navegador aprovados em 6,3 min; aceite visual e solicitação de commit pendentes. |
 | 2026-11-11 | Marcos solicitou explicitamente o commit após a reexecução aprovada; versionamento local autorizado, sem atribuir aceite visual detalhado, integração real ou push. |
+| 2026-11-12 | Sincronização solicitada por Marcos: develop 23cf839 incorporada à Marcos-4 df57063 sem conflitos, frontend preservado e regressão 68/238 aprovada; plano/checklist e evidências atualizados, sem publicação remota. |
 
 ### File List
+
+Registro da sincronização de 12/11/2026; código/documentação da equipe permanecem atribuídos aos commits importados:
+
+- docs/planejamento/marcos-fechamento-etapas-1-a-5.md
+- docs/stories/marcos-4.md
+- docs/RTM.md
+- docs/testes/marcos-sincronizacao-2026-11-12-resultados.md
+- docs/testes/marcos-sincronizacao-2026-11-12-verificacao.txt
+- docs/testes/marcos-sincronizacao-2026-11-12.json
 
 Registro adicional desta atualização (arquivos Java/documentação da equipe são importados por merge, sem atribuição autoral a Marcos):
 

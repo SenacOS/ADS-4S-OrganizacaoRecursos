@@ -20,10 +20,10 @@ O módulo `reserva/` foi escrito de modo que **tudo o que depende de outro integ
 | F5 | Expediente configurado | `ExpedientePort` | **Integrada** (`ExpedienteMysql`) |
 | F6 | Conflito evitado em transação independente | `ConflitosEvitadosPort` | **Integrada** (`ConflitosMysql`); falta a consulta dos registros para o RF12 |
 | F7 | Mesma ordem crescente de IDs em manutenção, retirada e devolução | convenção ADR-003 | **Integrada**, com testes em `Item18MysqlIT` |
-| F8 | Corrida real com MySQL e o `ReservaService` real | teste de integração | **Integrada** para criação (`Item18MysqlIT`); **pendente** para edição concorrente (CT19, ver F9) |
-| F9 | CT19 no MySQL: edições concorrentes de reservas distintas no mesmo recurso e horário | `Item18MysqlIT` | **Pendente.** Roteiro em `ReservaEdicaoConcorrenteTest` (fake) |
-| F10 | Adaptador MySQL da fila de aprovação (`ReservaFilaPort`), com filtro, ordem e paginação no banco | `ReservaFilaPort` | **Pendente.** Validar estendendo `ReservaFilaPortContrato` |
-| F11 | Consulta de reservas por período, status e recurso, e de conflitos evitados | porta de leitura a definir | **Pendente** (RF12) |
+| F8 | Corrida real com MySQL e o `ReservaService` real | teste de integração | **Integrada** para criação (`Item18MysqlIT`). Edição concorrente no complemento F9 |
+| F9 | CT19 no MySQL: edições concorrentes de reservas distintas no mesmo recurso e horário | `Item18MysqlIT` | **Testado com MySQL na branch do Fausto.** Serviço real e tabela de auditoria |
+| F10 | Adaptador MySQL da fila de aprovação (`ReservaFilaPort`), com filtro, ordem e paginação no banco | `ReservaFilaPort` | **Testado com MySQL na branch do Fausto.** Sete cenários do contrato e um de projeções |
+| F11 | Consulta de reservas por período, status e recurso, e de conflitos evitados | [Proposta da porta de leitura](proposta-porta-leitura-rf12.md) | **Proposta para revisão do Silva** antes da implementação |
 
 ### Débora dos Santos (segurança, auditoria, notificação, CI, qualidade)
 
@@ -56,8 +56,8 @@ Todas as entregas abaixo estão em **PRs abertos, ainda não integrados à `deve
 | S3 | Idempotência por chave de requisição | **Pendente.** Falta decisão da equipe (escopo, retenção, mesma chave com corpo diferente, resposta na repetição) |
 | S4 | Consulta de disponibilidade | **Escrita no serviço** (`consultarDisponibilidade`), sem endpoint. Falta definir o dono do endpoint |
 | S5 | Horas de utilização (RF12) | `UtilizacaoReservas` (cálculo puro) na `develop`. Falta a consulta persistida (F11), o serviço e a API de relatório |
-| S6 | Teste de corrida real | Criação: **feito** no MySQL (`Item18MysqlIT`, Fausto). Edição: **testada com fake** (`ReservaEdicaoConcorrenteTest`, 5 cenários, em patch); MySQL pendente (F9) |
-| S7 | Fila de aprovação RF07, camada de aplicação | **Feita em patch** (5 commits, ciclo RED, GREEN, REFACTOR registrado em `docs/testes/rf07-fila-tdd.md`), testada com fake. Integração na `develop` depende de PR e revisão. Sem controller nem consulta MySQL |
+| S6 | Teste de corrida real | Criação integrada e complemento de edição concorrente em `Item18MysqlIT` (F9) |
+| S7 | Fila de aprovação RF07, camada de aplicação | **Integrada na `develop`** pelo PR #15. O adaptador MySQL está na branch do Fausto (F10). O controller é a próxima integração (S8) |
 | S8 | Controller da fila de aprovação e DTOs de leitura | **Pendente**, depende de F10, do contrato revisado e de D1 |
 | S9 | `GET /api/reservas/{id}` e reservas próprias | **Pendente**, bloqueado por Q9 |
 | S10 | Consulta, serviço e API de relatório RF12 | **Pendente**, depende de F11 |
@@ -69,7 +69,7 @@ Todas as entregas abaixo estão em **PRs abertos, ainda não integrados à `deve
 | Q1 | Quem dispara EM_USO, CONCLUÍDA e NÃO_COMPARECEU? | Responsável ou Administrador, ação manual | Equipe |
 | Q2 | Editar reserva APROVADA reinicia a aprovação? | Não edita restrita aprovada; comum aprovada pode editar sem mudar a necessidade de aprovação | Equipe |
 | Q3 | O Responsável pode aprovar a própria reserva se também for Solicitante? | Permitido (a regra é por papel) | Equipe |
-| Q4 | Manutenção que colide com reserva existente | Fora do módulo; os testes do item 18 mostram o comportamento, falta formalizar | Fausto + Silva |
+| Q4 | Manutenção que colide com reserva existente | HTTP 409, com a reserva preservada. [Política registrada no ADR-005](../arquitetura/adr/ADR-005-politicas-de-reserva.md#q4--manutenção-que-colide-com-reserva-existente) | Ratificação conjunta de Fausto e Silva pendente |
 | Q5 | Quem cancela uma reserva APROVADA? | Dono ou Administrador | Equipe |
 | Q6 | Código HTTP para fora do expediente (409 ou 422) | 409 aceito por Marcos em 10/11/2026; confirmação de Silva pendente | Marcos + Silva |
 | Q6 | Código HTTP para fora do expediente (409 ou 422) | 409 no contrato (recomendação de Marcos) | Marcos + Silva, com ratificação coletiva |

@@ -146,3 +146,11 @@ Em 11/11/2026, a preparação local da Marcos-4 foi conciliada em branch própri
 Reexecução automatizada apresentada por Marcos no checkout conciliado: lint/typecheck sem diagnósticos, 68 unitários e 238 de navegador aprovados em 6,3 min. [Saída integral do autor](testes/marcos-4-conciliacao-verificacao-marcos.txt), preservada com SHA-256 conferido. A execução anterior do autor na pasta original (43/124) permanece registrada separadamente.
 
 Aceite visual da Marcos-4 conciliada, revisão independente, CI e E2E com backend real permanecem pendentes. Esse resultado não demonstra segurança Spring, persistência, concorrência, auditoria ou notificações e não encerra os RFs completos.
+
+## Sincronização local da Marcos-4 com a develop — 12/11/2026
+
+A pedido de Marcos, develop 23cf839 (incluindo os PRs #22/#23) foi incorporada à Marcos-4 df57063 sem conflitos. Os 45 arquivos de frontend/testes/configuração foram preservados. O adaptador SQL da fila foi importado dos commits da equipe; controller HTTP e autorização Q9 continuam pendentes.
+
+Regressão local: npm run build exit 0, lint/typecheck aprovados, 68 unitários e 238 execuções de navegador aprovados, 119 por viewport, zero falhas/ignorados/flaky/retries. [Resultados e limites](testes/marcos-sincronizacao-2026-11-12-resultados.md), [log](testes/marcos-sincronizacao-2026-11-12-verificacao.txt) e [resumo JSON](testes/marcos-sincronizacao-2026-11-12.json).
+
+Esta evidência não substitui aceite visual detalhado, revisão independente, Maven/CI ou E2E real. Não houve publicação remota nesta etapa. Sonar e demais dependências permanecem discriminados no [plano de fechamento](planejamento/marcos-fechamento-etapas-1-a-5.md).
