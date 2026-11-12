@@ -1,6 +1,7 @@
 package br.senac.recursos.reserva.api;
 
 import br.senac.recursos.reserva.aplicacao.ComandoReserva;
+import br.senac.recursos.reserva.aplicacao.ItemFilaAprovacao;
 import br.senac.recursos.reserva.dominio.IntervaloInvalidoException;
 import br.senac.recursos.reserva.dominio.IntervaloReserva;
 import br.senac.recursos.reserva.dominio.Reserva;
@@ -33,5 +34,11 @@ public final class ReservaApiMapper {
                 r.intervalo().fim().atZone(ZONA_EXIBICAO).toOffsetDateTime(),
                 r.recursoIds(),
                 r.motivoDecisao());
+    }
+
+    public static ReservaLeituraResponse paraRespostaLeitura(ItemFilaAprovacao item) {
+        var r = paraResposta(item.reserva());
+        return new ReservaLeituraResponse(r.id(), r.solicitanteId(), r.status(), r.restrita(),
+                r.inicio(), r.fim(), r.recursosIds(), r.motivoDecisao(), item.solicitante(), item.recursos());
     }
 }

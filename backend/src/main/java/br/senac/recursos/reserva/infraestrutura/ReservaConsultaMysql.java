@@ -61,11 +61,6 @@ public class ReservaConsultaMysql {
             }
             filtro.append(" AND r.status = :status");
             params.addValue("status", status);
-            // A fila do Responsável só apresenta solicitações restritas pendentes.
-            if ("SOLICITADA".equals(status) && ator.papel() ==
-                    br.senac.recursos.reserva.dominio.PapelAtor.RESPONSAVEL) {
-                filtro.append(" AND r.restrita = TRUE");
-            }
         }
         if (inicio != null) {
             filtro.append(" AND r.inicio_utc < :fim AND r.fim_utc > :inicio");
@@ -130,26 +125,7 @@ public class ReservaConsultaMysql {
         params.addValue("usuarioId", ator.usuarioId());
         switch (ator.papel()) {
             case SOLICITANTE -> sql.append(" AND r.solicitante_id = :usuarioId");
-            case RESPONSAVEL -> sql.append("""
-                 AND EXISTS (
-                   SELECT 1 FROM reserva_recursos rr
-                   JOIN responsaveis_recursos vinculo
-                     ON vinculo.recurso_id = rr.recurso_id AND vinculo.usuario_id = :usuarioId
-                   JOIN usuarios u ON u.id = vinculo.usuario_id
-                   WHERE rr.reserva_id = r.id AND u.perfil = 'RESPONSAVEL' AND u.ativo = TRUE
-                 )
-                 AND NOT EXISTS (
-                   SELECT 1 FROM reserva_recursos rr
-                   WHERE rr.reserva_id = r.id
-                     AND NOT EXISTS (
-                       SELECT 1 FROM responsaveis_recursos vinculo
-                       JOIN usuarios u ON u.id = vinculo.usuario_id
-                       WHERE vinculo.recurso_id = rr.recurso_id
-                         AND vinculo.usuario_id = :usuarioId
-                         AND u.perfil = 'RESPONSAVEL' AND u.ativo = TRUE
-                     )
-                 )
-                """);
+            case RESPONSAVEL -> sql.append(ReservaAcessoMysql.ESCOPO_RESPONSAVEL);
             case ADMINISTRADOR -> { /* acesso administrativo de leitura */ }
         }
     }

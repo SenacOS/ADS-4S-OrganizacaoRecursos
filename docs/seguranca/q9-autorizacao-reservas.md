@@ -1,17 +1,34 @@
 # Q9 — controles de acesso em consultas e decisões de reservas
 
-## Implementado neste PR
+## Implementação integrada e conexão da fila
 
 - GET /api/reservas e GET /api/reservas/{id}, sob reservas.api.enabled=true, usam sempre o ator autenticado da sessão.
 - SOLICITANTE: apenas reservas próprias.
 - ADMINISTRADOR: consulta todas; NÃO pode aprovar ou rejeitar.
 - RESPONSAVEL: somente reservas para as quais tem vínculo com **todos** os recursos envolvidos.
 - Paginação e total são calculados no SQL já com a restrição aplicada. O filtro do cliente não amplia a visibilidade.
-- GET /api/reservas?status=SOLICITADA para RESPONSAVEL funciona como fila de aprovação: somente reservas restritas solicitadas.
+- `GET /api/reservas?status=SOLICITADA` para RESPONSAVEL chama `ConsultarFilaAprovacao` e reutiliza a consulta da fila integrada no PR #22. Os demais perfis usam a listagem geral com seu escopo de leitura.
 - O DTO de leitura não retorna email, nome real, telefone, senha ou contato do solicitante: apenas id e identificador mínimo "Solicitante <id>".
 - Uma reserva fora do escopo ou inexistente devolve 404 NAO_ENCONTRADO no GET de detalhe; ausência de autenticação: 401; parâmetros inválidos: 400.
 - Aprovação, rejeição, início de uso, conclusão e não comparecimento por RESPONSAVEL validam os vínculos após a releitura/bloqueio da reserva e antes de salvar, auditar ou notificar.
 - A tabela Flyway V6 `responsaveis_recursos(recurso_id,usuario_id)` é intencionalmente criada vazia: nenhuma permissão automática é atribuída.
+
+## Representação e consulta do vínculo
+
+A V6 representa uma relação muitos para muitos. Cada par `(recurso_id, usuario_id)` é único e referencia um recurso e um usuário existentes. O índice inverso permite consultar os recursos de um responsável pelo ID do usuário. Para listar seus vínculos efetivos, use `usuarioId` como parâmetro da sessão ou do operador autorizado:
+
+```sql
+SELECT vinculo.recurso_id, recurso.codigo
+FROM responsaveis_recursos vinculo
+JOIN recursos recurso ON recurso.id = vinculo.recurso_id
+JOIN usuarios usuario ON usuario.id = vinculo.usuario_id
+WHERE vinculo.usuario_id = :usuarioId
+  AND usuario.perfil = 'RESPONSAVEL'
+  AND usuario.ativo = TRUE
+ORDER BY vinculo.recurso_id;
+```
+
+Fila, listagem e detalhe usam o mesmo predicado SQL de `ReservaAcessoMysql`. Ele exige um Responsável ativo, pelo menos um recurso na reserva e um vínculo para cada recurso. A revogação do vínculo é aplicada na próxima consulta.
 
 ## Regra conservadora para reservas com vários recursos
 

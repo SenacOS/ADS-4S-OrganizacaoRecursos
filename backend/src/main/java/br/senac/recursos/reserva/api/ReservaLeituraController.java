@@ -1,5 +1,9 @@
 package br.senac.recursos.reserva.api;
 
+import br.senac.recursos.reserva.aplicacao.ConsultarFilaAprovacao;
+import br.senac.recursos.reserva.aplicacao.FiltroFilaAprovacao;
+import br.senac.recursos.reserva.dominio.PapelAtor;
+import br.senac.recursos.reserva.dominio.StatusReserva;
 import br.senac.recursos.reserva.infraestrutura.ReservaConsultaMysql;
 import br.senac.recursos.shared.Pagina;
 import java.time.OffsetDateTime;
@@ -18,10 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 @ConditionalOnProperty(name = "reservas.api.enabled", havingValue = "true")
 public class ReservaLeituraController {
     private final ReservaConsultaMysql consultas;
+    private final ConsultarFilaAprovacao fila;
     private final AtorAutenticadoProvider atores;
 
-    public ReservaLeituraController(ReservaConsultaMysql consultas, AtorAutenticadoProvider atores) {
+    public ReservaLeituraController(ReservaConsultaMysql consultas, ConsultarFilaAprovacao fila,
+                                    AtorAutenticadoProvider atores) {
         this.consultas = consultas;
+        this.fila = fila;
         this.atores = atores;
     }
 
@@ -33,7 +40,16 @@ public class ReservaLeituraController {
             @RequestParam(required = false) Long recursoId,
             @RequestParam(defaultValue = "0") int pagina,
             @RequestParam(defaultValue = "20") int tamanho) {
-        return consultas.listar(atores.atorAtual(), status, inicio, fim, recursoId, pagina, tamanho);
+        var ator = atores.atorAtual();
+        if (ator.papel() == PapelAtor.RESPONSAVEL && StatusReserva.SOLICITADA.name().equals(status)) {
+            var filtro = FiltroFilaAprovacao.de(inicio == null ? null : inicio.toInstant(),
+                    fim == null ? null : fim.toInstant(), recursoId, pagina, tamanho);
+            var resultado = fila.executar(filtro, ator);
+            return new Pagina<>(
+                    resultado.itens().stream().map(ReservaApiMapper::paraRespostaLeitura).toList(),
+                    resultado.pagina(), resultado.tamanho(), resultado.total());
+        }
+        return consultas.listar(ator, status, inicio, fim, recursoId, pagina, tamanho);
     }
 
     @GetMapping("/{id}")

@@ -14,6 +14,23 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class ReservaAcessoMysql {
+    // O alias r identifica a reserva na consulta de leitura.
+    static final String ESCOPO_RESPONSAVEL = """
+             AND EXISTS (
+               SELECT 1 FROM usuarios u
+               WHERE u.id = :usuarioId AND u.perfil = 'RESPONSAVEL' AND u.ativo = TRUE
+             )
+             AND EXISTS (SELECT 1 FROM reserva_recursos rr WHERE rr.reserva_id = r.id)
+             AND NOT EXISTS (
+               SELECT 1 FROM reserva_recursos rr
+               WHERE rr.reserva_id = r.id
+                 AND NOT EXISTS (
+                   SELECT 1 FROM responsaveis_recursos vinculo
+                   WHERE vinculo.recurso_id = rr.recurso_id AND vinculo.usuario_id = :usuarioId
+                 )
+             )
+            """;
+
     private final NamedParameterJdbcTemplate jdbc;
 
     public ReservaAcessoMysql(NamedParameterJdbcTemplate jdbc) {
