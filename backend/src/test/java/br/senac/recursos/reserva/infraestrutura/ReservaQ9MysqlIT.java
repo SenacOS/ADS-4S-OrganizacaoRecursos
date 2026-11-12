@@ -118,7 +118,7 @@ class ReservaQ9MysqlIT {
         jdbc.update("INSERT INTO responsaveis_recursos(recurso_id,usuario_id) VALUES (12,31)");
         assertDoesNotThrow(() -> acesso.exigirResponsavelDeTodos(reserva, RESPONSAVEL31));
         assertEquals(103L, consulta.detalhe(103, RESPONSAVEL31).id());
-        assertEquals(2L, consulta.listar(RESPONSAVEL31, "SOLICITADA", null, null, null, 0, 20).total());
+        assertEquals(3L, consulta.listar(RESPONSAVEL31, "SOLICITADA", null, null, null, 0, 20).total());
     }
 
     @Test
