@@ -16,6 +16,8 @@ import java.time.*;
 import java.util.*;
 import java.util.concurrent.*;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -41,6 +43,8 @@ class Item18MysqlIT {
   }
 
   static final Instant NOW = Instant.parse("2026-11-10T15:30:00Z");
+  private static final IntervaloReserva HORARIO_EDICAO =
+      new IntervaloReserva(NOW.plusSeconds(5400), NOW.plusSeconds(9000));
   static final AtorReserva ADMIN = new AtorReserva(1, PapelAtor.ADMINISTRADOR),
       RESP = new AtorReserva(2, PapelAtor.RESPONSAVEL),
       SOL = new AtorReserva(3, PapelAtor.SOLICITANTE);
@@ -66,12 +70,6 @@ class Item18MysqlIT {
 
     @Bean
     @Primary
-    AuditoriaPort auditoria(JdbcTemplate j) {
-      return e -> j.update("INSERT INTO eventos_teste(acao) VALUES(?)", e.acao().name());
-    }
-
-    @Bean
-    @Primary
     NotificacaoPort notificacao() {
       return e -> {};
     }
@@ -81,6 +79,7 @@ class Item18MysqlIT {
   @Autowired RecursoService recursos;
   @Autowired MovimentacaoService movimentos;
   @Autowired ReservaService reservas;
+  @Autowired ReservaRepositorio repositorioReservas;
   @Autowired RecursosPort locks;
   @Autowired PlatformTransactionManager tm;
 
@@ -103,6 +102,7 @@ class Item18MysqlIT {
             "recursos",
             "horarios_funcionamento",
             "eventos_teste",
+            "auditoria",
             "usuarios")) j.update("DELETE FROM " + t);
     for (int id = 1; id <= 3; id++)
       j.update(
@@ -229,31 +229,165 @@ class Item18MysqlIT {
   }
 
   private List<Object> disputar(Callable<?> a, Callable<?> b) throws Exception {
+    return disputar(List.of(a, b));
+  }
+
+  private List<Object> disputar(List<? extends Callable<?>> operacoes) throws Exception {
+    var prontas = new CountDownLatch(operacoes.size());
     var inicio = new CountDownLatch(1);
-    try (var pool = Executors.newFixedThreadPool(2)) {
-      var x =
-          pool.submit(
-              () -> {
-                inicio.await();
-                try {
-                  return a.call();
-                } catch (RuntimeException e) {
-                  return e;
-                }
-              });
-      var y =
-          pool.submit(
-              () -> {
-                inicio.await();
-                try {
-                  return b.call();
-                } catch (RuntimeException e) {
-                  return e;
-                }
-              });
+    var pool = Executors.newFixedThreadPool(operacoes.size());
+    try {
+      var futuros = new ArrayList<Future<Object>>();
+      for (var operacao : operacoes) {
+        futuros.add(
+            pool.submit(
+                () -> {
+                  prontas.countDown();
+                  inicio.await();
+                  try {
+                    return operacao.call();
+                  } catch (RuntimeException e) {
+                    return e;
+                  }
+                }));
+      }
+      assertTrue(prontas.await(5, TimeUnit.SECONDS), "As tarefas não chegaram à barreira");
       inicio.countDown();
-      return List.of(x.get(30, TimeUnit.SECONDS), y.get(30, TimeUnit.SECONDS));
+      var resultados = new ArrayList<Object>();
+      for (var futuro : futuros) {
+        resultados.add(futuro.get(15, TimeUnit.SECONDS));
+      }
+      return resultados;
+    } finally {
+      pool.shutdownNow();
     }
+  }
+
+  @ParameterizedTest
+  @ValueSource(ints = {2, 3, 4, 5, 6})
+  void ct19SomenteUmaEdicaoVenceEPerdedorasFicamIntactas(int quantidade) throws Exception {
+    long origem = recursos.salvar(null, material("ORIGEM", "PO"), ADMIN).id();
+    long destino = recursos.salvar(null, material("DESTINO", "PD"), ADMIN).id();
+    var originais = new ArrayList<Reserva>();
+    var operacoes = new ArrayList<Callable<?>>();
+    for (int i = 0; i < quantidade; i++) {
+      Instant inicio = NOW.minusSeconds(14400).plusSeconds(i * 1800L);
+      var original =
+          reservas.criar(
+              new ComandoReserva(
+                  new IntervaloReserva(inicio, inicio.plusSeconds(1800)), List.of(origem)),
+              SOL);
+      originais.add(original);
+      operacoes.add(() -> editarNoHorarioAlvo(original, destino));
+    }
+
+    var vencedora = assertUmSucessoEConflitos(disputar(operacoes));
+    assertEquals(List.of(destino), vencedora.recursoIds());
+    assertEquals(
+        originais.size(), j.queryForObject("SELECT COUNT(*) FROM reservas", Integer.class));
+    assertEdicoesPersistidas(originais, vencedora);
+    assertEquals(
+        quantidade - 1, j.queryForObject("SELECT COUNT(*) FROM conflitos_evitados", Integer.class));
+  }
+
+  @Test
+  void ct19TrocaEmOrdemOpostaConcluiAsDuasEdicoes() throws Exception {
+    long primeiro = recursos.salvar(null, material("M1", "P1"), ADMIN).id();
+    long segundo = recursos.salvar(null, material("M2", "P2"), ADMIN).id();
+    var a = reservar(primeiro);
+    var b = reservar(segundo);
+
+    var resultados =
+        disputar(() -> editarNoHorarioAlvo(a, segundo), () -> editarNoHorarioAlvo(b, primeiro));
+
+    var aEditada = assertInstanceOf(Reserva.class, resultados.get(0));
+    var bEditada = assertInstanceOf(Reserva.class, resultados.get(1));
+    assertEquals(List.of(segundo), aEditada.recursoIds());
+    assertEquals(List.of(primeiro), bEditada.recursoIds());
+    assertEdicoesPersistidas(List.of(a, b), aEditada, bEditada);
+    assertEquals(0, j.queryForObject("SELECT COUNT(*) FROM conflitos_evitados", Integer.class));
+  }
+
+  @Test
+  void ct19EdicaoContraCriacaoNoMesmoHorario() throws Exception {
+    long recurso = recursos.salvar(null, material("M", "P"), ADMIN).id();
+    var original = reservar(recurso);
+
+    var vencedora =
+        assertUmSucessoEConflitos(
+            disputar(
+                () -> editarNoHorarioAlvo(original, recurso),
+                () -> reservas.criar(new ComandoReserva(HORARIO_EDICAO, List.of(recurso)), SOL)));
+
+    if (vencedora.id().equals(original.id())) {
+      assertEdicoesPersistidas(List.of(original), vencedora);
+      assertEquals(1, j.queryForObject("SELECT COUNT(*) FROM reservas", Integer.class));
+    } else {
+      assertEdicoesPersistidas(List.of(original));
+      assertEquals(vencedora, repositorioReservas.buscarPorId(vencedora.id()).orElseThrow());
+      assertEquals(2, j.queryForObject("SELECT COUNT(*) FROM reservas", Integer.class));
+    }
+    assertEquals(1, j.queryForObject("SELECT COUNT(*) FROM conflitos_evitados", Integer.class));
+  }
+
+  @Test
+  void ct19RecursoComumSomenteDepoisDaEdicao() throws Exception {
+    long primeiro = recursos.salvar(null, material("M1", "P1"), ADMIN).id();
+    long segundo = recursos.salvar(null, material("M2", "P2"), ADMIN).id();
+    long terceiro = recursos.salvar(null, material("M3", "P3"), ADMIN).id();
+    long quarto = recursos.salvar(null, material("M4", "P4"), ADMIN).id();
+    var a = reservar(primeiro);
+    var b = reservar(terceiro);
+    var c = reservar(quarto);
+
+    var vencedora =
+        assertUmSucessoEConflitos(
+            disputar(
+                List.of(
+                    () -> editarNoHorarioAlvo(a, segundo),
+                    () -> editarNoHorarioAlvo(b, segundo),
+                    () -> editarNoHorarioAlvo(c, segundo, quarto))));
+
+    assertTrue(vencedora.recursoIds().contains(segundo));
+    assertEdicoesPersistidas(List.of(a, b, c), vencedora);
+    assertEquals(2, j.queryForObject("SELECT COUNT(*) FROM conflitos_evitados", Integer.class));
+  }
+
+  private Reserva editarNoHorarioAlvo(Reserva reserva, Long... recursos) {
+    return reservas.editar(
+        reserva.id(), new ComandoReserva(HORARIO_EDICAO, List.of(recursos)), SOL);
+  }
+
+  private static Reserva assertUmSucessoEConflitos(List<Object> resultados) {
+    var sucessos = resultados.stream().filter(Reserva.class::isInstance).toList();
+    assertEquals(1, sucessos.size(), resultados::toString);
+    for (var resultado : resultados) {
+      if (!(resultado instanceof Reserva)) {
+        // O handler REST converte este conflito de domínio em HTTP 409.
+        assertInstanceOf(ConflitoDisponibilidadeException.class, resultado);
+      }
+    }
+    var vencedora = (Reserva) sucessos.getFirst();
+    assertEquals(HORARIO_EDICAO, vencedora.intervalo());
+    return vencedora;
+  }
+
+  private void assertEdicoesPersistidas(List<Reserva> originais, Reserva... editadas) {
+    var esperadas = new HashMap<Long, Reserva>();
+    originais.forEach(reserva -> esperadas.put(reserva.id(), reserva));
+    for (var editada : editadas) {
+      assertEquals(HORARIO_EDICAO, editada.intervalo());
+      esperadas.put(editada.id(), editada);
+    }
+    esperadas.forEach(
+        (id, esperada) ->
+            assertEquals(esperada, repositorioReservas.buscarPorId(id).orElseThrow()));
+    assertEquals(
+        Arrays.stream(editadas).map(Reserva::id).sorted().toList(),
+        j.queryForList(
+            "SELECT entidade_id FROM auditoria WHERE entidade='RESERVA' AND acao='EDICAO'"
+                + " ORDER BY entidade_id",
+            Long.class));
   }
 
   @Test
@@ -455,12 +589,9 @@ class Item18MysqlIT {
                 "--spring.datasource.username=" + mysql.getUsername(),
                 "--spring.datasource.password=" + mysql.getPassword(),
                 "--spring.main.banner-mode=off")) {
-          assertInstanceOf(
-              br.senac.recursos.seguranca.SpringSecurityAtorProvider.class,
-              contexto.getBean(
-                  br.senac.recursos.reserva.api.AtorAutenticadoProvider.class
-              )
-          );
+      assertInstanceOf(
+          br.senac.recursos.seguranca.SpringSecurityAtorProvider.class,
+          contexto.getBean(br.senac.recursos.reserva.api.AtorAutenticadoProvider.class));
       assertInstanceOf(
           br.senac.recursos.auditoria.AuditoriaJdbc.class,
           contexto.getBean(EventosDominioPort.class));
