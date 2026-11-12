@@ -1,5 +1,21 @@
 # Matriz de rastreabilidade - item 18
 
+## Complemento real de fechamento — 11/0 sobre0775715
+
+Revisão das evidências aprovada por Marcos em12/11, sem ajuste solicitado. [Aceite e alcance](testes/marcos-fechamento-e2e-1-aceite-2026-11-12.md). Nenhuma nova suíte ou mudança de produto/auxiliares; publicação e verificações externas continuam separadas.
+
+12/11/2026, branch `test/marcos-fechamento-e2e`, auxiliares/documentação ainda sem commit; produto preservado por hashes. [Story](stories/marcos-fechamento-e2e-1.md), [resultados/matriz/tentativas](testes/marcos-fechamento-e2e-1-resultados.md) e [entrega](integracao/marcos-fechamento-entrega.md).
+
+| Requisito / risco | Evidência real complementar |
+|---|---|
+| RF01/RF13 — login inválido, CSRF, timeout e mensagens | UI401, rotação real de CSRF com403/ação explícita204;65.296ms de inatividade com cookie mantido, GET401/NAO_AUTENTICADO e redirecionamento. Temporária loopback encerrada; principal preservada. |
+| RF03 — paginação, vazio e disponibilidade |21materiais exclusivos, páginas20/1, filtro/período, vazio específico e recurso ocupado com seleção impedida;390×844. |
+| RF04/RF05 — concorrência e estado alterado | Duas sessões HTTP simultâneas201/409 e persistência única; editor depois de cancelamento externo retorna403, duplo clique→1PATCH e reconsultaCANCELADA;1366×900/foco. |
+| RF09/RF13 — prazo, atraso e perfis | Retirada elegível permanece aberta após prazo; ADMINleitura/POST403; devolução pelo Responsável com atraso final2s e operador persistidos;390×844/foco. |
+| RF14 — origem/isolamento das provas |32fontes servidas em cada instância/JAR/auxiliares porhash; SQLsomenteSELECT; tentativas incompleta e9/1 preservadas, final11/0. Sem mudança de produto nem nova execução do81/278 anterior. |
+
+Complementa smoke16/0/0, consulta/edição8/0 e Q9/fila10/0 sem somar contagens ou certificar todos os estados/carga. Sem nova prova de envio externo, nova revisão humana, check remoto ou entregaàdevelop. Demais registros abaixo mantêm suas bases históricas.
+
 ## Complemento Marcos-3 — consulta, edição e cancelamento
 
 Aceite posterior em 12/11/2026: Marcos informou que os testes funcionaram, aprovou visualmente e autorizou commit local. [Registro e alcance](testes/marcos-3-consulta-edicao-aceite-visual-2026-11-12.md). Sem mudança de produto/testes ou nova suíte; revisão da equipe, checks, publicação e merge continuam separados. As observações de aceite pendente abaixo descrevem a execução anterior.
