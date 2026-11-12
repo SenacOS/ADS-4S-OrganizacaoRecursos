@@ -56,6 +56,18 @@ Estado: VALIDADO LOCALMENTE no primeiro recorte da etapa 3, em 10/11/2026. Não 
 
 `npm run build` passou com 32 testes unitários e 76 execuções de navegador, zero falhas/ignorados/retries na rodada aprovada. O primeiro timeout no setup e a reexecução de quatro capturas são registrados separadamente. Integração real, revisão humana/CodeRabbit e CI pendentes. Listagem/reabertura para edição/cancelamento de reservas existentes aguardam GETs e política Q9; a etapa 3 completa permanece em execução.
 
+## Cliente da fila e decisões — Marcos-4
+
+Estado: VALIDADO LOCALMENTE contra a especificação aceita pelo frontend em 10/11/2026. GET/autorização/projeção no backend e integração real continuam pendentes.
+
+| RF | Risco / comportamento | Implementação | Testes e evidência |
+|---|---|---|---|
+| RF07 | Ação oferecida a perfil indevido, fila/detalhes incoerentes, motivo vazio ou decisão sem confirmação | aprovacoes.js, aprovacoes-page.js, pages/aprovacoes.html, navegacao.js | aprovacoes.test.js: perfis, filtros, projeção e escritas; aprovacoes.spec.js: acesso direto negado, decisão comum de aprovação/rejeição, motivo obrigatório e 403; [resultados](testes/marcos-4-resultados.md) |
+| RF13 | Resposta atrasada, duplo envio, falha de recarga confundida com falha da decisão, layout/foco inadequados | aprovacoes-page.js, datas.js, css/app.css | 24 cenários em duas viewports (48 execuções), com rede/400/401/403/404/409, página esvaziada, pós-decisão, HTML como texto, teclado e foco; [log](testes/marcos-4-verificacao.txt) |
+| RF14 | Confundir cliente de especificação com GET implementado ou autorização do servidor | reservas-leitura-contrato.md, frontend-integracao.md, story/plano | DTO e estado do contrato explícitos; sem GET de detalhe, listagem geral/Q9 ou flags ativadas; [ambiente e limites](testes/marcos-4/resultados.json) |
+
+Gates aprovados: lint, checkJs, 43 testes unitários e 124 execuções de navegador (48 novas e 76 regressões), zero falhas/ignorados/retries. A leitura da fila, a autorização no servidor e o E2E integrado ainda precisam da equipe; validação humana, revisão independente e CI pendentes. Não se marca o RF inteiro como concluído.
+
 ## Administração de recursos — Marcos-5
 
 | RF | Risco / comportamento | Implementação | Testes e evidência |
@@ -86,3 +98,13 @@ Rodada final: lint/checkJs/build aprovados, 57 testes unitários (12 novos) e 19
 Reexecução pelo autor recebida em 11/11/2026: lint/tipos sem diagnósticos, 57 unitários e 190 testes de navegador aprovados (1,9 min). [Saída fornecida pelo Marcos](testes/marcos-5-movimentacoes-verificacao-marcos.txt), preservada integralmente. Aceite visual, revisão de outro integrante, CI e integração não são inferidos dessa execução.
 
 Posteriormente, Marcos confirmou o teste visual no Chrome com dados fictícios e solicitou o commit em 11/11/2026. Auxiliar temporário fora do repositório, sem mudanças no produto para a prévia. Administração e movimentações encerram a implementação local da etapa 5 com aceite do autor; revisão da equipe, CodeRabbit/CI e integração real permanecem pendentes. [Registro do aceite](testes/marcos-5-movimentacoes-resultados.md#aceite-visual-e-autorização-de-commit).
+
+## Conciliação do frontend — Marcos-4 e etapa 5
+
+Em 11/11/2026, a preparação local da Marcos-4 foi conciliada em branch própria baseada em `f7360a2`, preservando os incrementos administrativos/de movimentações e as evidências anteriores. Os testes de acesso verificam os links de Aprovações, Gestão e Movimentações por perfil; a ajuda da fila descreve o escopo de recursos do Responsável da Q9. A autorização real desse escopo ainda depende do backend.
+
+`npm run build` final aprovado: lint/typecheck, 68 unitários e 238 execuções de navegador, 119 por viewport; zero falhas/ignorados/retries na rodada final. Uma primeira falha de preparação do contexto do Chrome e seis repetições diagnósticas aprovadas foram preservadas separadamente, sem alteração de código/timeout. [Comandos, resultados, limites e capturas](testes/marcos-4-conciliacao-resultados.md).
+
+Reexecução automatizada apresentada por Marcos no checkout conciliado: lint/typecheck sem diagnósticos, 68 unitários e 238 de navegador aprovados em 6,3 min. [Saída integral do autor](testes/marcos-4-conciliacao-verificacao-marcos.txt), preservada com SHA-256 conferido. A execução anterior do autor na pasta original (43/124) permanece registrada separadamente.
+
+Aceite visual da Marcos-4 conciliada, revisão independente, CI e E2E com backend real permanecem pendentes. Esse resultado não demonstra segurança Spring, persistência, concorrência, auditoria ou notificações e não encerra os RFs completos.

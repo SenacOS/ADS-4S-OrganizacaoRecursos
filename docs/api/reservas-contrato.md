@@ -2,7 +2,7 @@
 
 **Estado: ACEITO POR MARCOS PARA O FRONTEND em 10/11/2026** — datas, PATCH e 409 adotados conforme autorização do usuário. Revisões de backend/segurança e integração real permanecem pendentes. Os 8 endpoints de escrita estão escritos, mas desligados por padrão (reservas.api.enabled=false). A integração depende da sessão e dos provedores reais de auditoria/notificação; não foram validados ponta a ponta. A autenticação entregue em branch separada ainda precisa ser integrada à develop.
 
-**Fora deste contrato por enquanto:** `GET /api/reservas`, `GET /api/reservas/{id}` e disponibilidade. Dependem de uma porta de leitura (Fausto), da regra de quem pode consultar (Q9) e do dono do endpoint de disponibilidade (`GET /api/recursos`, Fausto).
+**Fora deste contrato por enquanto:** `GET /api/reservas`, `GET /api/reservas/{id}` e disponibilidade. A [política Q9 foi comunicada como decidida por Marcos em 11/11/2026](reservas-politica-leitura-q9.md); ainda faltam contratos/porta de leitura e aplicação efetiva da autorização para os GETs de reservas. A decisão não implementa endpoints. O endpoint de pesquisa/disponibilidade de recursos pertence a Fausto (`GET /api/recursos`).
 
 Convenções (ADR-004, ADR-006): sessão com cookie HttpOnly, CSRF no cabeçalho informado por `GET /api/auth/csrf` (`{token,header}`; não fixar o nome no cliente), JSON em UTF-8 nas operações de domínio, datas ISO 8601 **com offset** (`2026-11-10T13:00:00-03:00`), persistidas em UTC, exibidas em `America/Sao_Paulo`.
 

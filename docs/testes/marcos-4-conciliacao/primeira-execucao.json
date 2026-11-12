@@ -1,0 +1,57 @@
+{
+  "data": "2026-11-11",
+  "base": "f7360a2 com alterações locais Marcos-4",
+  "stats": {
+    "startTime": "2026-11-11T22:05:11.240Z",
+    "duration": 877622.043,
+    "expected": 237,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "build_exit_code": 1,
+  "unitarios": 68,
+  "falhas": [
+    {
+      "file": "movimentacoes.spec.js",
+      "title": "identificação antiga não sobrescreve cadastro obtido na atualização seguinte",
+      "project": "mobile",
+      "status": "unexpected",
+      "results": [
+        {
+          "workerIndex": 1,
+          "parallelIndex": 0,
+          "status": "timedOut",
+          "duration": 515755,
+          "error": {
+            "message": "\u001b[31mTest timeout of 15000ms exceeded while setting up \"context\".\u001b[39m",
+            "stack": "\u001b[31mTest timeout of 15000ms exceeded while setting up \"context\".\u001b[39m"
+          },
+          "errors": [
+            {
+              "message": "\u001b[31mTest timeout of 15000ms exceeded while setting up \"context\".\u001b[39m"
+            }
+          ],
+          "stdout": [],
+          "stderr": [],
+          "retry": 0,
+          "startTime": "2026-11-11T22:09:24.975Z",
+          "annotations": [],
+          "attachments": [
+            {
+              "name": "error-context",
+              "contentType": "text/markdown",
+              "path": "C:\\Users\\marco\\Documents\\QS_Project\\ADS-4S-OrganizacaoRecursos\\.aiox-core\\local\\wt\\m4\\test-results\\frontend\\movimentacoes-identificaçã-41090-ido-na-atualização-seguinte-mobile\\error-context.md"
+            },
+            {
+              "name": "trace",
+              "contentType": "application/zip",
+              "path": "C:\\Users\\marco\\Documents\\QS_Project\\ADS-4S-OrganizacaoRecursos\\.aiox-core\\local\\wt\\m4\\test-results\\frontend\\movimentacoes-identificaçã-41090-ido-na-atualização-seguinte-mobile\\trace.zip"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "diagnostico": "Timeout ao preparar o context do Playwright, antes do corpo do teste; nenhuma asserção de produto falhou nesse cenário."
+}

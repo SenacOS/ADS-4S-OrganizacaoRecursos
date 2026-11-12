@@ -55,15 +55,16 @@ export function paraIsoOperacional(valor) {
   return completo + sufixo;
 }
 
-/** @param {string} inicio @param {string} fim @param {boolean} [obrigatorio] */
-export function intervaloDoFormulario(inicio, fim, obrigatorio = false) {
+/** @param {string} inicio @param {string} fim @param {boolean} [obrigatorio]
+ * @param {boolean} [mesmoDia] Reservas exigem o mesmo dia; filtros de fila admitem vários dias. */
+export function intervaloDoFormulario(inicio, fim, obrigatorio = false, mesmoDia = true) {
   if (!inicio && !fim && !obrigatorio) return {};
   if (!inicio || !fim) throw invalida('Informe início e fim juntos.');
   const intervalo = { inicio: paraIsoOperacional(inicio), fim: paraIsoOperacional(fim) };
   if (Date.parse(intervalo.fim) <= Date.parse(intervalo.inicio)) {
     throw invalida('O fim deve ser posterior ao início.');
   }
-  if (inicio.slice(0, 10) !== fim.slice(0, 10)) {
+  if (mesmoDia && inicio.slice(0, 10) !== fim.slice(0, 10)) {
     throw invalida('Escolha início e fim no mesmo dia de funcionamento.');
   }
   return intervalo;
