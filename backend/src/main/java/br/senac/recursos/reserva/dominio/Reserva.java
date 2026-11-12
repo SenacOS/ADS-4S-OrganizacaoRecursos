@@ -47,8 +47,12 @@ public record Reserva(
         return comStatus(status.transitarPara(StatusReserva.APROVADA), null);
     }
 
+    /** Q3: além do papel, o aprovador não pode ser o próprio solicitante (mesmo acumulando papéis). */
     public Reserva aprovar(AtorReserva ator) {
         exigirPapel(ator, PapelAtor.RESPONSAVEL, "Somente o Responsável aprova reservas de recursos restritos.");
+        if (ator.usuarioId() == solicitanteId) {
+            throw new OperacaoNaoPermitidaException("Você não pode aprovar uma reserva da qual é o solicitante.");
+        }
         return comStatus(status.transitarPara(StatusReserva.APROVADA), null);
     }
 
