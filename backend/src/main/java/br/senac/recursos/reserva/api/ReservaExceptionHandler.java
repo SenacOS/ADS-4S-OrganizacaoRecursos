@@ -44,6 +44,12 @@ public class ReservaExceptionHandler extends ResponseEntityExceptionHandler {
         return erro(HttpStatus.BAD_REQUEST, "REQUISICAO_INVALIDA", ex.getMessage(), req);
     }
 
+    @ExceptionHandler(br.senac.recursos.reserva.aplicacao.ConsultaInvalidaException.class)
+    ResponseEntity<ErroApi> consultaInvalida(
+            br.senac.recursos.reserva.aplicacao.ConsultaInvalidaException ex, WebRequest req) {
+        return erro(HttpStatus.BAD_REQUEST, "REQUISICAO_INVALIDA", "Parâmetros de consulta inválidos.", req);
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
     ResponseEntity<ErroApi> argumentoInvalido(IllegalArgumentException ex, WebRequest req) {
         return erro(HttpStatus.BAD_REQUEST, "REQUISICAO_INVALIDA", "Requisição inválida.", req);

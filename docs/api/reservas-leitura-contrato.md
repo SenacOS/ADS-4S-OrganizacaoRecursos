@@ -1,8 +1,10 @@
 # Reservas — leitura da fila de aprovação
 
-**Estado: ESPECIFICADO / ACEITO POR MARCOS PARA O FRONTEND em 10/11/2026. LEITURA NÃO IMPLEMENTADA NO BACKEND.** O cliente desta especificação está na [Marcos-4](../stories/marcos-4.md), validado com API controlada; isso não altera a pendência de implementação/revisão da equipe.
+**Estado: GETs integrados pelo PR #26.** Este complemento conecta o GET ao adaptador da fila integrado pelo PR #22. O cliente está na [Marcos-4](../stories/marcos-4.md).
 
-Fonte: quatro respostas do [plano de Marcos](../planejamento/marcos-plano-de-acao.md#respostas-adotadas-para-o-contrato), adotadas pelo usuário. Esta especificação não comprova revisão de Silva, Fausto ou Débora. A [política geral de leitura Q9 foi comunicada como decidida em 11/11/2026](reservas-politica-leitura-q9.md); esta especificação continua tratando apenas da fila do Responsável, com implementação e revisão de contrato pendentes.
+Atualização do frontend após merge do **PR #27**, develop `4cea177`: fila/Q9 revalidadas com backend real, incluindo total de página vazia e revogação de vínculo. [Resultados](../testes/marcos-integracao-q9-1-pr27-resultados.md). Marcos aceitou consumir o escopo de todos os recursos; ratificação coletiva e manutenção administrativa dos vínculos continuam separadas.
+
+O escopo das leituras segue a [implementação da Q9](../seguranca/q9-autorizacao-reservas.md).
 
 ## Requisição da fila
 
@@ -10,11 +12,11 @@ Fonte: quatro respostas do [plano de Marcos](../planejamento/marcos-plano-de-aca
 GET /api/reservas?status=SOLICITADA&inicio=2026-11-10T13%3A00%3A00-03%3A00&fim=2026-11-10T18%3A00%3A00-03%3A00&recursoId=101&pagina=0&tamanho=20
 ```
 
-Sessão autenticada com papel RESPONSAVEL. Solicitante e Administrador não recebem acesso à fila de decisões por esta especificação; suas consultas gerais seguem contratos próprios orientados pela Q9. O servidor impõe status SOLICITADA, restrita=true e escopo dos recursos sob responsabilidade do ator, conforme a decisão comunicada; não basta filtrar ou ocultar ações no navegador. O modelo desse vínculo e sua aplicação na consulta ainda precisam ser integrados pelo backend.
+Com sessão de RESPONSAVEL e status SOLICITADA, o GET consulta a fila de aprovação. O servidor exige `restrita=true` e vínculo com todos os recursos da reserva. Solicitante e Administrador usam a listagem geral com seus respectivos escopos.
 
 | Parâmetro | Regra |
 |---|---|
-| status | SOLICITADA identifica esta consulta de fila. Outros estados/consultas dependem de contrato separado que aplique a Q9 decidida. |
+| status | SOLICITADA seleciona a fila para o Responsável. Outros estados usam a listagem geral. |
 | inicio, fim | Opcionais, sempre juntos, ISO 8601 com offset e fim > inicio. Selecionar reservas que intersectam [inicio,fim): reserva.inicio < fim e reserva.fim > inicio. |
 | recursoId | Opcional, ID positivo. Seleciona reservas contendo esse recurso. |
 | pagina | Inteiro >= 0, padrão 0. |
@@ -46,12 +48,11 @@ Envelope consistente com a pesquisa de recursos: {itens,pagina,tamanho,total}.
 }
 ```
 
-Valores acima são exemplos, não dados reais. Os campos até motivoDecisao já existem no DTO de resposta de escrita. solicitante e recursos são **projeções adicionais de leitura ainda não implementadas**. Não alterar os corpos de criação/edição para recebê-las.
+Os valores são exemplos. `solicitante` e `recursos` são projeções de leitura. Os corpos de criação e edição seguem o contrato de escrita.
 
-- solicitante.usuarioId deve coincidir com solicitanteId. identificacao é o texto mínimo necessário à avaliação, definido com segurança; não incluir email, contato ou outros dados pessoais sem necessidade autorizada.
-- recursos deve corresponder aos recursosIds e apresentar identificação legível por tipo, com código/nome e patrimônio para materiais. Para professor, competências necessárias à validação podem integrar essa projeção após confirmação de Fausto/Débora.
+- `solicitante.usuarioId` coincide com `solicitanteId`. A identificação é `Solicitante <id>`.
+- `recursos` contém todos os recursos da reserva. A identificação usa o código da sala, o nome do professor ou a descrição do material. Patrimônio é preenchido somente para materiais.
 - Inicio e fim preservam os instantes, apresentados com offset do fuso America/Sao_Paulo. Data de criação não é exigida: a primeira ordem usa inicio/id.
-- A fila traz os dados para avaliar e decidir; não exige um GET de detalhe fictício. Carregar uma reserva para edição continua dependendo de GET /api/reservas/{id} e da política de leitura a implementar.
 
 ## Decisões e erros
 
@@ -59,6 +60,8 @@ Aprovar/rejeitar reutiliza os POSTs já escritos no [contrato de escrita](reserv
 
 Erros no formato {codigo,mensagem,correlationId}: 400 para parâmetros inválidos, 401 para sessão ausente/expirada, 403 para perfil não autorizado. Não revelar dados de reservas conflitantes de outros usuários.
 
-## Pendências de implementação
+## Listagem geral e detalhe
 
-Silva/Fausto: porta de leitura, consulta e controller. Débora: revisão da projeção de identidade e autorização no servidor, incluindo o escopo de recursos do Responsável. Equipe: consolidar contratos e implementação da Q9 comunicada; o relatório não define a convenção 403/404 fora do escopo. Somente depois dessas entregas esta leitura pode ser integrada e validada de ponta a ponta.
+`GET /api/reservas` aplica os filtros de status, período e recurso sobre o escopo do ator autenticado. O total é contado no MySQL antes de paginar. A ordem é por início e ID. Uma página além do fim preserva o total. O Solicitante consulta suas reservas, o Responsável consulta as reservas vinculadas e o Administrador consulta todas.
+
+`GET /api/reservas/{id}` devolve o mesmo formato de item, com todos os recursos associados. Uma reserva inexistente ou fora do escopo retorna 404. Os GETs são habilitados com `reservas.api.enabled=true`.

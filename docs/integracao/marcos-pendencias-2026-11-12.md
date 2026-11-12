@@ -1,5 +1,9 @@
 # Marcos — dependências para fechar as etapas 1 a 5
 
+**Estado posterior ao PR #27:** merge confirmado em `4cea177`; fila reaproveita o caso de uso/adaptador do #22 e escopo SQL comum. [Revalidação real](../testes/marcos-integracao-q9-1-pr27-resultados.md): 10/0 Q9 e16/0/1smoke, incluindo revogação e página vazia. GETs/projeções/vínculos/autorização básica estão entregues. Pendem interface geral (Marcos), ratificação coletiva/processo de vínculos e revisão (equipe), Sonar (responsáveis pela CI). Os levantamentos anteriores abaixo são históricos.
+
+**Atualização após PR #26:** a develop `3f2a9a3` entregou GETs de lista/detalhe/fila, projeções mínimas, vínculos V6 e autorização por todos os recursos. [Validação real](../testes/marcos-integracao-q9-1-resultados.md): 8/0 Q9 e fila, smoke 16/0/1 (bloqueio agora é a interface geral ainda ausente). Marcos aceitou o comportamento atual. A tabela abaixo é o levantamento anterior, parcialmente atendido; continuam pendentes ratificação coletiva multi-recurso, processo administrativo de vínculos, revisão humana/checks e Sonar. Próximo trabalho de Marcos: implementar a interface geral usando o [contrato conferido](../api/reservas-consulta-contrato.md).
+
 Conferência de 12/11/2026 na develop `da5881b`, após merges dos PRs #23 e #24. Marcos confirmou que ainda não recebeu contratos novos de leitura. Este documento prepara o encaminhamento; nenhuma mensagem foi enviada à equipe.
 
 | Entrega necessária | Responsáveis de integração | O que permite retomar |

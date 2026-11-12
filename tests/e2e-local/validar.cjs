@@ -80,7 +80,7 @@ async function executar() {
   await pronto();
   await cenario('Flyway e identidade da base isolada', 'SQL real', async () => {
     const linhas = sql('SELECT version,description,success FROM flyway_schema_history ORDER BY installed_rank').split(/\r?\n/);
-    assert.equal(linhas.length, 5); assert(linhas.every((l) => l.endsWith('\t1')));
+    assert.equal(linhas.length, 6); assert(linhas.every((l) => l.endsWith('\t1')));
     return { migracoes: linhas, banco: estado.database, porta: estado.mysqlPort };
   });
   const anonima = await apiNova();
@@ -228,11 +228,14 @@ async function executar() {
         return { movimentacao: ids.movimentacao, reserva: ids.reserva, devolvidoPor: devolvida.devolvidoPor, atrasoSegundos: devolvida.atrasoSegundos };
       });
     } else bloqueado('Retirada/devolução', 'Criação comum real não passou; não inventar ID de reserva.');
-    await cenario('GETs de reservas ausentes são registrados como bloqueio', 'HTTP real; diagnóstico', async () => {
-      const rotas = ['/api/reservas', `/api/reservas/${ids.reserva || 1}`, '/api/reservas?status=SOLICITADA&pagina=0&tamanho=20']; const observadas = [];
-      for (const rota of rotas) { const r = await apis.responsavel.get(rota); assert([404, 405].includes(r.status()), 'Rever contrato se a leitura passou a existir'); observadas.push({ rota, status: r.status() }); }
-      bloqueado('Fila/lista/detalhe e autorização Q9', 'Endpoints HTTP de leitura ausentes nesta base; sem E2E de aprovação/rejeição pela fila nem de reabertura de edição/cancelamento.');
-      return observadas;
+    await cenario('Leituras de reservas disponíveis após PR26', 'HTTP real; própria reserva e escopo vazio', async () => {
+      assert(ids.reserva, 'Criação comum precisa passar antes da leitura');
+      const detalhe = await apis.solicitante.get(`/api/reservas/${ids.reserva}`); await status(detalhe, 200);
+      const d = await detalhe.json(); assert.equal(d.id, ids.reserva); assert.equal(d.solicitanteId, ids.solicitante);
+      const lista = await apis.responsavel.get(`/api/reservas?status=SOLICITADA&recursoId=${ids.restrito}&pagina=0&tamanho=20`); await status(lista, 200);
+      const fila = await lista.json(); assert.deepEqual(fila.itens, []); assert.equal(fila.total, 0);
+      bloqueado('Interface geral de reservas existentes', 'GETs entregues pelo PR26; listagem/reabertura para editar/cancelar pela interface ainda pertencem ao próximo recorte. Q9/fila reais têm validação específica em validar-q9.cjs.');
+      return { detalhe: 200, propriaReserva: d.id, filaSemVinculo: { status: 200, total: fila.total } };
     });
     await cenario('Logout real dos três perfis e ausência de erros JavaScript', 'Chrome + HTTP reais', async () => {
       for (const page of Object.values(paginas)) {

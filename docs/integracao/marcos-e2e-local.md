@@ -2,6 +2,10 @@
 
 Preparado em 12/11/2026 no Windows. Spring serve o frontend na mesma origem, usando MySQL próprio. O ambiente é de desenvolvimento/teste; não modifica a implantação do projeto.
 
+Atualização após PR #27: JAR de develop `4cea177` e V6 revalidados; `validar-q9.cjs` cobre agora página vazia e revogação de um par de vínculo criado pela própria rodada, com negativas de consulta e decisão. [Resultado atual](../testes/marcos-integracao-q9-1-pr27-resultados.md). O DELETE de preparação é restrito ao recurso novo e Responsável conferidos; não remove dados antigos nem altera a autorização do produto.
+
+Atualização com PR #26: instância local migrada à V6 e JAR atualizado na branch `feature/marcos-integracao-q9`. O smoke principal passou a conferir seis migrações e leituras disponíveis. Para testar a fila/Q9, executar também `node tests/e2e-local/validar-q9.cjs`; cria massa fictícia exclusiva e vínculos restritos a ela, preservando demais dados. [Resultado](../testes/marcos-integracao-q9-1-resultados.md). Os registros anteriores com V1–V5 e GET405 correspondem à base da5881b.
+
 ## Uso neste computador
 
 Na raiz do repositório, com Node e as dependências de desenvolvimento já disponíveis:
@@ -83,4 +87,4 @@ O smoke cria recursos com identificação única e usa o relógio atual de São 
 
 Fluxos reais: login/logout dos três perfis, CSRF e algumas negativas de autorização, cadastro/edição dos recursos, manutenção/desativação, expediente, criação comum/restrita, conflito, PATCH/cancelamento por ID conhecido, retirada e devolução. A consulta SQL é somente leitura e confere persistência/auditoria/outbox dos cenários.
 
-GETs de lista/detalhe/fila retornaram 405 nesta base. Não há interceptação, mock de leitura ou aprovação real pela tela da fila. A prova por HTTP de PATCH/cancelamento não implementa nem valida a futura tela de reabertura. Expiração por timeout, corridas concorrentes, atrasos após o prazo, teclado/móvel e todas as negativas de escopo ainda precisam de cenários integrados complementares; os testes controlados existentes continuam separados. [Resultados, falhas anteriores e limites](../testes/marcos-e2e-local-2026-11-12-resultados.md).
+Na base original da5881b os GETs retornavam 405. Após PR26/V6, as leituras e aprovação/rejeição pela fila foram validadas com backend real, conforme atualização inicial. A interface geral de reabertura/edição/cancelamento ainda não foi implementada. Expiração por timeout, corridas concorrentes, atrasos após o prazo, teclado/móvel e outras combinações precisam de cenários integrados complementares; testes controlados permanecem separados. [Histórico anterior](../testes/marcos-e2e-local-2026-11-12-resultados.md).

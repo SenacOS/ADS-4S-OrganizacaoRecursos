@@ -1,5 +1,17 @@
 # Matriz de rastreabilidade - item 18
 
+## Revalidação após PR #27 — develop4cea177
+
+Aceite visual global do autor e solicitação de commit local recebidos em12/11, após roteiro com21solicitações reais de teste. [Registro](testes/marcos-integracao-q9-1-aceite-visual-2026-11-12.md). Não encerra os RFs inteiros nem atribui revisão de outro integrante/CI aprovada; nenhuma suíte repetida para este registro documental.
+
+12/11/2026: merge local ainda sem commit, preservando8c21a43. [Q9/fila reais10PASS/0FAIL e smoke16/0/1](testes/marcos-integracao-q9-1-pr27-resultados.md). Acrescentadas provas de página vazia preservando total e revogação retirando leitura/decisão (404/403) sem apagar reserva; RF01/RF04/RF07/RF13/RF14 nos caminhos executados. Fontes/JAR conferidos; frontend72/240 mantido por hashes, sem nova suíte isolada. Não encerra UIgeral, matriz E2E inteira, revisão humana ou checks remotos. CI4cea177 aprovou244unitários/HTTP e57IT/cobertura, mas scanner falhou depois. Registros anteriores abaixo preservados.
+
+## Integração Q9 / fila — PR #26
+
+12/11/2026, branch `feature/marcos-integracao-q9`, HEAD8c21a43 + merge local sem commit de develop3f2a9a3. [Resultados reais e limites](testes/marcos-integracao-q9-1-resultados.md): **8 PASS/0 FAIL** para escopo por sessão, total/paginação autorizados, 404 de detalhe alheio, vínculos parciais/completos e fila no Chrome com aprovação/rejeição/motivo. RF01/RF04/RF07/RF13/RF14 nos caminhos executados. [Contrato conferido](api/reservas-consulta-contrato.md).
+
+Smoke atualizado16/0/1; bloqueio é UI geral ainda ausente, não ausência de GETs/Q9. FlywayV6 aplicada e módulos servidos conferidos; produto/testesfrontend mantêm hashes do72/240 anterior, sem nova regressão completa. Ratificação coletiva multi-recurso, gestão dos vínculos, interface geral, revisão humana e checks/Sonar continuam pendentes. CI develop3f2a9a3 aprovou243unitários/HTTP e56IT, cobertura; scanner falhou depois. Registros abaixo são históricos.
+
 ## Fechamento local de Marcos — 12/11/2026, após PR #24
 
 Base develop da5881b; branch `fix/marcos-qualidade-frontend`, alterações novas não commitadas. PRs #23/#24 mesclados; registros abaixo mantêm seus contextos históricos.

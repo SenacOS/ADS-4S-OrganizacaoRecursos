@@ -153,12 +153,22 @@ public class ReservaService {
                                  UnaryOperator<Reserva> operacao, TipoEventoNotificacao evento) {
         String correlacao = novaCorrelacao();
         Reserva antes = carregarBloqueando(reservaId, List.of()).reserva();
+        validarAutorizacaoReserva(antes, ator, acao);
         Reserva salva = reservas.salvar(operacao.apply(antes));
         auditar(acao, ator, antes.status().name(), salva.status().name(), salva, correlacao);
         if (evento != null) {
             notificar(evento, salva, correlacao);
         }
         return salva;
+    }
+
+    /**
+     * Extensão para validar a responsabilidade após bloquear e reler a reserva.
+     * Os testes de domínio usam a implementação pura; o bean transacional
+     * sempre aplica a política SQL antes de qualquer decisão.
+     */
+    protected void validarAutorizacaoReserva(Reserva reserva, AtorReserva ator, AcaoReserva acao) {
+        // A implementação transacional associa o ator aos recursos da reserva.
     }
 
     /**

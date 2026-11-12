@@ -20,6 +20,11 @@ public class Item18Config {
   }
 
   @Bean
+  public ConsultarFilaAprovacao consultarFilaAprovacao(ReservaFilaPort fila) {
+    return new ConsultarFilaAprovacao(fila);
+  }
+
+  @Bean
   @Lazy
   public RecursoService recursoService(
       Banco b,
@@ -57,7 +62,8 @@ public class Item18Config {
       AuditoriaPort a,
       NotificacaoPort n,
       ConflitosEvitadosPort c,
-      Clock clock) {
-    return new ReservaTransacional(r, p, o, e, a, n, c, clock);
+      Clock clock,
+      ReservaAcessoMysql acesso) {
+    return new ReservaTransacional(r, p, o, e, a, n, c, clock, acesso);
   }
 }
