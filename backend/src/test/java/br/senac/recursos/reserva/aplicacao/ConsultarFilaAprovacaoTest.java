@@ -35,6 +35,12 @@ class ConsultarFilaAprovacaoTest {
             chamadas.add(filtro);
             return resposta;
         }
+
+        @Override
+        public Pagina<ItemFilaAprovacao> buscarFila(FiltroFilaAprovacao filtro, long responsavelId) {
+            if (responsavelId <= 0) throw new AssertionError("Responsável precisa vir da sessão");
+            return buscarFila(filtro);
+        }
     }
 
     private static ItemFilaAprovacao item(Reserva r) {

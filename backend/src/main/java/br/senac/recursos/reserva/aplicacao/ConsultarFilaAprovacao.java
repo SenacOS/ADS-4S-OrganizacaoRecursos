@@ -26,7 +26,7 @@ public class ConsultarFilaAprovacao {
         if (ator.papel() != PapelAtor.RESPONSAVEL) {
             throw new OperacaoNaoPermitidaException("Somente o Responsável consulta a fila de aprovação.");
         }
-        Pagina<ItemFilaAprovacao> pagina = fila.buscarFila(filtro);
+        Pagina<ItemFilaAprovacao> pagina = fila.buscarFila(filtro, ator.usuarioId());
         validar(pagina, filtro);
         return pagina;
     }
