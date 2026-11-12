@@ -20,6 +20,9 @@ public record Reserva(
         StatusReserva status,
         String motivoDecisao) {
 
+    private static final String MSG_OPERADOR =
+            "Somente o Responsável inicia, conclui ou registra ausência em uma reserva.";
+
     public Reserva {
         Objects.requireNonNull(intervalo, "intervalo");
         Objects.requireNonNull(status, "status");
@@ -74,19 +77,19 @@ public record Reserva(
         return comStatus(status.transitarPara(StatusReserva.CANCELADA), motivoDecisao);
     }
 
-    /** PROPOSTO: quem inicia, conclui e marca ausência é Responsável ou Administrador. */
+    /** Q1: início, conclusão e não comparecimento são exclusivos do Responsável. */
     public Reserva iniciarUso(AtorReserva ator) {
-        exigirOperador(ator);
+        exigirPapel(ator, PapelAtor.RESPONSAVEL, MSG_OPERADOR);
         return comStatus(status.transitarPara(StatusReserva.EM_USO), motivoDecisao);
     }
 
     public Reserva concluir(AtorReserva ator) {
-        exigirOperador(ator);
+        exigirPapel(ator, PapelAtor.RESPONSAVEL, MSG_OPERADOR);
         return comStatus(status.transitarPara(StatusReserva.CONCLUIDA), motivoDecisao);
     }
 
     public Reserva registrarNaoComparecimento(AtorReserva ator) {
-        exigirOperador(ator);
+        exigirPapel(ator, PapelAtor.RESPONSAVEL, MSG_OPERADOR);
         return comStatus(status.transitarPara(StatusReserva.NAO_COMPARECEU), motivoDecisao);
     }
 
@@ -126,13 +129,6 @@ public record Reserva(
         Objects.requireNonNull(ator, "ator");
         if (ator.papel() != exigido) {
             throw new OperacaoNaoPermitidaException(mensagem);
-        }
-    }
-
-    private static void exigirOperador(AtorReserva ator) {
-        Objects.requireNonNull(ator, "ator");
-        if (ator.papel() != PapelAtor.RESPONSAVEL && ator.papel() != PapelAtor.ADMINISTRADOR) {
-            throw new OperacaoNaoPermitidaException("Operação restrita ao Responsável ou Administrador.");
         }
     }
 }

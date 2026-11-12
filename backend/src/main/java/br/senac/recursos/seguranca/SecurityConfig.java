@@ -37,7 +37,9 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/auth/csrf").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                 .requestMatchers(HttpMethod.POST,
-                        "/api/reservas/*/aprovacao", "/api/reservas/*/rejeicao")
+                        "/api/reservas/*/aprovacao", "/api/reservas/*/rejeicao",
+                        "/api/reservas/*/inicio", "/api/reservas/*/conclusao",
+                        "/api/reservas/*/nao-comparecimento")
                     .hasRole("RESPONSAVEL")
                 .requestMatchers(HttpMethod.POST, "/api/usuarios", "/api/usuarios/**")
                     .hasRole("ADMINISTRADOR")

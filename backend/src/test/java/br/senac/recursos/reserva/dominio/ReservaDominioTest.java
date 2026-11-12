@@ -88,10 +88,28 @@ class ReservaDominioTest {
 
     @Test
     void emUsoNaoCancela() {
-        Reserva emUso = comumSolicitada().aprovarAutomaticamente().iniciarUso(RESP);
-        assertThrows(TransicaoInvalidaException.class, () -> emUso.cancelar(DONA));
+        Reserva emUso = comumSolicitada()
+                .aprovarAutomaticamente()
+                .iniciarUso(RESP);
+
+        assertThrows(
+            TransicaoInvalidaException.class,
+            () -> emUso.cancelar(DONA)
+        );
+
         assertTrue(emUso.status().ocupaAgenda());
-        assertEquals(StatusReserva.CONCLUIDA, emUso.concluir(ADMIN).status());
+
+        // Q1: Administrador não pode concluir a utilização.
+        assertThrows(
+            OperacaoNaoPermitidaException.class,
+            () -> emUso.concluir(ADMIN)
+        );
+
+        // O Responsável continua podendo concluir.
+        assertEquals(
+            StatusReserva.CONCLUIDA,
+            emUso.concluir(RESP).status()
+        );
     }
 
     @Test
