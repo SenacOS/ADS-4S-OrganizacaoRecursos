@@ -235,8 +235,26 @@ class ReservaServiceTest {
         AmbienteFake amb = ambiente();
         ReservaService s = amb.servico();
         Reserva r = s.criar(cmd("13:00", "14:00", 1L), ANA);
-        assertEquals(StatusReserva.NAO_COMPARECEU, s.registrarNaoComparecimento(r.id(), ADMIN).status());
-        assertEquals(StatusReserva.APROVADA, s.criar(cmd("13:00", "14:00", 1L), BIA).status());
+
+        // Q1: Administrador não pode registrar não comparecimento.
+        assertThrows(
+            OperacaoNaoPermitidaException.class,
+            () -> s.registrarNaoComparecimento(r.id(), ADMIN)
+        );
+
+        // A tentativa negada não deve alterar a reserva.
+        assertEquals(StatusReserva.APROVADA, amb.armazem.get(r.id()).status());
+
+        // Somente o Responsável pode registrar a ausência.
+        assertEquals(
+            StatusReserva.NAO_COMPARECEU,
+            s.registrarNaoComparecimento(r.id(), RESP).status()
+        );
+
+        assertEquals(
+            StatusReserva.APROVADA,
+            s.criar(cmd("13:00", "14:00", 1L), BIA).status()
+        );
     }
 
     @Test
