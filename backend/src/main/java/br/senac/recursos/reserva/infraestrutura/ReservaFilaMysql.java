@@ -30,12 +30,49 @@ public class ReservaFilaMysql implements ReservaFilaPort {
   }
 
   @Override
+  @Deprecated
   @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
   public Pagina<ItemFilaAprovacao> buscarFila(FiltroFilaAprovacao filtro) {
+    return buscarFilaInterno(filtro, null);
+  }
+
+  @Override
+  @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
+  public Pagina<ItemFilaAprovacao> buscarFila(FiltroFilaAprovacao filtro, long responsavelId) {
+    if (responsavelId <= 0) {
+      throw new br.senac.recursos.reserva.dominio.OperacaoNaoPermitidaException(
+          "Responsável inválido.");
+    }
+    return buscarFilaInterno(filtro, responsavelId);
+  }
+
+  private Pagina<ItemFilaAprovacao> buscarFilaInterno(FiltroFilaAprovacao filtro, Long responsavelId) {
     // O total, a página e os vínculos usam o mesmo snapshot, sem bloquear a agenda.
     var condicoes =
         new StringBuilder(" FROM reservas r WHERE r.status = 'SOLICITADA' AND r.restrita = TRUE");
     var parametros = new MapSqlParameterSource();
+    if (responsavelId != null) {
+      parametros.addValue("responsavelId", responsavelId);
+      condicoes.append("""
+          AND EXISTS (
+              SELECT 1 FROM reserva_recursos rr
+              JOIN responsaveis_recursos vinculo ON vinculo.recurso_id = rr.recurso_id
+              JOIN usuarios u ON u.id = vinculo.usuario_id
+              WHERE rr.reserva_id = r.id AND vinculo.usuario_id = :responsavelId
+                AND u.perfil = 'RESPONSAVEL' AND u.ativo = TRUE
+          )
+          AND NOT EXISTS (
+              SELECT 1 FROM reserva_recursos rr
+              WHERE rr.reserva_id = r.id AND NOT EXISTS (
+                  SELECT 1 FROM responsaveis_recursos vinculo
+                  JOIN usuarios u ON u.id = vinculo.usuario_id
+                  WHERE vinculo.recurso_id = rr.recurso_id
+                    AND vinculo.usuario_id = :responsavelId
+                    AND u.perfil = 'RESPONSAVEL' AND u.ativo = TRUE
+              )
+          )
+          """);
+    }
     if (filtro.periodo() != null) {
       condicoes.append(" AND r.inicio_utc < :fim AND r.fim_utc > :inicio");
       parametros.addValue("inicio", Banco.utc(filtro.periodo().inicio()));

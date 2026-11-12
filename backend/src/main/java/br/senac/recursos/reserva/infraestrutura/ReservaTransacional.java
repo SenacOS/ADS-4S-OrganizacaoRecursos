@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.*;
 
 @Transactional(isolation = Isolation.READ_COMMITTED)
 public class ReservaTransacional extends ReservaService {
+  private final ReservaAcessoMysql acesso;
+
   public ReservaTransacional(
       RecursosPort r,
       ReservaRepositorio p,
@@ -15,8 +17,23 @@ public class ReservaTransacional extends ReservaService {
       AuditoriaPort a,
       NotificacaoPort n,
       ConflitosEvitadosPort c,
-      Clock clock) {
+      Clock clock,
+      ReservaAcessoMysql acesso) {
     super(r, p, o, e, a, n, c, clock);
+    this.acesso = acesso;
+  }
+
+  @Override
+  protected void validarAutorizacaoReserva(Reserva reserva, AtorReserva ator, AcaoReserva acao) {
+    switch (acao) {
+      case APROVACAO, REJEICAO -> acesso.exigirResponsavelDeTodos(reserva, ator);
+      case INICIO_DE_USO, CONCLUSAO, NAO_COMPARECIMENTO -> {
+        if (ator.papel() == PapelAtor.RESPONSAVEL) {
+          acesso.exigirResponsavelDeTodos(reserva, ator);
+        }
+      }
+      default -> { /* Operações com autorização própria no domínio. */ }
+    }
   }
 
   @Override

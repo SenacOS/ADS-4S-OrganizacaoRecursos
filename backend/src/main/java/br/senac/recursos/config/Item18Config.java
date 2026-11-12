@@ -57,7 +57,8 @@ public class Item18Config {
       AuditoriaPort a,
       NotificacaoPort n,
       ConflitosEvitadosPort c,
-      Clock clock) {
-    return new ReservaTransacional(r, p, o, e, a, n, c, clock);
+      Clock clock,
+      ReservaAcessoMysql acesso) {
+    return new ReservaTransacional(r, p, o, e, a, n, c, clock, acesso);
   }
 }
