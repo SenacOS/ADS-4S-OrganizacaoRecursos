@@ -31,6 +31,8 @@
 - Considerar índice cobrindo `(status, restrita, inicio_utc, id)`.
 - Validar o adaptador estendendo `ReservaFilaPortContrato` e implementando `portaComDados` com dados gravados no MySQL (Testcontainers).
 
+`ReservaFilaMysql` implementa a porta com o índice da migração V5. O total e a página usam os mesmos filtros. Os vínculos da página são carregados em lote, inclusive os recursos diferentes do usado no filtro. A identificação do solicitante é `Solicitante <id>`, sem consulta de nome ou contato. A projeção usa o código da sala, o nome do professor ou a descrição do material, com patrimônio somente para material.
+
 ## 4. Para a Débora
 
 - Revisar a regra de autorização e a projeção de identidade (ponto 2).
@@ -38,4 +40,4 @@
 
 ## 5. Ainda fora deste escopo
 
-Controller e DTO de leitura, consulta MySQL, `GET /api/reservas/{id}` (depende de Q9), listagem geral e RF12.
+Controller e DTO de leitura, `GET /api/reservas/{id}` (depende de Q9), listagem geral e RF12.

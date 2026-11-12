@@ -10,6 +10,7 @@ Estado: Ready for Review; validado localmente, revisão e CI da equipe pendentes
 - [ ] Revisão de outro integrante e CI (dependência da equipe).
 
 ## File list
+- `docs/arquitetura/adr/ADR-005-politicas-de-reserva.md` — Q4 formalizada conforme o comportamento verificado no MySQL, com ratificação do Silva pendente.
 - `README.md`
 - `backend/src/main/java/br/senac/recursos/recurso/api/RecursoController.java`
 - `backend/src/main/java/br/senac/recursos/recurso/aplicacao/RecursoService.java`
