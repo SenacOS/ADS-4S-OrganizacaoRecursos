@@ -20,6 +20,6 @@ O ator vem da sessão; filtros não ampliam o escopo. Fora do escopo ou inexiste
 
 Marcos aceitou em 12/11 consumir a regra de todos os recursos. A ratificação coletiva dessa regra conservadora e o processo administrativo de manutenção dos vínculos permanecem pendentes. V6 cria `responsaveis_recursos` vazia; não há endpoint público de concessão. Os vínculos desta validação foram criados apenas na base isolada e para IDs de teste identificados.
 
-Leitura permitida não concede edição/cancelamento. As regras de escrita existentes devem ser conferidas ao preparar a interface geral, que é o próximo recorte. A fila já usa a projeção suficiente para avaliar sem exigir GET de detalhe separado.
+Leitura permitida não concede edição/cancelamento. A [interface geral implementada localmente](../stories/marcos-3-consulta-edicao.md) usa as regras de escrita atuais e exige GET de detalhe antes dessas ações; [provas e limites](../testes/marcos-3-consulta-edicao-resultados.md). A fila já usa a projeção suficiente para avaliar sem exigir GET de detalhe separado.
 
 Fontes de implementação: `ReservaLeituraController`, `ReservaLeituraResponse`, `ReservaConsultaMysql`, `ReservaAcessoMysql`, V6 e [documento de segurança](../seguranca/q9-autorizacao-reservas.md). [Especificação da fila](reservas-leitura-contrato.md).

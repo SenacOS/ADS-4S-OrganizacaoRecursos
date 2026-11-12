@@ -1,0 +1,20 @@
+{
+  "data": "2026-11-12",
+  "branch": "feature/marcos-reservas-consulta",
+  "head": "f9c4912e3be513798cc16db3b021e58ffde7aed6",
+  "estado": "alterações locais ainda sem commit; HEAD é a base, não um commit da implementação",
+  "hashes": {
+    "backend/src/main/resources/static/js/consulta-reservas.js": "bde2b04cc4e2dca62907c9bd766c3ba7ba2205faa935f7966cd61839e849a8da",
+    "backend/src/main/resources/static/js/consulta-reservas-page.js": "95aa36d96c8641da4bb43eacc0d2a2014ffd3c2ec0bb2cf357b434353aedcc4f",
+    "backend/src/main/resources/static/js/navegacao.js": "3b32c672b906e8ce1f58e8688b301335415f1d7ce22426fd46505f059367f0b6",
+    "backend/src/main/resources/static/pages/minhas-reservas.html": "9b8369b32d78226b9391730d8a4176a9d49602d1755c6c95fd93647856ef6c42",
+    "backend/src/main/resources/static/css/consulta-reservas.css": "dc27a7ecd9b91712773fcb8b4789f87b6baf86fb6341cc1477e638706103dce7",
+    "backend/src/main/resources/static/js/datas.js": "44f35755602a1043e5126ed4807f5b0b31bc273908c7e4d079d6df34a9636bbe",
+    "backend/src/main/resources/static/js/reservas.js": "5e2e4d7be7fb07851b9a91191de7884101808fbf53f863266d67f3e538e52e4f",
+    "tests/unit/frontend/consulta-reservas.test.js": "66b7abff7a490823bc78e5054a903b11b1fccb5bf36a617a405d58e66df6d5d7",
+    "tests/browser/consulta-reservas.spec.js": "2f651351fece253be42943e5195d938a482aa070210d2da7d10176dc00f175f0",
+    "tests/browser/acesso.spec.js": "1e22f76cfc54b9a9af8da6d2f1b1c4882c9cb93f94f9a2474d2c2d8226c0c57b",
+    "tests/e2e-local/validar-consulta-reservas.cjs": "0bc92ceaf66fb96479752341a442273ef020fa3acad71eb294e9ad0ec9483c8c",
+    "tests/e2e-local/validar.cjs": "a29834bb27555f9a21eb14da24b8ec05f934fb18339a4fc0de73b2f03b18e257"
+  }
+}

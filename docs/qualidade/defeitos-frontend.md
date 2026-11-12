@@ -1,5 +1,21 @@
 # Defeitos encontrados no frontend
 
+## FE-006 — Intervalo submilissegundo válido recusado como vazio
+
+- Estado: CORRIGIDO E VALIDADO LOCALMENTE em 12/11/2026. Story: [Marcos-3-consulta-edicao](../stories/marcos-3-consulta-edicao.md). Severidade baixa (P3), fronteira apontada na revisão assistida QA.
+- Reprodução: detalhe com início `.123001` e fim `.123002` no mesmo segundo/offset. `Date.parse` perde a diferença e o leitor/editor/transporte recusavam fim como não posterior.
+- Correção: comparador preciso compartilhado em datas.js, reutilizado no novo leitor/filtros/editor e no corpo de reserva. ISO original e formato de envio mantidos.
+- Regressão: unitário atravessa leitura, filtro e PATCH público; navegador consulta/salva sem edição em desktop/móvel. [Resultados e rodadas](../testes/marcos-3-consulta-edicao-resultados.md). Pesquisa compartilhada de recursos em intervalo menor que 1ms conserva seu limite anterior, documentado no relatório; não é anunciada como coberta por essa correção.
+
+## FE-005 — Editor oferecia recurso restrito para reserva comum
+
+- Estado: CORRIGIDO E VALIDADO LOCALMENTE em 12/11/2026. Story: [Marcos-3-consulta-edicao](../stories/marcos-3-consulta-edicao.md), RF04/RF13. Severidade média (P2).
+- Identificação: revisão assistida AIOX QA após a primeira regressão aprovada (80 unitários/274 navegador).
+- Reprodução: abrir edição de reserva comum do dono e pesquisar recurso novo ativo/disponível que exige aprovação. A seleção era oferecida, mas o domínio proíbe mudar essa necessidade; PATCH seria recusado.
+- Correção: impedir inclusão de recurso novo restrito nesse contexto, com orientação ao usuário; recursos originais continuam preservados. Não há mudança da autorização do servidor.
+- Regressão: cenário específico em desktop/móvel; rodada após FE-005 com 80 unitários/276 navegador, seguida da final conjunta FE-005/FE-006 com 81/278. [Resultados, tentativas e E2E real 8/0](../testes/marcos-3-consulta-edicao-resultados.md). O novo caso restrito é controlado no navegador; E2E real cobre os demais fluxos descritos no relatório.
+- Aceite visual do autor recebido em12/11, com [commit local autorizado](../testes/marcos-3-consulta-edicao-aceite-visual-2026-11-12.md). Revisão da equipe e checks remotos continuam separados.
+
 ## FE-004 — Retirada persistida sem confirmação por data sem segundos zerados
 
 - Estado: CORRIGIDO E VALIDADO LOCALMENTE, inclusive com Spring/MySQL reais, em 12/11/2026.

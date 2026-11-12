@@ -1,5 +1,9 @@
 # Marcos Boé — responsabilidades e plano de ação
 
+**Aceite posterior do complemento Marcos-3:** Marcos confirmou os testes, aprovou a revisão visual e autorizou commit local em 12/11. [Registro](../testes/marcos-3-consulta-edicao-aceite-visual-2026-11-12.md). Próximos checkpoints são publicação/PR conforme solicitação, revisão da equipe, checks/merge e cenários integrados restantes. Os estados anteriores abaixo conservam seu momento; não há novo bloqueio de GET/Q9 ou de aceite visual deste incremento.
+
+**Checkpoint vigente em 12/11/2026:** push de **f9c4912** confirmado por Marcos; nova branch **feature/marcos-reservas-consulta** dessa base. Complemento da etapa 3 implementado localmente: lista/detalhe autorizados, edição completa preservando recursos/precisão e cancelamento confirmado. [Story](../stories/marcos-3-consulta-edicao.md), [regressão, E2E e limites](../testes/marcos-3-consulta-edicao-resultados.md). GETs e Q9 já entregues pelos PRs #26/#27; smoke não registra mais bloqueio de interface ausente. Revisão visual nova, commit solicitado, publicação/revisão/merge e matriz integrada completa continuam pendentes. Relatos abaixo preservam seus momentos históricos; consultar este checkpoint e o [plano de fechamento](marcos-fechamento-etapas-1-a-5.md) para o estado atual.
+
 Estado: PLANO EM EXECUÇÃO; respostas de contrato adotadas por Marcos em 10/11/2026. Um commit local por etapa concluída, conforme autorização do usuário. Revisões de outros integrantes continuam identificadas separadamente.
 
 Aceite posterior da integração Q9/PR27: Marcos confirmou aprovação visual e solicitou commit local em12/11. [Evidência e limites](../testes/marcos-integracao-q9-1-aceite-visual-2026-11-12.md). Resta implementar interface geral no próximo recorte; autorização de publicação e demais dependências continuam separadas.

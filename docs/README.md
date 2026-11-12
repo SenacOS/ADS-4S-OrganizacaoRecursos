@@ -1,5 +1,7 @@
 # Documentacao do Projeto
 
+Checkpoint do frontend em 12/11/2026: [plano de fechamento das etapas 1 a 5](planejamento/marcos-fechamento-etapas-1-a-5.md), [story de consulta/edição/cancelamento](stories/marcos-3-consulta-edicao.md) e [resultados locais mais recentes](testes/marcos-3-consulta-edicao-resultados.md). Consulta/Q9 entregue; complemento da etapa 3 implementado/testado e [aceito visualmente por Marcos, com commit local autorizado](testes/marcos-3-consulta-edicao-aceite-visual-2026-11-12.md); publicação e entrega integrada continuam separadas. Esta referência não muda o estado dos demais artefatos acadêmicos abaixo.
+
 **Estado: PROPOSTO**
 
 Os documentos do projeto academico devem ficar sob `docs/`. Esta organizacao e uma proposta de trabalho, nao uma decisao arquitetural aprovada. O material do framework AIOX permanece em `.aiox-core/` e nao deve ser confundido com os entregaveis do projeto.

@@ -1,5 +1,7 @@
 # Marcos-3 — Pesquisa de disponibilidade e criação de reservas
 
+Atualização em 12/11/2026: os GETs/Q9 foram entregues e o restante da etapa 3 foi implementado localmente na [story de consulta/edição/cancelamento](marcos-3-consulta-edicao.md), com [provas próprias](../testes/marcos-3-consulta-edicao-resultados.md). Revisão visual/entrega desse complemento seguem pendentes. Os estados e testes originais abaixo conservam o recorte de pesquisa/criação e não descrevem a disponibilidade atual dos GETs.
+
 ## Status
 
 Ready for Review

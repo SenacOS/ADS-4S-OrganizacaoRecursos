@@ -1,5 +1,21 @@
 # Matriz de rastreabilidade - item 18
 
+## Complemento Marcos-3 — consulta, edição e cancelamento
+
+Aceite posterior em 12/11/2026: Marcos informou que os testes funcionaram, aprovou visualmente e autorizou commit local. [Registro e alcance](testes/marcos-3-consulta-edicao-aceite-visual-2026-11-12.md). Sem mudança de produto/testes ou nova suíte; revisão da equipe, checks, publicação e merge continuam separados. As observações de aceite pendente abaixo descrevem a execução anterior.
+
+12/11/2026, branch `feature/marcos-reservas-consulta` sobre f9c4912, código local ainda sem commit. Estado atual prevalece sobre diagnósticos históricos de GET ausente/UI geral pendente abaixo. [Story](stories/marcos-3-consulta-edicao.md) e [resultados, hashes, testes controlados/reais e limites](testes/marcos-3-consulta-edicao-resultados.md).
+
+| Requisito / risco | Implementação | Evidência |
+|---|---|---|
+| RF01/RF03/RF04 — escopo, consulta/detalhe e reserva | consulta-reservas.js, minhas-reservas.html e navegação dos três perfis; GET antes das ações | Unitários de DTO/envelope/escopo/permissões e browser de filtros/páginas/detalhe; E2E real de lista/detalhe, dono, Responsável e Administrador |
+| RF04 — perda de recursos/precisão e escrita indevida | consulta-reservas-page.js, datas.js e reservas.js; PATCH conjunto, ISO original e comparações precisas, seleção original | Unitários e browser de seleção entre páginas, próprios indisponíveis, datas inalteradas e intervalo submilissegundo; E2E de PATCH/microssegundos, inclusão e conflito409 |
+| RF04/RF07 — consulta não concede decisões/escrita | Guardas por dono/estado; aprovação permanece na fila; cancelamento dono/Admin | Browser de perfis/estados; E2E de Responsável somente consulta e cancelamento dono/Admin, persistência CANCELADA |
+| RF13 — reenvio, confirmação falsa, sessão, texto/foco/móvel | Guard, detalhe novo após operação incerta, CSRF/sessão e UI compartilhados | Browser controlado com rede/incoerência/409, falha pós-sucesso, duplo envio,401/texto/teclado/duas viewports; E2E de reconsulta e móvel |
+| RF14 — atribuição indevida de resultados | Manifesto da árvore sem commit, logs separados, helper real e smoke geral | Regressão/E2E e tentativas preservadas, package sem testes Maven explicitado; aceite humano/checks remotos pendentes |
+
+As provas encerram somente os caminhos executados. Revisão visual nova, revisão da equipe, ratificação coletiva/processo de vínculos, matriz integrada restante e checks remotos não são presumidos. FE-005 identificado por QA foi corrigido e coberto; fronteira de comparação temporal também recebeu regressão própria. Históricos anteriores abaixo permanecem vinculados às suas bases.
+
 ## Revalidação após PR #27 — develop4cea177
 
 Aceite visual global do autor e solicitação de commit local recebidos em12/11, após roteiro com21solicitações reais de teste. [Registro](testes/marcos-integracao-q9-1-aceite-visual-2026-11-12.md). Não encerra os RFs inteiros nem atribui revisão de outro integrante/CI aprovada; nenhuma suíte repetida para este registro documental.

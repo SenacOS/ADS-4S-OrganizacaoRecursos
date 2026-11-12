@@ -234,7 +234,7 @@ async function executar() {
       const d = await detalhe.json(); assert.equal(d.id, ids.reserva); assert.equal(d.solicitanteId, ids.solicitante);
       const lista = await apis.responsavel.get(`/api/reservas?status=SOLICITADA&recursoId=${ids.restrito}&pagina=0&tamanho=20`); await status(lista, 200);
       const fila = await lista.json(); assert.deepEqual(fila.itens, []); assert.equal(fila.total, 0);
-      bloqueado('Interface geral de reservas existentes', 'GETs entregues pelo PR26; listagem/reabertura para editar/cancelar pela interface ainda pertencem ao próximo recorte. Q9/fila reais têm validação específica em validar-q9.cjs.');
+      // Página geral coberta separadamente por validar-consulta-reservas.cjs; não atribuir seus cenários a este smoke.
       return { detalhe: 200, propriaReserva: d.id, filaSemVinculo: { status: 200, total: fila.total } };
     });
     await cenario('Logout real dos três perfis e ausência de erros JavaScript', 'Chrome + HTTP reais', async () => {

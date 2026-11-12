@@ -11,6 +11,7 @@ export function areasDoPerfil(usuario) {
   const areas = [
     { titulo: 'Disponibilidade', descricao: 'Encontre salas, docentes e materiais para o período que precisa.', href: '/pages/recursos.html' },
     { titulo: 'Nova reserva', descricao: 'Escolha um período e solicite os recursos disponíveis.', href: '/pages/reservas.html' },
+    { titulo: 'Reservas', descricao: 'Consulte reservas e acompanhe seus estados.', href: '/pages/minhas-reservas.html' },
   ];
   if (usuario.papel === 'RESPONSAVEL') {
     areas.push({ titulo: 'Aprovações', descricao: 'Avalie solicitações de recursos restritos.', href: '/pages/aprovacoes.html' });
