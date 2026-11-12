@@ -2,13 +2,13 @@
 
 Data da conferência: **12/11/2026**, America/Sao_Paulo.\
 Responsável pelo frontend: **Marcos Boé**.\
-Estado: **EM EXECUÇÃO; sincronização e validação dos passos 1 e 2 concluídas localmente em 12/11/2026**.
+Estado: **EM EXECUÇÃO; passos 1 e 2 sincronizados/publicados e aceite visual do passo 4 informado por Marcos em 12/11/2026**.
 
 Atualização em 12/11/2026 após comunicação de Marcos: **PR #23 mesclado na develop**, commit `23cf839`, às 10:42 de São Paulo. O PR #24 já tem destino develop e continua em Draft. O plano foi ajustado para sincronizar diretamente a Marcos-4 com essa develop; a CI pós-merge ainda tem falha na etapa Sonar, registrada separadamente da integração realizada.
 
 Este plano foi solicitado por Marcos após a conferência do repositório e dos trabalhos realizados em casa. Consolida a ordem de execução, as dependências da equipe e as condições para encerrar as responsabilidades das etapas 1 a 5. Não cria endpoints, regras de negócio, prazos ou stories de implementação por inferência.
 
-A preparação original deste arquivo incluiu somente leitura do checkout e consulta ao GitHub. Posteriormente Marcos pediu “vamos fazer a sincronização”: plano preservado por cópia/hash, fetch executado, branch Marcos-4 trazida para este computador e develop 23cf839 incorporada sem conflitos. Lint/typecheck e regressão 68 unitários/238 navegador aprovados; frontend/testes/configuração preservados. [Execução, evidências e limites](../testes/marcos-sincronizacao-2026-11-12-resultados.md). Não houve push ou alteração de PR nesta etapa. Os passos seguintes continuam planejados, não executados.
+A preparação original deste arquivo incluiu somente leitura do checkout e consulta ao GitHub. Posteriormente Marcos pediu “vamos fazer a sincronização”: plano preservado por cópia/hash, fetch executado, branch Marcos-4 trazida para este computador e develop 23cf839 incorporada sem conflitos. Lint/typecheck e regressão 68 unitários/238 navegador aprovados; frontend/testes/configuração preservados. [Execução e limites](../testes/marcos-sincronizacao-2026-11-12-resultados.md). O usuário enviou a8da77c e o PR #24 foi conferido com esse commit e destino develop. Depois informou [aceite visual](../testes/marcos-4-aceite-visual-2026-11-12.md) da prévia com dados fictícios. Os passos 3 e 5 a 8 continuam pendentes; a publicação deste novo registro documental é separada.
 
 ## 1. Resultado que buscamos
 
@@ -22,7 +22,7 @@ Há três estados distintos a registrar durante o trabalho:
 | Aceito e pronto para revisão | Marcos validou o incremento; código, story, documentação e evidências estão preparados para revisão. |
 | Entregue de forma integrada | Fluxos funcionam com backend real, revisões/checks exigidos foram atendidos e os PRs pertinentes chegaram à develop. |
 
-Não reimplementar o que já está entregue nos incrementos existentes. A principal funcionalidade de frontend ainda ausente é o restante da etapa 3: **consultar reservas existentes, abrir para edição e cancelar pela interface**. A Marcos-4 já foi implementada e conciliada, mas ainda depende de aceite visual detalhado e da leitura/autorização reais.
+Não reimplementar o que já está entregue nos incrementos existentes. A principal funcionalidade de frontend ainda ausente é o restante da etapa 3: **consultar reservas existentes, abrir para edição e cancelar pela interface**. A Marcos-4 já foi implementada, conciliada e aceita visualmente pelo autor; leitura/autorização reais e revisão da equipe permanecem pendentes.
 
 Relatórios da etapa 6 ficam fora deste plano. O E2E aqui previsto comprova os fluxos das etapas 1 a 5 e alimenta as evidências finais do projeto; não declara toda a etapa 7 concluída antecipadamente.
 
@@ -60,7 +60,7 @@ O PR #23 está efetivamente integrado. O GitHub não apontou conflito de merge n
 |---|---:|---:|---|
 | Administração original | 45 | 130 | Frontend isolado, com aceite visual de Marcos. |
 | Administração + movimentações | 57 | 190 | Frontend isolado, com aceite visual e reexecução de Marcos. |
-| Marcos-4 conciliada com os anteriores | 68 | 238 | Frontend isolado, com reexecução de Marcos; aceite visual detalhado ainda indicado como pendente. |
+| Marcos-4 conciliada com os anteriores | 68 | 238 | Frontend isolado, com reexecução de Marcos; aceite visual posterior registrado em 12/11, na versão a8da77c. |
 
 As contagens são cumulativas dentro de cada árvore, não devem ser somadas. Foram conferidas nas evidências publicadas, sem nova execução durante a preparação deste plano. São referências para a regressão, não metas fixas: novas contagens devem refletir os testes efetivamente executados e as mudanças realizadas.
 
@@ -71,7 +71,7 @@ As contagens são cumulativas dentro de cada árvore, não devem ser somadas. Fo
 | 1 — comunicação com a API | Clientes, sessão/CSRF, erros e proteção contra envio repetido. | Conferir contrato efetivo com o backend integrado, revisão/checks e coerência do status documental. |
 | 2 — acesso e navegação | Login, logout, perfil, expiração e layout responsivo. | Validar com sessão real e navegação consolidada dos três perfis. |
 | 3 — pesquisa e reservas | Pesquisa, seleção e criação comum/restrita. | Contratos de leitura; listagem, carregamento para edição, PATCH completo e cancelamento pela interface; integração real. |
-| 4 — fila e decisões | Filtros, paginação, projeção de detalhes, aprovação/rejeição e motivo. | Aceite visual, contrato coletivo definitivo, endpoint HTTP e autorização Q9 no servidor, E2E e PR #24. |
+| 4 — fila e decisões | Filtros, paginação, projeção de detalhes, aprovação/rejeição e motivo; aceite visual de Marcos registrado em 12/11. | Contrato coletivo definitivo, endpoint HTTP e autorização Q9 no servidor, E2E e revisão/checks do PR #24. |
 | 5 — recursos e movimentações | Cadastros, manutenção, expediente, retirada, pendências e devolução; código integrado pelo #23. | Acompanhar qualidade pós-merge e validar os fluxos com backend real; tratar correções remanescentes em incremento próprio. |
 
 Q9 está **decidida como política**: Solicitante consulta as próprias reservas; Responsável, as dos recursos sob sua responsabilidade; Administrador, todas. A decisão não implementa endpoints nem concede novas operações de escrita. Aprovação/rejeição e escrita de movimentações continuam exclusivas de RESPONSAVEL nos contratos atuais.
@@ -140,7 +140,7 @@ Os comandos de switch não substituem a incorporação da develop descrita acima
 - [x] Referências remotas e situação dos PRs conferidas novamente.
 - [x] Marcos-4 disponível localmente e sincronizada com sua origem remota antes da incorporação local.
 - [x] Develop 23cf839 incorporada à Marcos-4 sem conflitos.
-- [x] Comparação local com a develop preserva o escopo da Marcos-4; PR remoto ainda em df57063, aguardando publicação local pelo fluxo combinado.
+- [x] Comparação com a develop preserva o escopo da Marcos-4; sincronização a8da77c enviada pelo usuário e conferida no PR #24, destino develop.
 - [x] Branch, commits de origem e resultados da conferência registrados nas evidências; commit resultante consultável no histórico Git.
 
 ## 6. Passo 2 — validar o conjunto consolidado
@@ -233,9 +233,9 @@ Se a API real ainda não estiver pronta, a prévia controlada deve ser identific
 
 ### Critério de saída
 
-- [ ] Marcos informou o aceite visual do fluxo conciliado, ou descreveu ajustes necessários.
-- [ ] Ajustes tratados na Marcos-4 com validação proporcional.
-- [ ] Aceite, capturas pertinentes e limites registrados na story e nas evidências, sem atribuir E2E ao teste simulado.
+- [x] Marcos informou “está aprovado” após a prévia da interface conciliada/sincronizada e o roteiro apresentado.
+- [x] Nenhum ajuste funcional solicitado na confirmação do aceite; produto e testes permaneceram preservados.
+- [x] Aceite/contexto/limites registrados na story e nas evidências; capturas automatizadas anteriores preservadas, sem atribuir E2E ao teste simulado.
 
 ## 9. Passo 5 — consolidar os contratos e dependências da leitura
 
@@ -364,7 +364,7 @@ Até essas condições serem atendidas, manter a distinção entre incremento lo
 |---|---|
 | Sincronizar a base e conferir regressões existentes. | Investigar falhas reais antes de prosseguir sobre uma base desconhecida. |
 | Revisar os apontamentos anteriores do #23 e a falha Sonar pós-merge na develop. | Configuração compartilhada exige participação do responsável; correções seguem por novo incremento. |
-| Fazer a revisão visual detalhada da Marcos-4 com dados identificados como fictícios. | Isso não substitui endpoint/autorização reais. |
+| Aceite visual da Marcos-4 realizado e registrado; preparar sua publicação e revisão da equipe. | Isso não substitui endpoint/autorização reais. |
 | Preparar ambiente E2E e os cenários dos contratos já existentes. | Execução dos novos GETs aguarda implementação. |
 | Refinar os critérios do restante da etapa 3. | Código de consumo e testes de contrato precisam de contrato ratificado; integração depende da API. |
 
@@ -372,7 +372,7 @@ Até essas condições serem atendidas, manter a distinção entre incremento lo
 
 Para cada mudança: conferir story/contrato e branch, implementar o incremento, executar verificações proporcionais, registrar evidências e atualizar checklist/File List. Marcos testa e revisa a interface pertinente. Commit após sua solicitação, conforme o fluxo já adotado; push e alterações de PR seguem a autorização da sessão, sem publicação automática por este documento.
 
-Os **passos 1 e 2 foram executados localmente em 12/11/2026**. A sincronização está validada, com publicação remota ainda separada. As próximas frentes do plano são acompanhar a qualidade pós-merge e concluir o aceite visual detalhado da Marcos-4; contratos/endpoint e E2E real permanecem pendentes. Esta execução não iniciou novas funcionalidades nem declarou concluídos os passos 3 a 8.
+Os **passos 1 e 2 foram executados e a8da77c foi publicado em 12/11/2026**. O **passo 4 recebeu aceite visual de Marcos**, agora registrado nos documentos locais. A próxima preparação é publicar esse registro e disponibilizar o recorte frontend para revisão da equipe, mantendo qualidade/CI, contrato/endpoint, autorização e E2E real explícitos. Os passos 3 e 5 a 8 não foram declarados concluídos, e este aceite não iniciou novas funcionalidades nem alterou o PR automaticamente.
 
 ## 15. Fontes para retomar o contexto
 

@@ -2,7 +2,7 @@
 
 Data: 11/11/2026, America/Sao_Paulo. Branch `feature/marcos-4-aprovacoes`, base `f7360a238ac36ea672955c421ee44557436f1c7c` de movimentações, que já inclui a administração `c395541`. [Story Marcos-4](../stories/marcos-4.md).
 
-**Estado: CONCILIADO E VALIDADO LOCALMENTE, COM REEXECUÇÃO AUTOMATIZADA PELO MARCOS APROVADA E COMMIT LOCAL AUTORIZADO.** Incremento de frontend Ready for Review. O pedido de commit não descreve separadamente uma revisão visual; backend real, revisão independente e CI continuam pendentes. Push e novo PR permanecem separados.
+**Estado atualizado em 12/11/2026: FRONTEND VALIDADO LOCALMENTE E COM ACEITE VISUAL DE MARCOS REGISTRADO.** Incremento Ready for Review; reexecução automatizada anterior do autor preservada. O [aceite visual posterior](marcos-4-aceite-visual-2026-11-12.md) se refere à versão sincronizada a8da77c com dados fictícios. Backend real, revisão independente e checks exigidos continuam pendentes. A sincronização foi enviada e está no PR #24, destino develop; este novo registro documental ainda não foi publicado. As seções abaixo preservam a sequência histórica da conciliação.
 
 ## Preservação e conciliação
 
@@ -88,17 +88,17 @@ O anexo foi preservado integralmente e conferido por SHA-256, em arquivo separad
 
 Após a reexecução aprovada, Marcos solicitou em 11/11/2026: "vamos fazer o commit". A instrução autoriza versionar o incremento local e foi registrada sem solicitar nova confirmação. Não se atribui por inferência teste visual detalhado de todos os fluxos, revisão independente ou E2E integrado ao pedido. Este registro foi preparado antes do commit; o hash resultante deve ser consultado no histórico Git.
 
-A revisão do código, os cenários automatizados e as capturas do agente não substituem os testes executados por Marcos, o aceite visual informado por ele ou revisão de outro integrante. A validação humana da Marcos-4 conciliada continua pendente.
+A revisão do código, os cenários automatizados e as capturas do agente não substituem os testes executados por Marcos, o aceite visual informado por ele ou revisão de outro integrante. O aceite visual ficou pendente na preparação de 11/11 e foi posteriormente informado em 12/11/2026, na [revisão da versão sincronizada](marcos-4-aceite-visual-2026-11-12.md).
 
 Foi aberta uma prévia visual no Chrome em `http://127.0.0.1:4174/pages/aprovacoes.html`, com auxiliar temporário fora do produto, fixtures de `tests/browser/aprovacoes.spec.js`, perfil Responsável e aviso de dados fictícios. A API é interceptada apenas nessa janela do Chrome. O auxiliar está no backup local e termina ao fechar o navegador; a porta separada não ocupa 4173 dos testes. O servidor normal `npm run preview` continua estático e não simula sessão ou dados. Nenhum auxiliar de demonstração integra o commit. A abertura não presume aceite visual de Marcos.
 
 Roteiro sugerido para Marcos: abrir uma solicitação, conferir solicitante/período/recursos, aprovar, rejeitar outra com motivo, verificar recarga/vazio, limpar/aplicar filtros e conferir o layout/teclado. A prévia permite reiniciar os dados de exemplo. Outras páginas mantêm suas próprias evidências e testes; a prévia da fila não simula seus contratos.
 
-GET/SQL/controller da fila, vínculo responsável/recurso e segurança real, além de MySQL, auditoria, notificações e E2E integrado, continuam com a equipe. O cliente não inventa um campo de vínculo nem tenta aplicar essa autorização localmente. CodeRabbit não executado: CLI ausente e WSL não instalado; sem parecer de QA independente ou CI atribuído a esta rodada.
+Na rodada original, GET/SQL/controller da fila e autorização real ainda dependiam da equipe. O adaptador SQL foi incorporado à versão sincronizada de 12/11; controller HTTP, vínculo responsável/recurso e aplicação da Q9 no servidor continuam pendentes, assim como a validação E2E do frontend com backend real. O cliente não inventa vínculo nem aplica essa autorização localmente. CodeRabbit não executado: CLI ausente e WSL não instalado; sem parecer de QA independente ou CI atribuído a esta rodada.
 
 - [x] Regressão conjunta aprovada e evidências finais conferidas.
 - [x] Reexecução dos testes pelo Marcos: 68 unitários/238 navegador, 6,3 min, no checkout conciliado.
-- [ ] Aceite visual da Marcos-4 conciliada informado por Marcos.
+- [x] Aceite visual informado por Marcos em 12/11/2026, após a prévia da versão sincronizada a8da77c com dados fictícios.
 - [x] Commit solicitado explicitamente por Marcos após a reexecução aprovada.
-- [ ] Push pelo usuário e PR baseado em movimentações, conforme a cadeia vigente.
+- [x] Sincronização a8da77c enviada pelo usuário e presente no PR #24, agora com destino develop; publicação do registro posterior de aceite permanece separada.
 - [ ] Revisão independente, backend real e CI antes da entrega integrada.

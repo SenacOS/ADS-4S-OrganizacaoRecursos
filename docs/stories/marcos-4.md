@@ -4,6 +4,8 @@
 
 Ready for Review
 
+Aceite visual do frontend informado por Marcos em **12/11/2026**, após revisão no Chrome da versão sincronizada `a8da77c`, com perfil Responsável e dados fictícios. Nenhum ajuste funcional foi solicitado. [Registro do aceite e limites](../testes/marcos-4-aceite-visual-2026-11-12.md). Revisão da equipe e entrega integrada continuam pendentes.
+
 Incremento local conciliado com administração/movimentações em `feature/marcos-4-aprovacoes`, base `f7360a2`, conforme autorização de Marcos em 11/11/2026. O checkout separado reúne as etapas 4 e 5; pasta original e evidências anteriores preservadas. Regressão conjunta aprovada e reexecutada pelo autor: 68 unitários e 238 execuções de navegador. [Resultados e reprodução](../testes/marcos-4-conciliacao-resultados.md). Após os testes, Marcos solicitou explicitamente o commit em 11/11/2026. O pedido autoriza o versionamento local; não descreve separadamente a revisão visual nem aprova a entrega integrada. Push pelo usuário permanece separado.
 
 A [Q9 comunicada por Marcos](../api/reservas-politica-leitura-q9.md) define a consulta do Responsável para recursos sob sua responsabilidade. O adaptador SQL da fila já chegou à develop pelo PR #22 e foi incorporado neste checkout em 12/11/2026. Contrato revisado, vínculo de responsabilidade, controller HTTP, autorização real e E2E integrado continuam necessários à entrega integrada. Ver [plano e contexto](../planejamento/marcos-plano-de-acao.md) e [sincronização após o PR #23](../testes/marcos-sincronizacao-2026-11-12-resultados.md).
@@ -56,7 +58,7 @@ O contrato da fila é uma especificação do cliente, não um endpoint implement
 - [ ] Obter revisão coletiva do contrato da fila e resolver rota/status, identidade, competências e erros antes de retomar a implementação, conforme alinhamento de 11/11/2026.
 - [ ] Obter implementação/revisão de backend, integração real, revisão independente e CI.
 - [x] Registrar reexecução aprovada do autor e solicitação explícita de commit em 11/11/2026.
-- [ ] Registrar aceite visual detalhado do Marcos, não informado separadamente no pedido de commit.
+- [x] Registrar aceite visual informado por Marcos em 12/11/2026 para a interface conciliada/sincronizada, com dados fictícios e roteiro apresentado.
 
 ## Dev Notes
 
@@ -71,6 +73,10 @@ Tipo: Frontend/Integração. @dev executa gates e autoavaliação; revisão visu
 ## Dev Agent Record
 
 ### Completion Notes
+
+Após o aceite visual, Marcos solicitou em 12/11/2026 “vamos fazer o commit”, autorizando versionar os seis documentos do registro. Nenhuma alteração funcional ou nova execução de testes foi necessária; publicação remota e mudança do PR continuam separadas.
+
+Em 12/11/2026 foi aberta revisão visual da fila no Chrome com perfil Responsável e 21 solicitações fictícias, permitindo filtros, paginação e decisões em memória. Auxiliar temporário fora do projeto, com aviso e restauração por F5. Após receber o roteiro de avaliação/aprovação/rejeição, motivo, filtros/vazio, paginação e layout/teclado, Marcos informou “está aprovado”. [Aceite do autor](../testes/marcos-4-aceite-visual-2026-11-12.md) registrado sem atribuir execução individual de todos os cenários, E2E real ou revisão independente. Alterações somente documentais; nenhuma nova execução de testes, commit, push ou alteração de PR nesta rodada de registro.
 
 Em 12/11/2026, Marcos solicitou a sincronização. Plano local preservado por cópia/hash, referências atualizadas com fetch e criada a branch local acompanhando origin/feature/marcos-4-aprovacoes. Merge de develop 23cf839 sobre df57063 preparado sem commit automático e sem conflitos; 45 arquivos de frontend/testes/configuração preservados. Regressão completa aprovada: lint/typecheck, 68 unitários e 238 navegador (119 por viewport), zero falhas/ignorados/flaky/retries, 2,4 min no navegador. Registro local da incorporação após validação; sem push ou alteração do PR #24, que já aponta à develop e continua Draft. [Evidências desta sincronização](../testes/marcos-sincronizacao-2026-11-12-resultados.md). Não se atribui novo aceite visual, revisão independente, Maven ou E2E real a esta execução.
 
@@ -112,8 +118,14 @@ Codex, preparação AIOX SM e implementação AIOX Dev.
 | 2026-11-11 | Registrada reexecução do autor no checkout conciliado: 68 unitários/238 navegador aprovados em 6,3 min; aceite visual e solicitação de commit pendentes. |
 | 2026-11-11 | Marcos solicitou explicitamente o commit após a reexecução aprovada; versionamento local autorizado, sem atribuir aceite visual detalhado, integração real ou push. |
 | 2026-11-12 | Sincronização solicitada por Marcos: develop 23cf839 incorporada à Marcos-4 df57063 sem conflitos, frontend preservado e regressão 68/238 aprovada; plano/checklist e evidências atualizados, sem publicação remota. |
+| 2026-11-12 | Marcos aprovou a interface após revisão no Chrome com dados fictícios na versão a8da77c; aceite/checklists registrados, sem alterações funcionais ou publicação. |
+| 2026-11-12 | Marcos solicitou o commit documental do aceite visual; código e testes preservados, com publicação remota separada. |
 
 ### File List
+
+Registro de aceite visual de 12/11/2026, com atualização dos planos, desta story, do relatório de conciliação e da RTM já relacionados abaixo:
+
+- docs/testes/marcos-4-aceite-visual-2026-11-12.md
 
 Registro da sincronização de 12/11/2026; código/documentação da equipe permanecem atribuídos aos commits importados:
 
