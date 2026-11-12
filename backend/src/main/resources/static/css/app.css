@@ -178,6 +178,15 @@ select { min-height: 49px; border: 1px solid #becbce; border-radius: 7px; paddin
 .confirmation-details dt { font-size: .75rem; color: var(--muted); margin-bottom: 5px; }
 .confirmation-details dd { margin: 0; overflow-wrap: anywhere; }
 .next-flow { margin-top: 25px; }
+.decision-panel { border-top: 4px solid #8daa7d; }
+.decision-options { display: flex; flex-wrap: wrap; gap: 18px; margin: 16px 0 20px; }
+.decision-options label { display: flex; align-items: center; gap: 8px; margin: 0; }
+.decision-options input { width: 20px; min-height: 20px; height: 20px; margin: 0; accent-color: var(--blue); }
+.decision-panel legend { font-weight: 600; }
+.decision-panel textarea { width: 100%; min-height: 110px; padding: 12px; border: 1px solid #becbce; border-radius: 7px; font: inherit; resize: vertical; }
+.detail-subtitle { font-size: .95rem; }
+.detail-resources { padding-left: 22px; margin-bottom: 25px; font-size: .9rem; overflow-wrap: anywhere; }
+.pending-card .button { margin-top: 8px; }
 @media (max-width: 1100px) { .filters-grid, .resource-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 700px) {
   .filters-grid, .resource-grid, .confirmation-details { grid-template-columns: 1fr; }

@@ -267,6 +267,14 @@ As páginas `static/pages/recursos.html` e `static/pages/reservas.html` oferecem
 
 A [story Marcos-3](docs/stories/marcos-3.md) cobre o primeiro recorte da etapa 3. Listagem de reservas anteriores, reabertura para edição/cancelamento e integração real continuam dependentes das entregas da equipe. Mocks existem apenas nos testes; o preview não substitui o backend. Execute `npm run build` na raiz com `PLAYWRIGHT_CHANNEL=chrome` quando usar o Chrome instalado. [Resultados e capturas](docs/testes/marcos-3-resultados.md).
 
+## Fila e decisões — Marcos-4
+
+`static/pages/aprovacoes.html` implementa o cliente da especificação da fila: filtros, paginação, detalhes, aprovação e rejeição com motivo, com acesso visual exclusivo do Responsável. Confirmação da decisão e falha de atualização da fila são apresentadas separadamente, sem reenvio automático.
+
+O GET de fila ainda depende de implementação/revisão do backend; a página é validada com API controlada nos testes. Nenhuma flag de API foi habilitada. Consulte a [story](docs/stories/marcos-4.md), o [contrato de leitura](docs/api/reservas-leitura-contrato.md) e as [evidências](docs/testes/marcos-4-resultados.md). O preview continua apenas estático.
+
+A retomada da Marcos-4 reúne também a administração e as movimentações já publicadas, em branch própria baseada em movimentações. [Regressão conjunta e instruções de validação](docs/testes/marcos-4-conciliacao-resultados.md); os registros anteriores de cada incremento permanecem identificados separadamente.
+
 ## Administração de recursos — Marcos-5
 
 `static/pages/gestao-recursos.html` oferece cadastro e edição de salas/docentes/materiais, desativação lógica, bloqueios de manutenção e expediente completo para Administrador, seguindo o item18. O link aparece na navegação desse perfil. Este recorte é independente da fila/Q9; movimentações estão no incremento complementar abaixo. [Story](docs/stories/marcos-5.md), [contratos de consumo](docs/api/frontend-integracao.md#administração-de-recursos--marcos-5) e [resultados locais](docs/testes/marcos-5-resultados.md). As APIs permanecem desligadas por padrão; o preview estático não simula sessão nem dados.

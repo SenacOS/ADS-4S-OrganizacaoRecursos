@@ -1,8 +1,8 @@
 # Reservas — leitura da fila de aprovação
 
-**Estado: ESPECIFICADO / ACEITO POR MARCOS PARA O FRONTEND em 10/11/2026. NÃO IMPLEMENTADO.**
+**Estado: ESPECIFICADO / ACEITO POR MARCOS PARA O FRONTEND em 10/11/2026. LEITURA NÃO IMPLEMENTADA NO BACKEND.** O cliente desta especificação está na [Marcos-4](../stories/marcos-4.md), validado com API controlada; isso não altera a pendência de implementação/revisão da equipe.
 
-Fonte: quatro respostas do [plano de Marcos](../planejamento/marcos-plano-de-acao.md#respostas-adotadas-para-o-contrato), adotadas pelo usuário. Esta especificação não comprova revisão de Silva, Fausto ou Débora. A política geral de leitura de reservas (Q9) permanece pendente; esta leitura trata apenas da fila do Responsável.
+Fonte: quatro respostas do [plano de Marcos](../planejamento/marcos-plano-de-acao.md#respostas-adotadas-para-o-contrato), adotadas pelo usuário. Esta especificação não comprova revisão de Silva, Fausto ou Débora. A [política geral de leitura Q9 foi comunicada como decidida em 11/11/2026](reservas-politica-leitura-q9.md); esta especificação continua tratando apenas da fila do Responsável, com implementação e revisão de contrato pendentes.
 
 ## Requisição da fila
 
@@ -10,11 +10,11 @@ Fonte: quatro respostas do [plano de Marcos](../planejamento/marcos-plano-de-aca
 GET /api/reservas?status=SOLICITADA&inicio=2026-11-10T13%3A00%3A00-03%3A00&fim=2026-11-10T18%3A00%3A00-03%3A00&recursoId=101&pagina=0&tamanho=20
 ```
 
-Sessão autenticada com papel RESPONSAVEL. Solicitante e Administrador não recebem acesso à fila por esta especificação. O servidor impõe status SOLICITADA e restrita=true; não basta filtrar ou ocultar ações no navegador.
+Sessão autenticada com papel RESPONSAVEL. Solicitante e Administrador não recebem acesso à fila de decisões por esta especificação; suas consultas gerais seguem contratos próprios orientados pela Q9. O servidor impõe status SOLICITADA, restrita=true e escopo dos recursos sob responsabilidade do ator, conforme a decisão comunicada; não basta filtrar ou ocultar ações no navegador. O modelo desse vínculo e sua aplicação na consulta ainda precisam ser integrados pelo backend.
 
 | Parâmetro | Regra |
 |---|---|
-| status | SOLICITADA identifica esta consulta de fila. Outros estados/consultas dependem de contrato separado e da Q9. |
+| status | SOLICITADA identifica esta consulta de fila. Outros estados/consultas dependem de contrato separado que aplique a Q9 decidida. |
 | inicio, fim | Opcionais, sempre juntos, ISO 8601 com offset e fim > inicio. Selecionar reservas que intersectam [inicio,fim): reserva.inicio < fim e reserva.fim > inicio. |
 | recursoId | Opcional, ID positivo. Seleciona reservas contendo esse recurso. |
 | pagina | Inteiro >= 0, padrão 0. |
@@ -61,4 +61,4 @@ Erros no formato {codigo,mensagem,correlationId}: 400 para parâmetros inválido
 
 ## Pendências de implementação
 
-Silva/Fausto: porta de leitura, consulta e controller. Débora: revisão da projeção de identidade e autorização no servidor. Equipe: Q9 para leituras gerais. Somente depois dessas entregas esta leitura pode ser integrada e validada de ponta a ponta.
+Silva/Fausto: porta de leitura, consulta e controller. Débora: revisão da projeção de identidade e autorização no servidor, incluindo o escopo de recursos do Responsável. Equipe: consolidar contratos e implementação da Q9 comunicada; o relatório não define a convenção 403/404 fora do escopo. Somente depois dessas entregas esta leitura pode ser integrada e validada de ponta a ponta.

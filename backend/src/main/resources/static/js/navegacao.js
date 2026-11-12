@@ -13,7 +13,7 @@ export function areasDoPerfil(usuario) {
     { titulo: 'Nova reserva', descricao: 'Escolha um período e solicite os recursos disponíveis.', href: '/pages/reservas.html' },
   ];
   if (usuario.papel === 'RESPONSAVEL') {
-    areas.push({ titulo: 'Aprovações', descricao: 'Avalie solicitações de recursos restritos.' });
+    areas.push({ titulo: 'Aprovações', descricao: 'Avalie solicitações de recursos restritos.', href: '/pages/aprovacoes.html' });
   }
   if (usuario.papel === 'ADMINISTRADOR') {
     areas.push({ titulo: 'Gerenciar recursos', descricao: 'Cuide dos cadastros e dos períodos de manutenção.', href: '/pages/gestao-recursos.html' });

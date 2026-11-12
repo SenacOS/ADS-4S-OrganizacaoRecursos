@@ -1,0 +1,41 @@
+{
+  "dataLocal": "2026-11-11",
+  "baseDevelop": "3454fda8cb883315da065935d99284d862236898",
+  "etapa5": {
+    "head": "8df312e17e21cbf3c254fcef4cb94fabe3fa0061",
+    "mergeSimuladoSemMudancaDeArvore": true,
+    "unitarios": 57,
+    "browser": {
+      "startTime": "2026-11-12T01:50:22.062Z",
+      "duration": 149134.673,
+      "expected": 190,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "buildExitCode": 0,
+    "pr": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/23"
+  },
+  "marcos4": {
+    "headAnterior": "e33de6d6022521fd671ef04522000bc811443296",
+    "mergeHead": "8df312e17e21cbf3c254fcef4cb94fabe3fa0061",
+    "conflitoResolvido": "docs/RTM.md",
+    "frontendSemAlteracaoNestaAtualizacao": true,
+    "unitarios": 68,
+    "browser": {
+      "startTime": "2026-11-12T01:56:01.897Z",
+      "duration": 193625.817,
+      "expected": 238,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "buildExitCode": 0
+  },
+  "logs": {
+    "marcos-integracao-2026-11-11-etapa-5.txt": "5f6f48ef6cd2de55e4c0109e6e7ea653950f4c17b82ab3bba3d50879b69d0c19",
+    "marcos-integracao-2026-11-11-marcos-4.txt": "d01965a0b18e328a80a974d27e8bbb10d6712a0514f34f2b36ddde52f9c2ebbc"
+  },
+  "e2eReal": "NAO_EXECUTADO",
+  "revisaoIndependente": "PENDENTE"
+}

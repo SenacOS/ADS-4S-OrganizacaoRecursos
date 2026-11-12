@@ -1,21 +1,23 @@
-# RTM — Organização de Recursos (RF01–RF14)
-
-**Atualizada em 10/11/2026.** Rastreia requisito → risco → implementação → testes → evidência.
-Estados: **local** = testes anteriores executados localmente; **pendente** = sem evidência
-final suficiente; **parcial** = existe código, mas falta fluxo/aceite. Nenhuma linha
-deve ser interpretada como aprovação final de CI ou Sonar sem relatório publicado.
+# Matriz de rastreabilidade - item 18
 
 | RF | Risco crítico | Implementação / contrato | Testes relacionados | Evidência e condição |
 |---|---|---|---|---|
-| RF02 | Patrimônio duplicado, perda de histórico, subtipo incompatível | CadastroMysql, RecursoService, V1 | migracaoIntegridadeRollbackETipos, filtrosCompetenciasEPaginacao | testes/item18-resultados.md |
-| RF03 | Disponibilidade/paginação incorreta | RecursoService.pesquisar, OcupacoesMysql, ExpedienteMysql | filtrosCompetenciasEPaginacao, retiradaMantemIndisponivelEDevolucaoRespeitaAgenda | testes/item18-resultados.md |
-| RF05/06 | Sobreposição, dupla reserva, lock global, gravação parcial | ReservaTransacional, RecursosMysql, ReservaMysql, ConflitosMysql | reservasConcorrentesUmaVenceEConflitoSobreviveRollback, multirecursoAtomicoEDevolucoesConcorrentes, recursosDistintosNaoEsperamOMesmoLock | testes/item18-resultados.md |
-| RF08 | Manutenção concorrente contradiz agenda | RecursoService.bloquear/cancelarBloqueio/substituirExpediente | manutencaoContraReservaUmaVence, manutencaoNaoCancelaReservasEExpedienteNaoAsInvalida, manutencaoCanceladaAdjacenciaERecursoInativo | testes/item18-resultados.md |
-| RF09 | Dupla retirada, devolução perdida, atraso | MovimentacaoService, UNIQUE recurso_aberto | retiradaConcorrenteUmaVence, bancoImpedeDuplaRetiradaMesmoSemServico, retiradaMantemIndisponivelEDevolucaoRespeitaAgenda, devolucaoTardiaDepoisDoEncerramentoPreservaHistorico, pendenteForaDoHorarioEUnidadeAlheiaNaoPermitemRetirada | testes/item18-resultados.md |
-| RF14 | Contrato incompatível / vazamento SQL | Controllers e ReservaExceptionHandler | Item18ApiTest e ReservaControllerTest | api/item18.md, testes/item18-resultados.md |
+| RF01 — Sessão e autorização | Usuário indevido, CSRF e IDOR | SecurityConfig, UsuarioDetailsService, SpringSecurityAtorProvider, UsuarioAdminController, ADR-004 | SecurityConfigTest, SpringSecurityAtorProviderTest, SegurancaComplementarTest, LoginMysqlIT | [RF01](qualidade/relatorio-evidencias.md); SegurancaComplementarTest (7) e LoginMysqlIT (3) aprovados na CI Java21; CT17/logout complementar aprovado na CI do PR #12; PR #8 aberto |
+| RF02 — Cadastro de recursos | Patrimônio duplicado, subtipo errado | RecursoService, CadastroMysql, V1__item18.sql | Item18MysqlIT.migracaoIntegridadeRollbackETipos, filtrosCompetenciasEPaginacao | [Item18 executado em 09/11](testes/item18-resultados.md); revisar CI após integração |
+| RF03 — Consulta/disponibilidade | Filtro incorreto, agenda ocupada aparece livre | RecursoService.pesquisar, OcupacoesMysql, ExpedienteMysql, GET /api/recursos | Item18MysqlIT.filtrosCompetenciasEPaginacao, retiradaMantemIndisponivelEDevolucaoRespeitaAgenda; JMeter 01-consultas | JMeter CI: 50 consultas HTTP 200, p95=6 ms (banco isolado) |
+| RF04 — Criar e editar reserva | Acesso a recurso alheio, edição inválida | ReservaService.criar/editar, ReservaController, ReservaTransacional | ReservaServiceTest, ReservaControllerTest, SegurancaComplementarTest | Unitário/MVC local; E2E de edição com Marcos pendente; endpoint desligado por padrão |
+| RF05 — Sobreposição | Duas reservas no mesmo recurso/horário | IntervaloReserva, DetectorConflitos, OcupacoesMysql | DetectorConflitosEExpedienteTest, ReservaConcorrenciaSimuladaTest, Item18MysqlIT.reservasConcorrentesUmaVenceEConflitoSobreviveRollback; JMeter 02-disputa | JMeter CI: 1 reserva criada, 7 conflitos HTTP 409; uma ativa no banco |
+| RF06 — Atomicidade/locks | Dupla reserva, deadlock, gravação parcial | RecursosMysql FOR UPDATE, ReservaTransacional READ_COMMITTED, ReservaMysql | Item18MysqlIT.multirecursoAtomicoEDevolucoesConcorrentes, recursosDistintosNaoEsperamOMesmoLock, locksExigemTransacaoEOrdem; JMeter 02 e 03 | JMeter CI: disputa sem dupla reserva; 5 recursos distintos com 5 reservas |
+| RF07 — Aprovação restrita | Perfil errado aprova ou status é ignorado | Reserva.aprovar/rejeitar, SecurityConfig, ReservaController, ADR-005 | ReservaDominioTest, ReservaServiceTest, SecurityConfigTest, SegurancaComplementarTest | 7 testes de seguranca HTTP aprovados na CI; E2E completo pendente |
+| RF08 — Manutenção | Manutenção contradiz agenda | RecursoService.bloquear/cancelarBloqueio, bloqueios_recursos | Item18MysqlIT.manutencaoContraReservaUmaVence, manutencaoCanceladaAdjacenciaERecursoInativo; JMeter 04-manutencao-vs-reserva | JMeter CI: 1 reserva aceita/4 conflitos; manutencao HTTP 409 |
+| RF09 — Retirada/devolução | Material retirado duas vezes ou não devolvido | MovimentacaoService, MovimentacaoMysql, UNIQUE(recurso_aberto) | Item18MysqlIT.retiradaConcorrenteUmaVence, bancoImpedeDuplaRetiradaMesmoSemServico, devolucaoTardiaDepoisDoEncerramentoPreservaHistorico | Item18/Testcontainers local; validação CI pendente |
+| RF10 — Auditoria | Sem trilha, vazamento e registros órfãos | AuditoriaJdbc, AuditoriaResumo, V3__auditoria.sql, AuditoriaController | AuditoriaMysqlIT, AuditoriaControllerTest | [RF10](qualidade/rf10-auditoria.md), teste local aprovado 10/11; auditoria de cadastro administrativo adicional aprovada na CI do PR #12; PR #9 aberto; imutabilidade SQL depende de grants |
+| RF11 — Notificações | Envio antes do commit, perdas, reenvio duplicado | NotificacaoJdbc, ProcessadorNotificacoes, GatewayNotificacaoPadrao, V4__notificacoes.sql | NotificacaoMysqlIT, GatewayNotificacaoWireMockTest | [RF11](qualidade/rf11-notificacoes.md), `mvn clean verify` aprovado 10/11 22:17; timeout WireMock complementar aprovado na CI do PR #12; PR #10 aberto |
+| RF12 — Relatórios de utilização | Horas/trabalhos contados incorretamente | UtilizacaoReservas, ConflitosMysql; API/agregação integrada ainda a confirmar | UtilizacaoReservasTest, Item18MysqlIT.reservasConcorrentesUmaVenceEConflitoSobreviveRollback | **Parcial:** domínio e contagem de conflitos, sem evidência de endpoint de relatório completo |
+| RF13 — UX e mensagens de erro | Erro 500 indevido, mensagens inadequadas | ReservaExceptionHandler, ErroApi, componentes JS de Marcos por integrar | ReservaControllerTest, Item18ApiTest; E2E de Marcos pendente | Backend local; E2E e experiência real pendentes |
+| RF14 — Contrato/API | Divergência frontend/backend | docs/api/reservas-contrato.md, docs/api/item18.md, controllers | ReservaControllerTest, Item18ApiTest, revisão de Marcos | **Parcial:** contrato PROPOSTO, revisão e disponibilidade endpoint ainda pendentes |
 
-Os testes Item18MysqlIT usam MySQL real/Testcontainers e transações independentes. Fixtures de auditoria/notificação são somente de teste. RF01, RF10 e RF11 não são declarados validados: aguardam os provedores reais da equipe. RTM completa do projeto/CI/Sonar permanecem com Débora. Arquivo BDD: testes/item18-bdd.feature; asserções em JUnit, sem dependência Cucumber.
-
+Conciliação em 11/11/2026: matriz ampliada da equipe preservada. Os estados de PR/CI nas evidências abaixo são registros históricos de 10/11; os PRs #8, #9, #10 e #12 já foram integrados à `develop` na base `3454fda`. Isso não equivale a aceite do frontend com servidor real.
 
 ## Incremento de frontend Marcos-1 — 10/11/2026
 
@@ -61,6 +63,18 @@ Estado: VALIDADO LOCALMENTE no primeiro recorte da etapa 3, em 10/11/2026. Não 
 
 `npm run build` passou com 32 testes unitários e 76 execuções de navegador, zero falhas/ignorados/retries na rodada aprovada. O primeiro timeout no setup e a reexecução de quatro capturas são registrados separadamente. Integração real, revisão humana/CodeRabbit e CI pendentes. Listagem/reabertura para edição/cancelamento de reservas existentes aguardam GETs e política Q9; a etapa 3 completa permanece em execução.
 
+## Cliente da fila e decisões — Marcos-4
+
+Estado: VALIDADO LOCALMENTE contra a especificação aceita pelo frontend em 10/11/2026. GET/autorização/projeção no backend e integração real continuam pendentes.
+
+| RF | Risco / comportamento | Implementação | Testes e evidência |
+|---|---|---|---|
+| RF07 | Ação oferecida a perfil indevido, fila/detalhes incoerentes, motivo vazio ou decisão sem confirmação | aprovacoes.js, aprovacoes-page.js, pages/aprovacoes.html, navegacao.js | aprovacoes.test.js: perfis, filtros, projeção e escritas; aprovacoes.spec.js: acesso direto negado, decisão comum de aprovação/rejeição, motivo obrigatório e 403; [resultados](testes/marcos-4-resultados.md) |
+| RF13 | Resposta atrasada, duplo envio, falha de recarga confundida com falha da decisão, layout/foco inadequados | aprovacoes-page.js, datas.js, css/app.css | 24 cenários em duas viewports (48 execuções), com rede/400/401/403/404/409, página esvaziada, pós-decisão, HTML como texto, teclado e foco; [log](testes/marcos-4-verificacao.txt) |
+| RF14 | Confundir cliente de especificação com GET implementado ou autorização do servidor | reservas-leitura-contrato.md, frontend-integracao.md, story/plano | DTO e estado do contrato explícitos; sem GET de detalhe, listagem geral/Q9 ou flags ativadas; [ambiente e limites](testes/marcos-4/resultados.json) |
+
+Gates aprovados: lint, checkJs, 43 testes unitários e 124 execuções de navegador (48 novas e 76 regressões), zero falhas/ignorados/retries. A leitura da fila, a autorização no servidor e o E2E integrado ainda precisam da equipe; validação humana, revisão independente e CI pendentes. Não se marca o RF inteiro como concluído.
+
 ## Administração de recursos — Marcos-5
 
 | RF | Risco / comportamento | Implementação | Testes e evidência |
@@ -91,20 +105,9 @@ Rodada final: lint/checkJs/build aprovados, 57 testes unitários (12 novos) e 19
 Reexecução pelo autor recebida em 11/11/2026: lint/tipos sem diagnósticos, 57 unitários e 190 testes de navegador aprovados (1,9 min). [Saída fornecida pelo Marcos](testes/marcos-5-movimentacoes-verificacao-marcos.txt), preservada integralmente. Aceite visual, revisão de outro integrante, CI e integração não são inferidos dessa execução.
 
 Posteriormente, Marcos confirmou o teste visual no Chrome com dados fictícios e solicitou o commit em 11/11/2026. Auxiliar temporário fora do repositório, sem mudanças no produto para a prévia. Administração e movimentações encerram a implementação local da etapa 5 com aceite do autor; revisão da equipe, CodeRabbit/CI e integração real permanecem pendentes. [Registro do aceite](testes/marcos-5-movimentacoes-resultados.md#aceite-visual-e-autorização-de-commit).
-| RF01 — Sessão e autorização | Usuário indevido, CSRF e IDOR | SecurityConfig, UsuarioDetailsService, SpringSecurityAtorProvider, UsuarioAdminController, ADR-004 | SecurityConfigTest, SpringSecurityAtorProviderTest, SegurancaComplementarTest, LoginMysqlIT | [RF01](qualidade/relatorio-evidencias.md); SegurancaComplementarTest (7) e LoginMysqlIT (3) aprovados na CI Java21; CT17/logout complementar aprovado na CI do PR #12; PR #8 aberto |
-| RF02 — Cadastro de recursos | Patrimônio duplicado, subtipo errado | RecursoService, CadastroMysql, V1__item18.sql | Item18MysqlIT.migracaoIntegridadeRollbackETipos, filtrosCompetenciasEPaginacao | [Item18 executado em 09/11](testes/item18-resultados.md); revisar CI após integração |
-| RF03 — Consulta/disponibilidade | Filtro incorreto, agenda ocupada aparece livre | RecursoService.pesquisar, OcupacoesMysql, ExpedienteMysql, GET /api/recursos | Item18MysqlIT.filtrosCompetenciasEPaginacao, retiradaMantemIndisponivelEDevolucaoRespeitaAgenda; JMeter 01-consultas | JMeter CI: 50 consultas HTTP 200, p95=6 ms (banco isolado) |
-| RF04 — Criar e editar reserva | Acesso a recurso alheio, edição inválida | ReservaService.criar/editar, ReservaController, ReservaTransacional | ReservaServiceTest, ReservaControllerTest, SegurancaComplementarTest | Unitário/MVC local; E2E de edição com Marcos pendente; endpoint desligado por padrão |
-| RF05 — Sobreposição | Duas reservas no mesmo recurso/horário | IntervaloReserva, DetectorConflitos, OcupacoesMysql | DetectorConflitosEExpedienteTest, ReservaConcorrenciaSimuladaTest, Item18MysqlIT.reservasConcorrentesUmaVenceEConflitoSobreviveRollback; JMeter 02-disputa | JMeter CI: 1 reserva criada, 7 conflitos HTTP 409; uma ativa no banco |
-| RF06 — Atomicidade/locks | Dupla reserva, deadlock, gravação parcial | RecursosMysql FOR UPDATE, ReservaTransacional READ_COMMITTED, ReservaMysql | Item18MysqlIT.multirecursoAtomicoEDevolucoesConcorrentes, recursosDistintosNaoEsperamOMesmoLock, locksExigemTransacaoEOrdem; JMeter 02 e 03 | JMeter CI: disputa sem dupla reserva; 5 recursos distintos com 5 reservas |
-| RF07 — Aprovação restrita | Perfil errado aprova ou status é ignorado | Reserva.aprovar/rejeitar, SecurityConfig, ReservaController, ADR-005 | ReservaDominioTest, ReservaServiceTest, SecurityConfigTest, SegurancaComplementarTest | 7 testes de seguranca HTTP aprovados na CI; E2E completo pendente |
-| RF08 — Manutenção | Manutenção contradiz agenda | RecursoService.bloquear/cancelarBloqueio, bloqueios_recursos | Item18MysqlIT.manutencaoContraReservaUmaVence, manutencaoCanceladaAdjacenciaERecursoInativo; JMeter 04-manutencao-vs-reserva | JMeter CI: 1 reserva aceita/4 conflitos; manutencao HTTP 409 |
-| RF09 — Retirada/devolução | Material retirado duas vezes ou não devolvido | MovimentacaoService, MovimentacaoMysql, UNIQUE(recurso_aberto) | Item18MysqlIT.retiradaConcorrenteUmaVence, bancoImpedeDuplaRetiradaMesmoSemServico, devolucaoTardiaDepoisDoEncerramentoPreservaHistorico | Item18/Testcontainers local; validação CI pendente |
-| RF10 — Auditoria | Sem trilha, vazamento e registros órfãos | AuditoriaJdbc, AuditoriaResumo, V3__auditoria.sql, AuditoriaController | AuditoriaMysqlIT, AuditoriaControllerTest | [RF10](qualidade/rf10-auditoria.md), teste local aprovado 10/11; auditoria de cadastro administrativo adicional aprovada na CI do PR #12; PR #9 aberto; imutabilidade SQL depende de grants |
-| RF11 — Notificações | Envio antes do commit, perdas, reenvio duplicado | NotificacaoJdbc, ProcessadorNotificacoes, GatewayNotificacaoPadrao, V4__notificacoes.sql | NotificacaoMysqlIT, GatewayNotificacaoWireMockTest | [RF11](qualidade/rf11-notificacoes.md), `mvn clean verify` aprovado 10/11 22:17; timeout WireMock complementar aprovado na CI do PR #12; PR #10 aberto |
-| RF12 — Relatórios de utilização | Horas/trabalhos contados incorretamente | UtilizacaoReservas, ConflitosMysql; API/agregação integrada ainda a confirmar | UtilizacaoReservasTest, Item18MysqlIT.reservasConcorrentesUmaVenceEConflitoSobreviveRollback | **Parcial:** domínio e contagem de conflitos, sem evidência de endpoint de relatório completo |
-| RF13 — UX e mensagens de erro | Erro 500 indevido, mensagens inadequadas | ReservaExceptionHandler, ErroApi, componentes JS de Marcos por integrar | ReservaControllerTest, Item18ApiTest; E2E de Marcos pendente | Backend local; E2E e experiência real pendentes |
-| RF14 — Contrato/API | Divergência frontend/backend | docs/api/reservas-contrato.md, docs/api/item18.md, controllers | ReservaControllerTest, Item18ApiTest, revisão de Marcos | **Parcial:** contrato PROPOSTO, revisão e disponibilidade endpoint ainda pendentes |
+
+## Evidências históricas da equipe — 10/11/2026
+
 
 Os testes Item18MysqlIT usam MySQL real/Testcontainers e transações independentes. O cenário BDD está em [docs/testes/item18-bdd.feature](testes/item18-bdd.feature); as asserções são executadas em JUnit, sem dependência Cucumber.
 
@@ -133,3 +136,27 @@ Os testes Item18MysqlIT usam MySQL real/Testcontainers e transações independen
    de TDD RED→GREEN→REFACTOR dependem de evidências dos respectivos responsáveis.
 
 **JMeter:** [relatorio de execucao em CI](qualidade/jmeter/evidencias-2026-11-10.md).
+
+## Conciliação do frontend — Marcos-4 e etapa 5
+
+Em 11/11/2026, a preparação local da Marcos-4 foi conciliada em branch própria baseada em `f7360a2`, preservando os incrementos administrativos/de movimentações e as evidências anteriores. Os testes de acesso verificam os links de Aprovações, Gestão e Movimentações por perfil; a ajuda da fila descreve o escopo de recursos do Responsável da Q9. A autorização real desse escopo ainda depende do backend.
+
+`npm run build` final aprovado: lint/typecheck, 68 unitários e 238 execuções de navegador, 119 por viewport; zero falhas/ignorados/retries na rodada final. Uma primeira falha de preparação do contexto do Chrome e seis repetições diagnósticas aprovadas foram preservadas separadamente, sem alteração de código/timeout. [Comandos, resultados, limites e capturas](testes/marcos-4-conciliacao-resultados.md).
+
+Reexecução automatizada apresentada por Marcos no checkout conciliado: lint/typecheck sem diagnósticos, 68 unitários e 238 de navegador aprovados em 6,3 min. [Saída integral do autor](testes/marcos-4-conciliacao-verificacao-marcos.txt), preservada com SHA-256 conferido. A execução anterior do autor na pasta original (43/124) permanece registrada separadamente.
+
+O aceite visual da Marcos-4 foi posteriormente informado em 12/11/2026, conforme registro abaixo. Revisão independente, checks exigidos e E2E com backend real permanecem pendentes. Esse resultado não demonstra segurança Spring, persistência, concorrência, auditoria ou notificações e não encerra os RFs completos.
+
+## Sincronização local da Marcos-4 com a develop — 12/11/2026
+
+A pedido de Marcos, develop 23cf839 (incluindo os PRs #22/#23) foi incorporada à Marcos-4 df57063 sem conflitos. Os 45 arquivos de frontend/testes/configuração foram preservados. O adaptador SQL da fila foi importado dos commits da equipe; controller HTTP e autorização Q9 continuam pendentes.
+
+Regressão local: npm run build exit 0, lint/typecheck aprovados, 68 unitários e 238 execuções de navegador aprovados, 119 por viewport, zero falhas/ignorados/flaky/retries. [Resultados e limites](testes/marcos-sincronizacao-2026-11-12-resultados.md), [log](testes/marcos-sincronizacao-2026-11-12-verificacao.txt) e [resumo JSON](testes/marcos-sincronizacao-2026-11-12.json).
+
+Esta evidência não substitui aceite visual detalhado, revisão independente, Maven/CI ou E2E real. Não houve publicação remota nesta etapa. Sonar e demais dependências permanecem discriminados no [plano de fechamento](planejamento/marcos-fechamento-etapas-1-a-5.md).
+
+## Aceite visual da Marcos-4 — 12/11/2026
+
+Após a publicação de a8da77c, Marcos revisou a prévia de Aprovações no Chrome, perfil Responsável, com 21 solicitações fictícias, e informou “está aprovado”. O roteiro apresentado incluiu detalhes, aprovação/rejeição, motivo obrigatório, filtros/vazio, paginação e layout/teclado. [Registro do aceite](testes/marcos-4-aceite-visual-2026-11-12.md).
+
+Interface aceita pelo autor, sem ajustes funcionais solicitados. Registro exclusivamente documental, preservando a regressão anterior de 68 unitários/238 navegador; sem nova execução, E2E real, revisão independente ou alteração do PR nesta rodada. Contrato coletivo, endpoint HTTP, autorização Q9 e checks para merge continuam acompanhados separadamente.

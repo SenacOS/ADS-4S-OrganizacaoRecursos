@@ -41,5 +41,8 @@ O diagnóstico de outubro acima é histórico. O backend e os contratos já est�
 - [Aceite do contrato pelo cliente](stories/marcos-contrato-1.md) e [leitura da fila ainda não implementada](api/reservas-leitura-contrato.md).
 - [Login/logout e entrada por perfil — Marcos-2](stories/marcos-2.md), com [evidências de navegador](testes/marcos-2-resultados.md).
 - [Pesquisa e criação de reservas — Marcos-3](stories/marcos-3.md): primeiro recorte da etapa 3, com [evidências e limites](testes/marcos-3-resultados.md). Listagem/edição/cancelamento de reservas existentes continuam dependentes da leitura autorizada.
+- [Fila e decisões — Marcos-4](stories/marcos-4.md): cliente da especificação aceita, com [evidências e limites](testes/marcos-4-resultados.md). Implementação/autorização da leitura no backend e integração real continuam pendentes.
+- [Conciliação da Marcos-4 com a etapa 5](testes/marcos-4-conciliacao-resultados.md): checkout separado baseado em movimentações; comandos e evidência da regressão conjunta, preservando as execuções anteriores.
+
 - [Administração de recursos — Marcos-5](stories/marcos-5.md): recorte de cadastros, manutenção e expediente, independente da fila/Q9. Movimentações possuem story própria abaixo; integração real permanece pendente. [Resultados e limites](testes/marcos-5-resultados.md).
 - [Movimentações — complemento da etapa 5](stories/marcos-5-movimentacoes.md): retirada, pendências e devolução, sem consulta de reservas/Q9. Aceite visual e commit autorizados por Marcos em 11/11/2026, encerrando a implementação local da etapa 5 junto à administração. Revisão da equipe, CI e integração continuam pendentes. [Resultados e limites](testes/marcos-5-movimentacoes-resultados.md).

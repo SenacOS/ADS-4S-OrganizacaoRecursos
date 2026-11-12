@@ -83,7 +83,7 @@ A autenticação ainda está em branch separada e reservas estão desligadas. N�
 
 ## Pesquisa e criação — Marcos-3
 
-`pages/recursos.html` consulta recursos e disponibilidade; `pages/reservas.html` permite pesquisar um período, selecionar recursos e criar uma solicitação. A entrada autenticada oferece os dois links. Cadastros, fila, movimentações, relatórios e consulta de reservas anteriores permanecem para outros recortes. A sessão/navegação/logout das páginas são compartilhados em `sessao-page.js` e `navegacao.js`; os testes de acesso foram ajustados para verificar a existência dos novos destinos, mantendo as restrições por perfil.
+`pages/recursos.html` consulta recursos e disponibilidade; `pages/reservas.html` permite pesquisar um período, selecionar recursos e criar uma solicitação. A entrada autenticada oferece os dois links. Cadastros, movimentações, relatórios e consulta de reservas anteriores permanecem para outros recortes. O cliente da fila foi acrescentado na Marcos-4 abaixo. A sessão/navegação/logout das páginas são compartilhados em `sessao-page.js` e `navegacao.js`; os testes de acesso foram ajustados para verificar a existência dos novos destinos, mantendo as restrições por perfil.
 
 `recursos.js` expõe `pesquisar(filtros)` e `expediente()`, usando somente GETs de recursos/funcionamento contratados no item18. A pesquisa retorna `{itens,pagina,tamanho,total}` e não é repaginada no navegador. Cada recurso mantém `{id,dados,disponivel}`. Tipos usam `PROFESSOR` no contrato e “Docente” na interface. O cliente valida o envelope antes de renderizar e não confunde `disponivel:null` com disponibilidade confirmada.
 
@@ -102,7 +102,29 @@ A seleção mantém recursos entre páginas/filtros do mesmo período. Alterar i
 
 Na criação, apenas `inicio`, `fim` e `recursosIds` seguem para `reservas.criar`. `confirmarCriacao` valida id, identidade da sessão, instantes, conjunto de recursos e coerência status/restrita antes de mostrar sucesso. A tela apresenta o status do servidor e não afirma entrega de notificação. Resposta inválida ou falha de rede pode ocorrer após persistência: orientar conferir o resultado, sem replay automático. Após sucesso, a ação “Fazer outra solicitação” exige nova pesquisa/seleção.
 
-Os mocks continuam exclusivamente nos testes de navegador. `npm run preview` não cria uma sessão de demonstração nem simula os GETs/POSTs; integrar segurança e provedores reais continua necessário para operar o fluxo no Spring. Listagem/reabertura para edição/cancelamento de reservas existentes continuam dependentes dos GETs e da Q9. [Story e critérios](../stories/marcos-3.md); [evidências e limites](../testes/marcos-3-resultados.md).
+Os mocks continuam exclusivamente nos testes de navegador. `npm run preview` não cria uma sessão de demonstração nem simula os GETs/POSTs; integrar segurança e provedores reais continua necessário para operar o fluxo no Spring. Listagem/reabertura para edição/cancelamento de reservas existentes continuam dependentes dos GETs e da autorização que aplique a [Q9 comunicada como decidida em 11/11/2026](reservas-politica-leitura-q9.md). [Story e critérios](../stories/marcos-3.md); [evidências e limites](../testes/marcos-3-resultados.md).
+
+## Cliente de fila e decisão — Marcos-4
+
+`pages/aprovacoes.html` oferece fila, detalhes, aprovação e rejeição com motivo. A navegação oferece o link somente a RESPONSAVEL; acesso direto por Solicitante/Administrador mostra acesso negado sem consultar a fila. É uma guarda visual do cliente: autorização real continua obrigatória no servidor.
+
+O GET segue exclusivamente a [especificação de fila aceita por Marcos](reservas-leitura-contrato.md), ainda sem implementação no backend. `criarAprovacoes(usuario)` fornece `listar(filtros)` e `decidir(pendente,status,motivo)`. Não implementa listagem geral de reservas nem GET de detalhe. A Q9 foi comunicada depois da implementação local: o servidor deve delimitar a fila aos recursos sob responsabilidade do ator; essa autorização ainda não foi demonstrada pelos testes controlados. Os filtros são período por sobreposição (início/fim juntos), recursoId e paginação; status é fixo SOLICITADA e a ordem inicio/id é do servidor. Não há filtro local de uma coleção completa.
+
+```js
+import { criarAprovacoes } from '/js/aprovacoes.js';
+import { intervaloDoFormulario } from '/js/datas.js';
+
+const cliente = criarAprovacoes(usuarioValidadoPorMe);
+// O quarto argumento permite vários dias apenas no filtro de consulta.
+const periodo = intervaloDoFormulario('2026-11-10T08:00', '2026-11-13T18:00', false, false);
+const pagina = await cliente.listar({ ...periodo, recursoId: 103, pagina: 0, tamanho: 20 });
+```
+
+O cliente valida o envelope e a projeção mínima antes de mostrar qualquer item: SOLICITADA/restrita, datas, solicitante coerente e recursos identificados correspondentes aos IDs, incluindo patrimônio do material. A projeção é copiada por lista explícita de campos; dados extras, como email do solicitante, não passam para a interface. Detalhes vêm da própria fila, sem GET fictício por id. Os filtros invalidam detalhes/resultados e respostas atrasadas são descartadas.
+
+A decisão usa os POSTs de `reservas.js`; aprovar não envia corpo e rejeitar envia somente motivo aparado/não vazio. A confirmação valida id, solicitante, instantes, conjunto de recursos e status esperado. Nenhum clique repetido gera replay. Depois do POST confirmado, a tela recarrega a página e, se ela esvaziar, consulta uma página anterior válida. Falha nessa leitura mantém a confirmação da decisão e apresenta o problema de consulta separadamente.
+
+Erros de rede/resposta inválida após escrita e 409 invalidam detalhes antigos e pedem conferir/atualizar a fila. Outros erros recuperáveis preservam o motivo. Não há expiração automática de pendência, aprovação herdada pelo Administrador ou novas regras de conflito. API controlada continua somente em testes; preview não cria fila/sessão falsa e as flags do backend permanecem desligadas. [Story](../stories/marcos-4.md) e [resultados/limites](../testes/marcos-4-resultados.md).
 
 ## Administração de recursos — Marcos-5
 
