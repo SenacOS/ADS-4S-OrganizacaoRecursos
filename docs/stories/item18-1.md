@@ -16,6 +16,12 @@ Estado: Ready for Review; validado localmente, revisão e CI da equipe pendentes
 - [x] Proposta da porta de leitura do RF12 registrada para revisão do Silva.
 - [x] Validação e lista de arquivos do complemento registradas em `docs/testes/item18-resultados.md`.
 
+## Integração da fila com a Q9
+
+- [x] Conectar o GET da fila ao adaptador MySQL do PR #22, com o escopo da Q9.
+- [x] Confirmar listagem, detalhe, projeções e total após a autorização no SQL.
+- [x] Documentar o vínculo da V6 e validar a integração HTTP com MySQL.
+
 ## File list
 - `backend/pom.xml`
 - `backend/src/main/java/br/senac/recursos/config/Item18Config.java`
@@ -46,6 +52,20 @@ Estado: Ready for Review; validado localmente, revisão e CI da equipe pendentes
 - `docs/integracao/dependencias-e-revisores.md`
 - `docs/integracao/proposta-porta-leitura-rf12.md`
 - `docs/integracao/revisao-contrato-fila-rf07.md`
+- `docs/testes/item18-resultados.md`
+
+### Arquivos da integração com a Q9
+
+- `backend/src/main/java/br/senac/recursos/config/Item18Config.java`
+- `backend/src/main/java/br/senac/recursos/reserva/api/ReservaApiMapper.java`
+- `backend/src/main/java/br/senac/recursos/reserva/api/ReservaLeituraController.java`
+- `backend/src/main/java/br/senac/recursos/reserva/infraestrutura/ReservaAcessoMysql.java`
+- `backend/src/main/java/br/senac/recursos/reserva/infraestrutura/ReservaConsultaMysql.java`
+- `backend/src/main/java/br/senac/recursos/reserva/infraestrutura/ReservaFilaMysql.java`
+- `backend/src/test/java/br/senac/recursos/reserva/api/ReservaLeituraSegurancaTest.java`
+- `backend/src/test/java/br/senac/recursos/reserva/infraestrutura/ReservaQ9MysqlIT.java`
+- `docs/api/reservas-leitura-contrato.md`
+- `docs/seguranca/q9-autorizacao-reservas.md`
 - `docs/testes/item18-resultados.md`
 
 Integração de segurança/auditoria/notificação: contratos implementados, provedores reais fora deste item.

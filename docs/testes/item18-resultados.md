@@ -23,3 +23,12 @@ Validação local sobre a base `develop` em `3454fda`, com Java 21 e MySQL 8.4 e
 - `npm run lint`, `npm run typecheck` e `npm test` passaram. O frontend executou 32 testes unitários e 76 testes Playwright no Chrome.
 
 O CT19 usa o serviço transacional e verifica o conflito de domínio. O teste REST existente verifica seu mapeamento para HTTP 409. A validação da fila cobre a porta de persistência. O endpoint da fila continua na etapa de integração.
+
+## Integração da fila com a Q9 em 12/11/2026
+
+Base `develop` em `3f2a9a3` após o merge do PR #26. O GET da fila usa a porta do PR #22 e o mesmo escopo SQL de listagem e detalhe.
+
+- `mvn -f backend/pom.xml clean verify` passou com 244 testes unitários/HTTP e 57 integrações, sem falhas ou testes ignorados. Cobertura de 91,76% das linhas e 74,33% dos branches.
+- `ReservaLeituraSegurancaTest` passou com cinco testes. O teste de identidade forjada confirma que a fila recebe o ID autenticado. O Solicitante com filtro SOLICITADA segue pela consulta geral.
+- `ReservaQ9MysqlIT` passou com oito testes. O GET com Spring Security e MySQL verifica projeções, exclusão de reservas comuns, escopo antes do total, página vazia com total preservado e revogação do vínculo.
+- `npm run build` passou com lint, typecheck, 68 testes unitários e 238 execuções Playwright no Chrome.

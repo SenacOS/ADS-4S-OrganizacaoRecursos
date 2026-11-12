@@ -1,6 +1,9 @@
 package br.senac.recursos.reserva.infraestrutura;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import br.senac.recursos.reserva.aplicacao.ConsultaInvalidaException;
 import br.senac.recursos.reserva.dominio.AtorReserva;
@@ -9,17 +12,18 @@ import br.senac.recursos.reserva.dominio.OperacaoNaoPermitidaException;
 import br.senac.recursos.reserva.dominio.PapelAtor;
 import br.senac.recursos.reserva.dominio.Reserva;
 import br.senac.recursos.reserva.dominio.ReservaNaoEncontradaException;
+import br.senac.recursos.seguranca.UsuarioPrincipal;
 import java.time.Instant;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
-import org.springframework.context.annotation.Import;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.MySQLContainer;
@@ -27,9 +31,8 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 /** Q9 com MySQL real: restrição antes de COUNT/paginação e detalhes indistinguíveis. */
-@JdbcTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Import({ReservaConsultaMysql.class, ReservaAcessoMysql.class})
+@SpringBootTest(properties = "reservas.api.enabled=true")
+@AutoConfigureMockMvc
 @Testcontainers
 @Transactional(propagation = Propagation.NOT_SUPPORTED)
 class ReservaQ9MysqlIT {
@@ -45,6 +48,7 @@ class ReservaQ9MysqlIT {
     @Autowired JdbcTemplate jdbc;
     @Autowired ReservaConsultaMysql consulta;
     @Autowired ReservaAcessoMysql acesso;
+    @Autowired MockMvc mvc;
 
     private static final AtorReserva SOLICITANTE1 = new AtorReserva(1, PapelAtor.SOLICITANTE);
     private static final AtorReserva RESPONSAVEL31 = new AtorReserva(31, PapelAtor.RESPONSAVEL);
@@ -82,6 +86,38 @@ class ReservaQ9MysqlIT {
         jdbc.update("""
                 INSERT INTO responsaveis_recursos(recurso_id,usuario_id) VALUES (11,31),(12,32)
                 """);
+    }
+
+    @Test
+    void filaHttpUsaProjecoesEAplicaVinculoAntesDaPaginacao() throws Exception {
+        var responsavel = new UsuarioPrincipal(31, "responsavel31@example.org", "hash",
+                PapelAtor.RESPONSAVEL, true);
+        jdbc.update("""
+                INSERT INTO reservas(id,solicitante_id,inicio_utc,fim_utc,restrita,status)
+                VALUES (104,2,'2026-11-12 18:00:00','2026-11-12 19:00:00',FALSE,'SOLICITADA')
+                """);
+        jdbc.update("INSERT INTO reserva_recursos(reserva_id,recurso_id) VALUES (104,11)");
+
+        mvc.perform(get("/api/reservas").param("status", "SOLICITADA")
+                        .param("tamanho", "1").with(user(responsavel)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.total").value(1))
+                .andExpect(jsonPath("$.itens[0].id").value(101))
+                .andExpect(jsonPath("$.itens[0].inicio").value("2026-11-12T12:00:00-03:00"))
+                .andExpect(jsonPath("$.itens[0].solicitante.identificacao").value("Solicitante 1"))
+                .andExpect(jsonPath("$.itens[0].solicitante.email").doesNotExist())
+                .andExpect(jsonPath("$.itens[0].recursos[0].identificacao").value("SALA-11"));
+
+        mvc.perform(get("/api/reservas").param("status", "SOLICITADA")
+                        .param("pagina", "1").param("tamanho", "1").with(user(responsavel)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.itens").isEmpty())
+                .andExpect(jsonPath("$.total").value(1));
+
+        jdbc.update("DELETE FROM responsaveis_recursos WHERE usuario_id=31");
+        mvc.perform(get("/api/reservas").param("status", "SOLICITADA").with(user(responsavel)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.total").value(0));
     }
 
     @Test
