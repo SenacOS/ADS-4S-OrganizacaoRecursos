@@ -1,13 +1,16 @@
 import { api, ErroApi } from './api.js';
 import { dataComOffset, instanteComPrecisao as instante } from './datas.js';
 
-/** Contrato controlado RF12; endpoint e política reais ainda dependem do backend.
+/** DTO do PR #39; a rota HTTP ainda é candidata.
  * @typedef {{inicio:string,fim:string,recursoId?:number}} FiltrosUtilizacao
- * @typedef {{recursoId:number,duracaoAlocada:string}} AlocacaoRecurso
- * @typedef {{periodo:{inicio:string,fim:string},recursoId:number|null,estadosConsiderados:string[],
- * reservasConsideradas:number,duracaoReservada:string,porRecurso:AlocacaoRecurso[],conflitosEvitados:number}} RelatorioUtilizacao
+ * @typedef {{recursoId:number,minutos:number}} AlocacaoRecurso
+ * @typedef {{status:string,minutos:number}} AlocacaoStatus
+ * @typedef {{id:number,recursoId:number,origem:string,momento:string,intervaloInicio:string,intervaloFim:string}} ConflitoUtilizacao
+ * @typedef {{inicio:string,fim:string,recursoId:number|null,estados:string[],minutosReservados:number,
+ * reservasConsideradas:number,porRecurso:AlocacaoRecurso[],porStatus:AlocacaoStatus[],conflitosEvitados:ConflitoUtilizacao[]}} RelatorioUtilizacao
  */
 export const estadosUtilizacao = Object.freeze(['APROVADA', 'EM_USO', 'CONCLUIDA']);
+const origensConflito = ['RESERVA', 'MANUTENCAO', 'RETIRADA_ABERTA'];
 /** @param {unknown} valor @returns {valor is number} */
 const contagem = (valor) => typeof valor === 'number' && Number.isSafeInteger(valor) && valor >= 0;
 /** @param {unknown} valor @returns {valor is number} */
@@ -15,33 +18,18 @@ const positivo = (valor) => contagem(valor) && valor > 0;
 const respostaInvalida = () => new ErroApi(0, 'RESPOSTA_INVALIDA',
   'O relatório recebido não corresponde à consulta. Consulte novamente ou contate o suporte.');
 
-/** Subconjunto temporal de Duration Java, exato em nanossegundos; não é data civil.
- * @param {unknown} valor @returns {bigint} */
-export function duracaoEmNanos(valor) {
-  const partes = typeof valor === 'string'
-    ? /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)(?:\.(\d{1,9}))?S)?$/.exec(valor) : null;
-  if (!partes || partes[0] !== valor || !partes.slice(1, 4).some(v => v !== undefined)) throw respostaInvalida();
-  return (BigInt(partes[1] ?? 0) * 3600n + BigInt(partes[2] ?? 0) * 60n
-    + BigInt(partes[3] ?? 0)) * 1000000000n + BigInt((partes[4] ?? '').padEnd(9, '0'));
+/** Conveniência visual provisória do #39; servidor deve autorizar cada consulta.
+ * @param {import('./auth.js').Usuario|null} usuario */
+export function podeConsultarUtilizacao(usuario) { return usuario?.papel === 'ADMINISTRADOR'; }
+
+/** Minutos já truncados pelo servidor; não recuperar precisão que o DTO não envia.
+ * @param {number} minutos */
+export function apresentarMinutos(minutos) {
+  if (!contagem(minutos)) throw respostaInvalida();
+  return String(minutos) + ' min';
 }
 
-/** Exibe horas acumuladas, minutos e segundos sem arredondamento/float.
- * O DTO conserva a string original. @param {string} valor */
-export function apresentarDuracao(valor) {
-  const nanos = duracaoEmNanos(valor);
-  const segundos = nanos / 1000000000n;
-  const horas = segundos / 3600n, minutos = segundos % 3600n / 60n;
-  const fracao = (nanos % 1000000000n).toString().padStart(9, '0').replace(/0+$/, '');
-  const partes = [];
-  if (horas) partes.push(horas.toString() + ' h');
-  if (minutos) partes.push(minutos.toString() + ' min');
-  if (segundos % 60n || fracao || !partes.length) {
-    partes.push((segundos % 60n).toString() + (fracao ? ',' + fracao : '') + ' s');
-  }
-  return partes.join(' ');
-}
-
-/** Projeta somente os filtros candidatos; nenhum papel/solicitante é enviado.
+/** Projeta somente filtros candidatos; estados customizados ficam fora da tela.
  * @param {FiltrosUtilizacao} filtros */
 export function parametrosUtilizacao(filtros) {
   const { inicio, fim, recursoId } = filtros;
@@ -56,41 +44,64 @@ export function parametrosUtilizacao(filtros) {
   return parametros;
 }
 
-/** Invariantes do DTO completo controlado, sem paginação. Validação não substitui
- * a autorização/projeção do servidor. @param {any} dados @param {FiltrosUtilizacao} filtros
+/** Projeta/valida o DTO #39, sem interpretar o esquema Duration anterior.
+ * A validação não substitui autorização no servidor. @param {any} dados @param {FiltrosUtilizacao} filtros
  * @returns {RelatorioUtilizacao} */
 export function conferirUtilizacao(dados, filtros) {
-  if (!dataComOffset(dados?.periodo?.inicio) || !dataComOffset(dados?.periodo?.fim)
-    || instante(dados.periodo.inicio) !== instante(filtros.inicio)
-    || instante(dados.periodo.fim) !== instante(filtros.fim)
+  if (!dataComOffset(dados?.inicio) || !dataComOffset(dados?.fim)
+    || instante(dados.inicio) !== instante(filtros.inicio) || instante(dados.fim) !== instante(filtros.fim)
     || dados.recursoId !== (filtros.recursoId ?? null)
-    || !Array.isArray(dados.estadosConsiderados) || dados.estadosConsiderados.length !== estadosUtilizacao.length
-    || new Set(dados.estadosConsiderados).size !== estadosUtilizacao.length
-    || !dados.estadosConsiderados.every((/** @type {string} */ estado) => estadosUtilizacao.includes(estado))
-    || !contagem(dados.reservasConsideradas) || !contagem(dados.conflitosEvitados)
-    || !Array.isArray(dados.porRecurso)) throw respostaInvalida();
-  const total = duracaoEmNanos(dados.duracaoReservada);
-  let somaAlocacoes = 0n;
-  const ids = new Set();
-  const linhas = dados.porRecurso.map((/** @type {any} */ linha) => {
+    || !Array.isArray(dados.estados) || dados.estados.length !== estadosUtilizacao.length
+    || new Set(dados.estados).size !== estadosUtilizacao.length
+    || !dados.estados.every((/** @type {string} */ estado) => estadosUtilizacao.includes(estado))
+    || !contagem(dados.reservasConsideradas) || !contagem(dados.minutosReservados)
+    || !Array.isArray(dados.porRecurso) || !Array.isArray(dados.porStatus)
+    || !Array.isArray(dados.conflitosEvitados)) throw respostaInvalida();
+  const total = BigInt(dados.minutosReservados), ids = new Set();
+  let somaRecursos = 0n;
+  const recursos = dados.porRecurso.map((/** @type {any} */ linha) => {
     if (!positivo(linha?.recursoId) || ids.has(linha.recursoId)
-      || (filtros.recursoId !== undefined && linha.recursoId !== filtros.recursoId)) throw respostaInvalida();
+      || !contagem(linha.minutos) || linha.minutos > dados.minutosReservados) throw respostaInvalida();
     ids.add(linha.recursoId);
-    const duracao = duracaoEmNanos(linha.duracaoAlocada);
-    if (duracao <= 0n || duracao > total) throw respostaInvalida();
-    somaAlocacoes += duracao;
-    return { recursoId: linha.recursoId, duracaoAlocada: linha.duracaoAlocada };
+    somaRecursos += BigInt(linha.minutos);
+    return { recursoId: linha.recursoId, minutos: linha.minutos };
   });
-  const limite = (instante(filtros.fim) - instante(filtros.inicio)) * BigInt(dados.reservasConsideradas);
-  if (total > limite || total < BigInt(dados.reservasConsideradas)
-    || (dados.reservasConsideradas === 0 && (total !== 0n || linhas.length !== 0))
-    || (dados.reservasConsideradas > 0 && (total === 0n || linhas.length === 0))
-    || somaAlocacoes < total || (filtros.recursoId !== undefined && somaAlocacoes !== total)) throw respostaInvalida();
-  return {
-    periodo: { inicio: dados.periodo.inicio, fim: dados.periodo.fim }, recursoId: dados.recursoId,
-    estadosConsiderados: [...dados.estadosConsiderados], reservasConsideradas: dados.reservasConsideradas,
-    duracaoReservada: dados.duracaoReservada, porRecurso: linhas, conflitosEvitados: dados.conflitosEvitados,
-  };
+  const estados = new Set();
+  let somaStatus = 0n;
+  const porStatus = dados.porStatus.map((/** @type {any} */ linha) => {
+    if (!dados.estados.includes(linha?.status) || estados.has(linha.status)
+      || !contagem(linha.minutos) || linha.minutos > dados.minutosReservados) throw respostaInvalida();
+    estados.add(linha.status); somaStatus += BigInt(linha.minutos);
+    return { status: linha.status, minutos: linha.minutos };
+  });
+  const semReservas = dados.reservasConsideradas === 0;
+  const limite = (instante(filtros.fim) - instante(filtros.inicio)) * BigInt(dados.reservasConsideradas) / 60000000000n;
+  // Duration.toMinutes é aplicado a cada agregado. Não exigir soma das linhas=total,
+  // nem duração positiva em minutos para uma reserva com interseção positiva.
+  if (total > limite || (semReservas && (total !== 0n || recursos.length || porStatus.length))
+    || (!semReservas && (!recursos.length || !porStatus.length))
+    || porStatus.length > dados.reservasConsideradas || somaStatus > total
+    || (!semReservas && total - somaRecursos >= BigInt(recursos.length))
+    || (!semReservas && total - somaStatus >= BigInt(porStatus.length))) throw respostaInvalida();
+  if (filtros.recursoId !== undefined && !semReservas
+    && !recursos.some((/** @type {AlocacaoRecurso} */ linha) => linha.recursoId === filtros.recursoId
+      && linha.minutos === dados.minutosReservados)) throw respostaInvalida();
+
+  const eventos = new Set();
+  const conflitos = dados.conflitosEvitados.map((/** @type {any} */ evento) => {
+    if (!positivo(evento?.id) || eventos.has(evento.id) || !positivo(evento.recursoId)
+      || (filtros.recursoId !== undefined && evento.recursoId !== filtros.recursoId)
+      || !origensConflito.includes(evento.origem) || !dataComOffset(evento.momento)
+      || instante(evento.momento) < instante(filtros.inicio) || instante(evento.momento) >= instante(filtros.fim)
+      || !dataComOffset(evento.intervaloInicio) || !dataComOffset(evento.intervaloFim)
+      || instante(evento.intervaloFim) <= instante(evento.intervaloInicio)) throw respostaInvalida();
+    eventos.add(evento.id);
+    return { id: evento.id, recursoId: evento.recursoId, origem: evento.origem,
+      momento: evento.momento, intervaloInicio: evento.intervaloInicio, intervaloFim: evento.intervaloFim };
+  });
+  return { inicio: dados.inicio, fim: dados.fim, recursoId: dados.recursoId, estados: [...dados.estados],
+    minutosReservados: dados.minutosReservados, reservasConsideradas: dados.reservasConsideradas,
+    porRecurso: recursos, porStatus, conflitosEvitados: conflitos };
 }
 
 /** @param {typeof api} [cliente] */
@@ -99,7 +110,6 @@ export function criarRelatoriosUtilizacao(cliente = api) {
     /** @param {FiltrosUtilizacao} filtros @returns {Promise<RelatorioUtilizacao>} */
     async consultar(filtros) {
       const parametros = parametrosUtilizacao(filtros);
-      // Captura o filtro antes do await: o chamador pode alterar o objeto depois.
       const consulta = { inicio: filtros.inicio, fim: filtros.fim,
         ...(filtros.recursoId === undefined ? {} : { recursoId: filtros.recursoId }) };
       return conferirUtilizacao(await cliente.requisitar('/api/relatorios/utilizacao?' + parametros), consulta);

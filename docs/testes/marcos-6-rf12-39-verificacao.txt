@@ -1,0 +1,50 @@
+MARCOS-6 — REVISÃO DA COMPATIBILIDADE COM O PR #39
+13/11/2026. Branch feature/marcos-6-relatorios; incremento posterior a7ff3aca.
+API/sessão SIMULADAS. Não comprova Spring/MySQL, proxy transacional ou segurança HTTP.
+
+1. Iniciar na raiz, caso a nossa prévia ainda não esteja em execução:
+   node tests/browser/relatorios-utilizacao-preview.mjs
+   Abrir no Chrome:
+   http://127.0.0.1:4174/pages/relatorios-utilizacao.html
+   Não precisa de login real: identidade fictícia ADMINISTRADOR, aviso 'Dados simulados'.
+   Não usar credenciais reais. As outras áreas não são simuladas aqui.
+   Ctrl+C encerra o servidor iniciado neste terminal.
+
+2. Conferir tela inicial: sem relatório automático e com aviso de simulação.
+   Datas mantêm o formato atual; não há máscara nova dd/mm/aaaa.
+
+3. Cenário17/11/2026,10:00–11:00, recurso em branco:
+   Esperado1reserva,60min totais,3recursos com60min cada e1conflito registrado.
+   Não somar as linhas para reconstruir o total de reservas.
+
+4. Filtrar recurso2:
+   Continuam3linhas dos recursos1/2/3, total60min,1conflito.
+   Conferir texto explicando que o filtro seleciona reservas que contêm esse recurso
+   e a tabela inclui também os outros recursos vinculados.
+   Filtrar recurso1 mantém3linhas, total60min, mas não traz o conflito do recurso2.
+
+5. Recortar período:
+   10:00–10:00:59:1reserva,0min no total e em cada linha; sem conflito.
+   A tabela deve continuar visível;0min não significa ausência de reserva.
+   10:30–11:00:30min e1conflito (momento inicial incluído).
+   10:00–10:30:30min e0conflitos (momento no fim excluído).
+   18/11/2026,10:00–11:00:0reservas,0min,0conflitos e sem linhas.
+
+6. Validação e navegação:
+   Fim igual/anterior ao início e recurso fracionário/zero não consultam.
+   Editar filtro remove o resultado anterior; limpar zera os campos.
+   Consultar com teclado, conferir foco no resultado/erro e largura de celular.
+   Não há link novo de relatórios no menu enquanto o endpoint HTTP não for entregue.
+
+7. Automatizados (em outro terminal):
+   PowerShell: $env:PLAYWRIGHT_CHANNEL='chrome'; npm.cmd run build
+   CMD: set PLAYWRIGHT_CHANNEL=chrome
+        npm run build
+   Perfis recusados por URL, zeroGET após submit programático, erros/rede/sessão,
+   respostas antigas, DTO/eventos inválidos e truncamentos por grupo são cobertos
+   com interceptações. A prévia manual tem só uma reserva fictícia;
+   o caso2reservas59s→total1min/grupos0min fica nos testes, não é um backend real.
+
+8. Registrar no chat aprovação ou ajustes DESTA adaptação.
+   O aceite da versão7ff3aca é histórico e não substitui este checkpoint.
+   Commit/push/PR somente quando solicitados; integração real segue pendente.

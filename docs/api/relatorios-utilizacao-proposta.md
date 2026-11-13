@@ -1,6 +1,117 @@
-# RF12 — proposta de contrato para relatórios de utilização
+# RF12 — contrato controlado de relatórios e histórico da proposta
 
-**Estado: mínimo adotado para desenvolvimento controlado do cliente/tela em13/11/2026. HTTP definitivo, autorização por perfil e integração real permanecem PROPOSTOS/PENDENTES.**
+**Estado vigente: adotar o serviço/DTO do PR #39 no cliente/tela controlados, por pedido de Marcos. Endpoint HTTP, registro do bean e integração real continuam pendentes.**
+
+## Checkpoint vigente — compatibilidade com a entrega #39
+
+Em **13/11/2026**, Marcos pediu explicitamente **“vamos usar o que foi feito na #39”**. O [PR #39](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/39), head `9dda8dcbdaf1f4c87ecc458632da227e1edd46e6`, foi mesclado na develop em `acf94fa80b90756905b6908e3a53cdc6d3369259`. Essa entrega passa a orientar o recorte controlado e substitui, para esse desenvolvimento, o candidato anterior baseado em strings Duration e projeção exclusiva do recurso filtrado.
+
+O aceite atual é para adaptar o frontend ao comportamento entregue, incluindo **ADMINISTRADOR provisório**. Não declara endpoint pronto, política definitiva de implantação, integração real executada ou nova autorização para modificar backend/SQL. A proposta ISO anterior permanece no histórico abaixo e não deve ser aplicada como requisito simultâneo ou fallback do DTO atual.
+
+### 1. Entregue e ainda pendente
+
+| Parte | Estado e fonte |
+|---|---|
+| Leitura persistida | Porta/projeção/adaptador do [PR #37](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/37), usados pelo caso de uso. |
+| Serviço e filtro | [ConsultarRelatorioUtilizacao](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/blob/9dda8dcbdaf1f4c87ecc458632da227e1edd46e6/backend/src/main/java/br/senac/recursos/reserva/aplicacao/ConsultarRelatorioUtilizacao.java): período/estados/recurso, padrão de estados, guarda ADMINISTRADOR e coordenação da porta/cálculo. |
+| Fronteira transacional | [RelatorioUtilizacaoTransacional](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/blob/9dda8dcbdaf1f4c87ecc458632da227e1edd46e6/backend/src/main/java/br/senac/recursos/reserva/infraestrutura/RelatorioUtilizacaoTransacional.java): classe com `executar` somente leitura em REPEATABLE_READ. |
+| DTO | [RelatorioUtilizacaoResponse](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/blob/9dda8dcbdaf1f4c87ecc458632da227e1edd46e6/backend/src/main/java/br/senac/recursos/reserva/api/RelatorioUtilizacaoResponse.java): datas com offset de São Paulo, minutos inteiros e listas de grupos/conflitos. |
+| Registro e HTTP | Não entregues no #39: não há controller de relatório nem bean desse serviço registrado em `Item18Config`. O comentário do caso de uso que cita um bean não comprova esse wiring. |
+| Frontend | Compatibilidade controlada autorizada neste checkpoint; execução/testes e aceite da mudança têm registros próprios na [story Marcos-6](../stories/marcos-6.md). |
+
+O nome da branch do #39 contém “endpoint”, mas a entrega exclui a exposição REST. O cliente continua usando **GET `/api/relatorios/utilizacao` como rota candidata**, com `inicio`, `fim` e `recursoId` opcional. O formato das datas do formulário/apresentação permanece o já adotado em São Paulo. Backend/segurança ainda precisam entregar wiring, controller, testes HTTP e confirmação da política aplicável ao endpoint.
+
+### 2. DTO adotado para a compatibilidade controlada
+
+| Campo do #39 | Forma e sentido |
+|---|---|
+| `inicio`, `fim` | Datas ISO com offset no topo da resposta; eco do período por instante. Não existe `periodo:{inicio,fim}` no DTO atual. |
+| `recursoId` | ID positivo ou `null`, ecoando o filtro. |
+| `estados` | Lista de nomes de estados. O serviço aceita conjunto de estados, mas o frontend deste recorte não envia seletor novo e usa APROVADA, EM_USO e CONCLUIDA, o padrão quando omitidos. |
+| `minutosReservados` | `long` Java: `Duration.toMinutes()` do total contado uma vez por reserva. |
+| `reservasConsideradas` | `int` Java: quantidade de reservas com interseção positiva no cálculo. |
+| `porRecurso` | Lista `{recursoId,minutos}`. Inclui os recursos das reservas selecionadas, não necessariamente apenas o recurso do filtro. |
+| `porStatus` | Lista `{status,minutos}`, presente no DTO e validada pelo cliente, sem novo gráfico/tabela de estados neste recorte. |
+| `conflitosEvitados` | Lista `{id,recursoId,origem,momento,intervaloInicio,intervaloFim}`; a quantidade apresentada é o tamanho da lista validada, não um escalar recebido nem uma soma de minutos. |
+
+`estadosConsiderados`, `duracaoReservada` e `duracaoAlocada` pertencem ao candidato histórico. O cliente não deve aceitar simultaneamente os dois modelos, converter silenciosamente uma resposta antiga ou inventar campos ausentes do #39.
+
+Exemplo fictício coerente com o DTO, para uma reserva de1hora contendo recursos1/2/3, filtro pelo recurso2 e um evento de conflito no período:
+
+```json
+{
+  "inicio": "2026-11-17T10:00:00-03:00",
+  "fim": "2026-11-17T11:00:00-03:00",
+  "recursoId": 2,
+  "estados": ["APROVADA", "EM_USO", "CONCLUIDA"],
+  "minutosReservados": 60,
+  "reservasConsideradas": 1,
+  "porRecurso": [
+    {"recursoId": 1, "minutos": 60},
+    {"recursoId": 2, "minutos": 60},
+    {"recursoId": 3, "minutos": 60}
+  ],
+  "porStatus": [{"status": "APROVADA", "minutos": 60}],
+  "conflitosEvitados": [{
+    "id": 91,
+    "recursoId": 2,
+    "origem": "MANUTENCAO",
+    "momento": "2026-11-17T10:15:00-03:00",
+    "intervaloInicio": "2026-11-17T17:00:00-03:00",
+    "intervaloFim": "2026-11-17T18:00:00-03:00"
+  }]
+}
+```
+
+Este exemplo não é resposta HTTP capturada. O evento de conflito pertence ao período pelo `momento`, embora o intervalo da tentativa esteja fora dele. As três linhas de recursos são intencionais no serviço #39, mesmo com filtro2.
+
+### 3. Minutos inteiros e truncamento
+
+O DTO converte **cada Duration agregada** com `toMinutes()`: total, grupo por recurso e grupo por estado são truncados separadamente. O frontend exibe os minutos inteiros recebidos, com unidade e indicação de truncamento quando pertinente; não recupera segundos/frações descartados nem aplica o formatador histórico de Duration como se a precisão ainda estivesse no DTO.
+
+Consequências verificáveis do formato:
+
+- Uma reserva de59segundos pode produzir `reservasConsideradas:1`, `minutosReservados:0`, linhas de recurso/status com `minutos:0`. Isso é válido; uma quantidade de reservas positiva não exige minutos positivos.
+- Duas reservas de59segundos em recursos distintos e estados distintos totalizam118segundos: o total convertido pode ser1minuto, enquanto cada grupo convertido é0. Logo, a soma de linhas pode ser **inferior** ao total, inclusive sem filtro de recurso; não reutilizar a desigualdade do candidato Duration.
+- Uma reserva de1hora com três recursos continua contando60minutos no total por reserva e60em cada recurso. Somar as três linhas e chamar180de total por reserva muda a métrica.
+- Datas/offset e o recorte original do período permanecem; a perda de segundos decorre da conversão do DTO, não de mudança do formato de data escolhida por Marcos.
+
+### 4. Validação de coerência no recorte atual
+
+Validar os tipos/campos do DTO atual e recusar resposta incoerente sem corrigir números ou completar grupos com dados fictícios. Números JSON precisam ser inteiros não negativos representáveis com segurança pelo cliente; IDs são positivos/seguros e únicos dentro de cada lista. Isso limita uma representação inválida no cliente, não redefine a capacidade de `long` do backend.
+
+- `inicio`/`fim` representam os instantes consultados, aceitando offsets equivalentes e preservando até9casas das datas; `recursoId` ecoa exatamente o ID ou `null` solicitado. Como este recorte não envia filtro de estados, `estados` deve ser o conjunto padrão APROVADA, EM_USO e CONCLUIDA, sem duplicatas.
+- Zero reservas exige total0 e listas `porRecurso`/`porStatus` vazias. Com reservas consideradas, as duas listas são não vazias, mas valores0 são válidos. Os conflitos são independentes e podem existir sem reserva considerada.
+- Cada linha de recurso/status tem minutos menores ou iguais a `minutosReservados`. Não exigir soma dos recursos maior ou igual ao total: o truncamento por grupo pode reduzi-la.
+- Os grupos `porStatus` são únicos e pertencem ao conjunto `estados`. Como particionam o mesmo total bruto, a soma dos seus minutos não ultrapassa o total e a diferença de truncamento é menor que a quantidade de grupos. Usar somas/comparações exatas, inclusive quando somar valores individuais seguros ultrapassaria a precisão de ponto flutuante.
+- O teto do total é `floor(duracaoExataDoPeriodoEmNs × reservasConsideradas / 60000000000)`. Não truncar primeiro o período para minutos e então multiplicá-lo; isso recusaria totais válidos de reservas subminuto. O mínimo histórico de1ns por reserva não é testável no DTO já truncado e não se aplica como limite positivo em minutos.
+- Quando há filtro e reservas consideradas, a linha do recurso selecionado está presente e seus minutos coincidem com o total por reserva. **As outras linhas vinculadas continuam permitidas** no comportamento #39 adotado para ADMINISTRADOR; não exigir exclusividade nem removê-las silenciosamente no cliente.
+- Em `conflitosEvitados`, validar IDs únicos, `recursoId`, origem, instante e intervalo. Origens são RESERVA, MANUTENCAO ou RETIRADA_ABERTA, conforme o enum existente. Exigir `momento >= inicioConsultado` e `momento < fimConsultado`, além de `intervaloInicio < intervaloFim`; não exigir que o intervalo solicitado se sobreponha ao período do relatório. Com filtro, o recurso conflitante registrado corresponde ao recurso selecionado.
+
+A quantidade de conflitos exibida é `conflitosEvitados.length` após a validação. A lista não autoriza expor identidade do solicitante, e seu tamanho não é prova de contagem de todas as ocupações que poderiam causar um conflito.
+
+### 5. Filtro multirrecurso e acesso ADMINISTRADOR provisório
+
+O serviço #39 passa para o cálculo todas as reservas devolvidas pela porta, com os seus vínculos completos. Por isso, filtrar o recurso2 significa **selecionar reservas que contêm o recurso2**, e o relatório dessas reservas pode listar recursos1/2/3. Essa semântica, identificada na entrega, foi aceita por Marcos para a compatibilidade controlada com ADMINISTRADOR.
+
+A tela deve tornar esse comportamento claro e manter todas as linhas recebidas/validadas. Não esconder os outros recursos para fingir que o servidor já faz a projeção exclusiva sugerida anteriormente. A política de relatórios por recursos para Responsável/Solicitante continua fora deste recorte; não ampliar os perfis para acomodar a diferença.
+
+Acesso à página estática `/pages/relatorios-utilizacao.html` por URL direta, guarda de sessão compartilhada e **somente ADMINISTRADOR** neste recorte. Sem novo link de menu enquanto não existir o endpoint/política HTTP. Não alterar o formato de datas ou criar filtro de estados, gráfico/tabela por status, paginação, CSV, notificações ou novas métricas.
+
+A consulta continua exigindo ação explícita, sem GET automático do relatório ao abrir a página. A guarda do cliente não substitui a autorização do futuro controller. O serviço já nega os demais perfis, mas não existe ainda evidência HTTP desse endpoint nem formalização definitiva da política no ADR-007 por este documento.
+
+### 6. Limite de integração e próximos responsáveis
+
+Testes e prévia usam interceptação/ambiente controlado claramente identificado; o produto não recebe fallback fictício, backend simulado embutido ou liberação forçada de papel. A rota candidata permanece `/api/relatorios/utilizacao`; erros reais de ausência/negativa não são transformados em sucesso.
+
+Silva/Fausto ainda precisam registrar/configurar o serviço transacional no contexto, entregar controller/contrato HTTP e respectivos testes. Backend/segurança confirmam a política HTTP. O frontend adapta DTO/unidade/guarda ao #39 agora e mantém integração real para um incremento posterior, conferindo essas entregas e divergências antes de declarar E2E real. Ler patches/fontes neste alinhamento não é executar testes ou comprovar novo bean/endpoint funcionando.
+
+Fontes atuais incluem [teste de truncamento do DTO](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/blob/9dda8dcbdaf1f4c87ecc458632da227e1edd46e6/backend/src/test/java/br/senac/recursos/reserva/api/RelatorioUtilizacaoResponseTest.java), [enum de origens](../../backend/src/main/java/br/senac/recursos/reserva/dominio/OrigemOcupacao.java), [plano da etapa6](../planejamento/marcos-etapa-6-plano-de-acao.md) e [story](../stories/marcos-6.md). Os resultados do cliente anterior permanecem associados à versão anterior e não são reatribuídos à compatibilidade #39 sem nova execução.
+
+<details>
+<summary>Histórico da preparação e do candidato ISO Duration — superado para o recorte atual pelo DTO do #39</summary>
+
+**Estado histórico: mínimo anteriormente adotado para desenvolvimento controlado; não aplicar os campos/invariantes abaixo ao DTO atual de minutos do #39.**
 
 Preparação em **13/11/2026**, base de referência `develop` **c4279b6**, branch `feature/marcos-6-relatorios`. Escopo: etapa6 de Marcos, derivada da RF12 — utilização por recurso, carga horária alocada e conflitos evitados — do [contexto do projeto](../contexto-inicial-agentes.md) e do [plano de responsabilidades](../planejamento/marcos-plano-de-acao.md). API/agregação: Silva e Fausto; segurança: Débora; consumo/frontend: Marcos.
 
@@ -157,3 +268,5 @@ O aceite mínimo do recorte controlado foi recebido e registrado neste checkpoin
 Antes da integração real: contrato confirmado, serviço/DTO/controller e autorização entregues por seus responsáveis; então validar sessão/perfis, período/offset, exemplo multirrecurso, filtro sem vazamento, duração/precisão, limites semiabertos, vazio e conflitos pelo momento correto. Casos controlados não demonstram HTTP/SQL reais. Não são novos testes executados por este documento.
 
 CSV é opcional nos artefatos originais e fica fora do primeiro recorte. Notificações/RF11, novos relatórios ou gráficos sem requisito, taxa de ocupação e decisões de novas permissões também não são acrescentados ao escopo desta preparação.
+
+</details>

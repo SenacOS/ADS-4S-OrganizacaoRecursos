@@ -26,14 +26,15 @@ function demonstracao(url) {
   const fimRecortado = b < fimReserva ? b : fimReserva;
   const elegivel = fimRecortado > inicioRecortado && (recursoId === undefined || ids.includes(recursoId));
   const nanos = elegivel ? fimRecortado - inicioRecortado : 0n;
-  const fracao = (nanos % 1000000000n).toString().padStart(9, '0').replace(/0+$/, '');
-  const duracao = 'PT' + (nanos / 1000000000n) + (fracao ? '.' + fracao : '') + 'S';
-  return { periodo: { inicio, fim }, recursoId: recursoId ?? null,
-    estadosConsiderados: ['APROVADA', 'EM_USO', 'CONCLUIDA'], reservasConsideradas: elegivel ? 1 : 0,
-    duracaoReservada: duracao,
-    porRecurso: elegivel ? (recursoId === undefined ? ids : [recursoId])
-      .map(id => ({ recursoId: id, duracaoAlocada: duracao })) : [],
-    conflitosEvitados: momentoConflito >= a && momentoConflito < b && (recursoId === undefined || recursoId === 2) ? 1 : 0 };
+  const minutos = Number(nanos / 60000000000n);
+  return { inicio, fim, recursoId: recursoId ?? null,
+    estados: ['APROVADA', 'EM_USO', 'CONCLUIDA'], reservasConsideradas: elegivel ? 1 : 0,
+    minutosReservados: minutos,
+    porRecurso: elegivel ? ids.map(id => ({ recursoId: id, minutos })) : [],
+    porStatus: elegivel ? [{ status: 'APROVADA', minutos }] : [],
+    conflitosEvitados: momentoConflito >= a && momentoConflito < b && (recursoId === undefined || recursoId === 2)
+      ? [{ id: 1, recursoId: 2, origem: 'RESERVA', momento: '2026-11-17T10:30:00-03:00',
+        intervaloInicio: '2026-12-01T10:00:00-03:00', intervaloFim: '2026-12-01T11:00:00-03:00' }] : [] };
 }
 
 const server = createServer(async (request, response) => {

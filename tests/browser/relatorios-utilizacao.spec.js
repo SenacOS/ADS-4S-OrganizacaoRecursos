@@ -13,12 +13,14 @@ const test = base.extend({
 test.use({ timezoneId: 'Asia/Tokyo' });
 const rota = '/pages/relatorios-utilizacao.html';
 const relatorio = (url) => ({
-  periodo: { inicio: url.searchParams.get('inicio'), fim: url.searchParams.get('fim') },
+  inicio: url.searchParams.get('inicio'), fim: url.searchParams.get('fim'),
   recursoId: url.searchParams.has('recursoId') ? Number(url.searchParams.get('recursoId')) : null,
-  estadosConsiderados: ['APROVADA', 'EM_USO', 'CONCLUIDA'], reservasConsideradas: 1, duracaoReservada: 'PT1H',
-  porRecurso: (url.searchParams.has('recursoId') ? [Number(url.searchParams.get('recursoId'))] : [1, 2, 3])
-    .map(recursoId => ({ recursoId, duracaoAlocada: 'PT1H' })), conflitosEvitados: 0,
+  estados: ['APROVADA', 'EM_USO', 'CONCLUIDA'], reservasConsideradas: 1, minutosReservados: 60,
+  porRecurso: [1, 2, 3].map(recursoId => ({ recursoId, minutos: 60 })),
+  porStatus: [{ status: 'APROVADA', minutos: 60 }], conflitosEvitados: [],
 });
+const conflito = (id = 1) => ({ id, recursoId: 2, origem: 'MANUTENCAO', momento: '2026-11-17T10:30:00-03:00',
+  intervaloInicio: '2026-12-01T10:00:00-03:00', intervaloFim: '2026-12-01T11:00:00-03:00' });
 async function preparar(page) {
   const estado = { autenticado: true, papel: 'ADMINISTRADOR', falha: 0, rede: false,
     gerar: relatorio, esperar: null, consultas: [], csrf: 0, logouts: 0, inesperadas: [] };
@@ -51,7 +53,7 @@ async function preparar(page) {
   return estado;
 }
 async function abrir(page) {
-  await page.goto(rota); await expect(page.locator('#controles-relatorio')).toBeEnabled();
+  await page.goto(rota); await expect(page.locator('#form-relatorio button[type="submit"]')).toBeEnabled();
 }
 async function filtros(page, recurso = '') {
   await page.getByLabel('Início do período', { exact: true }).fill('2026-11-17T10:00');
@@ -75,20 +77,22 @@ test('consulta com offset deSP mesmo em navegador deTóquio, sem identidade nem 
   expect(ambiente.csrf).toBe(0); expect(ambiente.consultas[0].headers['x-csrf-teste']).toBeUndefined();
   await expect(page.locator('#periodo-relatorio')).toContainText('2026-11-17T10:00:00-03:00');
 });
-test('total1h deuma reserva permanece distinto dastrês linhas de1h', async ({ page, ambiente }) => {
+test('DTO39 mantém total60min de uma reserva distinto das três alocações de60min', async ({ page, ambiente }) => {
   await abrir(page); await filtros(page); await consultar(page);
-  await expect(page.locator('#duracao-reservas-relatorio')).toHaveText('1 h');
+  await expect(page.locator('#duracao-reservas-relatorio')).toHaveText('60 min');
   await expect(page.locator('#total-reservas-relatorio')).toHaveText('1');
   await expect(page.locator('#linhas-utilizacao tr')).toHaveCount(3);
-  await expect(page.locator('#linhas-utilizacao td')).toHaveText(['1 h', '1 h', '1 h']);
+  await expect(page.locator('#linhas-utilizacao td')).toHaveText(['60 min', '60 min', '60 min']);
   await expect(page.locator('#conflitos-relatorio')).toHaveText('0');
   expect(ambiente.consultas).toHaveLength(1);
 });
 test('período multidia e recurso opcional enviam somente filtros candidatos', async ({ page, ambiente }) => {
   await abrir(page); await filtros(page, '2');
   await page.getByLabel('Fim do período', { exact: true }).fill('2026-11-19T11:00'); await consultar(page);
-  await expect(page.locator('#linhas-utilizacao tr')).toHaveCount(1);
+  await expect(page.locator('#linhas-utilizacao tr')).toHaveCount(3);
   await expect(page.locator('#linhas-utilizacao')).toContainText('Recurso 2');
+  await expect(page.locator('#linhas-utilizacao')).toContainText('Recurso 1');
+  await expect(page.locator('#filtro-recurso-relatorio')).toContainText('outros recursos vinculados');
   expect(Object.fromEntries(ambiente.consultas[0].url.searchParams)).toEqual({
     inicio: '2026-11-17T10:00:00-03:00', fim: '2026-11-19T11:00:00-03:00', recursoId: '2',
   });
@@ -127,7 +131,7 @@ test('alterar filtro durante consulta descarta resposta anterior e exige nova co
   await expect(page.getByRole('button', { name: 'Consultar relatório', exact: true })).toBeEnabled();
   await expect(page.locator('#resultado-relatorio')).toBeHidden();
   await expect(page.locator('#feedback-relatorio')).toContainText('Filtros alterados');
-  ambiente.esperar = null; await consultar(page); await expect(page.locator('#linhas-utilizacao tr')).toHaveCount(1);
+  ambiente.esperar = null; await consultar(page); await expect(page.locator('#linhas-utilizacao tr')).toHaveCount(3);
   expect(ambiente.consultas).toHaveLength(2);
 });
 test('erro atrasado não toma foco ou substitui a mensagem de filtro alterado', async ({ page, ambiente }) => {
@@ -150,29 +154,30 @@ test('editar e limpar filtros removem os números antigos sem nova consulta auto
   expect(ambiente.consultas).toHaveLength(1);
 });
 for (const conflitos of [0, 2]) test('reservas0 e conflitos' + conflitos + ' exibem zeros e ausência de alocações corretamente', async ({ page, ambiente }) => {
-  ambiente.gerar = url => ({ ...relatorio(url), reservasConsideradas: 0, duracaoReservada: 'PT0S', porRecurso: [], conflitosEvitados: conflitos });
+  ambiente.gerar = url => ({ ...relatorio(url), reservasConsideradas: 0, minutosReservados: 0,
+    porRecurso: [], porStatus: [], conflitosEvitados: Array.from({ length: conflitos }, (_, i) => conflito(i + 1)) });
   await abrir(page); await filtros(page); await consultar(page);
   await expect(page.locator('#total-reservas-relatorio')).toHaveText('0');
-  await expect(page.locator('#duracao-reservas-relatorio')).toHaveText('0 s');
+  await expect(page.locator('#duracao-reservas-relatorio')).toHaveText('0 min');
   await expect(page.locator('#conflitos-relatorio')).toHaveText(String(conflitos));
   await expect(page.locator('#sem-alocacoes')).toContainText('Nenhuma reserva nos estados considerados');
   await expect(page.locator('#tabela-utilizacao')).toBeHidden();
 });
-test('duração acima de24h e nanossegundos são legíveis sem arredondamento', async ({ page, ambiente }) => {
-  ambiente.gerar = url => ({ ...relatorio(url), duracaoReservada: 'PT27H0.123456789S',
-    porRecurso: [{ recursoId: 1, duracaoAlocada: 'PT27H0.123456789S' }] });
+test('duração acima de24h permanece em minutos sem virar horário de relógio', async ({ page, ambiente }) => {
+  ambiente.gerar = url => ({ ...relatorio(url), minutosReservados: 1620,
+    porRecurso: [{ recursoId: 1, minutos: 1620 }], porStatus: [{ status: 'APROVADA', minutos: 1620 }] });
   await abrir(page); await filtros(page); await page.getByLabel('Fim do período', { exact: true }).fill('2026-11-19T11:00');
-  await consultar(page); await expect(page.locator('#duracao-reservas-relatorio')).toHaveText('27 h 0,123456789 s');
-  await expect(page.locator('#linhas-utilizacao td')).toHaveText('27 h 0,123456789 s');
+  await consultar(page); await expect(page.locator('#duracao-reservas-relatorio')).toHaveText('1620 min');
+  await expect(page.locator('#linhas-utilizacao td')).toHaveText('1620 min');
 });
 for (const tipo of ['periodo', 'recurso', 'duplicado', 'duracao', 'total']) test('resposta incoerente: ' + tipo + ' não vira relatório ou vazio', async ({ page, ambiente }) => {
   ambiente.gerar = url => {
     const r = relatorio(url);
-    if (tipo === 'periodo') r.periodo.fim = r.periodo.inicio;
-    if (tipo === 'recurso') r.porRecurso.push({ recursoId: 999, duracaoAlocada: 'PT1H' });
+    if (tipo === 'periodo') r.fim = r.inicio;
+    if (tipo === 'recurso') r.recursoId = 999;
     if (tipo === 'duplicado') r.porRecurso.push(r.porRecurso[0]);
-    if (tipo === 'duracao') r.duracaoReservada = '<img src=x onerror=alert(1)>';
-    if (tipo === 'total') r.duracaoReservada = 'PT2H';
+    if (tipo === 'duracao') r.minutosReservados = '<img src=x onerror=alert(1)>';
+    if (tipo === 'total') r.minutosReservados = 120;
     return r;
   };
   await abrir(page); await filtros(page, tipo === 'recurso' ? '2' : ''); await consultar(page);
@@ -216,4 +221,37 @@ test('consulta por teclado foca resultado e não ultrapassa o viewport', async (
   await expect(page.getByRole('table', { name: 'Alocação por recurso no período consultado' })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   expect(ambiente.consultas).toHaveLength(1);
+});
+for (const papel of ['SOLICITANTE', 'RESPONSAVEL']) test(papel + ' pela URL direta não consulta relatório', async ({ page, ambiente }) => {
+  ambiente.papel = papel; await page.goto(rota);
+  await expect(page.locator('#feedback-inicial')).toContainText('disponíveis para Administradores');
+  await expect(page.locator('#painel')).toBeHidden();
+  await expect(page.locator('#form-relatorio button[type="submit"]')).toBeDisabled();
+  await page.locator('#form-relatorio').dispatchEvent('submit');
+  expect(ambiente.consultas).toHaveLength(0); expect(ambiente.csrf).toBe(0);
+});
+test('reserva inferior a um minuto mostra0min sem virar ausência de reservas', async ({ page, ambiente }) => {
+  ambiente.gerar = url => ({ ...relatorio(url), minutosReservados: 0,
+    porRecurso: [{ recursoId: 1, minutos: 0 }], porStatus: [{ status: 'APROVADA', minutos: 0 }] });
+  await abrir(page); await filtros(page); await consultar(page);
+  await expect(page.locator('#total-reservas-relatorio')).toHaveText('1');
+  await expect(page.locator('#duracao-reservas-relatorio')).toHaveText('0 min');
+  await expect(page.locator('#linhas-utilizacao td')).toHaveText('0 min');
+  await expect(page.locator('#sem-alocacoes')).toBeHidden();
+  await expect(page.getByText(/Frações de minuto são descartadas/)).toBeVisible();
+});
+test('total truncado1min com grupos0min é exibido sem recalcular ou rejeitar o DTO', async ({ page, ambiente }) => {
+  ambiente.gerar = url => ({ ...relatorio(url), reservasConsideradas: 2, minutosReservados: 1,
+    porRecurso: [{ recursoId: 1, minutos: 0 }, { recursoId: 2, minutos: 0 }],
+    porStatus: [{ status: 'APROVADA', minutos: 0 }, { status: 'CONCLUIDA', minutos: 0 }] });
+  await abrir(page); await filtros(page); await consultar(page);
+  await expect(page.locator('#duracao-reservas-relatorio')).toHaveText('1 min');
+  await expect(page.locator('#linhas-utilizacao td')).toHaveText(['0 min', '0 min']);
+});
+for (const tipo of ['fim', 'duplicado']) test('lista de conflitos incoerente: ' + tipo + ' não infla a contagem', async ({ page, ambiente }) => {
+  ambiente.gerar = url => ({ ...relatorio(url), conflitosEvitados: tipo === 'fim'
+    ? [{ ...conflito(), momento: url.searchParams.get('fim') }] : [conflito(), conflito()] });
+  await abrir(page); await filtros(page); await consultar(page);
+  await expect(page.locator('#feedback-relatorio')).toContainText('O relatório recebido não corresponde');
+  await expect(page.locator('#resultado-relatorio')).toBeHidden();
 });

@@ -1,5 +1,7 @@
 # Marcos-6 — resultados do incremento controlado
 
+> **Histórico do incremento publicado em7ff3aca.** Este resultado, seu roteiro e os hashes referem-se à versão anterior com Duration. A adaptação posterior ao #39 possui [resultados](marcos-6-rf12-39-resultados.md), [roteiro](marcos-6-rf12-39-verificacao.txt) e aceite próprios. Não comparar estes hashes históricos com arquivos de código alterados depois desse commit.
+
 **13/11/2026 — cliente/tela implementados; revisão visual aprovada por Marcos.** Branch `feature/marcos-6-relatorios`, base `c4279b6c596c61d48ca7098a38812fc68c54412d`. Registro preparado para o commit/push expressamente autorizados pelo autor. Este registro pertence à [story Marcos-6](../stories/marcos-6.md) e ao [plano da etapa 6](../planejamento/marcos-etapa-6-plano-de-acao.md), separado do PR documental #38.
 
 ## Escopo efetivamente implementado

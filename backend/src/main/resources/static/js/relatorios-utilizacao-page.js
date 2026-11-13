@@ -1,4 +1,5 @@
-import { criarRelatoriosUtilizacao, apresentarDuracao } from './relatorios-utilizacao.js';
+import { criarRelatoriosUtilizacao, apresentarMinutos, podeConsultarUtilizacao } from './relatorios-utilizacao.js';
+import { ErroApi } from './api.js';
 import { intervaloDoFormulario } from './datas.js';
 import { criarEnvioUnico } from './forms.js';
 import { iniciarPaginaAutenticada } from './sessao-page.js';
@@ -34,18 +35,19 @@ formulario.addEventListener('reset', () => {
 /** @param {import('./relatorios-utilizacao.js').RelatorioUtilizacao} relatorio */
 function apresentar(relatorio) {
   elemento('total-reservas-relatorio').textContent = String(relatorio.reservasConsideradas);
-  elemento('duracao-reservas-relatorio').textContent = apresentarDuracao(relatorio.duracaoReservada);
-  elemento('conflitos-relatorio').textContent = String(relatorio.conflitosEvitados);
+  elemento('duracao-reservas-relatorio').textContent = apresentarMinutos(relatorio.minutosReservados);
+  elemento('conflitos-relatorio').textContent = String(relatorio.conflitosEvitados.length);
   // O eco ISO conserva offset e frações, sem truncá-los ao minuto na apresentação.
-  elemento('periodo-relatorio').textContent = relatorio.periodo.inicio + ' até ' + relatorio.periodo.fim;
+  elemento('periodo-relatorio').textContent = relatorio.inicio + ' até ' + relatorio.fim;
   elemento('filtro-recurso-relatorio').textContent = relatorio.recursoId === null
-    ? 'Sem filtro de recurso.' : 'Recurso selecionado: ID ' + relatorio.recursoId + '.';
-  elemento('estados-relatorio').textContent = 'Estados considerados: ' + relatorio.estadosConsiderados.join(', ') + '.';
+    ? 'Sem filtro de recurso.' : 'Reservas que contêm o recurso ID ' + relatorio.recursoId
+      + '. A tabela inclui também os outros recursos vinculados a essas reservas.';
+  elemento('estados-relatorio').textContent = 'Estados considerados: ' + relatorio.estados.join(', ') + '.';
   for (const alocacao of relatorio.porRecurso) {
     const linha = document.createElement('tr');
     const id = document.createElement('th'), duracao = document.createElement('td');
     id.scope = 'row'; id.textContent = 'Recurso ' + alocacao.recursoId;
-    duracao.textContent = apresentarDuracao(alocacao.duracaoAlocada);
+    duracao.textContent = apresentarMinutos(alocacao.minutos);
     linha.append(id, duracao); linhas.append(linha);
   }
   elemento('tabela-utilizacao').hidden = !relatorio.porRecurso.length;
@@ -72,7 +74,7 @@ formulario.addEventListener('submit', async (evento) => {
       if (atual !== versao) return;
       apresentar(relatorio);
       mostrarMensagem(feedback, referencia, 'Consulta concluída. ' + relatorio.reservasConsideradas
-        + ' reserva(s) considerada(s); ' + relatorio.conflitosEvitados + ' conflito(s) evitado(s) registrado(s).', 'success');
+        + ' reserva(s) considerada(s); ' + relatorio.conflitosEvitados.length + ' conflito(s) evitado(s) registrado(s).', 'success');
       resultado.focus();
     } catch (erro) {
       if (atual === versao) mostrarErro(erro, feedback, referencia);
@@ -80,7 +82,11 @@ formulario.addEventListener('submit', async (evento) => {
   });
 });
 
-iniciarPaginaAutenticada('Relatórios', () => {
+iniciarPaginaAutenticada('Relatórios', (usuario) => {
+  if (!podeConsultarUtilizacao(usuario)) {
+    autenticado = false; controles.disabled = true;
+    throw new ErroApi(403, 'OPERACAO_NAO_PERMITIDA', 'Os relatórios estão disponíveis para Administradores.');
+  }
   autenticado = true;
   controles.disabled = false;
 });
