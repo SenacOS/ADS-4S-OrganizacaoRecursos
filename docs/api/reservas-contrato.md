@@ -1,5 +1,16 @@
 # Contrato da API de reservas
 
+## Fechamento delegado — 13/11/2026
+
+Marcos comunicou carta branca da equipe e adotou as decisões do [ADR-007](../arquitetura/adr/ADR-007-fechamento-contratos-vinculos-rf11.md). Os contratos atuais, incluindo vínculo com todos os recursos, ficam formalizados **por decisão delegada de Marcos**, sem atribuir assinaturas individuais aos demais integrantes. Datas com offset, PATCH conjunto,409/FORA_DO_EXPEDIENTE, estados/perfis de edição/cancelamento e escopos/erros Q9 permanecem como implementados; Q1/Q3/Q8 preservadas.
+
+Processo de vínculos definido no [runbook restrito](../operacao/vinculos-responsaveis.md), com [SQL reutilizável](../operacao/vinculos-responsaveis.sql). Administrador autoriza, operador SQL executa pares explícitos com referência/registro; concessão exige RESPONSAVEL e recurso ativos, revogação remove pares obsoletos e é idempotente.
+
+RF11 adotada no **modo simulado real** previsto no ADR-006: base/processo exclusivos, worker e GatewayNotificacaoPadrao reais, URL vazia, log rastreável e ENVIADA na outbox. Sem envio externo. [Procedimento de demonstração](../operacao/demonstracao-fechamento.md), [story](../stories/marcos-fechamento-delegado-1.md) e [resultados/limites](../testes/marcos-fechamento-delegado-1-resultados.md). A execução local não é implantação no ambiente compartilhado.
+
+As menções anteriores a ratificação por integrante, processo indefinido ou modo RF11 aguardando decisão são históricas e foram superadas por esta delegação. Resultados antigos conservam sua origem. Restam revisão do incremento pelo autor, commit/publicação quando solicitados e revisão/integração dos PRs; não há fechamento global de todos os RFs por inferência.
+
+
 **Atualização13/11/2026, developa0c0481:** PR#30/Q3 impede o Responsável de aprovar reserva da qual é solicitante, mesmo com vínculo completo; PR#31/Q1 torna início, conclusão e não comparecimento exclusivos de RESPONSAVEL. As regras foram [revalidadas por HTTP real e persistência](../testes/marcos-qualitygate-1-consolidacao-resultados.md). Os registros anteriores abaixo mantêm seu contexto; os perfis das rotas na tabela foram conciliados com o servidor atual.
 
 **Estado atualizado em 12/11/2026:** datas, PATCH conjunto e 409 aceitos por Marcos para o frontend em 10/11. Autenticação integrada; PRs #26/#27 entregaram consultas e Q9 na develop `4cea177`, incorporada à base `f9c4912`. [Contrato de consultas](reservas-consulta-contrato.md) e [provas reais da interface de edição/cancelamento](../testes/marcos-3-consulta-edicao-resultados.md). Os 8 endpoints de escrita continuam desligados por padrão (`reservas.api.enabled=false`); os testes isolados ativam a API somente no processo local com provedores reais. Isso não altera padrões de implantação nem comprova todos os estados, concorrência ou entrega de notificações. Ratificações coletivas/revisão da equipe permanecem separadas.
@@ -36,7 +47,7 @@ Todas as escritas, inclusive login/logout, usam o cabeçalho CSRF retornado pelo
 
 `PATCH /api/reservas/{id}` **substitui** `inicio`, `fim` e `recursosIds` juntos; os três são obrigatórios (mesmo corpo do POST). Não há alteração parcial.
 
-Comportamento atual observado em `Reserva.reagendar`: somente o dono em SOLICITADA ou APROVADA comum, sem mudar a necessidade de aprovação. Essa regra ainda aparece como PROPOSTO no domínio; o frontend a consome sem declarar ratificação coletiva. Cancelamento exige dono ou Administrador e transição SOLICITADA/APROVADA para CANCELADA. Consulta autorizada não amplia essas permissões. A interface obtém detalhe completo antes da ação e mantém integralmente o ISO de cada data não editada e todos os recursos originais. [Consumo e confirmação](frontend-integracao.md#consulta-edição-e-cancelamento--complemento-da-marcos-3).
+Comportamento atual de `Reserva.reagendar`, adotado sob delegação de Marcos no ADR-007: somente o dono em SOLICITADA ou APROVADA comum, sem mudar a necessidade de aprovação. Comentários históricos PROPOSTO no código conservam sua origem; a decisão atual é a registrada no ADR. Cancelamento exige dono ou Administrador e transição SOLICITADA/APROVADA para CANCELADA. Consulta autorizada não amplia essas permissões. A interface obtém detalhe completo antes da ação e mantém integralmente o ISO de cada data não editada e todos os recursos originais. [Consumo e confirmação](frontend-integracao.md#consulta-edição-e-cancelamento--complemento-da-marcos-3).
 
 ## Criar reserva
 

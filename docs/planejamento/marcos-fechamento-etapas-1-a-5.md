@@ -1,10 +1,23 @@
 # Marcos — plano de fechamento das etapas 1 a 5
 
+## Checkpoint vigente — decisões e demonstração delegadas
+
+**Aceite do incremento em13/11/2026:** Marcos aprovou os resultados e solicitou o commit local na branch `feature/marcos-fechamento-delegado`. Revisão do autor concluída, sem ajuste solicitado. O commit que inclui este registro identifica a entrega; publicação/PR e integração mantêm seus próximos passos. Os relatos de revisão ainda pendente abaixo conservam a preparação anterior.
+
+Marcos comunicou carta branca da equipe e adotou as decisões do [ADR-007](../arquitetura/adr/ADR-007-fechamento-contratos-vinculos-rf11.md). Os contratos atuais, incluindo vínculo com todos os recursos, ficam formalizados **por decisão delegada de Marcos**, sem atribuir assinaturas individuais aos demais integrantes. Datas com offset, PATCH conjunto,409/FORA_DO_EXPEDIENTE, estados/perfis de edição/cancelamento e escopos/erros Q9 permanecem como implementados; Q1/Q3/Q8 preservadas.
+
+Processo de vínculos definido no [runbook restrito](../operacao/vinculos-responsaveis.md), com [SQL reutilizável](../operacao/vinculos-responsaveis.sql). Administrador autoriza, operador SQL executa pares explícitos com referência/registro; concessão exige RESPONSAVEL e recurso ativos, revogação remove pares obsoletos e é idempotente.
+
+RF11 adotada no **modo simulado real** previsto no ADR-006: base/processo exclusivos, worker e GatewayNotificacaoPadrao reais, URL vazia, log rastreável e ENVIADA na outbox. Sem envio externo. [Procedimento de demonstração](../operacao/demonstracao-fechamento.md), [story](../stories/marcos-fechamento-delegado-1.md) e [resultados/limites](../testes/marcos-fechamento-delegado-1-resultados.md). A execução local não é implantação no ambiente compartilhado.
+
+As menções anteriores a ratificação por integrante, processo indefinido ou modo RF11 aguardando decisão são históricas e foram superadas por esta delegação. Resultados antigos conservam sua origem. Restam revisão do incremento pelo autor, commit/publicação quando solicitados e revisão/integração dos PRs; não há fechamento global de todos os RFs por inferência.
+
+
 Conferência atual: **13/11/2026**, America/Sao_Paulo. Responsável: **Marcos Boé**.
 
 **Estado: IMPLEMENTAÇÃO E CENÁRIOS MÍNIMOS CONCLUÍDOS; FECHAMENTO DOCUMENTAL E REVISÃO FINAL EM ANDAMENTO.**
 
-## Checkpoint vigente — publicação, Quality Gate e fechamento
+## Checkpoint histórico — publicação, Quality Gate e fechamento
 
 **Alinhamento para publicação:** Marcos autorizou publicar a conciliação e informou que ainda não recebeu confirmações novas. [Pendências por responsável e texto pronto para encaminhar](../integracao/marcos-pendencias-fechamento-2026-11-13.md). Evidências compartilhadas RF10/RF11/segurança agora relacionadas à CI43447037478: auditoria MySQL5, auditoria de usuário1 e controller4; outbox MySQL8 com gateway Mockito; gateway HTTP WireMock5; sessão/segurança/Q9 conforme matriz. Isso comprova os recortes executados, sem transformar gateway de teste em recebimento externo ou ratificação contratual. O modo de demonstração/aceite RF11 ainda exige confirmação da responsável. Commit/push/PR documental autorizados; nenhuma mensagem externa ou merge automático.
 
@@ -157,13 +170,13 @@ As contagens são cumulativas dentro de cada árvore, não devem ser somadas. Fo
 
 | Etapa | Implementação/validação efetivas | Fechamento restante |
 |---|---|---|
-| 1 — comunicação com a API | Sessão/CSRF, erros, correlationId e envio único integrados; provas reais registradas. | Publicar conciliação e relacionar confirmações compartilhadas; #32 mesclado. |
+| 1 — comunicação com a API | Sessão/CSRF, erros, correlationId e envio único integrados; contratos atuais adotados por delegação. | Revisar/publicar o incremento delegado; #32 mesclado. |
 | 2 — acesso e navegação | Login/logout/me, perfis, expiração real e navegação validados; aceite registrado. | Revisão/registro final; nenhuma nova tela prevista. |
-| 3 — pesquisa e reservas | Pesquisa/criação e consulta/detalhe/PATCH/cancelamento integrados pelo #28; E2E entregue no #29. | Ratificação dos contratos e documentação compartilhada. |
-| 4 — fila e decisões | Interface #24 e leituras/Q9 #26/#27 integradas; Q1/Q3 revalidados. | Ratificação da regra de todos os recursos e processo dos vínculos. |
+| 3 — pesquisa e reservas | Pesquisa/criação e consulta/detalhe/PATCH/cancelamento integrados pelo #28; contratos adotados no ADR-007. | Revisar/publicar o registro delegado e sua evidência. |
+| 4 — fila e decisões | Interface/HTTP/Q9 integradas; regra multirrecurso adotada e operação dos vínculos demonstrada. | Revisar o procedimento/prova local e publicar o incremento; não aguardar novas assinaturas das decisões delegadas. |
 | 5 — recursos e movimentações | Administração/movimentações #23 integradas; FE-004 entregue; testes de prazo/atraso/perfis realizados. | Publicar conciliação e relacionar evidências compartilhadas; corretivo mesclado. |
 
-Q9 está decidida como política e implementada no servidor: Solicitante consulta próprias reservas, Responsável exige vínculo com todos os recursos e Administrador consulta todas. Marcos já aceitou o comportamento atual; ratificação coletiva da regra multirrecurso e processo administrativo dos vínculos permanecem separados. Q3 impede autoaprovação; Q1 restringe início/conclusão/ausência ao Responsável. Consulta não concede escrita.
+Q9 está decidida como política e implementada no servidor: Solicitante consulta próprias reservas, Responsável exige vínculo com todos os recursos e Administrador consulta todas. A regra multirrecurso foi adotada sob delegação de Marcos no ADR-007 e o processo administrativo dos vínculos foi definido/demonstrado. Q3 impede autoaprovação; Q1 restringe início/conclusão/ausência ao Responsável. Consulta não concede escrita.
 
 ## 4. Responsabilidades e organização das mudanças
 
@@ -351,7 +364,7 @@ Marcos deve fornecer exemplos de consumo, conferir DTOs e registrar o aceite do 
 
 ### Critério de saída
 
-- [ ] Contratos de listagem, detalhe e fila ratificados pelos responsáveis.
+- [x] Contratos de listagem/detalhe/fila adotados por decisão delegada de Marcos no ADR-007, sem assinatura individual atribuída à equipe.
 - [x] Exemplos de sucesso, vazio, parâmetros inválidos, sessão ausente e acesso fora do escopo registrados nas evidências Q9/fila.
 - [x] Implementação HTTP, leitura e autorização disponíveis para os fluxos a integrar.
 - [x] Consumo relaciona cada campo/ação ao contrato, sem inventar identidade ou permissão no cliente; ratificação coletiva segue na linha anterior.
@@ -421,7 +434,7 @@ Provas de segurança, persistência, auditoria, notificação e concorrência pe
 - [x] Resultados parciais, FE-004, correção, data/ambiente e hashes da árvore sem commit registrados.
 - [x] Evidência compartilhada Q8 relacionada: ReservaAprovacaoMysqlIT,9/0 na CI do #34; recusas/rollback, auditoria/outbox, conflitos e espera pelo lock nos cenários executados.
 - [x] Relacionar provas compartilhadas disponíveis de auditoria, outbox/processamento, gateway HTTP controlado e segurança à CI43447037478; limites de mock, WireMock, implantação e contagens explícitos.
-- [ ] Receber confirmação do modo/evidências de aceite da RF11 (simulação ou gateway HTTP) pela responsável; não declarar entrega externa a partir de gateway controlado.
+- [x] Modo RF11 simulado adotado sob delegação de Marcos e demonstrado com worker/gateway reais na base exclusiva; log/outbox rastreáveis, sem entrega externa.
 
 ## 12. Passo 8 — revisão, merges e encerramento das etapas 1 a 5
 
@@ -429,7 +442,7 @@ Provas de segurança, persistência, auditoria, notificação e concorrência pe
 2. Preservação e sincronização executadas: branch documental própria agora sobre1948e69, onze documentos íntegros antes do fast-forward. Publicar a conciliação somente após revisão/commit/push conforme fluxo.
 3. Provas locais8/0Q8 e12/0Q9 mantêm base62cd48f/JAR; complemento compartilhado9/0Q8/MySQL refere-se ao headfbd2519 do #34. Relacionar as origens sem somar ou reatribuir execuções.
 4. Registrar Quality Gate do #32 aprovado e scanner compartilhado temporariamente não bloqueante para Marcos; não presumir CI completa verde nem novo gate da develop. CodeRabbit permanece com indisponibilidade registrada.
-5. Obter ratificação dos contratos por Silva/Fausto/Débora e processo restrito de concessão/revogação dos vínculos por Fausto/Silva com segurança.
+5. Decisões contratuais e processo dos vínculos registrados no ADR-007 por delegação de Marcos; revisar/publicar os procedimentos e provas locais. Ambiente compartilhado aplica seu próprio registro operacional autorizado.
 6. Relacionar provas compartilhadas de auditoria/notificação/segurança/concorrência às exigências concretas; persistência em outbox não comprova entrega externa.
 7. Publicar documentação/RTM/stories e registrar encerramento formal sem atribuir confirmação coletiva ou cobertura global por inferência.
 
@@ -444,27 +457,27 @@ Provas de segurança, persistência, auditoria, notificação e concorrência pe
 - [x] #32/#33/#34 integrados à develop; base local1948e69 sincronizada em branch própria preservando a documentação local.
 - [x] Lacuna específica Q8/MySQL atendida e referenciada pela CI do #34,9testes sem falhas; limites da concorrência/notificação preservados.
 - [x] Evidências compartilhadas já disponíveis relacionadas à matriz e aos logs da CI, preservando limites e origens.
-- [ ] Ratificação coletiva/processo dos vínculos e confirmação do modo/evidências RF11 recebidos e registrados.
+- [x] Contratos, processo dos vínculos e modo RF11 decididos sob delegação de Marcos e registrados no ADR-007/runbooks/provas próprias; sem concordâncias individuais inventadas.
 - [ ] Publicação e revisão/integração da conciliação documental concluídas; commit/push/PR autorizados por Marcos nesta rodada.
-- [ ] Encerramento formal registrado após as confirmações compartilhadas.
+- [ ] Encerramento formal do recorte após revisão do autor, publicação e integração; operação de ambiente compartilhado conserva seu registro próprio.
 
 O erro compartilhado do scanner permanece acompanhado pela equipe sem bloquear a implementação do Marcos por ora, conforme sua orientação. Isso não elimina a revisão/merge nem declara RFs globais encerrados.
 
-## 13. O que podemos fazer enquanto aguardamos a equipe
+## 13. Continuidade após a delegação
 
 | Ação | Responsável / condição |
 |---|---|
 | Conferir/publicar esta conciliação de plano, RTM, índice, stories e encaminhamento. | Marcos revisa; commit/push seguem o fluxo da sessão. |
 | Publicar a conciliação em branch documental própria. | #32/#33/#34 já revisados e integrados; commit/push desta documentação seguem o fluxo. |
-| Registrar ratificações e operação real dos vínculos. | Silva/Fausto/Débora e Marcos, conforme contratos existentes. |
-| Evidências compartilhadas disponíveis relacionadas; encaminhar confirmações restantes. | Responsáveis respondem ao [texto preparado](../integracao/marcos-pendencias-fechamento-2026-11-13.md); Marcos registra as respostas. |
+| Decisões delegadas registradas; preparar operação da demonstração conforme runbook. | Marcos coordena, Administrador autoriza e operador SQL executa; não aguardar novas assinaturas individuais para decisões já delegadas. |
+| Revisar as provas do novo recorte de operação/RF11. | [Resultados delegados](../testes/marcos-fechamento-delegado-1-resultados.md); evidências anteriores preservadas. |
 | Conferir base do futuro PR documental. | Trabalho já sobre develop1948e69; preservar alterações até sua publicação. |
 
 GETs, edição/cancelamento, ambiente real e cenários mínimos não aguardam nova implementação. Nenhuma nova tela/endpoint ou teste adicional é criado apenas para preencher registros históricos desatualizados.
 
 ## 14. Fluxo de execução e primeiro passo
 
-Mudanças autorais exclusivamente documentais, vinculadas à story [Marcos-qualitygate-1](../stories/marcos-qualitygate-1.md). Conferir referências/estado dos PRs, links, File List, evidências públicas e diff; Q8/#33 justificou reconstrução do JAR,8unitários direcionados e12cenários Q9 reais; não repetir as demais suítes sem mudança pertinente. Marcos revisa o incremento; commit/push seguem solicitação própria. A instrução atual não autoriza mensagens externas, confirmação em nome da equipe ou merge.
+O recorte documental anterior é rastreado na story Marcos-qualitygate-1; o incremento atual delegado inclui procedimentos SQL/runbook, auxiliar opt-in e demonstração RF11/Q9 reais, sem mudança de produto. Conferir referências/PRs, links, File List, digests e resultados; build81/278 e8cenários da demonstração aprovados. Marcos revisa o incremento; commit/push seguem solicitação própria. A delegação foi registrada como decisão de Marcos, sem assinaturas individuais inventadas, mensagem externa ou merge automático.
 
 Próximo checkpoint: revisão/commit/publicação desta conciliação, com #32/#33/#34 integrados e base sincronizada, e registro das confirmações compartilhadas. Relatórios da etapa 6 e certificação global da etapa 7 permanecem fora do fechamento do frontend até a etapa 5.
 
