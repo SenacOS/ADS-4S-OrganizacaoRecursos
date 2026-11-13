@@ -1,0 +1,219 @@
+{
+  "conferidoEm": "2026-11-13 17:49:05 UTC",
+  "baseIntegrada": "c4279b6c596c61d48ca7098a38812fc68c54412d",
+  "branchDoRegistro": "docs/marcos-encerramento-etapas-1-a-5",
+  "prs": [
+    {
+      "numero": 36,
+      "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/36",
+      "titulo": "feat: formaliza contratos, vínculos e demonstração RF11",
+      "head": "be1dbc72e18b760ea2ce40a08a5677dd19bb9aa5",
+      "mergeCommit": "c4279b6c596c61d48ca7098a38812fc68c54412d",
+      "mesclado": true,
+      "mergeEm": "2026-11-13T17:44:45Z"
+    },
+    {
+      "numero": 37,
+      "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/37",
+      "titulo": "feat(reserva): implementa porta de leitura MySQL do relatório de utilização (RF12)",
+      "head": "576e0c97c7d26b35c3a9d6978cedd102f9515651",
+      "mergeCommit": "d7a92f571066da5446d956aee90f556c958637f5",
+      "mesclado": true,
+      "mergeEm": "2026-11-13T17:41:35Z"
+    }
+  ],
+  "revisaoPr36": [
+    {
+      "estado": "APPROVED",
+      "autor": "jovemOG-Dev",
+      "data": "2026-11-13T17:44:37Z"
+    }
+  ],
+  "qualityGatePr36": {
+    "status": "OK",
+    "origem": "https://sonarcloud.io/api/qualitygates/project_status?projectKey=SenacOS_ADS-4S-OrganizacaoRecursos&pullRequest=36",
+    "limite": "Resultado do PR36 consultado; não é análise nova da develop nem do PR37."
+  },
+  "ci": [
+    {
+      "pr": 36,
+      "run": 43472622587,
+      "conclusao": "failure",
+      "jobs": [
+        {
+          "id": 132048159944,
+          "nome": "JMeter / banco isolado / métricas reais",
+          "conclusao": "success",
+          "etapas": [
+            {
+              "nome": "Set up job",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Checkout do PR",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Java 21",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Instalar Apache JMeter 5.6.3 (distribuicao oficial)",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Executar carga local isolada com MySQL 8.4",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Preservar JTL, dashboards HTML e invariantes SQL",
+              "conclusao": "success"
+            }
+          ]
+        },
+        {
+          "id": 132048160682,
+          "nome": "Java 21 / Testcontainers / JaCoCo / SonarCloud",
+          "conclusao": "failure",
+          "etapas": [
+            {
+              "nome": "Set up job",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Checkout (historico para Sonar)",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Java 21 e cache Maven",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Validar estrutura dos planos JMeter e scripts de evidencia",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Executar unitarios, integracao MySQL e quality gates",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Publicar logs, testes, XML JaCoCo e HTML JaCoCo",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Verificar disponibilidade do SonarCloud",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Analisar SonarCloud e aguardar Quality Gate",
+              "conclusao": "failure"
+            }
+          ]
+        }
+      ],
+      "trechosLog": [
+        "2026-11-13T17:27:46.9172051Z [INFO] All coverage checks have been met.",
+        "2026-11-13T17:28:00.3824131Z [ERROR] Not authorized or project not found. Please check the 'SONAR_TOKEN' environment variable, the 'sonar.projectKey' and 'sonar.organization' properties, or contact the project administrator to verify the token's permissions. A project with the same key may already exist in another organization."
+      ]
+    },
+    {
+      "pr": 37,
+      "run": 43474698759,
+      "conclusao": "failure",
+      "jobs": [
+        {
+          "id": 132055361950,
+          "nome": "JMeter / banco isolado / métricas reais",
+          "conclusao": "success",
+          "etapas": [
+            {
+              "nome": "Set up job",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Checkout do PR",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Java 21",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Instalar Apache JMeter 5.6.3 (distribuicao oficial)",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Executar carga local isolada com MySQL 8.4",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Preservar JTL, dashboards HTML e invariantes SQL",
+              "conclusao": "success"
+            }
+          ]
+        },
+        {
+          "id": 132055362445,
+          "nome": "Java 21 / Testcontainers / JaCoCo / SonarCloud",
+          "conclusao": "failure",
+          "etapas": [
+            {
+              "nome": "Set up job",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Checkout (historico para Sonar)",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Java 21 e cache Maven",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Validar estrutura dos planos JMeter e scripts de evidencia",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Executar unitarios, integracao MySQL e quality gates",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Publicar logs, testes, XML JaCoCo e HTML JaCoCo",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Verificar disponibilidade do SonarCloud",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Analisar SonarCloud e aguardar Quality Gate",
+              "conclusao": "failure"
+            }
+          ]
+        }
+      ],
+      "trechosLog": [
+        "2026-11-13T17:40:19.8066127Z [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.641 s -- in br.senac.recursos.reserva.infraestrutura.ReservaRelatorioMysqlIT",
+        "2026-11-13T17:40:56.1198897Z [INFO] All coverage checks have been met.",
+        "2026-11-13T17:41:10.8447478Z [ERROR] Not authorized or project not found. Please check the 'SONAR_TOKEN' environment variable, the 'sonar.projectKey' and 'sonar.organization' properties, or contact the project administrator to verify the token's permissions. A project with the same key may already exist in another organization."
+      ]
+    }
+  ],
+  "sincronizacao": {
+    "arvoreInicialLimpa": true,
+    "ancestorHead36": true,
+    "ancestorHead37": true,
+    "metodo": "fetch e nova branch documental da origin/develop; nenhuma reescrita ou exclusão"
+  },
+  "escopo": {
+    "etapas1a5": "Frontend, decisões delegadas, procedimentos, evidências, aceite do autor, revisão humana e merge concluídos nos recortes registrados.",
+    "rf12Pr37": "Contrato de porta/projeção/adaptador MySQL e integração7tests; serviço/agregação/DTO/endpoint HTTP não entregues por esse PR; etapa6 fora deste encerramento."
+  },
+  "limites": [
+    "Erro compartilhado do scanner Maven mantém orientação de Marcos: temporariamente não bloqueante da implementação, sem chamar CI completa de verde.",
+    "CodeRabbit local indisponível conforme registro; não há aprovação presumida dessa ferramenta.",
+    "Provas locais8/0 e build81/278 mantêm a base/árvore ab50d26 + alterações descritas nos artefatos; não são nova execução emc4279b6.",
+    "Nenhuma execução de frontend/demo/SQL ou novo package nesta conferência; diferenças desdebe1 são quatro arquivos RF12 novos, conferidos por diff.",
+    "O registro documental do encerramento ainda será commitado/publicado pelo fluxo; não é novo código ou nova pendência funcional."
+  ]
+}

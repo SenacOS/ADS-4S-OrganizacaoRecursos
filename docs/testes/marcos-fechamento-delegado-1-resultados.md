@@ -1,5 +1,19 @@
 # Fechamento delegado — contratos, vínculos e RF11 simulada
 
+## Entrega integrada e encerramento posterior
+
+**Entrega das etapas 1 a 5 integrada à develop e encerrada no escopo de Marcos.** [PR #36](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/36) aprovado por jovemOG-Dev e mesclado em **c4279b6**; contratos/ADR-007, operação dos vínculos, RF11 simulada, evidências e aceite do autor entregues. [Registro verificável](../testes/marcos-encerramento-etapas-1-a-5-2026-11-13.json).
+
+Quality Gate do #36 **OK**; testes Java/MySQL, JaCoCo e JMeter aprovados na CI43472622587. A conclusão global continua failure no scanner Maven por autorização/projeto, com tratamento compartilhado temporariamente não bloqueante da implementação por orientação de Marcos. CodeRabbit local continua indisponível, sem aprovação presumida. Isso não declara toda a CI verde nem certifica requisitos globais/produção.
+
+A base foi sincronizada por fetch e branch documental própria em **c4279b6**, contendo também o [PR #37](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/37). Esse PR acrescenta a porta/projeção/adaptador MySQL do RF12 e7testes de integração aprovados na CI43474698759; **não entrega serviço/agregação, DTO ou endpoint HTTP de relatório**. RF12/etapa6 é continuidade distinta, fora deste encerramento.
+
+Frontend, procedimentos e auxiliares das etapas1a5 permanecem byte a byte como no headbe1dbc7 do #36. A diferença até a base sincronizada contém somente os4arquivos RF12 novos. Não foram repetidos frontend/demo/Maven nem reconstruído JAR nesta conferência; provas8/0,81/278, tentativas e respectivos hashes mantêm suas origens.
+
+Este registro pós-merge é exclusivamente documental e ainda aguarda commit/publicação pelo fluxo. Não há nova implementação, decisão ou operação local pendente no plano1a5; a aplicação do runbook no ambiente compartilhado e os controles de produção conservam seus registros próprios.
+
+As execuções locais abaixo permanecem associadas à preparação do incrementobe1dbc7; não foram reexecutadas nesta conferência.
+
 **Aceite posterior do autor — 13/11/2026:** Marcos aprovou o pacote e solicitou o commit local, sem ajustes. O commit que inclui este registro identifica a entrega na branch `feature/marcos-fechamento-delegado`. Revisão do autor concluída; push/PR/merge e implantação permanecem separados. As referências abaixo à revisão pendente descrevem o momento da preparação e não anulam este aceite. Nenhuma nova execução de testes nesta atualização documental.
 
 Execução em **13/11/2026**, America/Sao_Paulo. Branch `feature/marcos-fechamento-delegado`, base **ab50d26**, contendo a conciliação documental do PR #35, ainda aberto na conferência de preparação. Implementação local sem commit. Autorização e critérios na [story](../stories/marcos-fechamento-delegado-1.md); decisões no [ADR-007](../arquitetura/adr/ADR-007-fechamento-contratos-vinculos-rf11.md).

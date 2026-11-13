@@ -2,7 +2,7 @@
 
 ## Status
 
-Ready for Review
+Done
 
 Em **13/11/2026**, Marcos informou ter recebido carta branca da equipe para resolver as pendências de contratos, operação de vínculos e aceite RF11 e autorizou prosseguir no fluxo do projeto. Esta story registra o recorte executável dessa delegação. Ela permite concluir decisões/procedimentos locais antes pendentes, **sem atribuir assinatura individual a Silva, Fausto ou Débora** e sem pedir novamente a confirmação que Marcos já está autorizado a dar.
 
@@ -55,6 +55,8 @@ Responsável: Marcos Boé, por delegação comunicada em 13/11/2026. Preparaçã
 - [x] Registrar QA independente e revisão do autor: Marcos aprovou o pacote em13/11/2026 e solicitou o commit local (AC 14).
 - [x] Registrar aceite e solicitação de commit local de Marcos; push/PR, merge, implantação e mensagens externas seguem solicitações próprias.
 
+- [x] Confirmar publicação, revisão humana e merge do #36, Quality Gate do PR e sincronização da base; registro pós-merge preserva provas/limites sem nova implementação.
+
 ## Dev Notes
 
 Decisões arquiteturais foram coordenadas com AIOX Architect: ADR-007 terá registro próprio, sob sua autoridade. A delegação comunicada por Marcos autoriza resolver as decisões pendentes sem outra rodada de perguntas individuais; o documento deve dizer isso, não inventar assinaturas ou aprovação de um ambiente real que ninguém executou. Procedimento restrito de administração é suficiente para o escopo atual, sem nova interface/API de concessão.
@@ -79,6 +81,15 @@ Tipo principal: documentação/operação local e integração; secundário: con
 
 ## Dev Agent Record
 
+### Publicação autorizada do registro final — 13/11/2026
+
+Marcos solicitou “pode fazer commit e push” após a conferência dos merges #36/#37 e do encerramento integrado. O commit que inclui este registro identifica os8arquivos documentais na branch `docs/marcos-encerramento-etapas-1-a-5`, com autor/committer Marcos Boé. Conferidos critérios encerrados, File List, digests, links e diff; nenhum produto/teste/CI alterado ou suíte repetida nesta atualização documental. A autorização cobre commit e push dessa branch, sem criação automática de PR, merge ou mensagem externa. A story continua Done pela entrega já integrada no #36; este registro não reabre sua implementação.
+
+### Entrega integrada — PR #36
+
+Commitbe1dbc7 publicado e revisado por jovemOG-Dev (APPROVED), integrado pelo #36 emc4279b6. QualityGate36OK; testes/gates/JMeter da CI aprovados e scanner compartilhado mantém falha/autorização conforme orientação temporariamente não bloqueante de Marcos. Basec4279b6 conferida contendo também #37, adição RF12 fora do recorte. [Metadados e limites](../testes/marcos-encerramento-etapas-1-a-5-2026-11-13.json). Contratos/operação/RF11 simulada, testes locais, QA e aceite do autor cumpridos; nenhum resultado de produção/global ou execução nova presumido. Registro documental pós-merge ainda sem commit/publicação; não é nova pendência funcional da story.
+
+
 ### Aceite do autor e commit local — 13/11/2026
 
 Marcos informou “aprovado, podemos fazer o commit” após receber o checkpoint da entrega. Aceite do incremento registrado sem ajustes solicitados. O commit que inclui este registro identifica a entrega local na branch `feature/marcos-fechamento-delegado`, com autor e committer Marcos Boé. Fontes/provas permanecem preservadas; conferência final de29arquivos/370links, manifestos/digests e diff realizada, sem nova execução injustificada de suítes. Push, PR do incremento, merge e operação no ambiente compartilhado não fazem parte desta solicitação de commit. Parecer QA abaixo preservado.
@@ -99,6 +110,7 @@ Codex, preparação AIOX SM, com decisões arquiteturais recebidas de AIOX Archi
 
 | Data | Descrição |
 |---|---|
+| 2026-11-13 | Entrega integrada pelo #36, revisão humana/QualityGate confirmados e basec4279b6 sincronizada; registro documental de encerramento, #37/RF12 fora do recorte. |
 | 2026-11-13 | Implementação local e provas8/0, build81/278, falha controlada/cleanup e tentativas preservadas; contratos/procedimentos/evidências conciliados para QA e revisão do autor. |
 | 2026-11-13 | Story Ready for Dev para decisões delegadas por Marcos, operação CLI/SQL restrita dos vínculos e demonstração RF11 simulada real, coordenada com ADR-007, sem nova API/UI ou publicação automática. |
 
@@ -136,6 +148,8 @@ Arquivos efetivamente criados/alterados neste incremento:
 - `docs/testes/marcos-fechamento-delegado-1/tentativa-rastreabilidade.json`
 - `tests/e2e-local/demonstrar-fechamento.cjs`
 
+- `docs/testes/marcos-encerramento-etapas-1-a-5-2026-11-13.json`
+
 Configuração, credenciais, contas/base local, estado, logs brutos e JAR permanecem privados/ignorados. Nenhum artefato previsto mas não produzido é listado.
 
 ## QA Results
@@ -161,3 +175,13 @@ Quatro achados P2 foram corrigidos durante a revisão: cleanup após falha preco
 Conferidos **10/10 artefatos do manifesto**, **7/7 do resultado final** e **7/7 da falha controlada**, todos correspondentes aos arquivos atuais. O log publicado registra lint/typecheck e **81 unitários/278 navegador** aprovados uma vez; modificações posteriores só no auxiliar receberam a reexecução pertinente. JAR **4b8633a55e59f5f2b5d11865338cb7658eb0f943b50b35d6baa0eb2ebfb0def5** conserva sua origem. Revisão QA não executou Git, suítes, serviços ou SQL e não acessou credenciais, configurações privadas ou logs brutos; verificou código e provas sanitizadas.
 
 Tentativas anteriores2/1,8/0 intermediário,6/1 de rastreabilidade e0/1 com MySQL indisponível continuam separadas no [relatório](../testes/marcos-fechamento-delegado-1-resultados.md). A causa da indisponibilidade MySQL permanece não determinada; não houve comparação obtida que prove alteração de outbox nessa tentativa nem isolamento aprovado retroativamente. A recuperação e a nova rodada estável não apagam seu FAIL. Não se atribuem grants/imutabilidade de produção, HTTPS/cookie Secure, entrega externa, cobertura de todas as corridas ou aprovação remota de CI/Sonar/CodeRabbit. Revisão do autor, solicitação de commit, publicação e integração conservam seus próprios checkpoints; nenhum parecer QA histórico foi alterado por este incremento.
+
+### Encerramento integrado após o PR #36
+
+**PASS de encerramento do recorte entregue — AIOX QA (Quinn), revisão independente em 13/11/2026. GO para Done desta story.** O aceite de Marcos, a implementação/prova local aprovada acima e a entrega integrada agora possuem seus registros próprios. O [registro pós-merge](../testes/marcos-encerramento-etapas-1-a-5-2026-11-13.json) confirma head `be1dbc72e18b760ea2ce40a08a5677dd19bb9aa5`, revisão **APPROVED de jovemOG-Dev**, publicação e merge do **PR #36 em c4279b6**. Não resta condição de implementação ou entrega deste recorte das etapas 1 a 5 para ser satisfeita por outra tela ou repetição de testes já aprovados.
+
+O Quality Gate consultado para o #36 está **OK**. A CI43472622587 registra sucesso dos testes Java/MySQL, gates JaCoCo e JMeter; sua conclusão global permanece **failure** pela autorização/projeto do scanner Maven. Aplica-se a orientação expressa de Marcos de tratar esse erro compartilhado como temporariamente não bloqueante da implementação. Isso não é aprovação integral de CI nem de CodeRabbit local, cuja indisponibilidade continua registrada. Nenhuma regra, segredo ou gate foi alterado para permitir este encerramento.
+
+Plano, RTM, índice, entrega e relatório distinguem o encerramento funcional já integrado da publicação deste **novo registro exclusivamente documental**, ainda sujeita ao fluxo correspondente. O manifesto original continua **10/10 MATCH**. As provas **8/0**, o build **81/278**, a falha controlada e as tentativas históricas preservam a base/árvore de sua execução sobre ab50d26 e o JAR original; não foram atribuídos testes ou package novos à base c4279b6. A revisão QA foi somente documental/estática, sem executar Git, suítes, serviços, SQL ou acessar credenciais privadas.
+
+A mesma base contém o #37, cuja contribuição foi conferida como porta/projeção/adaptador de leitura MySQL RF12 e testes de integração. Esse incremento aditivo não entrega serviço/agregação nem resposta/endpoint HTTP de relatório e não constitui frontend RF12 ou conclusão da etapa 6. Seu resultado de CI e o scanner compartilhado têm origem própria. Done desta story encerra contratos delegados, procedimento/demonstração local dos vínculos, RF11 **simulada** e entrega pertinente até a etapa 5; não certifica implantação, operação no ambiente compartilhado, HTTPS, grants de produção, entrega externa de mensagens ou todos os RFs/NFRs do projeto. Parecer local original preservado, sem aprovação retroativa das tentativas que falharam.

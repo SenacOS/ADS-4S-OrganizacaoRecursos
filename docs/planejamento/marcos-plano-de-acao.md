@@ -1,5 +1,19 @@
 # Marcos Boé — responsabilidades e plano de ação
 
+## Encerramento integrado — PR #36 mesclado
+
+**Entrega das etapas 1 a 5 integrada à develop e encerrada no escopo de Marcos.** [PR #36](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/36) aprovado por jovemOG-Dev e mesclado em **c4279b6**; contratos/ADR-007, operação dos vínculos, RF11 simulada, evidências e aceite do autor entregues. [Registro verificável](../testes/marcos-encerramento-etapas-1-a-5-2026-11-13.json).
+
+Quality Gate do #36 **OK**; testes Java/MySQL, JaCoCo e JMeter aprovados na CI43472622587. A conclusão global continua failure no scanner Maven por autorização/projeto, com tratamento compartilhado temporariamente não bloqueante da implementação por orientação de Marcos. CodeRabbit local continua indisponível, sem aprovação presumida. Isso não declara toda a CI verde nem certifica requisitos globais/produção.
+
+A base foi sincronizada por fetch e branch documental própria em **c4279b6**, contendo também o [PR #37](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/37). Esse PR acrescenta a porta/projeção/adaptador MySQL do RF12 e7testes de integração aprovados na CI43474698759; **não entrega serviço/agregação, DTO ou endpoint HTTP de relatório**. RF12/etapa6 é continuidade distinta, fora deste encerramento.
+
+Frontend, procedimentos e auxiliares das etapas1a5 permanecem byte a byte como no headbe1dbc7 do #36. A diferença até a base sincronizada contém somente os4arquivos RF12 novos. Não foram repetidos frontend/demo/Maven nem reconstruído JAR nesta conferência; provas8/0,81/278, tentativas e respectivos hashes mantêm suas origens.
+
+Este registro pós-merge é exclusivamente documental e ainda aguarda commit/publicação pelo fluxo. Não há nova implementação, decisão ou operação local pendente no plano1a5; a aplicação do runbook no ambiente compartilhado e os controles de produção conservam seus registros próprios.
+
+Os checkpoints seguintes conservam a cronologia anterior; menções a revisão, commit, publicação ou merge pendentes nessas seções não descrevem o estado vigente.
+
 ## Fechamento delegado — 13/11/2026
 
 Marcos comunicou carta branca da equipe e adotou as decisões do [ADR-007](../arquitetura/adr/ADR-007-fechamento-contratos-vinculos-rf11.md). Os contratos atuais, incluindo vínculo com todos os recursos, ficam formalizados **por decisão delegada de Marcos**, sem atribuir assinaturas individuais aos demais integrantes. Datas com offset, PATCH conjunto,409/FORA_DO_EXPEDIENTE, estados/perfis de edição/cancelamento e escopos/erros Q9 permanecem como implementados; Q1/Q3/Q8 preservadas.
