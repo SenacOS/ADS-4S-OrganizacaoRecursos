@@ -24,6 +24,15 @@ public class Item18Config {
     return new ConsultarFilaAprovacao(fila);
   }
 
+  /**
+   * RF12: expõe o caso de uso como a especialização transacional (somente leitura,
+   * REPEATABLE_READ), para que reservas e conflitos evitados venham do mesmo snapshot.
+   */
+  @Bean
+  public ConsultarRelatorioUtilizacao consultarRelatorioUtilizacao(ReservaRelatorioPort relatorio) {
+    return new RelatorioUtilizacaoTransacional(relatorio);
+  }
+
   @Bean
   @Lazy
   public RecursoService recursoService(
