@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "geradoEm": "2026-11-13T19:58:45.209Z",
+  "story": "docs/stories/marcos-6.md",
+  "branch": "feature/marcos-6-relatorios",
+  "commitFrontendAnterior": "7ff3aca88196753c76d13832112f63b84adc2ee3",
+  "backendInspecionado": {
+    "pr": 39,
+    "mergeCommit": "acf94fa80b90756905b6908e3a53cdc6d3369259",
+    "head": "9dda8dcbdaf1f4c87ecc458632da227e1edd46e6",
+    "mergeLocalExecutado": false,
+    "testesJavaExecutados": false
+  },
+  "escopo": "Compatibilidade frontend controlada com DTO #39; endpoint HTTP e registro do bean não entregues.",
+  "ambiente": {
+    "node": "v26.13.0",
+    "playwrightChannel": "chrome",
+    "timezoneNavegador": "Asia/Tokyo",
+    "viewports": [
+      {
+        "width": 1366,
+        "height": 900
+      },
+      {
+        "width": 390,
+        "height": 844
+      }
+    ]
+  },
+  "build": {
+    "comando": "$env:PLAYWRIGHT_CHANNEL='chrome'; npm.cmd run build",
+    "exitCode": 0,
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unitarios": {
+      "pass": 97,
+      "fail": 0,
+      "rf12": 16
+    },
+    "navegador": {
+      "pass": 346,
+      "fail": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "rf12": 68
+    },
+    "inicioNavegador": "2026-11-13T19:54:32.194Z",
+    "duracaoNavegadorMs": 198900.125,
+    "logLocalSha256": "2390d5f881a8612a17fde5869ffbfd02f41d80e86df332d9140472f80daa8358",
+    "relatorioPlaywrightSha256": "a2df69069f893c93eaf01a854483e368e508c065e6aa1ffa51ec8afb6971b864"
+  },
+  "tentativaFocalAnterior": {
+    "pass": 64,
+    "fail": 4,
+    "motivo": "Asserção de disabled em fieldset; substituída por botão submetido ao fieldset. Sem evidência de bypass de perfil."
+  },
+  "capturas": [
+    {
+      "nome": "desktop",
+      "viewport": {
+        "width": 1366,
+        "height": 900
+      },
+      "erros": [],
+      "semOverflow": true
+    },
+    {
+      "nome": "mobile",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "erros": [],
+      "semOverflow": true
+    }
+  ],
+  "revisaoVisualMarcos": "APROVADA para adaptação #39 no chat em13/11/2026; commit, push e abertura de PR autorizados. Aceite de7ff3aca permanece histórico.",
+  "codeRabbit": "INDISPONIVEL localmente: CLI ausente/WSL não instalado; nenhuma aprovação presumida.",
+  "integracaoReal": "NAO_EXECUTADA: faltam composição Spring e controller/contrato HTTP.",
+  "arquivos": [
+    {
+      "caminho": "backend/src/main/resources/static/js/relatorios-utilizacao.js",
+      "sha256": "102b3e137cf87719cdcb0f508b6c66cfad029fa7f3145ea1a7fff31624513883"
+    },
+    {
+      "caminho": "backend/src/main/resources/static/js/relatorios-utilizacao-page.js",
+      "sha256": "0f555c59007e8fd64e61e3758e2fb52627de55d38f63fc66a0dbb19bdc623b63"
+    },
+    {
+      "caminho": "backend/src/main/resources/static/pages/relatorios-utilizacao.html",
+      "sha256": "4c2f16d981d4a56173cc04bbe6532636d1434a691aa5253d1ad481b7e437a494"
+    },
+    {
+      "caminho": "backend/src/main/resources/static/css/relatorios-utilizacao.css",
+      "sha256": "3b2854cc61478e3dccca0bacb8f0b00517159e47784dd1adf18500e5738b8240"
+    },
+    {
+      "caminho": "tests/unit/frontend/relatorios-utilizacao.test.js",
+      "sha256": "ed2a971f58f3f09da6b0fed344905c0f704faf6d3bd704498c12c4cf8347950f"
+    },
+    {
+      "caminho": "tests/browser/relatorios-utilizacao.spec.js",
+      "sha256": "8e23afa84f4cbdc7cd34aea1fbb51be679084ed49fe317c6f04bc04c7ec6d002"
+    },
+    {
+      "caminho": "tests/browser/relatorios-utilizacao-preview.mjs",
+      "sha256": "e34b30522181d1c4317a34a48f591f9bcb429912cf518b48dd70f9418eed8591"
+    },
+    {
+      "caminho": "docs/testes/evidencias/marcos-6-rf12-39/desktop-inicial.png",
+      "sha256": "73a19df1402e529ce36efa3b39df19ca75af875cf40a4180aff6c518b5db0aff"
+    },
+    {
+      "caminho": "docs/testes/evidencias/marcos-6-rf12-39/desktop-resultado.png",
+      "sha256": "4e7f87e72480bc1095711b019d12aacce888a224e3c7b38494dcf5415be8f885"
+    },
+    {
+      "caminho": "docs/testes/evidencias/marcos-6-rf12-39/mobile-inicial.png",
+      "sha256": "88c23c0371fea918fb7cd55699d91782f3eb906cd4356dc98df55fafe38a9940"
+    },
+    {
+      "caminho": "docs/testes/evidencias/marcos-6-rf12-39/mobile-resultado.png",
+      "sha256": "6d89a8428b85d838a2a810b2af5c232f9eaa3bdb0c85c980d88c369df3c21308"
+    }
+  ]
+}

@@ -99,3 +99,8 @@ O diagnóstico de outubro acima é histórico. O backend e os contratos já est�
 
 - [Administração de recursos — Marcos-5](stories/marcos-5.md): recorte de cadastros, manutenção e expediente, independente da fila/Q9. Movimentações possuem story própria abaixo; integração real permanece pendente. [Resultados e limites](testes/marcos-5-resultados.md).
 - [Movimentações — complemento da etapa 5](stories/marcos-5-movimentacoes.md): retirada, pendências e devolução, sem consulta de reservas/Q9. Aceite visual e commit autorizados por Marcos em 11/11/2026, encerrando a implementação local da etapa 5 junto à administração. Revisão da equipe, CI e integração continuam pendentes. [Resultados e limites](testes/marcos-5-movimentacoes-resultados.md).
+
+
+## Etapa6 — frontend controlado dos relatórios RF12
+
+Primeira interface publicada em7ff3aca, com [resultados históricos96/334](testes/marcos-6-resultados.md). Após Marcos pedir adotar o #39, cliente/tela foram adaptados ao DTO de minutos/listas, guarda ADMIN provisória e filtro que mantém recursos vinculados. [Plano6](planejamento/marcos-etapa-6-plano-de-acao.md), [story](stories/marcos-6.md), [contrato adotado](api/relatorios-utilizacao-proposta.md), [resultados atuais](testes/marcos-6-rf12-39-resultados.md) e [revisão visual](testes/marcos-6-rf12-39-verificacao.txt). API controlada/prévia são simuladas. Novo build97/346, QA e revisão visual aprovados; Marcos autorizou commit/push/PR em13/11/2026. Controller, bean e E2E HTTP real continuam pendentes. Encerramento1a5 segue separado.

@@ -278,3 +278,8 @@ Esta evidência não substitui aceite visual detalhado, revisão independente, M
 Após a publicação de a8da77c, Marcos revisou a prévia de Aprovações no Chrome, perfil Responsável, com 21 solicitações fictícias, e informou “está aprovado”. O roteiro apresentado incluiu detalhes, aprovação/rejeição, motivo obrigatório, filtros/vazio, paginação e layout/teclado. [Registro do aceite](testes/marcos-4-aceite-visual-2026-11-12.md).
 
 Interface aceita pelo autor, sem ajustes funcionais solicitados. Registro exclusivamente documental, preservando a regressão anterior de 68 unitários/238 navegador; sem nova execução, E2E real, revisão independente ou alteração do PR nesta rodada. Contrato coletivo, endpoint HTTP, autorização Q9 e checks para merge continuam acompanhados separadamente.
+
+
+## RF12 — incremento frontend controlado da etapa6
+
+Leitura #37 e serviço/DTO #39 referenciados no [plano6](planejamento/marcos-etapa-6-plano-de-acao.md). A [story](stories/marcos-6.md) e o [contrato adotado](api/relatorios-utilizacao-proposta.md) orientam a compatibilidade atual: minutos truncados, lista de conflitos/contagem, guarda ADMIN provisória e todos os recursos vinculados ao filtrar reservas. [Resultados atuais](testes/marcos-6-rf12-39-resultados.md) separam novos gates/revisões dos [históricos96/334](testes/marcos-6-resultados.md). RF12 permanece **parcial**, com controller/composição Spring/E2E HTTP real pendentes. Testes interceptados/prévia não provam SQL, proxy transacional ou autorização real. Formato das datas preservado; build97/346, QA e nova revisão visual aprovados. Commit/push/PR autorizados em13/11/2026.
