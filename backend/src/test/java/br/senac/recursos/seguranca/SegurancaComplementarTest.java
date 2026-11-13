@@ -104,8 +104,8 @@ class SegurancaComplementarTest {
 
     @Test
     void idorNaoPermiteCancelarReservaDeOutroSolicitante() throws Exception {
-        doAnswer(inv -> RESERVA.cancelar(inv.getArgument(1)))
-                .when(servico).cancelar(eq(55L), any());
+        doAnswer(inv -> RESERVA.cancelar(inv.getArgument(1), inv.getArgument(2)))
+                .when(servico).cancelar(eq(55L), any(), any());
 
         mvc.perform(post("/api/reservas/55/cancelamento")
                 .with(user(usuario(99, PapelAtor.SOLICITANTE))).with(csrf()))
@@ -119,11 +119,16 @@ class SegurancaComplementarTest {
 
     @Test
     void administradorPodeCancelarMasNaoAprovar() throws Exception {
-        doAnswer(inv -> RESERVA.cancelar(inv.getArgument(1)))
-                .when(servico).cancelar(eq(55L), any());
+        doAnswer(inv -> RESERVA.cancelar(inv.getArgument(1), inv.getArgument(2)))
+                .when(servico).cancelar(eq(55L), any(), any());
 
+        // Q5: Administrador cancelando reserva de terceiro precisa da justificativa
         mvc.perform(post("/api/reservas/55/cancelamento")
                 .with(user(usuario(1, PapelAtor.ADMINISTRADOR))).with(csrf()))
+                .andExpect(status().isBadRequest());
+        mvc.perform(post("/api/reservas/55/cancelamento")
+                .with(user(usuario(1, PapelAtor.ADMINISTRADOR))).with(csrf())
+                .contentType(MediaType.APPLICATION_JSON).content("{\"motivo\":\"sala interditada\"}"))
                 .andExpect(status().isOk());
         mvc.perform(post("/api/reservas/55/aprovacao")
                 .with(user(usuario(1, PapelAtor.ADMINISTRADOR))).with(csrf()))

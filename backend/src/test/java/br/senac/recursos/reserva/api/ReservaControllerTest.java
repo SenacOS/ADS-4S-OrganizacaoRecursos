@@ -201,7 +201,7 @@ class ReservaControllerTest {
     @Test
     void cancelarAprovarIniciarConcluirENaoComparecimentoDelegamAoServico() throws Exception {
         Reserva r = aprovada();
-        when(servico.cancelar(anyLong(), any())).thenReturn(r);
+        when(servico.cancelar(anyLong(), any(), any())).thenReturn(r);
         when(servico.aprovar(anyLong(), any())).thenReturn(r);
         when(servico.iniciarUso(anyLong(), any())).thenReturn(r);
         when(servico.concluir(anyLong(), any())).thenReturn(r);
@@ -211,11 +211,44 @@ class ReservaControllerTest {
             mvc.perform(post("/api/reservas/1001/" + acao)).andExpect(status().isOk())
                     .andExpect(jsonPath("$.id").value(1001));
         }
-        verify(servico).cancelar(1001L, ANA);
+        verify(servico).cancelar(1001L, ANA, null);
         verify(servico).aprovar(1001L, ANA);
         verify(servico).iniciarUso(1001L, ANA);
         verify(servico).concluir(1001L, ANA);
         verify(servico).registrarNaoComparecimento(1001L, ANA);
+    }
+
+    @Test
+    void q5CancelamentoRepassaMotivoOpcionalEIgnoraPapelEUsuarioForjadosNoCorpo() throws Exception {
+        when(servico.cancelar(anyLong(), any(), any())).thenReturn(aprovada());
+
+        mvc.perform(post("/api/reservas/1001/cancelamento").contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"motivo\":\"obra emergencial\",\"usuarioId\":1,\"papel\":\"ADMINISTRADOR\"}"))
+                .andExpect(status().isOk());
+        verify(servico).cancelar(1001L, ANA, "obra emergencial");
+
+        mvc.perform(post("/api/reservas/1001/cancelamento").contentType(MediaType.APPLICATION_JSON).content("{}"))
+                .andExpect(status().isOk());
+        verify(servico).cancelar(1001L, ANA, null);
+    }
+
+    @Test
+    void q5CancelamentoRejeitaMotivoComMaisDe500Caracteres() throws Exception {
+        String longo = "x".repeat(501);
+        mvc.perform(post("/api/reservas/1001/cancelamento").contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"motivo\":\"" + longo + "\"}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.codigo").value("REQUISICAO_INVALIDA"));
+        verify(servico, never()).cancelar(anyLong(), any(), any());
+    }
+
+    @Test
+    void q5FaltaDeJustificativaDoAdministradorViraRequisicaoInvalida() throws Exception {
+        doThrow(new IllegalArgumentException("Informe a justificativa do cancelamento."))
+                .when(servico).cancelar(anyLong(), any(), any());
+        mvc.perform(post("/api/reservas/1001/cancelamento"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.codigo").value("REQUISICAO_INVALIDA"));
     }
 
     @Test
@@ -257,7 +290,7 @@ class ReservaControllerTest {
                 new Caso(new IllegalArgumentException("detalhe interno"), 400, "REQUISICAO_INVALIDA"));
 
         for (Caso c : casos) {
-            doThrow(c.excecao()).when(servico).cancelar(anyLong(), any());
+            doThrow(c.excecao()).when(servico).cancelar(anyLong(), any(), any());
             mvc.perform(post("/api/reservas/1/cancelamento"))
                     .andExpect(status().is(c.http()))
                     .andExpect(jsonPath("$.codigo").value(c.codigo()))
@@ -289,7 +322,7 @@ class ReservaControllerTest {
 
     @Test
     void correlationIdSimplesDoClienteEPreservadoEOSuspeitoESubstituido() throws Exception {
-        doThrow(new ReservaNaoEncontradaException(1)).when(servico).cancelar(anyLong(), any());
+        doThrow(new ReservaNaoEncontradaException(1)).when(servico).cancelar(anyLong(), any(), any());
 
         mvc.perform(post("/api/reservas/1/cancelamento").header("X-Correlation-Id", "abc-123"))
                 .andExpect(jsonPath("$.correlationId").value("abc-123"));

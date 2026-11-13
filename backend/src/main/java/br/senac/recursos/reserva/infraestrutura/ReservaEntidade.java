@@ -29,6 +29,9 @@ public class ReservaEntidade {
   @Column(name = "motivo_decisao", length = 500)
   String motivo;
 
+  @Column(name = "motivo_cancelamento", length = 500)
+  String motivoCancelamento;
+
   @ElementCollection
   @CollectionTable(name = "reserva_recursos", joinColumns = @JoinColumn(name = "reserva_id"))
   @Column(name = "recurso_id")

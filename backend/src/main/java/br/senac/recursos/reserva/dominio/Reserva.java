@@ -18,7 +18,14 @@ public record Reserva(
         List<Long> recursoIds,
         boolean restrita,
         StatusReserva status,
-        String motivoDecisao) {
+        String motivoDecisao,
+        String motivoCancelamento) {
+
+    /** Compatibilidade com chamadores e leituras anteriores à Q5 (sem justificativa de cancelamento). */
+    public Reserva(Long id, long solicitanteId, IntervaloReserva intervalo, List<Long> recursoIds,
+                   boolean restrita, StatusReserva status, String motivoDecisao) {
+        this(id, solicitanteId, intervalo, recursoIds, restrita, status, motivoDecisao, null);
+    }
 
     private static final String MSG_OPERADOR =
             "Somente o Responsável inicia, conclui ou registra ausência em uma reserva.";
@@ -35,11 +42,12 @@ public record Reserva(
     public static Reserva solicitar(long solicitanteId, IntervaloReserva intervalo,
                                     Collection<Long> recursoIds, boolean restrita) {
         List<Long> ids = recursoIds == null ? null : new ArrayList<>(recursoIds);
-        return new Reserva(null, solicitanteId, intervalo, ids, restrita, StatusReserva.SOLICITADA, null);
+        return new Reserva(null, solicitanteId, intervalo, ids, restrita, StatusReserva.SOLICITADA, null, null);
     }
 
     public Reserva comId(long novoId) {
-        return new Reserva(novoId, solicitanteId, intervalo, recursoIds, restrita, status, motivoDecisao);
+        return new Reserva(novoId, solicitanteId, intervalo, recursoIds, restrita, status, motivoDecisao,
+                motivoCancelamento);
     }
 
     /** Reserva comum: SOLICITADA vira APROVADA na mesma transação (D07). */
@@ -67,14 +75,24 @@ public record Reserva(
         return comStatus(status.transitarPara(StatusReserva.REJEITADA), motivo.strip());
     }
 
-    /** Dono ou Administrador. EM_USO não cancela (matriz de estados). */
-    public Reserva cancelar(AtorReserva ator) {
+    /**
+     * Dono ou Administrador. EM_USO não cancela (matriz de estados).
+     * Q5: Administrador cancelando reserva de terceiro deve informar a justificativa, guardada em
+     * {@code motivoCancelamento} (nunca em {@code motivoDecisao}). O dono pode cancelar sem justificativa.
+     * Ordem das validações: permissão, justificativa, estado.
+     */
+    public Reserva cancelar(AtorReserva ator, String motivo) {
         Objects.requireNonNull(ator, "ator");
         boolean dono = ator.usuarioId() == solicitanteId;
         if (!dono && ator.papel() != PapelAtor.ADMINISTRADOR) {
             throw new OperacaoNaoPermitidaException("Você não pode cancelar esta reserva.");
         }
-        return comStatus(status.transitarPara(StatusReserva.CANCELADA), motivoDecisao);
+        String justificativa = (motivo == null || motivo.isBlank()) ? null : motivo.strip();
+        if (!dono && justificativa == null) {
+            throw new IllegalArgumentException("Informe a justificativa do cancelamento.");
+        }
+        StatusReserva novo = status.transitarPara(StatusReserva.CANCELADA);
+        return new Reserva(id, solicitanteId, intervalo, recursoIds, restrita, novo, motivoDecisao, justificativa);
     }
 
     /** Q1: início, conclusão e não comparecimento são exclusivos do Responsável. */
@@ -113,7 +131,7 @@ public record Reserva(
                     "A alteração mudaria a necessidade de aprovação; cancele e crie uma nova reserva.");
         }
         return new Reserva(id, solicitanteId, novoIntervalo, new ArrayList<>(novosRecursos),
-                restrita, status, motivoDecisao);
+                restrita, status, motivoDecisao, motivoCancelamento);
     }
 
     public String resumo() {
@@ -122,7 +140,7 @@ public record Reserva(
     }
 
     private Reserva comStatus(StatusReserva novo, String motivo) {
-        return new Reserva(id, solicitanteId, intervalo, recursoIds, restrita, novo, motivo);
+        return new Reserva(id, solicitanteId, intervalo, recursoIds, restrita, novo, motivo, motivoCancelamento);
     }
 
     private static void exigirPapel(AtorReserva ator, PapelAtor exigido, String mensagem) {

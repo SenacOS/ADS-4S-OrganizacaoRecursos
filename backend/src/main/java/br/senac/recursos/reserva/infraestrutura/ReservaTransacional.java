@@ -57,8 +57,8 @@ public class ReservaTransacional extends ReservaService {
   }
 
   @Override
-  public Reserva cancelar(long id, AtorReserva a) {
-    return super.cancelar(id, a);
+  public Reserva cancelar(long id, AtorReserva a, String motivo) {
+    return super.cancelar(id, a, motivo);
   }
 
   @Override

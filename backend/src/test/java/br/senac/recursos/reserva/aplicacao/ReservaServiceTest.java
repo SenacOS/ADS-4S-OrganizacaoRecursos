@@ -198,8 +198,8 @@ class ReservaServiceTest {
         ReservaService s = amb.servico();
         Reserva r = s.criar(cmd("13:00", "14:00", 1L), ANA);
 
-        assertThrows(OperacaoNaoPermitidaException.class, () -> s.cancelar(r.id(), BIA));
-        assertEquals(StatusReserva.CANCELADA, s.cancelar(r.id(), ANA).status());
+        assertThrows(OperacaoNaoPermitidaException.class, () -> s.cancelar(r.id(), BIA, null));
+        assertEquals(StatusReserva.CANCELADA, s.cancelar(r.id(), ANA, null).status());
         assertTrue(amb.armazem.containsKey(r.id()));
         assertEquals(StatusReserva.APROVADA, s.criar(cmd("13:00", "14:00", 1L), BIA).status());
         assertEquals(TipoEventoNotificacao.RESERVA_CANCELADA,
@@ -212,8 +212,54 @@ class ReservaServiceTest {
         AmbienteFake amb = ambiente();
         ReservaService s = amb.servico();
         Reserva r = s.criar(cmd("13:00", "14:00", 1L), ANA);
-        assertEquals(StatusReserva.CANCELADA, s.cancelar(r.id(), ADMIN).status());
+        assertEquals(StatusReserva.CANCELADA, s.cancelar(r.id(), ADMIN, "obra emergencial na sala").status());
         assertEquals(4L, amb.auditorias.get(amb.auditorias.size() - 1).atorId());
+    }
+
+    @Test
+    void q5AdministradorGravaJustificativaEmCampoProprioPreservandoHistorico() {
+        AmbienteFake amb = ambiente();
+        ReservaService s = amb.servico();
+        Reserva r = s.criar(cmd("13:00", "14:00", 1L), ANA);
+
+        Reserva cancelada = s.cancelar(r.id(), ADMIN, "obra emergencial na sala");
+
+        assertEquals("obra emergencial na sala", cancelada.motivoCancelamento());
+        assertNull(cancelada.motivoDecisao());
+        assertEquals("obra emergencial na sala", amb.armazem.get(r.id()).motivoCancelamento());
+        assertTrue(amb.armazem.containsKey(r.id()));
+        assertEquals(AcaoReserva.CANCELAMENTO, amb.auditorias.get(amb.auditorias.size() - 1).acao());
+        assertEquals("APROVADA", amb.auditorias.get(amb.auditorias.size() - 1).antes());
+        assertEquals("CANCELADA", amb.auditorias.get(amb.auditorias.size() - 1).depois());
+    }
+
+    @Test
+    void q5AdministradorSemJustificativaNaoAlteraNadaNemAudita() {
+        AmbienteFake amb = ambiente();
+        ReservaService s = amb.servico();
+        Reserva r = s.criar(cmd("13:00", "14:00", 1L), ANA);
+        int auditoriasAntes = amb.auditorias.size();
+        int eventosAntes = amb.eventos.size();
+
+        assertThrows(IllegalArgumentException.class, () -> s.cancelar(r.id(), ADMIN, null));
+        assertThrows(IllegalArgumentException.class, () -> s.cancelar(r.id(), ADMIN, "   "));
+
+        assertEquals(StatusReserva.APROVADA, amb.armazem.get(r.id()).status());
+        assertNull(amb.armazem.get(r.id()).motivoCancelamento());
+        assertEquals(auditoriasAntes, amb.auditorias.size());
+        assertEquals(eventosAntes, amb.eventos.size());
+    }
+
+    @Test
+    void q5DonoCancelaSemJustificativa() {
+        AmbienteFake amb = ambiente();
+        ReservaService s = amb.servico();
+        Reserva r = s.criar(cmd("13:00", "14:00", 1L), ANA);
+
+        Reserva cancelada = s.cancelar(r.id(), ANA, null);
+
+        assertEquals(StatusReserva.CANCELADA, cancelada.status());
+        assertNull(cancelada.motivoCancelamento());
     }
 
     @Test
@@ -224,7 +270,7 @@ class ReservaServiceTest {
 
         assertThrows(OperacaoNaoPermitidaException.class, () -> s.iniciarUso(r.id(), ANA));
         assertEquals(StatusReserva.EM_USO, s.iniciarUso(r.id(), RESP).status());
-        assertThrows(TransicaoInvalidaException.class, () -> s.cancelar(r.id(), ANA));
+        assertThrows(TransicaoInvalidaException.class, () -> s.cancelar(r.id(), ANA, null));
         assertThrows(ConflitoDisponibilidadeException.class, () -> s.criar(cmd("13:00", "14:00", 1L), BIA));
         assertEquals(StatusReserva.CONCLUIDA, s.concluir(r.id(), RESP).status());
         assertEquals(AcaoReserva.CONCLUSAO, amb.auditorias.get(amb.auditorias.size() - 1).acao());
@@ -259,7 +305,7 @@ class ReservaServiceTest {
 
     @Test
     void reservaInexistenteLancaNaoEncontrada() {
-        assertThrows(ReservaNaoEncontradaException.class, () -> ambiente().servico().cancelar(42, ANA));
+        assertThrows(ReservaNaoEncontradaException.class, () -> ambiente().servico().cancelar(42, ANA, null));
     }
 
     // ---------- edição ----------
@@ -315,7 +361,7 @@ class ReservaServiceTest {
         amb.aposPrimeiraBusca = () -> amb.armazem.put(r.id(),
                 new Reserva(r.id(), r.solicitanteId(), r.intervalo(), List.of(1L, 2L), false, r.status(), null));
 
-        assertThrows(br.senac.recursos.reserva.dominio.AlteracaoConcorrenteException.class, () -> s.cancelar(r.id(), ANA));
+        assertThrows(br.senac.recursos.reserva.dominio.AlteracaoConcorrenteException.class, () -> s.cancelar(r.id(), ANA, null));
         assertEquals(List.of(List.of(1L)), amb.ordensDeBloqueio);
         assertEquals(StatusReserva.APROVADA, amb.armazem.get(r.id()).status());
     }

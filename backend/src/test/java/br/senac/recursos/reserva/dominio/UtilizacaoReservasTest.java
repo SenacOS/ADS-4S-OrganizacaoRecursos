@@ -56,7 +56,7 @@ class UtilizacaoReservasTest {
     @Test
     void estadosForaDoPadraoNaoContam() {
         Reserva solicitada = Reserva.solicitar(1, i("09:00", "10:00"), List.of(5L), true).comId(1);
-        Reserva cancelada = aprovada(2, "09:00", "10:00", 1L).cancelar(new AtorReserva(1, PapelAtor.SOLICITANTE));
+        Reserva cancelada = aprovada(2, "09:00", "10:00", 1L).cancelar(new AtorReserva(1, PapelAtor.SOLICITANTE), null);
         Reserva rejeitada = solicitada.rejeitar(RESP, "x");
 
         UtilizacaoReservas.Resultado r = UtilizacaoReservas.calcular(
