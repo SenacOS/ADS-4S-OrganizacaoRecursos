@@ -1,0 +1,17 @@
+Extrato sanitizado dos logs privados de empacotamento; testes Maven omitidos explicitamente.
+
+Inicial
+[INFO] Compiling 95 source files with javac [debug parameters release 21] to target\classes
+[INFO] Not compiling test sources
+[INFO] Tests are skipped.
+[INFO] BUILD SUCCESS
+[INFO] Total time:  28.189 s
+[INFO] Finished at: 2026-11-12T12:11:41-03:00
+
+Apos correcao de datas
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] Not compiling test sources
+[INFO] Tests are skipped.
+[INFO] BUILD SUCCESS
+[INFO] Total time:  5.627 s
+[INFO] Finished at: 2026-11-12T12:30:38-03:00

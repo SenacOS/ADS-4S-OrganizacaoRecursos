@@ -11,6 +11,12 @@ function invalido(mensagem) { return new ErroApi(400, 'REQUISICAO_INVALIDA', men
 function incerta() {
   return new ErroApi(200, 'RESPOSTA_INVALIDA', 'Não foi possível confirmar os dados retornados. Consulte o estado atual antes de reenviar uma alteração.');
 }
+/** Mantém a ordem textual por UTF-16, sem equiparar strings por colação local.
+ * @param {string} a @param {string} b */
+function compararTexto(a, b) {
+  if (a === b) return 0;
+  return a < b ? -1 : 1;
+}
 /** @param {number} valor */
 function idValido(valor) {
   if (!Number.isSafeInteger(valor) || valor < 1) throw invalido('Identificador de recurso ou bloqueio inválido.');
@@ -110,7 +116,7 @@ export function criarAdministracao(cliente = api) {
       for (const chave of Object.keys(dados)) {
         const k = /** @type {keyof typeof dados} */ (chave);
         if (k === 'competencias') {
-          const canonico = (/** @type {string[]} */ cs) => JSON.stringify([...new Set(cs.map((c) => c.toLowerCase()))].sort());
+          const canonico = (/** @type {string[]} */ cs) => JSON.stringify([...new Set(cs.map((c) => c.toLowerCase()))].sort(compararTexto));
           if (canonico(dados.competencias ?? []) !== canonico(resposta.dados.competencias ?? [])) throw incerta();
         } else if (dados[k] !== resposta.dados[k]) throw incerta();
       }
@@ -159,7 +165,7 @@ export function criarAdministracao(cliente = api) {
       try {
         if (resposta?.zona !== 'America/Sao_Paulo') throw incerta();
         const confirmado = dadosExpediente(resposta.janelas);
-        const canonico = (/** @type {Janela[]} */ js) => JSON.stringify(js.map((j) => `${j.dia}/${hora(j.inicio)}/${hora(j.fim)}`).sort());
+        const canonico = (/** @type {Janela[]} */ js) => JSON.stringify(js.map((j) => `${j.dia}/${hora(j.inicio)}/${hora(j.fim)}`).sort(compararTexto));
         if (canonico(body.janelas) !== canonico(confirmado.janelas)) throw incerta();
         return { zona: resposta.zona, ...confirmado };
       } catch { throw incerta(); }

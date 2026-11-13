@@ -1,0 +1,236 @@
+{
+  "inicio": "2026-11-12T19:00:28.133Z",
+  "baseURL": "http://127.0.0.1:18080",
+  "base": "f9c4912e3be513798cc16db3b021e58ffde7aed6",
+  "branch": "feature/marcos-reservas-consulta",
+  "arvore": "worktree sem commit; hashes dos arquivos efetivamente usados abaixo",
+  "ferramentas": {
+    "java": "21.0.13+9",
+    "maven": "3.9.16",
+    "mysql": "8.4.13",
+    "chrome": "157.0.8103.78"
+  },
+  "camadas": "API HTTP real e Chrome headless real; sem route/intercept/mock. SQL somente SELECT para conferir persistência.",
+  "cenarios": [
+    {
+      "nome": "Flyway e identidade da base isolada",
+      "camada": "SQL real",
+      "inicio": "2026-11-12T19:00:29.263Z",
+      "evidencia": {
+        "migracoes": [
+          "1\titem18\t1",
+          "2\tperfil usuarios\t1",
+          "3\tauditoria\t1",
+          "4\tnotificacoes\t1",
+          "5\tindice fila aprovacao\t1",
+          "6\tresponsaveis recursos\t1"
+        ],
+        "banco": "qs_marcos_e2e",
+        "porta": 13307
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Arquivos servidos pelo JAR correspondem à fonte testada",
+      "camada": "HTTP real + SHA256",
+      "inicio": "2026-11-12T19:00:29.370Z",
+      "evidencia": {
+        "datas.js": "44f35755602a1043e5126ed4807f5b0b31bc273908c7e4d079d6df34a9636bbe",
+        "administracao-recursos.js": "b3885630bcaaad766275d14599855d657753e7cfe80ed8df2fad90f77589e70a"
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Sem sessão retorna 401 NAO_AUTENTICADO",
+      "camada": "HTTP real",
+      "inicio": "2026-11-12T19:00:29.390Z",
+      "evidencia": {
+        "status": 401,
+        "codigo": "NAO_AUTENTICADO"
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Bootstrap local e cadastro dos outros dois perfis",
+      "camada": "HTTP real",
+      "inicio": "2026-11-12T19:00:29.400Z",
+      "evidencia": {
+        "perfis": [
+          "ADMINISTRADOR",
+          "SOLICITANTE",
+          "RESPONSAVEL"
+        ],
+        "usuariosIds": {
+          "admin": 1,
+          "solicitante": 2,
+          "responsavel": 3
+        }
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "CSRF real e escritas proibidas por perfil",
+      "camada": "HTTP real",
+      "inicio": "2026-11-12T19:00:29.817Z",
+      "evidencia": {
+        "semCsrf": 403,
+        "solicitanteCadastrandoRecurso": 403,
+        "administradorRetirando": 403
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Expediente e recursos exclusivos da rodada",
+      "camada": "HTTP real; preparação",
+      "inicio": "2026-11-12T19:00:29.842Z",
+      "evidencia": {
+        "material": 62,
+        "restrito": 63,
+        "janelas": 7
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Login e cookie HttpOnly nos três perfis",
+      "camada": "Chrome + HTTP reais",
+      "inicio": "2026-11-12T19:00:30.157Z",
+      "evidencia": {
+        "perfis": 3,
+        "cookie": {
+          "nome": "JSESSIONID",
+          "httpOnly": true,
+          "sameSite": "Lax",
+          "ambiente": "HTTP loopback"
+        }
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Cadastro dos três tipos e edição de competências",
+      "camada": "Chrome + HTTP + MySQL reais",
+      "inicio": "2026-11-12T19:00:32.254Z",
+      "evidencia": {
+        "sala": 64,
+        "docente": 65,
+        "material": 66
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Expediente completo salvo sem perda de frações",
+      "camada": "Chrome + HTTP reais",
+      "inicio": "2026-11-12T19:00:33.103Z",
+      "evidencia": {
+        "janelas": 7,
+        "fim": "23:59:59.999999"
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Criar/cancelar bloqueio e desativar sala",
+      "camada": "Chrome + HTTP reais",
+      "inicio": "2026-11-12T19:00:33.260Z",
+      "evidencia": {
+        "bloqueio": 7,
+        "status": "CANCELADO",
+        "salaDesativada": 64
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Pesquisar e criar reserva comum com offset de São Paulo",
+      "camada": "Chrome + HTTP reais",
+      "inicio": "2026-11-12T19:00:33.808Z",
+      "evidencia": {
+        "id": 68,
+        "status": "APROVADA",
+        "inicio": "2026-11-12T15:58:00-03:00",
+        "fim": "2026-11-12T16:43:00-03:00",
+        "recursosIds": [
+          62
+        ]
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Reserva restrita, conflito e PATCH/cancelamento conhecidos por ID",
+      "camada": "HTTP real; não é tela de edição",
+      "inicio": "2026-11-12T19:00:34.425Z",
+      "evidencia": {
+        "restrita": 69,
+        "criacao": "SOLICITADA",
+        "patch": 200,
+        "cancelamento": 200,
+        "conflito": 409
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Retirada e devolução pelo Responsável",
+      "camada": "Chrome + HTTP reais",
+      "inicio": "2026-11-12T19:00:34.539Z",
+      "evidencia": {
+        "movimentacao": 9,
+        "reserva": 68,
+        "devolvidoPor": 3,
+        "atrasoSegundos": 0
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Leituras de reservas disponíveis após PR26",
+      "camada": "HTTP real; própria reserva e escopo vazio",
+      "inicio": "2026-11-12T19:00:35.369Z",
+      "evidencia": {
+        "detalhe": 200,
+        "propriaReserva": 68,
+        "filaSemVinculo": {
+          "status": 200,
+          "total": 0
+        }
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Logout real dos três perfis e ausência de erros JavaScript",
+      "camada": "Chrome + HTTP reais",
+      "inicio": "2026-11-12T19:00:35.389Z",
+      "evidencia": {
+        "logouts": 3,
+        "meAposLogout": 401,
+        "errosJavaScript": 0
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Persistência, auditoria e outbox real",
+      "camada": "SELECT no MySQL real",
+      "inicio": "2026-11-12T19:00:36.348Z",
+      "evidencia": {
+        "recursos": "MATERIAL\tE2E-material-90e821dca9\t1\r\nMATERIAL\tE2E-restrito-90e821dca9\t1\r\nSALA\tUI-SALA-90e821dca9\t0\r\nPROFESSOR\tUI-PROFESSOR-90e821dca9\t1\r\nMATERIAL\tUI-MATERIAL-90e821dca9\t1",
+        "reservas": "68\tAPROVADA\t2\r\n69\tCANCELADA\t2",
+        "movimentacao": "9\t68\t3\t3\t1\t0",
+        "auditoria": "EXPEDIENTE\tEDICAO\t1\r\nRECURSO\tCRIACAO\t2",
+        "notificacoes": "MATERIAL_DEVOLVIDO\tPENDENTE\t1\r\nRESERVA_APROVADA\tPENDENTE\t1\r\nRESERVA_CANCELADA\tPENDENTE\t1\r\nRESERVA_CRIADA\tPENDENTE\t2"
+      },
+      "estado": "PASS"
+    }
+  ],
+  "hashes": {
+    "backend/src/main/resources/static/js/administracao-recursos.js": "b3885630bcaaad766275d14599855d657753e7cfe80ed8df2fad90f77589e70a",
+    "backend/src/main/resources/static/js/datas.js": "44f35755602a1043e5126ed4807f5b0b31bc273908c7e4d079d6df34a9636bbe",
+    "tests/unit/frontend/administracao-recursos.test.js": "72aef55369da2448e7656901c3dc995a885c278acfaf05ab4f793cf952b5515a",
+    "tests/unit/frontend/recursos-datas.test.js": "993b549df6cba481698b9db37d695258e69886d49fac5e3ec68f5ba1c4ab30c5",
+    "tests/unit/frontend/movimentacoes.test.js": "9db80b2ec8e74da65bf4bbae83b67b2d8696648ea2d35bf75b9127a54b967e43",
+    "tests/browser/movimentacoes.spec.js": "e899ad2cfcf9a74c6a843e21b680911d7599837b89f36921d2bebdc8891d6dc1",
+    "tests/e2e-local/controle.cjs": "833a5a89f335a10595873420fe3f0d4459dafee995aa1fc97b73447f8a35eed6",
+    "tests/e2e-local/validar.cjs": "a29834bb27555f9a21eb14da24b8ec05f934fb18339a4fc0de73b2f03b18e257",
+    "backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar": "6d84690abcf10e7c1b811875b8a8d726b9857afca670bccfee222dd62923fe20"
+  },
+  "fim": "2026-11-12T19:00:36.767Z",
+  "resumo": {
+    "PASS": 16,
+    "FAIL": 0,
+    "BLOQUEADO": 0
+  }
+}

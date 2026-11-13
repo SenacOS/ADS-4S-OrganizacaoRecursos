@@ -1,0 +1,105 @@
+{
+  "inicio": "2026-11-12T19:00:19.865Z",
+  "head": "f9c4912e3be513798cc16db3b021e58ffde7aed6",
+  "arvore": "worktree ainda sem commit, identificada pelos hashes",
+  "cenarios": [
+    {
+      "nome": "Arquivos da nova interface efetivamente servidos pelo JAR",
+      "estado": "PASS",
+      "evidencia": {
+        "arquivos": 7,
+        "hashes": "MATCH"
+      }
+    },
+    {
+      "nome": "Lista/detalhe do dono e PATCH completo sem perda de fração",
+      "estado": "PASS",
+      "evidencia": {
+        "id": 66,
+        "inicio": "2026-11-12T16:10:07.123456-03:00",
+        "fim": "2026-11-12T17:10:07.123456-03:00",
+        "recursos": [
+          59,
+          60
+        ]
+      }
+    },
+    {
+      "nome": "Conflito real 409 preserva reserva e exige reconsulta antes de nova escrita",
+      "estado": "PASS",
+      "evidencia": {
+        "conflito": 409,
+        "estado": "APROVADA",
+        "semReenvio": true
+      }
+    },
+    {
+      "nome": "Editar um horário e adicionar recurso mantém o outro e todos os originais",
+      "estado": "PASS",
+      "evidencia": {
+        "id": 66,
+        "inicio": "2026-11-12T16:15:07-03:00",
+        "fim": "2026-11-12T17:10:07.123456-03:00",
+        "recursos": [
+          59,
+          60,
+          61
+        ]
+      }
+    },
+    {
+      "nome": "Responsável autorizado consulta sem herdar edição/cancelamento do dono",
+      "estado": "PASS",
+      "evidencia": {
+        "id": 66,
+        "consulta": true,
+        "acoesDoDono": false
+      }
+    },
+    {
+      "nome": "Cancelamento do dono confirma estado sem apagar histórico",
+      "estado": "PASS",
+      "evidencia": {
+        "id": 66,
+        "status": "CANCELADA",
+        "recursos": [
+          59,
+          60,
+          61
+        ]
+      }
+    },
+    {
+      "nome": "Administrador cancela reserva alheia sem obter edição",
+      "estado": "PASS",
+      "evidencia": {
+        "id": 67,
+        "status": "CANCELADA"
+      }
+    },
+    {
+      "nome": "Detalhe móvel real e persistência do cancelamento",
+      "estado": "PASS",
+      "evidencia": {
+        "viewport": "390x844",
+        "persistencia": "66\tCANCELADA\r\n67\tCANCELADA",
+        "errosJS": 0
+      }
+    }
+  ],
+  "hashes": {
+    "backend/src/main/resources/static/js/consulta-reservas.js": "bde2b04cc4e2dca62907c9bd766c3ba7ba2205faa935f7966cd61839e849a8da",
+    "backend/src/main/resources/static/js/consulta-reservas-page.js": "95aa36d96c8641da4bb43eacc0d2a2014ffd3c2ec0bb2cf357b434353aedcc4f",
+    "backend/src/main/resources/static/js/navegacao.js": "3b32c672b906e8ce1f58e8688b301335415f1d7ce22426fd46505f059367f0b6",
+    "backend/src/main/resources/static/pages/minhas-reservas.html": "9b8369b32d78226b9391730d8a4176a9d49602d1755c6c95fd93647856ef6c42",
+    "backend/src/main/resources/static/css/consulta-reservas.css": "dc27a7ecd9b91712773fcb8b4789f87b6baf86fb6341cc1477e638706103dce7",
+    "backend/src/main/resources/static/js/datas.js": "44f35755602a1043e5126ed4807f5b0b31bc273908c7e4d079d6df34a9636bbe",
+    "backend/src/main/resources/static/js/reservas.js": "5e2e4d7be7fb07851b9a91191de7884101808fbf53f863266d67f3e538e52e4f",
+    "tests/e2e-local/validar-consulta-reservas.cjs": "0bc92ceaf66fb96479752341a442273ef020fa3acad71eb294e9ad0ec9483c8c"
+  },
+  "fim": "2026-11-12T19:00:27.613Z",
+  "resumo": {
+    "PASS": 8,
+    "FAIL": 0
+  }
+}

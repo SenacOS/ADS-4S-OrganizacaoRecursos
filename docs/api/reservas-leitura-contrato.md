@@ -2,6 +2,8 @@
 
 **Estado: GETs integrados pelo PR #26.** Este complemento conecta o GET ao adaptador da fila integrado pelo PR #22. O cliente está na [Marcos-4](../stories/marcos-4.md).
 
+Atualização do frontend após merge do **PR #27**, develop `4cea177`: fila/Q9 revalidadas com backend real, incluindo total de página vazia e revogação de vínculo. [Resultados](../testes/marcos-integracao-q9-1-pr27-resultados.md). Marcos aceitou consumir o escopo de todos os recursos; ratificação coletiva e manutenção administrativa dos vínculos continuam separadas.
+
 O escopo das leituras segue a [implementação da Q9](../seguranca/q9-autorizacao-reservas.md).
 
 ## Requisição da fila

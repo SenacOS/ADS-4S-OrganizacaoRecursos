@@ -1,0 +1,11 @@
+{
+  "base": "0775715d5a769d726e5cc63dc1b4125747084ff8",
+  "branch": "test/marcos-fechamento-e2e",
+  "arvore": "helpers novos ainda sem commit; produto preservado de 0775715",
+  "hashes": {
+    "tests/e2e-local/validar-fechamento.cjs": "fe99113506f53de0fd15032e6039aa92d6f4e762c240c209033a6209470771df",
+    "tests/e2e-local/sessao-temporaria.cjs": "eda9033de0c44b24271cd25fed0c349e9ad0541609790015161dd1bce7d7eb41"
+  },
+  "hashesProdutoEJar": "resultados-final.json",
+  "regressaoAnterior": "81/278 preservada por hashes"
+}

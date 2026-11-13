@@ -1,5 +1,5 @@
 import { api, ErroApi } from './api.js';
-import { dataComOffset } from './datas.js';
+import { dataComOffset, instanteComPrecisao } from './datas.js';
 
 /** @typedef {{inicio: string, fim: string, recursosIds: number[]}} DadosReserva */
 
@@ -29,7 +29,7 @@ export function confirmarCriacao(resposta, envio, usuarioId) {
 
 /** @param {DadosReserva} dados */
 function corpoReserva({ inicio, fim, recursosIds }) {
-  if (!dataComOffset(inicio) || !dataComOffset(fim) || Date.parse(fim) <= Date.parse(inicio)) {
+  if (!dataComOffset(inicio) || !dataComOffset(fim) || instanteComPrecisao(fim) <= instanteComPrecisao(inicio)) {
     throw new ErroApi(400, 'REQUISICAO_INVALIDA', 'Informe início e fim com fuso horário; o fim deve ser posterior ao início.');
   }
   if (!Array.isArray(recursosIds) || !recursosIds.length

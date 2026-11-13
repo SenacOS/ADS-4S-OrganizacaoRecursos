@@ -134,7 +134,7 @@ for (const [papel, rotulo] of [['SOLICITANTE', 'Solicitante'], ['RESPONSAVEL', '
     await expect(page.locator('#usuario-perfil')).toHaveText(rotulo);
     await expect(page.getByRole('heading', { name: 'Aprovações', exact: true })).toHaveCount(papel === 'RESPONSAVEL' ? 1 : 0);
     await expect(page.getByRole('heading', { name: 'Gerenciar recursos', exact: true })).toHaveCount(papel === 'ADMINISTRADOR' ? 1 : 0);
-    await expect(page.locator('#navegacao a[href^="/pages/"]')).toHaveCount(papel === 'SOLICITANTE' ? 2 : 4);
+    await expect(page.locator('#navegacao a[href^="/pages/"]')).toHaveCount(papel === 'SOLICITANTE' ? 3 : 5);
     await expect(page.locator('#navegacao [aria-disabled="true"]')).toHaveCount(0);
     for (const [titulo, rota, permitido] of [
       ['Aprovações', '/pages/aprovacoes.html', papel === 'RESPONSAVEL'],
@@ -148,7 +148,7 @@ for (const [papel, rotulo] of [['SOLICITANTE', 'Solicitante'], ['RESPONSAVEL', '
         expect((await page.request.get(rota)).status()).toBe(200);
       }
     }
-    for (const rota of ['/pages/recursos.html', '/pages/reservas.html']) {
+    for (const rota of ['/pages/recursos.html', '/pages/reservas.html', '/pages/minhas-reservas.html']) {
       expect((await page.request.get(rota)).status()).toBe(200);
     }
     expect(estado.inesperadas).toEqual([]);

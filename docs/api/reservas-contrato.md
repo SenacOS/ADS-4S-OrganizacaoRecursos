@@ -1,8 +1,8 @@
 # Contrato da API de reservas
 
-**Estado: ACEITO POR MARCOS PARA O FRONTEND em 10/11/2026** — datas, PATCH e 409 adotados conforme autorização do usuário. Revisões de backend/segurança e integração real permanecem pendentes. Os 8 endpoints de escrita estão escritos, mas desligados por padrão (reservas.api.enabled=false). A integração depende da sessão e dos provedores reais de auditoria/notificação; não foram validados ponta a ponta. A autenticação entregue em branch separada ainda precisa ser integrada à develop.
+**Estado atualizado em 12/11/2026:** datas, PATCH conjunto e 409 aceitos por Marcos para o frontend em 10/11. Autenticação integrada; PRs #26/#27 entregaram consultas e Q9 na develop `4cea177`, incorporada à base `f9c4912`. [Contrato de consultas](reservas-consulta-contrato.md) e [provas reais da interface de edição/cancelamento](../testes/marcos-3-consulta-edicao-resultados.md). Os 8 endpoints de escrita continuam desligados por padrão (`reservas.api.enabled=false`); os testes isolados ativam a API somente no processo local com provedores reais. Isso não altera padrões de implantação nem comprova todos os estados, concorrência ou entrega de notificações. Ratificações coletivas/revisão da equipe permanecem separadas.
 
-**Fora deste contrato por enquanto:** `GET /api/reservas`, `GET /api/reservas/{id}` e disponibilidade. A [política Q9 foi comunicada como decidida por Marcos em 11/11/2026](reservas-politica-leitura-q9.md); ainda faltam contratos/porta de leitura e aplicação efetiva da autorização para os GETs de reservas. A decisão não implementa endpoints. O endpoint de pesquisa/disponibilidade de recursos pertence a Fausto (`GET /api/recursos`).
+**Leitura em contrato próprio:** `GET /api/reservas` e `GET /api/reservas/{id}` estão disponíveis conforme o [contrato de consultas](reservas-consulta-contrato.md), com Q9 aplicada no servidor. O endpoint de pesquisa/disponibilidade de recursos é `GET /api/recursos`; não há novo endpoint de disponibilidade de reserva. A [política Q9](reservas-politica-leitura-q9.md) continua distinta da gestão administrativa dos vínculos.
 
 Convenções (ADR-004, ADR-006): sessão com cookie HttpOnly, CSRF no cabeçalho informado por `GET /api/auth/csrf` (`{token,header}`; não fixar o nome no cliente), JSON em UTF-8 nas operações de domínio, datas ISO 8601 **com offset** (`2026-11-10T13:00:00-03:00`), persistidas em UTC, exibidas em `America/Sao_Paulo`.
 
@@ -33,6 +33,8 @@ Todas as escritas, inclusive login/logout, usam o cabeçalho CSRF retornado pelo
 ## Alterar reserva
 
 `PATCH /api/reservas/{id}` **substitui** `inicio`, `fim` e `recursosIds` juntos; os três são obrigatórios (mesmo corpo do POST). Não há alteração parcial.
+
+Comportamento atual observado em `Reserva.reagendar`: somente o dono em SOLICITADA ou APROVADA comum, sem mudar a necessidade de aprovação. Essa regra ainda aparece como PROPOSTO no domínio; o frontend a consome sem declarar ratificação coletiva. Cancelamento exige dono ou Administrador e transição SOLICITADA/APROVADA para CANCELADA. Consulta autorizada não amplia essas permissões. A interface obtém detalhe completo antes da ação e mantém integralmente o ISO de cada data não editada e todos os recursos originais. [Consumo e confirmação](frontend-integracao.md#consulta-edição-e-cancelamento--complemento-da-marcos-3).
 
 ## Criar reserva
 

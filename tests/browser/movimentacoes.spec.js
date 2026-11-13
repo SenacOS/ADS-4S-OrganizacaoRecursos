@@ -20,7 +20,7 @@ async function preparar(page, opcoes = {}) {
   const estado = { papel: 'RESPONSAVEL', autenticado: true, itens: copiar([material, camera, inativo]), abertas: [copiar(aberta)],
     consultas: [], escritas: [], inesperadas: [], csrf: 0, erroLista: false, erroPesquisa: false, erroDetalhe: false,
     erroEscrita: 0, rede: false, incoerente: false, outroOperador: false, erroListaAposEscrita: false,
-    esperarPesquisa: null, esperarDetalhe: null, esperarEscrita: null, paginar: false, ...opcoes };
+    esperarPesquisa: null, esperarDetalhe: null, esperarEscrita: null, paginar: false, datasEmMinutos: false, ...opcoes };
   const falhar = (route, status, codigo, mensagem) => route.fulfill({ status, json: { codigo, mensagem, correlationId: 'mov-suporte-123' } });
   await page.route('**/api/**', async (route) => {
     const req = route.request(), url = new URL(req.url()), path = url.pathname;
@@ -60,14 +60,15 @@ async function preparar(page, opcoes = {}) {
       }
       if (estado.incoerente) return route.fulfill({ json: { ...aberta, id: 999, recursoId: 999 } });
       if (path === '/api/movimentacoes/retiradas') {
-        const novo = { ...aberta, id: 80 + estado.escritas.length, ...body };
+        const novo = { ...aberta, id: 80 + estado.escritas.length, ...body,
+          ...(estado.datasEmMinutos ? { retiradoEm: '2026-11-10T13:00:00.123456-03:00', fimPrevisto: '2026-11-10T14:00-03:00' } : {}) };
         estado.abertas.push(novo); return route.fulfill({ status: 201, json: novo });
       }
       const devolver = /^\/api\/movimentacoes\/(\d+)\/devolucao$/.exec(path);
       if (devolver) {
         const anterior = estado.abertas.find((m) => m.id === Number(devolver[1]));
         estado.abertas = estado.abertas.filter((m) => m.id !== anterior.id);
-        return route.fulfill({ json: { ...anterior, devolvidoEm: '2026-11-10T18:01:01Z', devolvidoPor: estado.outroOperador ? 9 : 3, atrasoSegundos: 3661 } });
+        return route.fulfill({ json: { ...anterior, devolvidoEm: estado.datasEmMinutos ? '2026-11-10T15:01-03:00' : '2026-11-10T18:01:01Z', devolvidoPor: estado.outroOperador ? 9 : 3, atrasoSegundos: estado.datasEmMinutos ? 3660 : 3661 } });
       }
     }
     estado.inesperadas.push(req.method() + ' ' + path); return falhar(route, 404, 'NAO_ENCONTRADO', 'Rota não contratada.');
@@ -155,6 +156,19 @@ test('retirada exige confirmação, envia somente IDs e impede repetição após
   expect(estado.escritas[0].headers['x-csrf-mov']).toBe('csrf-1');
   await page.locator('#form-retirada').dispatchEvent('submit'); expect(estado.escritas).toHaveLength(1);
   await page.getByRole('button', { name: 'Registrar outra retirada' }).click(); await expect(page.locator('#materiais')).toBeEmpty();
+});
+
+test('prazo com minutos e offset confirma retirada, pendência e devolução sem reenvio', async ({ page }) => {
+  const estado = await abrir(page, { abertas: [], datasEmMinutos: true }); await selecionarRetirada(page);
+  await page.locator('#confirmar-retirada').check(); await page.getByRole('button', { name: 'Confirmar retirada', exact: true }).click();
+  await expect(page.locator('#confirmacao-retirada')).toBeVisible();
+  await expect(page.locator('#pendencias .movement-card')).toHaveCount(1);
+  await expect(page.locator('#pendencias')).toContainText('10/11/2026, 14:00');
+  await page.getByRole('button', { name: 'Devolver movimentação #81', exact: true }).click();
+  await page.locator('#confirmar-devolucao').check(); await page.getByRole('button', { name: 'Confirmar devolução', exact: true }).click();
+  await expect(page.locator('#confirmacao-devolucao')).toBeVisible(); await expect(page.locator('#pendencias .movement-card')).toHaveCount(0);
+  expect(estado.escritas.map((e) => e.path)).toEqual(['/api/movimentacoes/retiradas', '/api/movimentacoes/81/devolucao']);
+  expect(estado.inesperadas).toEqual([]);
 });
 test('material inativo não oferece escolha válida e busca vazia não inventa resultados', async ({ page }) => {
   const estado = await abrir(page); await pesquisar(page);

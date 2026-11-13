@@ -1,0 +1,60 @@
+{
+  "data": "2026-11-12",
+  "isolamento": ".aiox-core/local/ (ignorado)",
+  "ferramentas": [
+    {
+      "nome": "Temurin JDK",
+      "versao": "21.0.13+9",
+      "url": "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.13%2B9/OpenJDK21U-jdk_x64_windows_hotspot_21.0.13_9.zip",
+      "fonteMetadata": "https://api.adoptium.net/v3/assets/latest/21/hotspot?architecture=x64&image_type=jdk&os=windows",
+      "hashPublicadoConferido": {
+        "algoritmo": "SHA256",
+        "valor": "a4dbaa05fca4bd89d84584e58c459bd732efebb1722af80ab13c6516832004f9"
+      },
+      "authenticode": {
+        "arquivo": "java.exe",
+        "status": "Valid",
+        "signatario": "Eclipse Foundation"
+      }
+    },
+    {
+      "nome": "Apache Maven",
+      "versao": "3.9.16",
+      "url": "https://dlcdn.apache.org/maven/maven-3/3.9.16/binaries/apache-maven-3.9.16-bin.zip",
+      "fonteHash": "https://downloads.apache.org/maven/maven-3/3.9.16/binaries/apache-maven-3.9.16-bin.zip.sha512",
+      "hashPublicadoConferido": {
+        "algoritmo": "SHA512",
+        "valor": "ed41650d42485cfc243fad22158caf9cbb5dc408ce7a09ddb94dd42a019de929ca43065bfa450612cf12bf78b5cafa3884b96c090de326ff590448c933454af3"
+      },
+      "sha256Local": "5af3b743dd8b876b5c45da33b676251e5f1687712644abb4ee519ca56e1d89ce"
+    },
+    {
+      "nome": "MySQL ZIP Windows",
+      "versao": "8.4.13",
+      "url": "https://dev.mysql.com/get/Downloads/MySQL-8.4/mysql-8.4.13-winx64.zip",
+      "fonteHash": "https://dev.mysql.com/downloads/mysql/8.4.html?os=3",
+      "hashPublicadoConferido": {
+        "algoritmo": "MD5",
+        "valor": "7b94489d5524dea9b27097068bea25a8"
+      },
+      "sha256Local": "e9cd98b1d23f122987b1afca26ad942efec5891481103d48ae3cde237fa3ea54",
+      "authenticode": {
+        "arquivo": "mysqld.exe",
+        "status": "Valid",
+        "signatario": "Oracle America, Inc."
+      }
+    }
+  ],
+  "verificacao": "Hashes publicados comparados aos downloads antes do uso; SHA256 local adicional nao e hash publicado. java -version, mvn -v e mysqld --version executados com essas distribuicoes.",
+  "processos": {
+    "http": "127.0.0.1:18080",
+    "mysql": "127.0.0.1:13307",
+    "banco": "qs_marcos_e2e",
+    "estado": "ativos apos validacao; identidades privadas em state.json"
+  },
+  "configuracao": {
+    "flags": "recursos/reservas/movimentacoes somente runtime local",
+    "notificacoesWorker": false
+  },
+  "limites": "Nenhuma instalacao global ou mudanca de backend/dependencias; MD5 nao e garantia criptografica de autenticidade."
+}

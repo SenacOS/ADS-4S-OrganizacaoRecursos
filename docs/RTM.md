@@ -1,5 +1,66 @@
 # Matriz de rastreabilidade - item 18
 
+## Complemento real de fechamento — 11/0 sobre0775715
+
+Revisão das evidências aprovada por Marcos em12/11, sem ajuste solicitado. [Aceite e alcance](testes/marcos-fechamento-e2e-1-aceite-2026-11-12.md). Nenhuma nova suíte ou mudança de produto/auxiliares; publicação e verificações externas continuam separadas.
+
+12/11/2026, branch `test/marcos-fechamento-e2e`, auxiliares/documentação ainda sem commit; produto preservado por hashes. [Story](stories/marcos-fechamento-e2e-1.md), [resultados/matriz/tentativas](testes/marcos-fechamento-e2e-1-resultados.md) e [entrega](integracao/marcos-fechamento-entrega.md).
+
+| Requisito / risco | Evidência real complementar |
+|---|---|
+| RF01/RF13 — login inválido, CSRF, timeout e mensagens | UI401, rotação real de CSRF com403/ação explícita204;65.296ms de inatividade com cookie mantido, GET401/NAO_AUTENTICADO e redirecionamento. Temporária loopback encerrada; principal preservada. |
+| RF03 — paginação, vazio e disponibilidade |21materiais exclusivos, páginas20/1, filtro/período, vazio específico e recurso ocupado com seleção impedida;390×844. |
+| RF04/RF05 — concorrência e estado alterado | Duas sessões HTTP simultâneas201/409 e persistência única; editor depois de cancelamento externo retorna403, duplo clique→1PATCH e reconsultaCANCELADA;1366×900/foco. |
+| RF09/RF13 — prazo, atraso e perfis | Retirada elegível permanece aberta após prazo; ADMINleitura/POST403; devolução pelo Responsável com atraso final2s e operador persistidos;390×844/foco. |
+| RF14 — origem/isolamento das provas |32fontes servidas em cada instância/JAR/auxiliares porhash; SQLsomenteSELECT; tentativas incompleta e9/1 preservadas, final11/0. Sem mudança de produto nem nova execução do81/278 anterior. |
+
+Complementa smoke16/0/0, consulta/edição8/0 e Q9/fila10/0 sem somar contagens ou certificar todos os estados/carga. Sem nova prova de envio externo, nova revisão humana, check remoto ou entregaàdevelop. Demais registros abaixo mantêm suas bases históricas.
+
+## Complemento Marcos-3 — consulta, edição e cancelamento
+
+Aceite posterior em 12/11/2026: Marcos informou que os testes funcionaram, aprovou visualmente e autorizou commit local. [Registro e alcance](testes/marcos-3-consulta-edicao-aceite-visual-2026-11-12.md). Sem mudança de produto/testes ou nova suíte; revisão da equipe, checks, publicação e merge continuam separados. As observações de aceite pendente abaixo descrevem a execução anterior.
+
+12/11/2026, branch `feature/marcos-reservas-consulta` sobre f9c4912, código local ainda sem commit. Estado atual prevalece sobre diagnósticos históricos de GET ausente/UI geral pendente abaixo. [Story](stories/marcos-3-consulta-edicao.md) e [resultados, hashes, testes controlados/reais e limites](testes/marcos-3-consulta-edicao-resultados.md).
+
+| Requisito / risco | Implementação | Evidência |
+|---|---|---|
+| RF01/RF03/RF04 — escopo, consulta/detalhe e reserva | consulta-reservas.js, minhas-reservas.html e navegação dos três perfis; GET antes das ações | Unitários de DTO/envelope/escopo/permissões e browser de filtros/páginas/detalhe; E2E real de lista/detalhe, dono, Responsável e Administrador |
+| RF04 — perda de recursos/precisão e escrita indevida | consulta-reservas-page.js, datas.js e reservas.js; PATCH conjunto, ISO original e comparações precisas, seleção original | Unitários e browser de seleção entre páginas, próprios indisponíveis, datas inalteradas e intervalo submilissegundo; E2E de PATCH/microssegundos, inclusão e conflito409 |
+| RF04/RF07 — consulta não concede decisões/escrita | Guardas por dono/estado; aprovação permanece na fila; cancelamento dono/Admin | Browser de perfis/estados; E2E de Responsável somente consulta e cancelamento dono/Admin, persistência CANCELADA |
+| RF13 — reenvio, confirmação falsa, sessão, texto/foco/móvel | Guard, detalhe novo após operação incerta, CSRF/sessão e UI compartilhados | Browser controlado com rede/incoerência/409, falha pós-sucesso, duplo envio,401/texto/teclado/duas viewports; E2E de reconsulta e móvel |
+| RF14 — atribuição indevida de resultados | Manifesto da árvore sem commit, logs separados, helper real e smoke geral | Regressão/E2E e tentativas preservadas, package sem testes Maven explicitado; aceite humano/checks remotos pendentes |
+
+As provas encerram somente os caminhos executados. Revisão visual nova, revisão da equipe, ratificação coletiva/processo de vínculos, matriz integrada restante e checks remotos não são presumidos. FE-005 identificado por QA foi corrigido e coberto; fronteira de comparação temporal também recebeu regressão própria. Históricos anteriores abaixo permanecem vinculados às suas bases.
+
+## Revalidação após PR #27 — develop4cea177
+
+Aceite visual global do autor e solicitação de commit local recebidos em12/11, após roteiro com21solicitações reais de teste. [Registro](testes/marcos-integracao-q9-1-aceite-visual-2026-11-12.md). Não encerra os RFs inteiros nem atribui revisão de outro integrante/CI aprovada; nenhuma suíte repetida para este registro documental.
+
+12/11/2026: merge local ainda sem commit, preservando8c21a43. [Q9/fila reais10PASS/0FAIL e smoke16/0/1](testes/marcos-integracao-q9-1-pr27-resultados.md). Acrescentadas provas de página vazia preservando total e revogação retirando leitura/decisão (404/403) sem apagar reserva; RF01/RF04/RF07/RF13/RF14 nos caminhos executados. Fontes/JAR conferidos; frontend72/240 mantido por hashes, sem nova suíte isolada. Não encerra UIgeral, matriz E2E inteira, revisão humana ou checks remotos. CI4cea177 aprovou244unitários/HTTP e57IT/cobertura, mas scanner falhou depois. Registros anteriores abaixo preservados.
+
+## Integração Q9 / fila — PR #26
+
+12/11/2026, branch `feature/marcos-integracao-q9`, HEAD8c21a43 + merge local sem commit de develop3f2a9a3. [Resultados reais e limites](testes/marcos-integracao-q9-1-resultados.md): **8 PASS/0 FAIL** para escopo por sessão, total/paginação autorizados, 404 de detalhe alheio, vínculos parciais/completos e fila no Chrome com aprovação/rejeição/motivo. RF01/RF04/RF07/RF13/RF14 nos caminhos executados. [Contrato conferido](api/reservas-consulta-contrato.md).
+
+Smoke atualizado16/0/1; bloqueio é UI geral ainda ausente, não ausência de GETs/Q9. FlywayV6 aplicada e módulos servidos conferidos; produto/testesfrontend mantêm hashes do72/240 anterior, sem nova regressão completa. Ratificação coletiva multi-recurso, gestão dos vínculos, interface geral, revisão humana e checks/Sonar continuam pendentes. CI develop3f2a9a3 aprovou243unitários/HTTP e56IT, cobertura; scanner falhou depois. Registros abaixo são históricos.
+
+## Fechamento local de Marcos — 12/11/2026, após PR #24
+
+Base develop da5881b; branch `fix/marcos-qualidade-frontend`, alterações novas não commitadas. PRs #23/#24 mesclados; registros abaixo mantêm seus contextos históricos.
+
+| RF | Incremento / evidência atual | Limite |
+|---|---|---|
+| RF02/RF08/RF13/RF14 | Comparação textual explícita para confirmação administrativa; [qualidade](testes/marcos-qualidade-1-resultados.md) e regressão posterior 72 unitários/240 navegador | CI scanner Sonar ainda depende de autorização/configuração da equipe |
+| RF09/RF13/RF14 | FE-004: datas em minutos com offset aceitas; [regressão RED e build](testes/marcos-integracao-datas-1-resultados.md), JAR servido conferido e retirada/devolução reais | Não muda identidade, transições ou formatos enviados; não prova concorrência/atraso positivo |
+| RF01/RF02/RF03/RF04/RF08/RF09/RF13/RF14, nos cenários exercitados | [Smoke real](testes/marcos-e2e-local-2026-11-12-resultados.md): 16 PASS/0 FAIL/1 BLOQUEADO, três perfis, Chrome/Spring/MySQL, sem mock | GETs de reservas 405; não há E2E de fila/Q9, reabertura de edição ou matriz completa do plano |
+| RF10/RF11, evidência complementar | SELECTs confirmaram auditoria/outbox reais nos fluxos; worker desligado | Não prova imutabilidade por grants nem envio externo |
+
+As contagens são por execução e não se somam. [Guia local](integracao/marcos-e2e-local.md), [handoff de dependências](integracao/marcos-pendencias-2026-11-12.md). Revisão assistida independente, revisão humana, aceite de Marcos e checks remotos são estados separados; os RFs completos não são encerrados por este incremento.
+
+Reexecução de Marcos em 12/11/2026, 13:19 (-03:00): ambiente pronto e smoke real **16 PASS/0 FAIL/1 BLOQUEADO**; [JSON original do autor](testes/marcos-e2e-local-2026-11-12/resultados-marcos.json) preservado, com nove hashes conferidos. Confirma os cenários disponíveis, sem novo aceite visual ou encerramento de fila/lista/detalhe/Q9.
+
+Posteriormente Marcos informou **aceite visual** do roteiro no Chrome com backend real e os três perfis. [Registro e limites](testes/marcos-qualidade-aceite-visual-2026-11-12.md). Sem ajuste solicitado ou nova suíte; revisão da equipe, contratos/GETs/Q9 e checks remotos continuam pendentes. Commit depende de solicitação própria.
+
 | RF | Risco crítico | Implementação / contrato | Testes relacionados | Evidência e condição |
 |---|---|---|---|---|
 | RF01 — Sessão e autorização | Usuário indevido, CSRF e IDOR | SecurityConfig, UsuarioDetailsService, SpringSecurityAtorProvider, UsuarioAdminController, ADR-004 | SecurityConfigTest, SpringSecurityAtorProviderTest, SegurancaComplementarTest, LoginMysqlIT | [RF01](qualidade/relatorio-evidencias.md); SegurancaComplementarTest (7) e LoginMysqlIT (3) aprovados na CI Java21; CT17/logout complementar aprovado na CI do PR #12; PR #8 aberto |

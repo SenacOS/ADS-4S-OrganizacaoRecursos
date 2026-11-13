@@ -1,0 +1,10 @@
+Fonte: GitHub Actions run 43241249745, job 131261917002, develop da5881b.
+Trecho selecionado para diagnostico; nao e o log integral.
+2026-11-12T14:50:32.5644901Z [INFO] Tests run: 239, Failures: 0, Errors: 0, Skipped: 0
+2026-11-12T14:52:22.9999652Z [INFO] Tests run: 49, Failures: 0, Errors: 0, Skipped: 0
+2026-11-12T14:52:24.1032186Z [INFO] All coverage checks have been met.
+2026-11-12T14:52:24.1036815Z [INFO] BUILD SUCCESS
+2026-11-12T14:52:28.8660006Z [WARNING] Using an unspecified version instead of an explicit plugin version may introduce breaking analysis changes at an unwanted time. It is highly recommended to use an explicit version, e.g. 'org.sonarsource.scanner.maven:sonar-maven-plugin:5.8.0.7211'.
+2026-11-12T14:52:36.0604983Z [ERROR] Not authorized or project not found. Please check the 'SONAR_TOKEN' environment variable, the 'sonar.projectKey' and 'sonar.organization' properties, or contact the project administrator to verify the token's permissions. A project with the same key may already exist in another organization.
+2026-11-12T14:52:36.0909015Z [INFO] BUILD FAILURE
+2026-11-12T14:52:36.0918168Z [ERROR] Failed to execute goal org.sonarsource.scanner.maven:sonar-maven-plugin:5.8.0.7211:sonar (default-cli) on project organizacao-recursos: The scanner analysis has failed! See the logs for more details. -> [Help 1]

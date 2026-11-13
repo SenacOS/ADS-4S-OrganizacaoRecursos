@@ -1,0 +1,29 @@
+{
+  "base": "da5881bcb65dcf048678b784ed14ae3013feabc2",
+  "branch": "fix/marcos-qualidade-frontend",
+  "arvore": "WORKTREE_NAO_COMMITADA",
+  "buildExitCode": 0,
+  "lint": "PASS",
+  "typecheck": "PASS",
+  "unitarios": {
+    "aprovados": 72,
+    "falhas": 0,
+    "ignorados": 0
+  },
+  "navegador": {
+    "startTime": "2026-11-12T15:30:11.188Z",
+    "duration": 157546.276,
+    "expected": 240,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "hashesSHA256": {
+    "backend/src/main/resources/static/js/administracao-recursos.js": "b3885630bcaaad766275d14599855d657753e7cfe80ed8df2fad90f77589e70a",
+    "backend/src/main/resources/static/js/datas.js": "4aa2ca0259b58e808e15c7c9eca3b3f3048e506c3fdb6a84ead658635a2a5cd7",
+    "tests/unit/frontend/administracao-recursos.test.js": "72aef55369da2448e7656901c3dc995a885c278acfaf05ab4f793cf952b5515a",
+    "tests/unit/frontend/recursos-datas.test.js": "993b549df6cba481698b9db37d695258e69886d49fac5e3ec68f5ba1c4ab30c5",
+    "tests/unit/frontend/movimentacoes.test.js": "9db80b2ec8e74da65bf4bbae83b67b2d8696648ea2d35bf75b9127a54b967e43",
+    "tests/browser/movimentacoes.spec.js": "e899ad2cfcf9a74c6a843e21b680911d7599837b89f36921d2bebdc8891d6dc1"
+  }
+}

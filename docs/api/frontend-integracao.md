@@ -1,6 +1,8 @@
 # Consumo da API pelo frontend
 
-Estado: CLIENTES E TELAS DE ACESSO IMPLEMENTADOS E VALIDADOS LOCALMENTE. Integração real com autenticação/backend pendente. Login e entrada autenticada estão em login.html e index.html.
+Aceite posterior em 12/11/2026: Marcos aprovou a revisão visual do complemento de consulta/edição/cancelamento e autorizou commit local. [Registro](../testes/marcos-3-consulta-edicao-aceite-visual-2026-11-12.md). Os testes e seus hashes permanecem preservados; publicação/revisão/checks/merge e matriz integrada restante continuam separados. Menções abaixo a aceite pendente descrevem a execução anterior.
+
+Estado atualizado em 12/11/2026: clientes e telas das etapas 1 a 5 implementados localmente, incluindo consulta/edição/cancelamento. Sessão/CSRF, reservas, fila/Q9, administração e movimentações têm provas reais nos cenários registrados. [Resultado mais recente e limites](../testes/marcos-3-consulta-edicao-resultados.md). Revisão visual do incremento novo, revisão da equipe, matriz integrada completa e checks remotos continuam pendentes. As seções de implantação original abaixo conservam seu recorte; esta atualização e os contratos mais recentes prevalecem sobre diagnósticos antigos.
 Fontes: contrato de reservas, item18, ADR-001/004/006 e esclarecimentos do Marcos em 10/11/2026.
 
 ## Autenticação comunicada pela equipe
@@ -79,7 +81,7 @@ Para inspecionar somente o layout local: `npm run preview` e abrir http://127.0.
 
 O teste de navegador desta etapa não substitui o E2E integrado. [Resultados, capturas e limites](../testes/marcos-2-resultados.md). Referências da ferramenta: [servidor de teste](https://playwright.dev/docs/test-webserver), [API controlada](https://playwright.dev/docs/network) e [Chrome instalado](https://playwright.dev/docs/browsers#google-chrome--microsoft-edge).
 
-A autenticação ainda está em branch separada e reservas estão desligadas. Não há GET de reservas/detalhes nem cliente inventado para eles. Fila e formulário de edição dependem desses contratos. Nenhum resultado de teste isolado comprova segurança do servidor, cookie real, corrida no banco ou E2E.
+Na implementação original da Marcos-2, a autenticação estava separada e os GETs ausentes. Isso foi superado pela integração e pelos PRs #26/#27; ver [contrato atual](reservas-consulta-contrato.md). As flags seguem desligadas por padrão; habilitação de testes é somente local. Teste controlado do frontend continua distinto de prova real.
 
 ## Pesquisa e criação — Marcos-3
 
@@ -102,13 +104,25 @@ A seleção mantém recursos entre páginas/filtros do mesmo período. Alterar i
 
 Na criação, apenas `inicio`, `fim` e `recursosIds` seguem para `reservas.criar`. `confirmarCriacao` valida id, identidade da sessão, instantes, conjunto de recursos e coerência status/restrita antes de mostrar sucesso. A tela apresenta o status do servidor e não afirma entrega de notificação. Resposta inválida ou falha de rede pode ocorrer após persistência: orientar conferir o resultado, sem replay automático. Após sucesso, a ação “Fazer outra solicitação” exige nova pesquisa/seleção.
 
-Os mocks continuam exclusivamente nos testes de navegador. `npm run preview` não cria uma sessão de demonstração nem simula os GETs/POSTs; integrar segurança e provedores reais continua necessário para operar o fluxo no Spring. Listagem/reabertura para edição/cancelamento de reservas existentes continuam dependentes dos GETs e da autorização que aplique a [Q9 comunicada como decidida em 11/11/2026](reservas-politica-leitura-q9.md). [Story e critérios](../stories/marcos-3.md); [evidências e limites](../testes/marcos-3-resultados.md).
+Os mocks continuam exclusivamente nos testes de navegador. `npm run preview` não cria sessão nem simula GETs/POSTs; operação real usa Spring e provedores integrados. [Story original](../stories/marcos-3.md) e [evidências históricas](../testes/marcos-3-resultados.md) cobrem pesquisa/criação; listagem/edição/cancelamento constam do complemento abaixo, após entrega real dos GETs/Q9.
+
+## Consulta, edição e cancelamento — complemento da Marcos-3
+
+`pages/minhas-reservas.html`, rótulo **Reservas**, está disponível aos três perfis. `consulta-reservas.js` consome somente os [GETs contratados](reservas-consulta-contrato.md), valida projeções/envelope e reutiliza `reservas.js` para escrita. Filtros: status opcional, início/fim juntos por sobreposição, recursoId, página e tamanho; identidade/escopo vêm da sessão e do servidor. Interface não repagina uma coleção global.
+
+Toda edição/cancelamento começa por detalhe autorizado completo, com ID conferido. Dono edita SOLICITADA ou APROVADA comum; dono/Administrador cancelam SOLICITADA/APROVADA. Responsável autorizado a ler não herda ações do dono. Aprovação/rejeição continuam na fila própria. A regra de edição é o comportamento PROPOSTO já implementado no domínio; não se amplia nem se atribui ratificação coletiva.
+
+PATCH envia somente inicio/fim/recursosIds completos. Cada data não editada usa literalmente seu ISO original, preservando segundos e até nove casas; datas editadas são convertidas de São Paulo. Todos os recursos originais permanecem selecionados entre buscas/páginas; disponibilidade ocupada pela própria reserva não os remove. Inclusões novas exigem ativo/disponível e não podem alterar a necessidade de aprovação. O servidor revalida conflitos ignorando a própria reserva. Não há parâmetro fictício de exclusão na pesquisa.
+
+Cancelamento usa POST sem corpo e confirmação identificada; mantém histórico. Resposta de cada escrita precisa coincidir com alvo, dono, recursos, restrição, estado e instantes (comparação mantém nanossegundos). Resultado incerto/conflito invalida checkbox e bloqueia outra escrita até novo GET de detalhe bem-sucedido. Escrita confirmada seguida de falha de atualização mantém sucesso e aviso de leitura, sem replay. Campos/textos, CSRF, sessão, referência de suporte, guard e foco seguem os módulos compartilhados.
+
+[Story](../stories/marcos-3-consulta-edicao.md), [regressão final 81/278 e E2E real 8/0](../testes/marcos-3-consulta-edicao-resultados.md). Smoke geral 16/0/0 separado; revisão visual deste incremento e checks remotos ainda pendentes. Datas/intervalos e transporte usam comparador preciso compartilhado; pesquisa de recursos em intervalo menor que 1ms conserva o limite anterior documentado no relatório.
 
 ## Cliente de fila e decisão — Marcos-4
 
 `pages/aprovacoes.html` oferece fila, detalhes, aprovação e rejeição com motivo. A navegação oferece o link somente a RESPONSAVEL; acesso direto por Solicitante/Administrador mostra acesso negado sem consultar a fila. É uma guarda visual do cliente: autorização real continua obrigatória no servidor.
 
-O GET segue exclusivamente a [especificação de fila aceita por Marcos](reservas-leitura-contrato.md), ainda sem implementação no backend. `criarAprovacoes(usuario)` fornece `listar(filtros)` e `decidir(pendente,status,motivo)`. Não implementa listagem geral de reservas nem GET de detalhe. A Q9 foi comunicada depois da implementação local: o servidor deve delimitar a fila aos recursos sob responsabilidade do ator; essa autorização ainda não foi demonstrada pelos testes controlados. Os filtros são período por sobreposição (início/fim juntos), recursoId e paginação; status é fixo SOLICITADA e a ordem inicio/id é do servidor. Não há filtro local de uma coleção completa.
+O GET segue a [especificação de fila aceita por Marcos](reservas-leitura-contrato.md), entregue no backend pelos PRs #26/#27 e validada com [10 cenários reais Q9/fila](../testes/marcos-integracao-q9-1-pr27-resultados.md). `criarAprovacoes(usuario)` fornece `listar(filtros)` e `decidir(pendente,status,motivo)`. Esse cliente específico não implementa a consulta geral/detalhe do complemento acima. O servidor exige vínculo com todos os recursos, comportamento aceito por Marcos, com ratificação coletiva e processo de vínculos ainda separados. Os filtros são período por sobreposição (início/fim juntos), recursoId e paginação; status é fixo SOLICITADA e a ordem inicio/id é do servidor. Não há filtro local de uma coleção completa.
 
 ```js
 import { criarAprovacoes } from '/js/aprovacoes.js';

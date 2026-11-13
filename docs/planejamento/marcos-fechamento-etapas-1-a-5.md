@@ -2,11 +2,48 @@
 
 Data da conferência: **12/11/2026**, America/Sao_Paulo.\
 Responsável pelo frontend: **Marcos Boé**.\
-Estado: **EM EXECUÇÃO; passos 1 e 2 sincronizados/publicados e aceite visual do passo 4 informado por Marcos em 12/11/2026**.
+Estado: **EM EXECUÇÃO; frontend previsto implementado e aceito localmente, incluindo complemento da etapa 3; publicação e fechamento integrado pendentes**.
 
-Atualização em 12/11/2026 após comunicação de Marcos: **PR #23 mesclado na develop**, commit `23cf839`, às 10:42 de São Paulo. O PR #24 já tem destino develop e continua em Draft. O plano foi ajustado para sincronizar diretamente a Marcos-4 com essa develop; a CI pós-merge ainda tem falha na etapa Sonar, registrada separadamente da integração realizada.
+## Checkpoint vigente — complemento real e entrega, 12/11/2026
+
+**Revisão das evidências do complemento aprovada por Marcos**, sem ajustes. [Registro](../testes/marcos-fechamento-e2e-1-aceite-2026-11-12.md). Frontend e complemento de testes têm aceite do autor; próximo passo local é o commit quando solicitado. Publicação, PRs, revisão da equipe, checks e merge continuam separados.
+
+**Commit local solicitado posteriormente por Marcos:** os22arquivos conferidos do complemento acompanham o commit deste registro, na branch `test/marcos-fechamento-e2e`. Identidade de autor/committer conferida como Marcos Boé. Próximo passo após commit é o push do complemento conforme o fluxo; PR do frontend e posterior entrega dos testes seguem a [sequência](../integracao/marcos-fechamento-entrega.md). As descrições anteriores de árvore sem commit conservam o momento da execução dos testes.
+
+Push de **0775715** confirmado no remoto em `feature/marcos-reservas-consulta`; develop conferida em **4cea177**. Ainda não foi encontrado PR desse head. [Sequência de entrega e descrição pronta](../integracao/marcos-fechamento-entrega.md).
+
+Novo incremento em **test/marcos-fechamento-e2e**, sobre0775715, ainda sem commit: **11 PASS/0 FAIL reais**, com login inválido/CSRF, inatividade de sessão, pesquisa paginada/vazia/ocupada, disputa entre sessões, editor após cancelamento externo, devolução com atraso e Administrador leitura/403. Instância temporária identificada/encerrada e principal preservada. [Story](../stories/marcos-fechamento-e2e-1.md), [resultados/matriz/tentativas](../testes/marcos-fechamento-e2e-1-resultados.md). Produto/testes frontend preservados por hashes; build81/278 anterior reutilizado, sem nova execução injustificada.
+
+Os fluxos mínimos listados no passo7 têm evidências nos caminhos executados, relacionadas na matriz nova aos smoke16/0/0, consultas8/0 e Q9/fila10/0 anteriores. Não somar rodadas nem declarar todas as corridas/transições/RFs certificados. **Não há nova tela do Marcos ou GET de reservas aguardando implementação.** O fechamento agora depende da entrega/revisão/checks dos incrementos e das confirmações compartilhadas explicitadas, sem transformar extensões genéricas de testes em requisitos novos.
+
+Próxima sequência: revisão do complemento concluída por Marcos; registrar commit quando solicitado, abrir/acompanhar o PR do frontend já enviado e, após merge/sincronização, entregar os testes no PR próprio. Revisão de outro integrante, CodeRabbit/CI/Sonar, ratificação coletiva e processo de vínculos permanecem com a equipe. Notificação externa e provas globais de backend mantêm responsabilidades próprias.
+
+Os registros seguintes preservam cada momento anterior; este checkpoint define o estado atual.
+
+## Checkpoint anterior — consulta, edição e cancelamento, 12/11/2026
+
+Marcos confirmou push da integração **f9c4912**, que inclui develop **4cea177** e os PRs #26/#27. Nova branch **feature/marcos-reservas-consulta** criada dessa base. Marcos informou que os testes funcionaram, aprovou o incremento e autorizou commit local. [Aceite](../testes/marcos-3-consulta-edicao-aceite-visual-2026-11-12.md), [story](../stories/marcos-3-consulta-edicao.md) e [resultados, hashes e capturas](../testes/marcos-3-consulta-edicao-resultados.md). O commit que inclui esse registro identifica a entrega local; publicação ainda separada.
+
+- Passo 5: GETs, projeções, fila e Q9 disponíveis e testados; não há mais bloqueio de ausência dessas leituras. Ratificação coletiva das regras e processo de vínculos permanecem separados.
+- Passo 6: página **Reservas** dos três perfis, filtros/paginação, detalhe autorizado, edição completa sem perda de recursos/precisão e cancelamento implementados, testados e aceitos visualmente por Marcos. Commit local solicitado; regressão81/278 e E2E8/0 preservados.
+- Passo 7: complemento da interface validado com Spring/MySQL reais, além do smoke geral. Q9/fila anterior 10/0 preservado. As suítes não comprovam toda a matriz: timeout, concorrência, todos os estados/prazos e entrega externa continuam separados.
+- Próximo checkpoint após o commit solicitado: publicar a branch e preparar PR próprio conforme solicitação; revisão de outro integrante e checks remotos seguem o fluxo combinado. Scanner Sonar, ratificação coletiva, gestão administrativa dos vínculos e cenários integrados restantes exigem continuidade/alinhamento da equipe.
+
+Os relatos de base/árvore/PRs abaixo conservam o histórico. Esta seção e os resultados novos definem o estado vigente; expressões anteriores de GET ausente, PR #27 aberto ou integração ainda sem commit não descrevem a base f9c4912.
+
+**Aceite mais recente:** Marcos aprovou visualmente a fila real posterior ao PR27 e solicitou o commit local em12/11. [Registro](../testes/marcos-integracao-q9-1-aceite-visual-2026-11-12.md). Integração10/0Q9+16/0/1smoke pronta para registro na branch própria; fontes anteriores de testes preservadas. Próximo recorte funcional: interface geral de reservas. Revisão da equipe, gestão de vínculos, ratificação coletiva e Sonar separados; nenhum push/PR autorizado por essa confirmação.
+
+**Atualização vigente após merge do PR #27:** develop `4cea177`, incorporada sem commit à `feature/marcos-integracao-q9`, preservando `8c21a43` e o trabalho local. JAR novo e fila/Q9 revalidados: **10/0 Q9, 16/0/1 smoke**. [Preservação, provas e limites](../testes/marcos-integracao-q9-1-pr27-resultados.md). GETs e fila disponíveis; próximo recorte é a interface geral de reservas. Revisão visual deste incremento, ratificação coletiva/processo de vínculos e scanner Sonar continuam pendentes. Os estados anteriores abaixo são históricos; #27 não está mais aberto.
+
+**Estado atual após PR #26:** push de `8c21a43` confirmado; develop avançou para `3f2a9a3`. Branch `feature/marcos-integracao-q9` com merge local preparado sem commit. GETs e fila reais agora disponíveis: 8 cenários Q9 aprovados, smoke 16/0/1 e V6 aplicada só na instância isolada. [Resultados](../testes/marcos-integracao-q9-1-resultados.md). Marcos aceitou consumir vínculo com todos os recursos; falta ratificação dos demais. O bloqueio de ausência de endpoints foi superado; passo 6 (interface geral), revisão/aceite deste incremento, processo de vínculos e Sonar continuam abertos. Os diagnósticos de endpoints ausentes abaixo preservam a conferência anterior em da5881b.
+
+Atualização após o merge do **PR #24** em 12/11/2026: develop `da5881b`, conferida por fetch e usada na nova branch `fix/marcos-qualidade-frontend`. O #23 já havia sido mesclado em `23cf839`. Ambos não aguardam outro merge. Marcos autorizou preparar ambiente local e confirmou que não recebeu contratos novos de leitura.
+
+Avanço local: duas ordenações explicitadas, FE-004 corrigido, build final com **72 unitários/240 navegador** e smoke real com **16 PASS/0 FAIL/1 BLOQUEADO**. [Qualidade/CI](../testes/marcos-qualidade-1-resultados.md), [datas](../testes/marcos-integracao-datas-1-resultados.md), [ambiente/E2E](../testes/marcos-e2e-local-2026-11-12-resultados.md), [handoff](../integracao/marcos-pendencias-2026-11-12.md). Marcos deu [aceite visual do incremento no Chrome com backend real](../testes/marcos-qualidade-aceite-visual-2026-11-12.md). Mudanças novas ainda sem commit; autorização de commit e aprovação remota são separadas. Passos 3 e 7 avançaram parcialmente; passos 5, 6 e encerramento integrado continuam abertos.
 
 Este plano foi solicitado por Marcos após a conferência do repositório e dos trabalhos realizados em casa. Consolida a ordem de execução, as dependências da equipe e as condições para encerrar as responsabilidades das etapas 1 a 5. Não cria endpoints, regras de negócio, prazos ou stories de implementação por inferência.
+
+**PR #27 comunicado depois da validação:** conferido aberto, head7fe9fe0 sobre develop3f2a9a3. Complementa o #26 conectando a fila ao caso de uso/adaptador existente e centralizando o filtro Q9, mantendo contrato externo. Ainda não foi importado à branch local. [Comparação, CI e condição de integração](../testes/marcos-integracao-q9-1-resultados.md#complemento-anunciado-pr-27-ainda-aberto). Após integração, conciliar contrato/evidências e repetir a validação real; não atribuir a ele os testes locais do #26 nem declarar resolvido o scanner Maven por seu check Sonar separado ter passado.
 
 A preparação original deste arquivo incluiu somente leitura do checkout e consulta ao GitHub. Posteriormente Marcos pediu “vamos fazer a sincronização”: plano preservado por cópia/hash, fetch executado, branch Marcos-4 trazida para este computador e develop 23cf839 incorporada sem conflitos. Lint/typecheck e regressão 68 unitários/238 navegador aprovados; frontend/testes/configuração preservados. [Execução e limites](../testes/marcos-sincronizacao-2026-11-12-resultados.md). O usuário enviou a8da77c e o PR #24 foi conferido com esse commit e destino develop. Depois informou [aceite visual](../testes/marcos-4-aceite-visual-2026-11-12.md) da prévia com dados fictícios. Os passos 3 e 5 a 8 continuam pendentes; a publicação deste novo registro documental é separada.
 
@@ -22,13 +59,13 @@ Há três estados distintos a registrar durante o trabalho:
 | Aceito e pronto para revisão | Marcos validou o incremento; código, story, documentação e evidências estão preparados para revisão. |
 | Entregue de forma integrada | Fluxos funcionam com backend real, revisões/checks exigidos foram atendidos e os PRs pertinentes chegaram à develop. |
 
-Não reimplementar o que já está entregue nos incrementos existentes. A principal funcionalidade de frontend ainda ausente é o restante da etapa 3: **consultar reservas existentes, abrir para edição e cancelar pela interface**. A Marcos-4 já foi implementada, conciliada e aceita visualmente pelo autor; leitura/autorização reais e revisão da equipe permanecem pendentes.
+Não reimplementar o que já está entregue. O complemento da etapa 3 está implementado/testado localmente, aguardando revisão visual e entrega. Marcos-4 foi implementada, conciliada e aceita pelo autor; leitura/autorização reais têm evidência Q9/fila. Revisão da equipe e encerramento integrado permanecem pendentes.
 
 Relatórios da etapa 6 ficam fora deste plano. O E2E aqui previsto comprova os fluxos das etapas 1 a 5 e alimenta as evidências finais do projeto; não declara toda a etapa 7 concluída antecipadamente.
 
 ## 2. Fotografia do repositório usada no planejamento
 
-Fotografia conferida antes da execução; os commits abaixo identificam sua origem. O checkout agora é Marcos-4 com a incorporação local descrita nas evidências. Revalidar branches, PRs e checks antes das próximas ações, pois podem mudar depois desta conferência.
+Fotografia histórica anterior à sincronização e ao merge #24; os commits abaixo identificam sua origem. O checkout atual é `fix/marcos-qualidade-frontend` sobre `da5881b`, com alterações não commitadas. Os relatos anteriores abaixo preservam seu momento; consultar a atualização inicial para o estado atual.
 
 | Local / branch remota | Commit conferido | Papel no trabalho |
 |---|---|---|
@@ -50,9 +87,9 @@ Na comparação após o merge do #23, a Marcos-4 df57063 e a develop 23cf839 tê
 | [#20 — administração](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/20) | Mesclado na branch intermediária da base frontend. | Seu merge isolado não entregou a administração à develop. |
 | [#21 — movimentações](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/21) | Mesclado na branch administrativa. | Movimentações foram reunidas à administração. |
 | [#23 — administração e movimentações](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/23) | Mesclado na develop em 12/11/2026; commit de integração 23cf839. | Administração e movimentações chegaram à develop; conferir qualidade pós-merge e integração real. |
-| [#24 — Marcos-4](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/24) | Aberto em Draft, destino develop. | Atualizar sua branch com a develop, validar a fila e conferir os checks no contexto atual. |
+| [#24 — Marcos-4](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/24) | Mesclado na develop em 12/11/2026; da5881b. | Cliente da fila integrado; contrato HTTP/autorização e E2E ainda pendentes. |
 
-O PR #23 está efetivamente integrado. O GitHub não apontou conflito de merge no #24 na atualização, mas ele permanece bloqueado para entrega. Aprovação, checks, validação real e merge são condições distintas; o merge do #23 não comprova aprovação do Sonar ou E2E.
+Os PRs #23/#24 estão integrados. Aprovação, checks, validação real e merge são condições distintas; os merges não comprovam aprovação Sonar ou E2E completo. Na develop da5881b, testes Java/MySQL e cobertura passaram; o scanner falhou depois por autorização/projeto.
 
 ### Testes já registrados
 
@@ -70,9 +107,9 @@ As contagens são cumulativas dentro de cada árvore, não devem ser somadas. Fo
 |---|---|---|
 | 1 — comunicação com a API | Clientes, sessão/CSRF, erros e proteção contra envio repetido. | Conferir contrato efetivo com o backend integrado, revisão/checks e coerência do status documental. |
 | 2 — acesso e navegação | Login, logout, perfil, expiração e layout responsivo. | Validar com sessão real e navegação consolidada dos três perfis. |
-| 3 — pesquisa e reservas | Pesquisa, seleção e criação comum/restrita. | Contratos de leitura; listagem, carregamento para edição, PATCH completo e cancelamento pela interface; integração real. |
-| 4 — fila e decisões | Filtros, paginação, projeção de detalhes, aprovação/rejeição e motivo; aceite visual de Marcos registrado em 12/11. | Contrato coletivo definitivo, endpoint HTTP e autorização Q9 no servidor, E2E e revisão/checks do PR #24. |
-| 5 — recursos e movimentações | Cadastros, manutenção, expediente, retirada, pendências e devolução; código integrado pelo #23. | Acompanhar qualidade pós-merge e validar os fluxos com backend real; tratar correções remanescentes em incremento próprio. |
+| 3 — pesquisa e reservas | Pesquisa/criação integradas; complemento de consulta/detalhe/edição/cancelamento validado e aceito, enviado em0775715. | PR, revisão/checks e merge do complemento; novo E2E em branch própria ainda sem commit. |
+| 4 — fila e decisões | Cliente integrado pelo #24; HTTP/Q9 pelos #26/#27, aceitos por Marcos; E2E real 10/0. | Ratificação coletiva/processo de vínculos, revisão/checks compartilhados e combinações integradas restantes. |
+| 5 — recursos e movimentações | Integrada pelo #23; smoke real de cadastros, manutenção, expediente, retirada/devolução passou. FE-004 corrigido localmente. | Entregar correções novas após aceite/commit; complementar cenários integrados de prazo/permissão e checks/revisão. |
 
 Q9 está **decidida como política**: Solicitante consulta as próprias reservas; Responsável, as dos recursos sob sua responsabilidade; Administrador, todas. A decisão não implementa endpoints nem concede novas operações de escrita. Aprovação/rejeição e escrita de movimentações continuam exclusivas de RESPONSAVEL nos contratos atuais.
 
@@ -207,7 +244,7 @@ Não retirar gates nem mudar a base para main apenas para evitar uma verificaç�
 
 ### Critério de saída
 
-- [ ] Anotações analisadas e tratamento registrado.
+- [x] Duas ordenações analisadas/corrigidas preservando semântica; build 70/238 e posterior 72/240 aprovados, com hashes e limites.
 - [ ] Falha do scanner identificada e tratada com o responsável.
 - [ ] Verificações exigidas atendidas no commit a entregar; indisponibilidades não declaradas como aprovação.
 - [ ] Revisão humana e pendências de integração explicitadas no PR.
@@ -261,16 +298,16 @@ Não reabrir essa decisão de escopo. Precisamos traduzi-la em contrato e implem
 | Escopo do Responsável | Origem do vínculo responsável/recurso, seleção no servidor e tratamento de reservas com múltiplos recursos. | Equipe de backend/segurança. |
 | Identificação e erros | Dados mínimos do solicitante, projeção de professor/competências se necessária e convenção 403/404 fora do escopo. | Débora e responsáveis pelos contratos. |
 
-As rotas `GET /api/reservas` e `GET /api/reservas/{id}` são necessidades/propostas dos artefatos existentes, não endpoints declarados disponíveis por este plano. A leitura SQL da fila já chegou à develop no PR #22, mas o controller HTTP de leitura ainda não foi entregue na versão conferida.
+Na fotografia original esses GETs ainda eram propostas. Agora `GET /api/reservas` e `GET /api/reservas/{id}` estão entregues, documentados em [consultas](../api/reservas-consulta-contrato.md) e testados com Q9/fila reais após #26/#27. Não aguardar novamente essa entrega. Ratificação coletiva e processo de concessão dos vínculos ainda precisam de registro da equipe.
 
 Marcos deve fornecer exemplos de consumo, conferir DTOs e registrar o aceite do frontend. Filtros do navegador não substituem a delimitação de escopo no servidor. Nenhuma mensagem foi enviada à equipe ao elaborar este plano.
 
 ### Critério de saída
 
 - [ ] Contratos de listagem, detalhe e fila ratificados pelos responsáveis.
-- [ ] Exemplos de sucesso, vazio, parâmetros inválidos, sessão ausente e acesso fora do escopo registrados.
-- [ ] Implementação HTTP, leitura e autorização disponíveis para os fluxos a integrar.
-- [ ] Marcos consegue relacionar cada campo/ação do formulário ao contrato, sem inventar identidade ou permissão no cliente.
+- [x] Exemplos de sucesso, vazio, parâmetros inválidos, sessão ausente e acesso fora do escopo registrados nas evidências Q9/fila.
+- [x] Implementação HTTP, leitura e autorização disponíveis para os fluxos a integrar.
+- [x] Consumo relaciona cada campo/ação ao contrato, sem inventar identidade ou permissão no cliente; ratificação coletiva segue na linha anterior.
 
 Com contratos estáveis, o frontend pode avançar com testes isolados enquanto a equipe conclui a integração. O fechamento integrado permanece condicionado ao backend real.
 
@@ -278,7 +315,7 @@ Com contratos estáveis, o frontend pode avançar com testes isolados enquanto a
 
 **Objetivo:** completar a interface de reservas existentes: consultar, editar e cancelar conforme contrato.
 
-Antes do código, preparar/refinar uma story com critérios testáveis e fontes, seguindo AGENTS.md e o fluxo SM/PO. O nome da nova branch será definido ao iniciar esse recorte; não há nova branch criada por este plano.
+Story [Marcos-3-consulta-edicao](../stories/marcos-3-consulta-edicao.md) preparada por SM antes do código. Implementação na branch `feature/marcos-reservas-consulta`, sobre f9c4912; evidências no [relatório](../testes/marcos-3-consulta-edicao-resultados.md). Próximo checkpoint é o aceite visual, ainda não recebido.
 
 ### Ações
 
@@ -294,15 +331,17 @@ Antes do código, preparar/refinar uma story com critérios testáveis e fontes,
 
 ### Critério de saída
 
-- [ ] Listagem usa o escopo e o contrato ratificados.
-- [ ] Edição inicia por detalhe autorizado completo e envia o PATCH conjunto.
-- [ ] Cancelamento confirmado e estados/erros coerentes com a API.
-- [ ] Nenhuma perda dos fluxos de criação, fila, administração ou movimentações.
-- [ ] Testes, evidências, aceite e commit do incremento registrados pelo fluxo combinado.
+- [x] Listagem usa contrato entregue e escopo aceito por Marcos; ratificação coletiva acompanhada no passo 5.
+- [x] Edição inicia por detalhe autorizado completo e envia o PATCH conjunto.
+- [x] Cancelamento confirmado e estados/erros coerentes com a API nos cenários executados.
+- [x] Regressão preserva criação, fila, administração e movimentações.
+- [x] Testes/evidências e aceite registrados; commit local autorizado, identificado pelo commit que inclui o registro do aceite. Publicação/revisão/merge separados.
 
 ## 11. Passo 7 — validar com backend real
 
 **Objetivo:** substituir a suposição de compatibilidade por provas dos fluxos integrados das etapas 1 a 5.
+
+Preparação autorizada/realizada em 12/11: ferramentas portáteis, MySQL novo e Spring próprios; [guia](../integracao/marcos-e2e-local.md). Smoke atualizado sem bloqueio de interface geral e complemento real de edição/cancelamento aprovados; [evidências](../testes/marcos-3-consulta-edicao-resultados.md). A tabela abaixo continua sendo a meta completa, ainda parcialmente pendente.
 
 ### Preparação
 
@@ -330,28 +369,28 @@ Provas de segurança, persistência, auditoria, notificação e concorrência pe
 
 ### Critério de saída
 
-- [ ] Ambiente, dados e comandos reproduzíveis documentados, sem credenciais no versionamento.
-- [ ] Cenários executados com backend real, separados dos cenários com mocks.
-- [ ] Resultados, defeitos, correções e limites registrados com commit/data/ambiente.
+- [x] Ambiente/dados/comandos locais documentados; credenciais e ferramentas ignoradas pelo Git.
+- [x] Cenários mínimos executados com backend real nos caminhos da matriz de fechamento, separados dos controlados; provas e limites no complemento11/0.
+- [x] Resultados parciais, FE-004, correção, data/ambiente e hashes da árvore sem commit registrados.
 - [ ] Evidências da equipe relacionadas às provas que excedem a camada cliente.
 
 ## 12. Passo 8 — revisão, merges e encerramento das etapas 1 a 5
 
 1. Conferir os PRs e a base de cada um novamente, pois outros integrantes podem ter integrado mudanças durante o trabalho.
 2. Registrar o #23 como já entregue à develop, preservando a identificação dos commits de administração e movimentações e o acompanhamento da qualidade pós-merge.
-3. Atualizar a Marcos-4 com a develop e conferir a comparação do #24, cujo destino já é develop. Se a ancestralidade ou o conteúdo tiverem mudado, tratar isso antes de declarar o diff limpo.
-4. Conferir os checks do #24 no novo contexto. O Sonar automático havia aprovado sua versão consultada, mas isso não comprova uma CI completa: o workflow filtra as branches de destino e não incluía a base administrativa anterior. Com destino develop e após a atualização da branch, conferir as execuções exigidas no novo SHA.
+3. Registrar o #24 já mesclado em da5881b; preparar revisão/aceite do incremento novo antes do commit solicitado por Marcos. Não repetir a sincronização/PR do incremento já integrado.
+4. Conferir os checks do novo SHA quando publicado e acompanhar remediação do scanner Sonar; resultado local não aprova análise remota.
 5. Entregar o complemento da etapa 3 no PR próprio definido para ele, respeitando as dependências dos anteriores.
 6. Atualizar plano, stories, status, File Lists, RTM, README/índice de docs e evidências conforme o estado efetivo. Reconciliar registros antigos de Q9/PRs com os documentos mais recentes, preservando o contexto histórico.
 7. Registrar o que foi aceito por Marcos, o que recebeu revisão de outro integrante e o que foi executado em CI/E2E. CodeRabbit indisponível não equivale à ferramenta aprovada; obter a revisão independente prevista e tratar sua exigência conforme as regras vigentes do projeto.
 
 ### Critério de encerramento
 
-- [ ] Todas as funcionalidades de frontend previstas até a etapa 5 estão implementadas.
-- [ ] Consultas e operações respeitam os contratos e a Q9 aplicada no servidor.
-- [ ] Marcos deu o aceite visual dos incrementos pertinentes.
-- [ ] Testes relevantes passaram e as evidências correspondem ao código entregue.
-- [ ] Integração real foi validada nos fluxos previstos.
+- [x] Funcionalidades de frontend previstas até a etapa 5 implementadas localmente; complemento da etapa 3 ainda não entregue à develop.
+- [x] Consultas/operações respeitam contratos e Q9 nos cenários reais registrados; ratificação coletiva/processo de vínculos seguem separados.
+- [x] Marcos deu aceite visual dos incrementos de interface pertinentes, inclusive complemento da etapa3; novo incremento de auxiliares não muda telas.
+- [x] Testes locais relevantes passaram e fontes foram conferidas; commit0775715 enviado, complemento11/0 ainda sem commit para futura entrega.
+- [x] Integração real validada nos caminhos mínimos relacionados na matriz, sem afirmar todas as transições/corridas ou entrega externa de notificações.
 - [ ] Revisão humana e verificações exigidas dos PRs foram atendidas.
 - [ ] Alterações pertinentes chegaram à develop.
 - [ ] Documentação e rastreabilidade refletem o resultado, sem pendência ocultada ou aprovação presumida.
@@ -372,7 +411,7 @@ Até essas condições serem atendidas, manter a distinção entre incremento lo
 
 Para cada mudança: conferir story/contrato e branch, implementar o incremento, executar verificações proporcionais, registrar evidências e atualizar checklist/File List. Marcos testa e revisa a interface pertinente. Commit após sua solicitação, conforme o fluxo já adotado; push e alterações de PR seguem a autorização da sessão, sem publicação automática por este documento.
 
-Os **passos 1 e 2 foram executados e a8da77c foi publicado em 12/11/2026**. O **passo 4 recebeu aceite visual de Marcos**, agora registrado nos documentos locais. A próxima preparação é publicar esse registro e disponibilizar o recorte frontend para revisão da equipe, mantendo qualidade/CI, contrato/endpoint, autorização e E2E real explícitos. Os passos 3 e 5 a 8 não foram declarados concluídos, e este aceite não iniciou novas funcionalidades nem alterou o PR automaticamente.
+Passos1/2/4 executados; #23/#24/#26/#27 mesclados. Complemento da etapa3 aceito/commitado/enviado em0775715. Novo complemento E2E11/0 em test/marcos-fechamento-e2e, sem alteração de produto ou commit. Próximos pontos: revisão/commit solicitado desse incremento e entrega dos dois por PRs na sequência documentada. Leituras/Q9 e cenários mínimos disponíveis; Sonar/CodeRabbit, ratificação coletiva/processo de vínculos, revisão da equipe, checks/merges e provas globais compartilhadas continuam separados.
 
 ## 15. Fontes para retomar o contexto
 

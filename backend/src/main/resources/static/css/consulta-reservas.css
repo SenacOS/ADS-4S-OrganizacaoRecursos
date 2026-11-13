@@ -1,0 +1,9 @@
+.reservation-controls { border: 0; margin: 0; padding: 0; min-width: 0; }
+.reservation-controls > legend { margin-bottom: 16px; font-weight: 600; }
+.reservation-check { display: flex; align-items: flex-start; gap: 10px; margin: 20px 0; font-size: .85rem; }
+.reservation-check input { width: 20px; min-height: 20px; height: 20px; flex-shrink: 0; margin: 3px 0 0; accent-color: var(--blue); }
+.cancel-reservation { border-top: 1px solid var(--line); margin-top: 28px; padding-top: 12px; }
+#busca-recursos-edicao { margin: 25px 0; }
+#detalhe-reserva { margin-top: 24px; }
+#reconsultar-reserva { margin-bottom: 20px; }
+.resource-card .button { margin-top: 12px; }

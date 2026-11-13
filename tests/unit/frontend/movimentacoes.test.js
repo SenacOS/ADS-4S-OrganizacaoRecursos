@@ -22,6 +22,20 @@ test('DTO aceita Instant com Z/fração e projeta somente o contrato', () => {
   assert.deepEqual(conferirMovimentacao({ ...aberta, email: 'privado', segredo: 1 }), aberta);
   assert.deepEqual(conferirMovimentacao(fechada), fechada);
 });
+
+test('movimentações aceitam minutos na consulta/retirada/devolução e comparam instantes equivalentes', async () => {
+  const minutos = { ...aberta, retiradoEm: '2026-11-12T12:25:56.446048-03:00', fimPrevisto: '2026-11-12T13:08-03:00' };
+  assert.deepEqual(conferirMovimentacao(minutos), minutos);
+  assert.deepEqual(await preparar([minutos]).cliente.abertas(), [minutos]);
+  assert.deepEqual(await preparar(minutos).cliente.retirar({ reservaId: 1001, recursoId: 7 }, 3), minutos);
+  const devolvida = { ...minutos, fimPrevisto: '2026-11-12T16:08:00Z',
+    devolvidoEm: '2026-11-12T13:09-03:00', devolvidoPor: 3, atrasoSegundos: 60 };
+  assert.deepEqual(await preparar(devolvida).cliente.devolver(minutos), devolvida);
+  await assert.rejects(preparar({ ...devolvida, fimPrevisto: '2026-11-12T16:09Z' }).cliente.devolver(minutos), { codigo: 'RESPOSTA_INVALIDA' });
+  for (const retiradoEm of ['2026-11-12T12:25', '2026-02-30T12:25-03:00']) {
+    await assert.rejects(preparar({ ...minutos, retiradoEm }).cliente.retirar({ reservaId: 1001, recursoId: 7 }, 3), { codigo: 'RESPOSTA_INVALIDA' });
+  }
+});
 test('DTO recusa IDs inseguros, datas sem offset e par de devolução incompleto', () => {
   for (const r of [null, { ...aberta, id: Number.MAX_SAFE_INTEGER + 1 }, { ...aberta, recursoId: 0 },
     { ...aberta, retiradoEm: '2026-11-11T13:00:00' }, { ...aberta, retiradoEm: '2026-02-30T13:00:00Z' },

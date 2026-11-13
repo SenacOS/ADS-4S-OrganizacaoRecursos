@@ -1,5 +1,7 @@
 # Q9 — política de consulta de reservas
 
+**Atualização técnica de 12/11/2026:** PR #26 integrado na develop `3f2a9a3`, com GETs, 404 fora do escopo e V6 de vínculos. Validação real em [Marcos-integracao-q9-1](../testes/marcos-integracao-q9-1-resultados.md). Marcos aceitou consumir a regra conservadora de vínculo com todos os recursos; aprovação coletiva ainda pendente. [Contrato conferido](reservas-consulta-contrato.md). As referências antigas abaixo são históricas e não descrevem mais ausência de endpoints.
+
 **Estado: DECISÃO COMUNICADA POR MARCOS em 11/11/2026.** O usuário informou que a Q9 foi decidida pela equipe e forneceu o [relatório de continuidade](../planejamento/relatorio-marcos-2026-11-11.md#9-q9-resolvido--informação-recebida-depois-do-commit). Este registro documenta a política recebida; não atribui implementação, revisão formal de PR ou integração ao backend.
 
 ## Escopo por perfil
