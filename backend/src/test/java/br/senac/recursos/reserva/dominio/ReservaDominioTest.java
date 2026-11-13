@@ -80,10 +80,48 @@ class ReservaDominioTest {
     @Test
     void cancelarPeloDonoPeloAdminENuncaPorOutro() {
         Reserva r = comumSolicitada().aprovarAutomaticamente();
-        assertThrows(OperacaoNaoPermitidaException.class, () -> r.cancelar(OUTRO));
-        assertThrows(OperacaoNaoPermitidaException.class, () -> r.cancelar(RESP));
-        assertEquals(StatusReserva.CANCELADA, r.cancelar(DONA).status());
-        assertEquals(StatusReserva.CANCELADA, r.cancelar(ADMIN).status());
+        assertThrows(OperacaoNaoPermitidaException.class, () -> r.cancelar(OUTRO, "motivo"));
+        assertThrows(OperacaoNaoPermitidaException.class, () -> r.cancelar(RESP, "motivo"));
+        assertEquals(StatusReserva.CANCELADA, r.cancelar(DONA, null).status());
+        assertEquals(StatusReserva.CANCELADA, r.cancelar(ADMIN, "reserva duplicada").status());
+    }
+
+    // ---------- Q5: justificativa no cancelamento administrativo ----------
+
+    @Test
+    void q5AdministradorCancelandoReservaDeTerceiroGuardaJustificativaSemTocarMotivoDecisao() {
+        Reserva r = comumSolicitada().aprovarAutomaticamente();
+        Reserva cancelada = r.cancelar(ADMIN, "  sala interditada pela defesa civil  ");
+
+        assertEquals(StatusReserva.CANCELADA, cancelada.status());
+        assertEquals("sala interditada pela defesa civil", cancelada.motivoCancelamento());
+        assertNull(cancelada.motivoDecisao());
+    }
+
+    @Test
+    void q5AdministradorSemJustificativaOuEmBrancoERecusado() {
+        Reserva r = comumSolicitada().aprovarAutomaticamente();
+        assertThrows(IllegalArgumentException.class, () -> r.cancelar(ADMIN, null));
+        assertThrows(IllegalArgumentException.class, () -> r.cancelar(ADMIN, ""));
+        assertThrows(IllegalArgumentException.class, () -> r.cancelar(ADMIN, "   "));
+    }
+
+    @Test
+    void q5DonoCancelaSemJustificativaEMantemMotivoDecisaoDaRejeicaoAnterior() {
+        Reserva r = comumSolicitada().aprovarAutomaticamente();
+        assertNull(r.cancelar(DONA, null).motivoCancelamento());
+        assertNull(r.cancelar(DONA, "   ").motivoCancelamento());
+        assertEquals("mudança de planos", r.cancelar(DONA, "mudança de planos").motivoCancelamento());
+    }
+
+    @Test
+    void q5PermissaoVemAntesDaJustificativaEEstadoDepois() {
+        Reserva r = comumSolicitada().aprovarAutomaticamente();
+        // quem não pode cancelar recebe 403 mesmo sem justificativa
+        assertThrows(OperacaoNaoPermitidaException.class, () -> r.cancelar(OUTRO, null));
+        // Administrador com justificativa em reserva EM_USO continua barrado pela matriz de estados
+        Reserva emUso = r.iniciarUso(RESP);
+        assertThrows(TransicaoInvalidaException.class, () -> emUso.cancelar(ADMIN, "motivo"));
     }
 
     @Test
@@ -94,7 +132,7 @@ class ReservaDominioTest {
 
         assertThrows(
             TransicaoInvalidaException.class,
-            () -> emUso.cancelar(DONA)
+            () -> emUso.cancelar(DONA, null)
         );
 
         assertTrue(emUso.status().ocupaAgenda());
@@ -123,8 +161,8 @@ class ReservaDominioTest {
     @Test
     void permissaoEVerificadaAntesDoEstado() {
         Reserva concluida = comumSolicitada().aprovarAutomaticamente().iniciarUso(RESP).concluir(RESP);
-        assertThrows(OperacaoNaoPermitidaException.class, () -> concluida.cancelar(OUTRO));
-        assertThrows(TransicaoInvalidaException.class, () -> concluida.cancelar(DONA));
+        assertThrows(OperacaoNaoPermitidaException.class, () -> concluida.cancelar(OUTRO, null));
+        assertThrows(TransicaoInvalidaException.class, () -> concluida.cancelar(DONA, null));
     }
 
     @Test

@@ -129,8 +129,9 @@ public class ReservaService {
                 TipoEventoNotificacao.RESERVA_REJEITADA);
     }
 
-    public Reserva cancelar(long reservaId, AtorReserva ator) {
-        return transicionar(reservaId, ator, AcaoReserva.CANCELAMENTO, r -> r.cancelar(ator),
+    /** Q5: {@code motivo} é obrigatório quando o Administrador cancela reserva de terceiro. */
+    public Reserva cancelar(long reservaId, AtorReserva ator, String motivo) {
+        return transicionar(reservaId, ator, AcaoReserva.CANCELAMENTO, r -> r.cancelar(ator, motivo),
                 TipoEventoNotificacao.RESERVA_CANCELADA);
     }
 

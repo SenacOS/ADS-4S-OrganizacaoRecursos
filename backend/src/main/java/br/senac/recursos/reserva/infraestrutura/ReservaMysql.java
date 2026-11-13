@@ -27,6 +27,7 @@ public class ReservaMysql implements ReservaRepositorio {
     entidade.restrita = r.restrita();
     entidade.status = r.status().name();
     entidade.motivo = r.motivoDecisao();
+    entidade.motivoCancelamento = r.motivoCancelamento();
     entidade.recursos.clear();
     entidade.recursos.addAll(r.recursoIds());
     if (r.id() == null) em.persist(entidade);
@@ -53,7 +54,8 @@ public class ReservaMysql implements ReservaRepositorio {
                     ids,
                     r.getBoolean("restrita"),
                     StatusReserva.valueOf(r.getString("status")),
-                    r.getString("motivo_decisao")),
+                    r.getString("motivo_decisao"),
+                    r.getString("motivo_cancelamento")),
             id)
         .stream()
         .findFirst();

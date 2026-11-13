@@ -47,9 +47,12 @@ public class ReservaController {
                 servico.editar(id, ReservaApiMapper.paraComando(corpo), atores.atorAtual()));
     }
 
+    /** Corpo opcional: {@code motivo} é exigido só do Administrador cancelando reserva de terceiro (Q5). */
     @PostMapping("/{id}/cancelamento")
-    public ReservaResponse cancelar(@PathVariable long id) {
-        return ReservaApiMapper.paraResposta(servico.cancelar(id, atores.atorAtual()));
+    public ReservaResponse cancelar(@PathVariable long id,
+                                    @Valid @RequestBody(required = false) CancelarReservaRequest corpo) {
+        String motivo = corpo == null ? null : corpo.motivo();
+        return ReservaApiMapper.paraResposta(servico.cancelar(id, atores.atorAtual(), motivo));
     }
 
     @PostMapping("/{id}/aprovacao")
