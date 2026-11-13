@@ -98,9 +98,30 @@ public class ReservaService {
         return salva;
     }
 
+    /**
+     * Aprovação com revalidação (Q8). Na mesma transação e sob os locks dos recursos da reserva:
+     * autorização (Q9), regra de domínio (papel, autoaprovação e estado), recursos ativos,
+     * expediente atual e ocupações atuais (reservas, manutenção e retiradas abertas), ignorando a
+     * própria reserva. Só depois de tudo válido a aprovação é gravada, auditada e notificada.
+     * Qualquer recusa lança exceção e a transação sofre rollback, mantendo a reserva SOLICITADA.
+     */
     public Reserva aprovar(long reservaId, AtorReserva ator) {
-        return transicionar(reservaId, ator, AcaoReserva.APROVACAO, r -> r.aprovar(ator),
-                TipoEventoNotificacao.RESERVA_APROVADA);
+        String correlacao = novaCorrelacao();
+        Bloqueada bloqueada = carregarBloqueando(reservaId, List.of());
+        Reserva antes = bloqueada.reserva();
+        validarAutorizacaoReserva(antes, ator, AcaoReserva.APROVACAO);
+
+        // Domínio primeiro (em memória, nada é gravado): estado/permissão inválidos não viram 409.
+        Reserva aprovada = antes.aprovar(ator);
+
+        validarAtivos(bloqueada.recursos());
+        exigirExpediente(antes.intervalo());
+        verificarConflitos(antes.intervalo(), antes.recursoIds(), reservaId, ator);
+
+        Reserva salva = reservas.salvar(aprovada);
+        auditar(AcaoReserva.APROVACAO, ator, antes.status().name(), salva.status().name(), salva, correlacao);
+        notificar(TipoEventoNotificacao.RESERVA_APROVADA, salva, correlacao);
+        return salva;
     }
 
     public Reserva rejeitar(long reservaId, AtorReserva ator, String motivo) {
