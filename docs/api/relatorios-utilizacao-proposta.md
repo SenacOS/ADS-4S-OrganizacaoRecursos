@@ -1,8 +1,19 @@
-# RF12 — contrato controlado de relatórios e histórico da proposta
+# RF12 — contrato HTTP de relatórios e histórico da proposta
 
-**Estado vigente: adotar o serviço/DTO do PR #39 no cliente/tela controlados, por pedido de Marcos. Endpoint HTTP, registro do bean e integração real continuam pendentes.**
+**Estado vigente em13/11/2026: serviço/DTO #39 e HTTP/composição Spring #41 integrados à develop; frontend #40 conciliado localmente e validado com backend real.** [Story atual](../stories/marcos-6-integracao-real.md), [13cenários reais e limites](../testes/marcos-6-integracao-real-resultados.md). [Aceite do autor confirmado](../testes/marcos-6-integracao-real-aceite-2026-11-13.md); novo recorte sem commit, revisão independente/equipe e entrega pendentes; não declara etapa6 global Done.
 
-## Checkpoint vigente — compatibilidade com a entrega #39
+## Contrato HTTP efetivo — PR #41
+
+- Rota: **GET `/api/reservas/relatorio-utilizacao`**, mesma origem e sessão autenticada; habilitada por `reservas.api.enabled=true` no ambiente apropriado.
+- `inicio` e `fim` obrigatórios, ISO8601 com offset e fim posterior ao início. Intervalo semiaberto. `recursoId` opcional, inteiro positivo. `estados` opcionais, nomes exatos do enum separados por vírgula; omitidos usam APROVADA/EM_USO/CONCLUIDA.
+- Ator vem da sessão; política ADMINISTRADOR provisória do serviço mantida. 401 sem sessão; 403 para outros perfis, inclusive com papel/ID forjados na query. Parâmetros inválidos400 no envelope `{codigo,mensagem,correlationId}`. GET não precisa de CSRF.
+- Corpo continua o DTO #39 descrito abaixo, incluindo minutos inteiros truncados, filtro que conserva todos os recursos das reservas selecionadas e conflitos pelo momento do evento. Não aceitar o candidato Duration como fallback.
+- Bean `ConsultarRelatorioUtilizacao` registrado como `RelatorioUtilizacaoTransacional` no `Item18Config`; `executar` somente leitura/REPEATABLE_READ. Testes Java do controller/proxy e execução HTTP/SQL têm camadas próprias; a rodada real não certifica todas as corridas.
+- Cliente/tela, testes controlados e prévia foram conciliados com a rota entregue. Menu somente para ADMINISTRADOR. A prévia local continua explicitamente fictícia; produto não tem fallback simulado.
+
+As seções seguintes conservam a preparação e o contrato do incremento #39 anterior ao #41. As afirmações de bean/controller ausentes e rota candidata descrevem aquele momento; o contrato vigente é o desta seção.
+
+## Checkpoint histórico — compatibilidade com a entrega #39
 
 Em **13/11/2026**, Marcos pediu explicitamente **“vamos usar o que foi feito na #39”**. O [PR #39](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/39), head `9dda8dcbdaf1f4c87ecc458632da227e1edd46e6`, foi mesclado na develop em `acf94fa80b90756905b6908e3a53cdc6d3369259`. Essa entrega passa a orientar o recorte controlado e substitui, para esse desenvolvimento, o candidato anterior baseado em strings Duration e projeção exclusiva do recurso filtrado.
 

@@ -134,11 +134,13 @@ for (const [papel, rotulo] of [['SOLICITANTE', 'Solicitante'], ['RESPONSAVEL', '
     await expect(page.locator('#usuario-perfil')).toHaveText(rotulo);
     await expect(page.getByRole('heading', { name: 'Aprovações', exact: true })).toHaveCount(papel === 'RESPONSAVEL' ? 1 : 0);
     await expect(page.getByRole('heading', { name: 'Gerenciar recursos', exact: true })).toHaveCount(papel === 'ADMINISTRADOR' ? 1 : 0);
-    await expect(page.locator('#navegacao a[href^="/pages/"]')).toHaveCount(papel === 'SOLICITANTE' ? 3 : 5);
+    await expect(page.getByRole('heading', { name: 'Relatórios', exact: true })).toHaveCount(papel === 'ADMINISTRADOR' ? 1 : 0);
+    await expect(page.locator('#navegacao a[href^="/pages/"]')).toHaveCount(papel === 'SOLICITANTE' ? 3 : papel === 'ADMINISTRADOR' ? 6 : 5);
     await expect(page.locator('#navegacao [aria-disabled="true"]')).toHaveCount(0);
     for (const [titulo, rota, permitido] of [
       ['Aprovações', '/pages/aprovacoes.html', papel === 'RESPONSAVEL'],
       ['Gerenciar recursos', '/pages/gestao-recursos.html', papel === 'ADMINISTRADOR'],
+      ['Relatórios', '/pages/relatorios-utilizacao.html', papel === 'ADMINISTRADOR'],
       ['Movimentações', '/pages/movimentacoes.html', papel !== 'SOLICITANTE'],
     ]) {
       const link = page.locator('#navegacao').getByRole('link', { name: titulo, exact: true });

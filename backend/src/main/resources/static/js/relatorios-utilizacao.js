@@ -1,7 +1,7 @@
 import { api, ErroApi } from './api.js';
 import { dataComOffset, instanteComPrecisao as instante } from './datas.js';
 
-/** DTO do PR #39; a rota HTTP ainda é candidata.
+/** DTO do PR #39 e contrato HTTP entregue no PR #41.
  * @typedef {{inicio:string,fim:string,recursoId?:number}} FiltrosUtilizacao
  * @typedef {{recursoId:number,minutos:number}} AlocacaoRecurso
  * @typedef {{status:string,minutos:number}} AlocacaoStatus
@@ -29,7 +29,7 @@ export function apresentarMinutos(minutos) {
   return String(minutos) + ' min';
 }
 
-/** Projeta somente filtros candidatos; estados customizados ficam fora da tela.
+/** Projeta os filtros da tela; estados customizados ficam fora deste recorte.
  * @param {FiltrosUtilizacao} filtros */
 export function parametrosUtilizacao(filtros) {
   const { inicio, fim, recursoId } = filtros;
@@ -112,7 +112,7 @@ export function criarRelatoriosUtilizacao(cliente = api) {
       const parametros = parametrosUtilizacao(filtros);
       const consulta = { inicio: filtros.inicio, fim: filtros.fim,
         ...(filtros.recursoId === undefined ? {} : { recursoId: filtros.recursoId }) };
-      return conferirUtilizacao(await cliente.requisitar('/api/relatorios/utilizacao?' + parametros), consulta);
+      return conferirUtilizacao(await cliente.requisitar('/api/reservas/relatorio-utilizacao?' + parametros), consulta);
     },
   };
 }

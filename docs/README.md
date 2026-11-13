@@ -1,5 +1,9 @@
 # Documentacao do Projeto
 
+## Etapa6 — integração HTTP real local — 13/11/2026
+
+#40/#41 mesclados na develop8065626. [Story da integração](stories/marcos-6-integracao-real.md), [contrato HTTP efetivo](api/relatorios-utilizacao-proposta.md#contrato-http-efetivo--pr-41), [resultados13/0 reais e gates277/97/346](testes/marcos-6-integracao-real-resultados.md) e [roteiro humano](testes/marcos-6-integracao-real-verificacao.md). Rota/menu conciliados e [aceitos por Marcos](testes/marcos-6-integracao-real-aceite-2026-11-13.md). Implementação e validação local concluídas; revisão independente/equipe, commit e entrega do novo recorte pendentes. Resultados controlados anteriores preservam suas origens; etapas1–5 permanecem encerradas.
+
 ## Encerramento integrado — PR #36 mesclado
 
 **Entrega das etapas 1 a 5 integrada à develop e encerrada no escopo de Marcos.** [PR #36](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/36) aprovado por jovemOG-Dev e mesclado em **c4279b6**; contratos/ADR-007, operação dos vínculos, RF11 simulada, evidências e aceite do autor entregues. [Registro verificável](testes/marcos-encerramento-etapas-1-a-5-2026-11-13.json).
@@ -101,6 +105,6 @@ O diagnóstico de outubro acima é histórico. O backend e os contratos já est�
 - [Movimentações — complemento da etapa 5](stories/marcos-5-movimentacoes.md): retirada, pendências e devolução, sem consulta de reservas/Q9. Aceite visual e commit autorizados por Marcos em 11/11/2026, encerrando a implementação local da etapa 5 junto à administração. Revisão da equipe, CI e integração continuam pendentes. [Resultados e limites](testes/marcos-5-movimentacoes-resultados.md).
 
 
-## Etapa6 — frontend controlado dos relatórios RF12
+## Histórico da etapa6 — frontend controlado dos relatórios RF12
 
 Primeira interface publicada em7ff3aca, com [resultados históricos96/334](testes/marcos-6-resultados.md). Após Marcos pedir adotar o #39, cliente/tela foram adaptados ao DTO de minutos/listas, guarda ADMIN provisória e filtro que mantém recursos vinculados. [Plano6](planejamento/marcos-etapa-6-plano-de-acao.md), [story](stories/marcos-6.md), [contrato adotado](api/relatorios-utilizacao-proposta.md), [resultados atuais](testes/marcos-6-rf12-39-resultados.md) e [revisão visual](testes/marcos-6-rf12-39-verificacao.txt). API controlada/prévia são simuladas. Novo build97/346, QA e revisão visual aprovados; Marcos autorizou commit/push/PR em13/11/2026. Controller, bean e E2E HTTP real continuam pendentes. Encerramento1a5 segue separado.

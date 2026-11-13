@@ -1,5 +1,9 @@
 # Marcos Boé — responsabilidades e plano de ação
 
+## Etapa6 — integração real local após #40/#41 — 13/11/2026
+
+Frontend e endpoint RF12 mesclados à develop8065626. Continuação em `feature/marcos-6-integracao-real`: rota HTTP conciliada, link de menu ADMINISTRADOR e **13/0 cenários reais** com Spring/MySQL/Chrome, package277 e build97/346 aprovados. [Story](../stories/marcos-6-integracao-real.md), [resultados/limites](../testes/marcos-6-integracao-real-resultados.md) e [aceite humano confirmado](../testes/marcos-6-integracao-real-aceite-2026-11-13.md). Implementação e validação local concluídas; sem novo commit/push, revisão independente e entrega pendentes. Etapas1–5 continuam encerradas no checkpoint seguinte; RF12 global aguarda seu fluxo final de revisão/entrega.
+
 ## Encerramento integrado — PR #36 mesclado
 
 **Entrega das etapas 1 a 5 integrada à develop e encerrada no escopo de Marcos.** [PR #36](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/36) aprovado por jovemOG-Dev e mesclado em **c4279b6**; contratos/ADR-007, operação dos vínculos, RF11 simulada, evidências e aceite do autor entregues. [Registro verificável](../testes/marcos-encerramento-etapas-1-a-5-2026-11-13.json).

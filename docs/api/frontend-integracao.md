@@ -1,5 +1,11 @@
 # Consumo da API pelo frontend
 
+## RF12 HTTP — 13/11/2026
+
+Cliente/tela conciliados com #41: **GET `/api/reservas/relatorio-utilizacao`**, query `inicio`/`fim` com offset e `recursoId` opcional, DTO de minutos/listas do #39. Relatórios no menu somente para ADMINISTRADOR, com guarda por URL direta e autorização adicional do servidor. Nenhum papel/ID de identidade na query; sem CSRF no GET. [Contrato atual](relatorios-utilizacao-proposta.md#contrato-http-efetivo--pr-41), [story](../stories/marcos-6-integracao-real.md) e [13/0 reais, gates e limites](../testes/marcos-6-integracao-real-resultados.md).
+
+A nova execução97/346 controlada e a rodada Spring/MySQL/Chrome são camadas distintas. A página do produto não tem aviso de prévia nem fallback fictício; o servidor local4174 continua identificando Dados simulados. [Aceite de Marcos registrado](../testes/marcos-6-integracao-real-aceite-2026-11-13.md); revisão independente/equipe e entrega do recorte atual pendentes; os aceites e estados nos registros abaixo pertencem às suas versões anteriores.
+
 Aceite posterior em 12/11/2026: Marcos aprovou a revisão visual do complemento de consulta/edição/cancelamento e autorizou commit local. [Registro](../testes/marcos-3-consulta-edicao-aceite-visual-2026-11-12.md). Os testes e seus hashes permanecem preservados; publicação/revisão/checks/merge e matriz integrada restante continuam separados. Menções abaixo a aceite pendente descrevem a execução anterior.
 
 Estado atualizado em 12/11/2026: clientes e telas das etapas 1 a 5 implementados localmente, incluindo consulta/edição/cancelamento. Sessão/CSRF, reservas, fila/Q9, administração e movimentações têm provas reais nos cenários registrados. [Resultado mais recente e limites](../testes/marcos-3-consulta-edicao-resultados.md). Revisão visual do incremento novo, revisão da equipe, matriz integrada completa e checks remotos continuam pendentes. As seções de implantação original abaixo conservam seu recorte; esta atualização e os contratos mais recentes prevalecem sobre diagnósticos antigos.

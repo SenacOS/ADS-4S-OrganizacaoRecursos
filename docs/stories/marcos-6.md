@@ -1,5 +1,7 @@
 # Marcos-6 — Relatórios de utilização, carga horária e conflitos evitados
 
+**Continuação após #40/#41 em13/11/2026:** o incremento controlado desta story foi mesclado; composição Spring e endpoint também chegaram à develop8065626. A conciliação HTTP/menu e a rodada real13/0 têm [story própria](marcos-6-integracao-real.md) e [resultados/limites](../testes/marcos-6-integracao-real-resultados.md), com novo aceite ainda pendente. Os relatos abaixo de HTTP/bean ausentes e os pareceres97/346 preservam a origem do incremento controlado; não descrevem a ausência atual do endpoint nem são reescritos como E2E real.
+
 ## Status
 
 Ready for Review
