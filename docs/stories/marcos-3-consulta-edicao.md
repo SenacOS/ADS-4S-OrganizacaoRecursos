@@ -84,6 +84,21 @@ Tipo principal: Frontend; secundário: Integração. Execução AIOX Dev; revis�
 
 ## Dev Agent Record
 
+### Complemento compartilhado Q8/MySQL — PR #34
+
+#34 aprovado por Marcos e mesclado1948e69; adiciona somente ReservaAprovacaoMysqlIT. CI43447037478:9testes Q8/MySQL aprovados, incluídos no total66integrações;261unitários/HTTP, JaCoCo e JMeter aprovados. [Fonte, log, cenários e limites](../testes/marcos-q8-pr34-evidencias.json). Evidência da equipe relacionada à lacuna Q8/MySQL, sem nova execução local, reconstrução de JAR ou alteração autoral de código. Base documental atual1948e69 por fast-forward, onze documentos preservados antes da atualização. Scanner compartilhado mantém tratamento alinhado; sem novo Quality Gate inferido. Publicação documental e confirmações compartilhadas restantes seguem pendentes; pareceres QA e resultados anteriores conservam sua origem. Os checkpoints seguintes são históricos.
+
+
+### Atualização após os merges #32/#33
+
+#32 aprovado por jovemOG-Dev e mesclado3e1a2a0; #33/Q8 aprovado por Marcos e integrado62cd48f. Documentação local preservada por cópia/hash e trazida para `docs/marcos-fechamento-etapas` sobre62cd48f. Revalidação pertinente executada com JAR reconstruído:8/0unitários Q8 e12/0Q9/Q1/Q3 reais. [Nova prova e limites](../testes/marcos-fechamento-pos-merge-32-33.json). Suítes anteriores preservam base/hash/origem; não foram novamente executadas. Nenhum código autoral/CI modificado. CodeRabbit continua indisponível; scanner compartilhado não bloqueia a implementação por orientação de Marcos. Pareceres QA preservados, sem novo veredicto ou encerramento global. Documentação atual ainda sem commit/push; confirmações compartilhadas seguem pendentes. Os checkpoints seguintes descrevem as fotografias anteriores.
+
+
+### Publicação e conciliação — 13/11/2026
+
+Incremento de origem 0775715 integrado à develop pelo [PR #28](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/28). Aceite do autor e resultados originais preservados; menções anteriores a ausência de commit/push/PR são históricas. Corretivo dos auxiliares/evidências em5569e57 / #32: Quality Gate OK, Ready for review, ainda sem merge/revisões. Scanner compartilhado registrado e temporariamente não bloqueante da implementação por orientação de Marcos; CodeRabbit/revisão coletiva e ratificações seguem separados. [Estado remoto e limites](../testes/marcos-fechamento-status-2026-11-13.md). Esta conciliação não executa novos testes, altera parecer QA ou encerra RFs globais.
+
+
 ### Completion Notes
 
 Implementação local concluída em 12/11/2026 na branch `feature/marcos-reservas-consulta`, criada sobre f9c4912 após push confirmado por Marcos. Página Reservas para os três perfis, consulta/paginação, detalhe autorizado, edição/cancelamento e confirmação implementados conforme contratos. ISO original preservado por campo; comparador preciso compartilhado evita recusar intervalo submilissegundo. Seleção original mantida entre páginas e disponibilidade própria. Nenhuma alteração de Java, POM, migrações, dependências ou configuração persistente.

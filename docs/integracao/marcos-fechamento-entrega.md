@@ -1,5 +1,43 @@
 # Marcos — sequência de entrega e pendências finais
 
+## Estado atual — 13/11/2026
+
+**Q8 — complemento MySQL integrado:** [PR #34](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/34), de Silva, aprovado por Marcos e mesclado em **1948e69** em13/11/2026. A [CI43447037478](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43447037478) executou **9 testes Q8 com MySQL8.4/Testcontainers, zero falhas/erros/ignorados**, incluídos nos66testes de integração aprovados;261unitários/HTTP, JaCoCo e JMeter também passaram. A conclusão geral failure permanece pelo scanner compartilhado, temporariamente não bloqueante por orientação de Marcos. [Trechos de log, cenários, metadados e limites](../testes/marcos-q8-pr34-evidencias.json).
+
+A base de trabalho agora é **1948e69** na branch `docs/marcos-fechamento-etapas`, atualizada por fast-forward após preservar/reconferir os11documentos locais. #34 acrescenta somente `ReservaAprovacaoMysqlIT`: sem mudança de produção, sem novo JAR ou reexecução local injustificada. A lacuna específica de evidência Q8 em MySQL (recusas/rollback/auditoria/outbox/conflitos/lock) foi atendida pelos cenários executados na CI da equipe. Isso não certifica toda concorrência nem entrega externa de notificações. Documentação continua sem commit/push.
+
+
+Frontend das etapas 1 a 5 e complemento E2E integrados à develop. O [PR #32](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/32) foi **aprovado por jovemOG-Dev e mesclado** em **3e1a2a0**; o [PR #33](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/33), de Silva, foi **aprovado por Marcos e mesclado** em **62cd48f**. O #33 revalida disponibilidade antes de aprovar uma reserva (Q8); não publica a conciliação documental local.
+
+Base de trabalho atualizada inicialmente para **62cd48f** na branch **docs/marcos-fechamento-etapas**, preservando por cópia/hash os dez documentos locais. Corretivo e revisão humana do #32 já concluídos; documentação desta rodada ainda sem commit/push. O Quality Gate aprovado do #32 e o erro compartilhado do scanner permanecem registrados com suas origens. Por orientação de Marcos, esse erro não bloqueia sua implementação por enquanto. CodeRabbit local segue indisponível, sem resultado aprovado presumido.
+
+Após o #33, JAR reconstruído e **8 testes unitários Q8 + 12 cenários reais Q9/Q1/Q3 aprovados**. [Evidências da base nova](../testes/marcos-fechamento-pos-merge-32-33.json) e [estado/limites](../testes/marcos-fechamento-status-2026-11-13.md). Testes anteriores mantêm suas bases: não há nova execução de smoke16, consulta8, fechamento11 ou frontend81/278 atribuída a62cd48f. Os oito testes com AmbienteFake conservam esse limite; o complemento Q8/MySQL está agora comprovado nos9testes do #34, relacionados acima.
+
+Faltam publicação da conciliação, ratificação contratual/processo dos vínculos e relação de evidências compartilhadas além do cliente. Nenhuma nova tela prevista até a etapa5 foi identificada.
+
+## Publicação e confirmações
+
+**Alinhamento para publicação:** Marcos autorizou publicar a conciliação e informou que ainda não recebeu confirmações novas. [Pendências por responsável e texto pronto para encaminhar](marcos-pendencias-fechamento-2026-11-13.md). Evidências compartilhadas RF10/RF11/segurança agora relacionadas à CI43447037478: auditoria MySQL5, auditoria de usuário1 e controller4; outbox MySQL8 com gateway Mockito; gateway HTTP WireMock5; sessão/segurança/Q9 conforme matriz. Isso comprova os recortes executados, sem transformar gateway de teste em recebimento externo ou ratificação contratual. O modo de demonstração/aceite RF11 ainda exige confirmação da responsável. Commit/push/PR documental autorizados; nenhuma mensagem externa ou merge automático.
+
+## Próximos passos e responsáveis
+
+| Pendência | Responsável / próximo passo |
+|---|---|
+| Revisão e merge do #32 | Concluídos: aprovação por jovemOG-Dev e integração3e1a2a0. CodeRabbit local indisponível, sem execução presumida. |
+| Sincronização pós-merge | Concluída agora na base1948e69, branch documental própria; dez arquivos preservados antes de #33 e onze antes de #34. Q8 e provas MySQL incluídas/conferidas. |
+| Ratificação de contratos e regra multirrecurso | Silva/Fausto/Débora; Marcos já aceitou o consumo atual. |
+| Concessão/revogação de vínculos reais | Fausto/Silva com segurança; definir processo administrativo restrito. A autorização existe, sem nova tela presumida. |
+| Evidências além da camada cliente | Q8, RF10/RF11 e segurança relacionadas à CI; responsável confirma modo/evidências de aceite RF11 e demais aspectos de implantação aplicáveis. |
+| Publicação desta conciliação e encerramento | Marcos/assistente; revisão, commit e push conforme fluxo. |
+| Scanner Maven compartilhado | Débora/administrador acompanha autorização/projeto; temporariamente não bloqueante da implementação por orientação de Marcos. |
+
+Sem nova implementação de frontend pendente até a etapa 5. Consultas/Q9 e caminhos mínimos reais já entregues. Persistência de outbox/auditoria não é confirmação de entrega externa de notificação.
+
+[Plano vigente](../planejamento/marcos-fechamento-etapas-1-a-5.md). Nenhum comentário ou mensagem externa enviado; nenhum merge, commit ou push nesta conciliação.
+
+<details>
+<summary>Histórico da sequência de entrega — PRs #28/#29 já mesclados</summary>
+
 Checkpoint vigente13/11: os PRs#28/#29 estão mesclados na developa0c0481. Agora há **um único PR corretivo** preparado na branch `fix/marcos-qualitygate`, com correções dos auxiliares/evidências e [revalidação do backend atualizado](../testes/marcos-qualitygate-1-consolidacao-resultados.md). Commit/push/abertura desse PR foram autorizados por Marcos após validar; merge e mensagens adicionais permanecem separados. As instruções anteriores de dois PRs/ausência de merge abaixo são históricas.
 
 Atualização em13/11: PRs#28/#29 já abertos, ambos para develop, e aguardam correções/checks. Há correções locais de auxiliares/metadados nas duas árvores e [encaminhamento pronto](marcos-qualitygate-equipe-2026-11-13.md), sem publicação automática. [Resultados](../testes/marcos-qualitygate-1-resultados.md). As menções abaixo à ausência dos PRs são da conferência original12/11; não criar PRs duplicados.
@@ -52,3 +90,5 @@ Revisar story/resultados/capturas do incremento novo; commit somente após solic
 Timeout real, pesquisa real paginada/vazia/indisponível, disputa pontual, editor após estado alterado e devolução com atraso não são mais cenários locais ausentes. Corridas adicionais, carga geral e todas as combinações de estado não foram declaradas como certificadas; qualquer exigência adicional precisa apontar requisito/critério concreto do projeto.
 
 Nenhum PR, comentário externo, push ou merge foi executado para preparar este documento.
+
+</details>

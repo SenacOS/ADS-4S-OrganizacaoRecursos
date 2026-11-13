@@ -1,0 +1,336 @@
+{
+  "conferidoEm": "2026-11-13 14:25:28 UTC",
+  "prs": [
+    {
+      "numero": 32,
+      "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/32",
+      "titulo": "fix(quality): corrige apontamentos Sonar dos auxiliares E2E",
+      "estado": "closed",
+      "mesclado": true,
+      "mergeEm": "2026-11-13T14:13:46Z",
+      "mergeCommit": "3e1a2a065fd9035e7f602c71f50b62d32f8202cb",
+      "head": "5569e574a12d85da6820d131049856df400f3948",
+      "base": "develop",
+      "revisoes": [
+        {
+          "estado": "APPROVED",
+          "autor": "jovemOG-Dev",
+          "data": "2026-11-13T14:13:36Z"
+        }
+      ]
+    },
+    {
+      "numero": 33,
+      "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/33",
+      "titulo": "feat(reserva): revalida disponibilidade antes da aprovação (Q8)",
+      "estado": "closed",
+      "mesclado": true,
+      "mergeEm": "2026-11-13T14:21:23Z",
+      "mergeCommit": "62cd48f2d60a2b3632e30d6d3f674f181c413cbb",
+      "head": "3ea15970d09eb79f545f01a7c47a2ffc4bb6a941",
+      "base": "develop",
+      "revisoes": [
+        {
+          "estado": "APPROVED",
+          "autor": "marcosboe",
+          "data": "2026-11-13T14:21:11Z"
+        }
+      ]
+    }
+  ],
+  "base": "62cd48f2d60a2b3632e30d6d3f674f181c413cbb",
+  "branch": "docs/marcos-fechamento-etapas",
+  "arvore": "documentos locais sem commit; nenhum código autoral alterado",
+  "sincronizacao": {
+    "preservadosPorHash": 10,
+    "arquivosNovosEquipe": 2,
+    "semSobreposicao": true
+  },
+  "maven": {
+    "comando": "mvn -B --no-transfer-progress -f backend/pom.xml -Dtest=ReservaAprovacaoRevalidacaoTest -DskipITs package",
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "build": "SUCCESS",
+    "evidencia": [
+      "[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.221 s -- in br.senac.recursos.reserva.aplicacao.ReservaAprovacaoRevalidacaoTest",
+      "[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0",
+      "[INFO] BUILD SUCCESS",
+      "[INFO] Total time:  13.340 s",
+      "[INFO] Finished at: 2026-11-13T11:24:30-03:00"
+    ],
+    "limite": "Somente teste unitário Q8 com AmbienteFake; não é clean verify nem nova execução MySQL/Testcontainers."
+  },
+  "artefatos": [
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/reserva/aplicacao/ReservaService.java",
+      "algoritmo": "SHA-256",
+      "digest": "b1c9fddb984eb25e779a91c148e90b1b0111dcb8377a66f3bec59933ff54783c"
+    },
+    {
+      "arquivo": "backend/src/test/java/br/senac/recursos/reserva/aplicacao/ReservaAprovacaoRevalidacaoTest.java",
+      "algoritmo": "SHA-256",
+      "digest": "a59fb93b519d1e4032765f71787d0fde7391e23ba711b97661ff7b100ca6b50f"
+    },
+    {
+      "arquivo": "backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar",
+      "algoritmo": "SHA-256",
+      "digest": "4b8633a55e59f5f2b5d11865338cb7658eb0f943b50b35d6baa0eb2ebfb0def5"
+    },
+    {
+      "arquivo": "tests/e2e-local/validar-q9.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "161d3bdfa150a0987f899106abd87ca7fb36cdbeec02a9d3db14f1f88e9551ab"
+    }
+  ],
+  "q9": {
+    "inicio": "2026-11-13T14:24:57.141Z",
+    "head": "62cd48f2d60a2b3632e30d6d3f674f181c413cbb",
+    "merge": null,
+    "branch": "docs/marcos-fechamento-etapas",
+    "camada": "HTTP/Chrome/MySQL reais, sem interceptação",
+    "cenarios": [
+      {
+        "nome": "V6 e fontes servidas",
+        "estado": "PASS",
+        "evidencia": {
+          "migracoes": 6,
+          "hashesServidos": "MATCH"
+        }
+      },
+      {
+        "nome": "Solicitante, paginação e total restritos às próprias reservas",
+        "estado": "PASS",
+        "evidencia": {
+          "totalProprias": 3,
+          "alheia": 404,
+          "detalheCompleto": 200
+        }
+      },
+      {
+        "nome": "Administrador lê sem herdar decisão",
+        "estado": "PASS",
+        "evidencia": {
+          "total": 4,
+          "aprovacao": 403
+        }
+      },
+      {
+        "nome": "Responsável sem vínculo e filtros inválidos",
+        "estado": "PASS",
+        "evidencia": {
+          "fila": 0,
+          "detalhe": 404,
+          "decisao": 403,
+          "parametros": 400,
+          "semSessao": 401
+        }
+      },
+      {
+        "nome": "Vínculo parcial preserva negativa multi-recurso",
+        "estado": "PASS",
+        "evidencia": {
+          "total": 3,
+          "multipla": 404,
+          "decisao": 403,
+          "estadoPreservado": "SOLICITADA"
+        }
+      },
+      {
+        "nome": "Vínculo completo habilita leitura multi-recurso",
+        "estado": "PASS",
+        "evidencia": {
+          "total": 4,
+          "multipla": 200,
+          "recursos": 2
+        }
+      },
+      {
+        "nome": "Fila real: identificação, aprovação e rejeição com motivo",
+        "estado": "PASS",
+        "evidencia": {
+          "aprovada": 119,
+          "rejeitada": 122,
+          "motivoObrigatorio": true,
+          "errosJS": 0
+        }
+      },
+      {
+        "nome": "Decisão multi-recurso permitida somente após vínculo completo",
+        "estado": "PASS",
+        "evidencia": {
+          "id": 121,
+          "status": "APROVADA",
+          "recursos": 2
+        }
+      },
+      {
+        "nome": "Página da fila além do fim preserva total autorizado",
+        "estado": "PASS",
+        "evidencia": {
+          "pagina": 99,
+          "itens": 0,
+          "total": 1
+        }
+      },
+      {
+        "nome": "Revogação do vínculo exclusivo da rodada remove acesso",
+        "estado": "PASS",
+        "evidencia": {
+          "filaResponsavel": 0,
+          "detalhes": 404,
+          "decisao": 403,
+          "reservaPreservada": true,
+          "filaAdministrador": 1
+        }
+      },
+      {
+        "nome": "Q3: Responsável vinculado não aprova a própria reserva restrita",
+        "estado": "PASS",
+        "evidencia": {
+          "id": 123,
+          "vinculoCompleto": true,
+          "aprovacaoPropria": 403,
+          "estadoDepoisDaNegativa": "SOLICITADA",
+          "cancelamentoExplicitoPosterior": "CANCELADA"
+        }
+      },
+      {
+        "nome": "Q1: início, conclusão e ausência recusam Administrador e aceitam Responsável",
+        "estado": "PASS",
+        "evidencia": {
+          "reservaConcluida": 124,
+          "reservaAusente": 125,
+          "administrador": {
+            "inicio": 403,
+            "conclusao": 403,
+            "ausencia": 403
+          },
+          "responsavel": {
+            "inicio": 200,
+            "conclusao": 200,
+            "ausencia": 200
+          },
+          "estadosPersistidos": [
+            "CONCLUIDA",
+            "NAO_COMPARECEU"
+          ]
+        }
+      }
+    ],
+    "massa": {
+      "responsavel": 3,
+      "A": 176,
+      "B": 177,
+      "propria": {
+        "id": 119,
+        "solicitanteId": 2,
+        "status": "SOLICITADA",
+        "restrita": true,
+        "inicio": "2026-11-13T11:29:00-03:00",
+        "fim": "2026-11-13T11:39:00-03:00",
+        "recursosIds": [
+          176
+        ],
+        "motivoDecisao": null
+      },
+      "alheia": {
+        "id": 120,
+        "solicitanteId": 30,
+        "status": "SOLICITADA",
+        "restrita": true,
+        "inicio": "2026-11-13T11:49:00-03:00",
+        "fim": "2026-11-13T11:59:00-03:00",
+        "recursosIds": [
+          176
+        ],
+        "motivoDecisao": null
+      },
+      "multipla": {
+        "id": 121,
+        "solicitanteId": 2,
+        "status": "SOLICITADA",
+        "restrita": true,
+        "inicio": "2026-11-13T12:09:00-03:00",
+        "fim": "2026-11-13T12:19:00-03:00",
+        "recursosIds": [
+          176,
+          177
+        ],
+        "motivoDecisao": null
+      },
+      "rejeitar": {
+        "id": 122,
+        "solicitanteId": 2,
+        "status": "SOLICITADA",
+        "restrita": true,
+        "inicio": "2026-11-13T12:29:00-03:00",
+        "fim": "2026-11-13T12:39:00-03:00",
+        "recursosIds": [
+          176
+        ],
+        "motivoDecisao": null
+      }
+    },
+    "fim": "2026-11-13T14:25:02.189Z",
+    "resumo": {
+      "PASS": 12,
+      "FAIL": 0
+    },
+    "versaoFormato": 2,
+    "artefatos": [
+      {
+        "arquivo": "tests/e2e-local/validar-q9.cjs",
+        "algoritmo": "SHA-256",
+        "digest": "161d3bdfa150a0987f899106abd87ca7fb36cdbeec02a9d3db14f1f88e9551ab"
+      },
+      {
+        "arquivo": "tests/e2e-local/validar.cjs",
+        "algoritmo": "SHA-256",
+        "digest": "fb634ba1c769fd7b3e7d20f42d914abea313a9f8396ec955464c4b887739c318"
+      },
+      {
+        "arquivo": "tests/e2e-local/controle.cjs",
+        "algoritmo": "SHA-256",
+        "digest": "e68b5f04d9a9d31bc9ff29cb86e5454f7707a6693c1833abbd6d0d117268df06"
+      },
+      {
+        "arquivo": "tests/e2e-local/executaveis.cjs",
+        "algoritmo": "SHA-256",
+        "digest": "f3c344d74dbbad3b8b7962962daaa5e13f5e87a1230657892c4022afec44abdd"
+      },
+      {
+        "arquivo": "tests/e2e-local/configuracao-local.cjs",
+        "algoritmo": "SHA-256",
+        "digest": "5c0687d08a0fad2287c75d365f8b8e62c2b162fe2abdbe9853e35c8e819b4bc6"
+      },
+      {
+        "arquivo": "backend/src/main/resources/static/js/aprovacoes.js",
+        "algoritmo": "SHA-256",
+        "digest": "641e0e456de266f946aa1354c1a4c4c5e4789dacb242e6dd2a074aa4095f15de"
+      },
+      {
+        "arquivo": "backend/src/main/resources/static/js/aprovacoes-page.js",
+        "algoritmo": "SHA-256",
+        "digest": "ccd53aaea68ca38cda868e18aaf373a27c756c07d8e8f0e0f59cf4b91d3f0085"
+      },
+      {
+        "arquivo": "backend/src/main/resources/static/js/datas.js",
+        "algoritmo": "SHA-256",
+        "digest": "44f35755602a1043e5126ed4807f5b0b31bc273908c7e4d079d6df34a9636bbe"
+      },
+      {
+        "arquivo": "backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar",
+        "algoritmo": "SHA-256",
+        "digest": "4b8633a55e59f5f2b5d11865338cb7658eb0f943b50b35d6baa0eb2ebfb0def5"
+      }
+    ]
+  },
+  "limites": [
+    "Q9 real reexecutada, incluindo aprovação positiva e negativos Q1/Q3; não certifica todos os negativos Q8 com locks/rollback em MySQL.",
+    "Suítes smoke16, consulta8, fechamento11 e frontend81/278 anteriores conservam origem na base anterior; não foram novamente executadas nesta rodada.",
+    "Quality Gate e CI do PR32 mantêm resultados históricos já registrados; não se presume novo gate da develop por merge.",
+    "Nenhum commit, push, merge ou mensagem externa nesta rodada."
+  ]
+}

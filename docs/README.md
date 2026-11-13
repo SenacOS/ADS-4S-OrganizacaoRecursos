@@ -1,5 +1,29 @@
 # Documentacao do Projeto
 
+
+## Fechamento vigente de Marcos — pós-merges #32/#33
+
+**Alinhamento para publicação:** Marcos autorizou publicar a conciliação e informou que ainda não recebeu confirmações novas. [Pendências por responsável e texto pronto para encaminhar](integracao/marcos-pendencias-fechamento-2026-11-13.md). Evidências compartilhadas RF10/RF11/segurança agora relacionadas à CI43447037478: auditoria MySQL5, auditoria de usuário1 e controller4; outbox MySQL8 com gateway Mockito; gateway HTTP WireMock5; sessão/segurança/Q9 conforme matriz. Isso comprova os recortes executados, sem transformar gateway de teste em recebimento externo ou ratificação contratual. O modo de demonstração/aceite RF11 ainda exige confirmação da responsável. Commit/push/PR documental autorizados; nenhuma mensagem externa ou merge automático.
+
+
+**Atualização Q8/MySQL:** [PR #34](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/34) aprovado por Marcos e mesclado1948e69;9testes ReservaAprovacaoMysqlIT aprovados na CI43447037478 (incluídos nos66MySQL), mais261unitários/HTTP, JaCoCo/JMeter aprovados. [Evidências e limites](testes/marcos-q8-pr34-evidencias.json). Base documental atual1948e69, onze documentos preservados antes do fast-forward. Sem mudança de produção/reexecução local nesta rodada; scanner compartilhado continua com tratamento já alinhado. A lacuna específica Q8/MySQL está relacionada; ratificação contratual, operação dos vínculos, demais provas compartilhadas e publicação documental continuam separadas.
+
+Os parágrafos seguintes registram a sincronização e os testes locais anteriores ao #34; a base vigente é1948e69.
+
+
+Frontend até a etapa5 e complemento E2E integrados. Corretivo #32 aprovado por outro integrante e mesclado; #33/Q8 integrado. Base de trabalho62cd48f na branch `docs/marcos-fechamento-etapas`, com documentação local preservada. Revalidação direcionada8/0unitários Q8 e12/0reais Q9/Q1/Q3, sem repetir ou reatribuir provas anteriores.
+
+- [Plano atual e pendências por responsável](planejamento/marcos-fechamento-etapas-1-a-5.md).
+- [Estado/limites das conferências](testes/marcos-fechamento-status-2026-11-13.md) e [prova após os merges](testes/marcos-fechamento-pos-merge-32-33.json).
+- [Sequência de fechamento](integracao/marcos-fechamento-entrega.md) e [texto para alinhamento manual](integracao/marcos-qualitygate-equipe-2026-11-13.md).
+
+Faltam publicação da conciliação, ratificação contratual, operação dos vínculos e relação de evidências compartilhadas. Scanner compartilhado temporariamente não bloqueante por orientação de Marcos; CodeRabbit indisponível. Sem nova tela prevista até a etapa5 aguardando implementação.
+
+## Registros históricos — estados de cada execução
+
+As seções seguintes mantêm a proveniência de cada incremento. Expressões de GET ausente, aceite/publicação pendentes ou scanner/gate ainda não conferidos descrevem suas datas; o estado vigente é o checkpoint acima.
+
+
 Complemento de fechamento em12/11: [11 cenários reais aprovados e matriz](testes/marcos-fechamento-e2e-1-resultados.md), [story](stories/marcos-fechamento-e2e-1.md) e [sequência de entrega/descrição do PR](integracao/marcos-fechamento-entrega.md). Produto0775715 enviado; testes novos ainda sem commit. Implementação/validação local e entrega/revisão/checks/merge permanecem estados distintos.
 
 Checkpoint do frontend em 12/11/2026: [plano de fechamento das etapas 1 a 5](planejamento/marcos-fechamento-etapas-1-a-5.md), [story de consulta/edição/cancelamento](stories/marcos-3-consulta-edicao.md) e [resultados locais mais recentes](testes/marcos-3-consulta-edicao-resultados.md). Consulta/Q9 entregue; complemento da etapa 3 implementado/testado e [aceito visualmente por Marcos, com commit local autorizado](testes/marcos-3-consulta-edicao-aceite-visual-2026-11-12.md); publicação e entrega integrada continuam separadas. Esta referência não muda o estado dos demais artefatos acadêmicos abaixo.

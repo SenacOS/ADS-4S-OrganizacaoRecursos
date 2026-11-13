@@ -1,0 +1,263 @@
+{
+  "conferidoEm": "2026-11-13 16:08:22 UTC",
+  "pr": {
+    "numero": 34,
+    "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/34",
+    "titulo": "test(reserva): cobre aprovação com revalidação em MySQL (Q8)",
+    "head": "fbd2519ee75cbf21c7388dc29eb603728946aebe",
+    "mergeCommit": "1948e6978067e23e1ee1f0f25255cb0fe8867cd4",
+    "mesclado": true,
+    "mergeEm": "2026-11-13T16:05:12Z",
+    "revisao": {
+      "estado": "APPROVED",
+      "autor": "marcosboe",
+      "data": "2026-11-13T16:04:14Z"
+    }
+  },
+  "arquivoAlterado": "backend/src/test/java/br/senac/recursos/reserva/infraestrutura/ReservaAprovacaoMysqlIT.java",
+  "ci": {
+    "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43447037478",
+    "run": 43447037478,
+    "conclusao": "failure",
+    "jobs": [
+      {
+        "id": 131959086412,
+        "nome": "JMeter / banco isolado / métricas reais",
+        "conclusao": "success",
+        "etapas": [
+          {
+            "nome": "Set up job",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Checkout do PR",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Java 21",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Instalar Apache JMeter 5.6.3 (distribuicao oficial)",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Executar carga local isolada com MySQL 8.4",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Preservar JTL, dashboards HTML e invariantes SQL",
+            "conclusao": "success"
+          }
+        ]
+      },
+      {
+        "id": 131959086930,
+        "nome": "Java 21 / Testcontainers / JaCoCo / SonarCloud",
+        "conclusao": "failure",
+        "etapas": [
+          {
+            "nome": "Set up job",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Checkout (historico para Sonar)",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Java 21 e cache Maven",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Validar estrutura dos planos JMeter e scripts de evidencia",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Executar unitarios, integracao MySQL e quality gates",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Publicar logs, testes, XML JaCoCo e HTML JaCoCo",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Verificar disponibilidade do SonarCloud",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Analisar SonarCloud e aguardar Quality Gate",
+            "conclusao": "failure"
+          }
+        ]
+      }
+    ],
+    "q8Mysql": {
+      "classe": "ReservaAprovacaoMysqlIT",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "unitariosHttp": 261,
+    "integracaoMysql": 66,
+    "jacoco": "gates atendidos",
+    "jmeter": "success",
+    "scanner": "Not authorized or project not found",
+    "trechosLog": [
+      "2026-11-13T14:54:01.0991949Z [INFO] Tests run: 261, Failures: 0, Errors: 0, Skipped: 0",
+      "2026-11-13T14:55:36.1092315Z [INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.914 s -- in br.senac.recursos.reserva.infraestrutura.ReservaAprovacaoMysqlIT",
+      "2026-11-13T14:55:47.1749793Z [INFO] Tests run: 66, Failures: 0, Errors: 0, Skipped: 0",
+      "2026-11-13T14:55:47.9122799Z [INFO] All coverage checks have been met.",
+      "2026-11-13T14:55:47.9124529Z [INFO] BUILD SUCCESS",
+      "2026-11-13T14:56:02.5356900Z [ERROR] Not authorized or project not found. Please check the 'SONAR_TOKEN' environment variable, the 'sonar.projectKey' and 'sonar.organization' properties, or contact the project administrator to verify the token's permissions. A project with the same key may already exist in another organization."
+    ]
+  },
+  "cenariosRevisados": [
+    "Aprovação válida com auditoria e outbox na mesma transação; intervalo adjacente permitido.",
+    "Manutenção ativa, reserva sobreposta, retirada aberta, recurso inativo, expediente alterado e falta de vínculo recusam aprovação e preservam SOLICITADA sem auditoria/notificação de aprovação.",
+    "Manutenção cancelada/reserva cancelada não bloqueiam aprovação.",
+    "Conflito evitado é persistido fora do rollback nos três tipos de ocupação e não é criado nas demais negativas.",
+    "Aprovação espera lock do recurso e observa manutenção confirmada."
+  ],
+  "origemDaEvidencia": "CI remota do PR; código/testes não foram novamente executados neste computador.",
+  "sincronizacao": {
+    "base": "1948e6978067e23e1ee1f0f25255cb0fe8867cd4",
+    "branch": "docs/marcos-fechamento-etapas",
+    "metodo": "fetch e fast-forward, sem novo commit",
+    "documentosPreservadosPorHash": 11,
+    "producaoAlteradaDesde62cd48f": false
+  },
+  "limites": [
+    "Os9testes Q8 estão incluídos no total66 de integração; não somar como execuções adicionais.",
+    "Teste de concorrência usa Thread.sleep(500) e assertFalse(isDone()); prova esse cenário, não ausência universal de corridas.",
+    "Outbox/auditoria persistidas não comprovam entrega externa de notificação.",
+    "Erro compartilhado do scanner continua temporariamente não bloqueante da implementação do Marcos por sua orientação; CI completa não declarada verde.",
+    "Nenhum resultado novo de Quality Gate do PR34 inferido do merge.",
+    "Suítes/JAR locais8/12 anteriores mantêm base62cd48f; não reatribuídos ao merge1948e69."
+  ],
+  "artefatos": [
+    {
+      "arquivo": "backend/src/test/java/br/senac/recursos/reserva/infraestrutura/ReservaAprovacaoMysqlIT.java",
+      "algoritmo": "SHA-256",
+      "digest": "ae1c0ae64e78f8fad7b17afe0e40ca25966dcf42705cecabc9f82af44331ae49"
+    },
+    {
+      "arquivo": "backend/src/test/java/br/senac/recursos/auditoria/AuditoriaMysqlIT.java",
+      "algoritmo": "SHA-256",
+      "digest": "5d4bf2f7ed85991e9a7f54d3a6bd7c01518bddb602e7dc3da3247313a01827ef"
+    },
+    {
+      "arquivo": "backend/src/test/java/br/senac/recursos/auditoria/AuditoriaControllerTest.java",
+      "algoritmo": "SHA-256",
+      "digest": "adc6a4f665babc47f4fc2d9f7c93d4d292e8f19638e57f0d681452e43c44e938"
+    },
+    {
+      "arquivo": "backend/src/test/java/br/senac/recursos/seguranca/UsuarioAuditoriaMysqlIT.java",
+      "algoritmo": "SHA-256",
+      "digest": "5c971c6caee731269dcdecc9d1393196a8595175975d22279de06e4a30d0f6b1"
+    },
+    {
+      "arquivo": "backend/src/test/java/br/senac/recursos/notificacao/NotificacaoMysqlIT.java",
+      "algoritmo": "SHA-256",
+      "digest": "6ac8be9a913ede464c533ba9fc28c22a69860e582ccea3279effd782077888e9"
+    },
+    {
+      "arquivo": "backend/src/test/java/br/senac/recursos/notificacao/GatewayNotificacaoWireMockTest.java",
+      "algoritmo": "SHA-256",
+      "digest": "2548f898a53d78685a93dbb64e58533804f8818009964454b76ac552ec1a68d8"
+    }
+  ],
+  "evidenciasCompartilhadas": {
+    "fonte": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43447037478",
+    "head": "fbd2519ee75cbf21c7388dc29eb603728946aebe",
+    "origem": "Logs existentes da CI do PR34 e leitura das fontes na base1948e69; sem nova execução.",
+    "classes": [
+      {
+        "classe": "AuditoriaMysqlIT",
+        "testes": 5,
+        "falhas": 0,
+        "erros": 0,
+        "ignorados": 0,
+        "trechoLog": "2026-11-13T14:54:47.1947451Z [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.649 s -- in br.senac.recursos.auditoria.AuditoriaMysqlIT"
+      },
+      {
+        "classe": "UsuarioAuditoriaMysqlIT",
+        "testes": 1,
+        "falhas": 0,
+        "erros": 0,
+        "ignorados": 0,
+        "trechoLog": "2026-11-13T14:55:07.4483301Z [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.727 s -- in br.senac.recursos.seguranca.UsuarioAuditoriaMysqlIT"
+      },
+      {
+        "classe": "AuditoriaControllerTest",
+        "testes": 4,
+        "falhas": 0,
+        "erros": 0,
+        "ignorados": 0,
+        "trechoLog": "2026-11-13T14:53:41.9353193Z [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.677 s -- in br.senac.recursos.auditoria.AuditoriaControllerTest"
+      },
+      {
+        "classe": "GatewayNotificacaoWireMockTest",
+        "testes": 5,
+        "falhas": 0,
+        "erros": 0,
+        "ignorados": 0,
+        "trechoLog": "2026-11-13T14:54:00.7271512Z [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.082 s -- in br.senac.recursos.notificacao.GatewayNotificacaoWireMockTest"
+      },
+      {
+        "classe": "NotificacaoMysqlIT",
+        "testes": 8,
+        "falhas": 0,
+        "erros": 0,
+        "ignorados": 0,
+        "trechoLog": "2026-11-13T14:55:46.7617045Z [INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.64 s -- in br.senac.recursos.notificacao.NotificacaoMysqlIT"
+      },
+      {
+        "classe": "LoginMysqlIT",
+        "testes": 4,
+        "falhas": 0,
+        "erros": 0,
+        "ignorados": 0,
+        "trechoLog": "2026-11-13T14:54:57.7145857Z [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.52 s -- in br.senac.recursos.seguranca.LoginMysqlIT"
+      },
+      {
+        "classe": "SegurancaComplementarTest",
+        "testes": 7,
+        "falhas": 0,
+        "erros": 0,
+        "ignorados": 0,
+        "trechoLog": "2026-11-13T14:53:42.8597665Z [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.554 s -- in br.senac.recursos.seguranca.SegurancaComplementarTest"
+      },
+      {
+        "classe": "ReservaQ9MysqlIT",
+        "testes": 8,
+        "falhas": 0,
+        "erros": 0,
+        "ignorados": 0,
+        "trechoLog": "2026-11-13T14:55:26.1942872Z [INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.294 s -- in br.senac.recursos.reserva.infraestrutura.ReservaQ9MysqlIT"
+      },
+      {
+        "classe": "ReservaFilaMysqlIT",
+        "testes": 8,
+        "falhas": 0,
+        "erros": 0,
+        "ignorados": 0,
+        "trechoLog": "2026-11-13T14:55:16.8977701Z [INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.452 s -- in br.senac.recursos.reserva.aplicacao.ReservaFilaMysqlIT"
+      },
+      {
+        "classe": "ReservaAprovacaoMysqlIT",
+        "testes": 9,
+        "falhas": 0,
+        "erros": 0,
+        "ignorados": 0,
+        "trechoLog": "2026-11-13T14:55:36.1092315Z [INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.914 s -- in br.senac.recursos.reserva.infraestrutura.ReservaAprovacaoMysqlIT"
+      }
+    ],
+    "limites": [
+      "NotificacaoMysqlIT usa MySQL real e gateway Mockito, worker/agendador desligado; processador chamado diretamente.",
+      "GatewayNotificacaoWireMockTest usa HTTP real contra WireMock; não demonstra recebimento por destino externo da implantação.",
+      "AuditoriaMysqlIT verifica transação/resumos; não garante imutabilidade contra SQL privilegiado/grants de produção.",
+      "Contagens por classe já incluídas nos totais261/66, sem nova rodada de testes."
+    ]
+  }
+}
