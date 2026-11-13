@@ -1,0 +1,22 @@
+✔ configuração válida produz caminhos reais absolutos e não pode ser alterada (9.2213ms)
+✔ caminho ausente/relativo é recusado mesmo com diretório no PATH (3.8361ms)
+✔ nome inesperado e arquivo inexistente não são aceitos como instalação (3.6177ms)
+✔ diretório com nome do executável e configuração incompleta falham antes de executar (5.6011ms)
+✔ include e includedir em qualquer linha/capitalização são recusados (0.312ms)
+✔ recusa includes após todos os terminadores de linha reconhecidos anteriormente (0.2426ms)
+✔ executor recebe caminho absoluto, argumentos separados e shell desabilitado (7.2669ms)
+✔ falha de execução propaga sem inventar resultado ou consultar PATH (5.6915ms)
+✔ entrada longa com whitespace não oculta uma diretiva nem confunde valores (2.0393ms)
+✔ viewport padrão e móvel preservam dimensões sem compartilhar objeto mutável (1.2208ms)
+✔ projeção torna o algoritmo explícito e preserva integralmente a evidência sem mutá-la (0.4776ms)
+✔ tentativa incompleta continua incompleta e preserva hashes vazios (0.1466ms)
+✔ digest inválido ou formato duplicado não vira evidência válida (0.9099ms)
+✔ leitor recusa algoritmo desconhecido, arquivo duplicado e versão inválida (0.6166ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 137.5575

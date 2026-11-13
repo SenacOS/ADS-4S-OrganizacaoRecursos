@@ -1,5 +1,17 @@
 # Matriz de rastreabilidade - item 18
 
+## Consolidação de Quality Gate — develop a0c0481
+
+Após os merges#28/#29/#30/#31 em13/11, a correção foi reunida em `fix/marcos-qualitygate`, preservando as árvores anteriores. [Revalidação/manifesto](testes/marcos-qualitygate-1-consolidacao-resultados.md):14unitários,16/0/0smoke,12/0Q9+Q1/Q3,8/0consulta e11/0fechamento com JAR novo. Q3 próprioResponsável403/SOLICITADA preservada; Q1ADMIN403/RESP200 início/conclusão/ausência e estados finais SQL. RF01/RF04/RF07/RF13/RF14 nos caminhos executados, sem certificar todas as combinações globais.
+
+Autorizados commit/push/novoPRcorretivo após validar; sem alteração de produto/CI, sem nova execução do81/278 frontend preservado. Pareceres/resultados antigos abaixo conservam suas bases. Scanner Maven/novo gate remoto e revisão/merge permanecem separados.
+
+## Correções locais de Quality Gate — 13/11/2026
+
+RF13/RF14 e segurança das ferramentas: S4036 corrigido com executáveis absolutos validados/executor sem shell; S8786 mantém todos os terminadores com custo linear; viewport não compartilha objeto; três JSONs reprojetados com equivalência integral/proveniência5537163. Unitários9/0 na árvore#28 e14/0 na#29; reexecuções reais16/0/0,10/0,8/0 e11/0 na principal, com sete comuns byte a byte iguais. Produto/regressão81/278 preservados, sem nova execução atribuída.
+
+[Story](stories/marcos-qualitygate-1.md), [resultados/equivalência/limites](testes/marcos-qualitygate-1-resultados.md), [recorte#28](testes/marcos-qualitygate-1-pr28-resultados.md) e [equipe](integracao/marcos-qualitygate-equipe-2026-11-13.md). Estado local sem novos commits/push; Sonar remoto pendente de nova análise e scanner Maven depende de conferência administrativa. Nenhum comentário/mensagem externa ou aprovação remota presumida.
+
 ## Complemento real de fechamento — 11/0 sobre0775715
 
 Revisão das evidências aprovada por Marcos em12/11, sem ajuste solicitado. [Aceite e alcance](testes/marcos-fechamento-e2e-1-aceite-2026-11-12.md). Nenhuma nova suíte ou mudança de produto/auxiliares; publicação e verificações externas continuam separadas.

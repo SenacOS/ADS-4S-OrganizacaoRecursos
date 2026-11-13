@@ -4,14 +4,15 @@
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict');
 const {execFileSync}=require('node:child_process');
 const {chromium,request,expect}=require('@playwright/test');
-const {repo,dir,estado,credenciais,ferramentas,pronto,sql}=require('./controle.cjs');
+const {repo,dir,estado,credenciais,ferramentas,comandos,pronto,sql}=require('./controle.cjs');
 const nonce=crypto.randomBytes(5).toString('hex');
 const pasta=path.join(dir,'consulta-reservas',new Date().toISOString().replaceAll(/[:.]/g,'-'));fs.mkdirSync(pasta,{recursive:true});
-const resultado={inicio:new Date().toISOString(),head:execFileSync('git',['rev-parse','HEAD'],{cwd:repo,encoding:'utf8'}).trim(),
+const resultado={inicio:new Date().toISOString(),head:comandos.git(['rev-parse','HEAD'],{cwd:repo,encoding:'utf8'}).trim(),
   arvore:'worktree ainda sem commit, identificada pelos hashes',cenarios:[],hashes:{}};
 const arquivos=['js/consulta-reservas.js','js/consulta-reservas-page.js','js/navegacao.js','pages/minhas-reservas.html','css/consulta-reservas.css','js/datas.js','js/reservas.js'];
 for(const a of arquivos){const p='backend/src/main/resources/static/'+a;resultado.hashes[p]=crypto.createHash('sha256').update(fs.readFileSync(path.join(repo,p))).digest('hex');}
 resultado.hashes['tests/e2e-local/validar-consulta-reservas.cjs']=crypto.createHash('sha256').update(fs.readFileSync(__filename)).digest('hex');
+for(const a of ['controle.cjs','executaveis.cjs','configuracao-local.cjs']){const p='tests/e2e-local/'+a;resultado.hashes[p]=crypto.createHash('sha256').update(fs.readFileSync(path.join(repo,p))).digest('hex');}
 const segredos=[credenciais.rootPassword,credenciais.db.password,credenciais.admin.password,credenciais.solicitante.password,credenciais.responsavel.password];
 const sanitizar=s=>segredos.reduce((texto,v)=>texto.replaceAll(v,'[REMOVIDO]'),String(s));
 const salvar=()=>fs.writeFileSync(path.join(pasta,'resultados.json'),JSON.stringify(resultado,null,2)+'\n');

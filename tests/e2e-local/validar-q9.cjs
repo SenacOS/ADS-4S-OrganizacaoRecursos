@@ -7,16 +7,16 @@ const crypto = require('node:crypto');
 const assert = require('node:assert/strict');
 const { execFileSync } = require('node:child_process');
 const { request, chromium, expect } = require('@playwright/test');
-const { repo, dir, ferramentas, credenciais, estado, sql, pronto } = require('./controle.cjs');
+const { repo, dir, ferramentas, comandos, credenciais, estado, sql, pronto } = require('./controle.cjs');
 const nonce = crypto.randomBytes(5).toString('hex');
 const pasta = path.join(dir, 'q9', new Date().toISOString().replaceAll(/[:.]/g, '-'));
 fs.mkdirSync(pasta, { recursive: true });
-const git = (...args) => execFileSync('git',args,{cwd:repo,encoding:'utf8'}).trim();
+const git = (...args) => comandos.git(args,{cwd:repo,encoding:'utf8'}).trim();
 let merge = null;
-try { merge = execFileSync('git',['rev-parse','--verify','MERGE_HEAD'],{cwd:repo,encoding:'utf8',stdio:['ignore','pipe','pipe']}).trim(); } catch { /* Também funciona após o commit da integração. */ }
+try { merge = comandos.git(['rev-parse','--verify','MERGE_HEAD'],{cwd:repo,encoding:'utf8',stdio:['ignore','pipe','pipe']}).trim(); } catch (erro) { if (erro.status !== 128) throw erro; /* MERGE_HEAD ausente após commit. */ }
 const resultado = { inicio: new Date().toISOString(), head:git('rev-parse','HEAD'), merge, branch:git('branch','--show-current'),
   camada: 'HTTP/Chrome/MySQL reais, sem interceptação', cenarios: [], hashes: {} };
-for (const p of ['tests/e2e-local/validar-q9.cjs','tests/e2e-local/validar.cjs',
+for (const p of ['tests/e2e-local/validar-q9.cjs','tests/e2e-local/validar.cjs','tests/e2e-local/controle.cjs','tests/e2e-local/executaveis.cjs','tests/e2e-local/configuracao-local.cjs',
   'backend/src/main/resources/static/js/aprovacoes.js','backend/src/main/resources/static/js/aprovacoes-page.js',
   'backend/src/main/resources/static/js/datas.js','backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar']) {
   resultado.hashes[p] = crypto.createHash('sha256').update(fs.readFileSync(path.join(repo,p))).digest('hex');
@@ -167,6 +167,27 @@ async function executar() {
     assert.equal((await ler(outro,'/api/reservas/'+massa.alheia.id)).status,'SOLICITADA');
     assert.equal((await fila(admin,massa.A)).total,1);
     return {filaResponsavel:0,detalhes:404,decisao:403,reservaPreservada:true,filaAdministrador:1};
+  });
+  await caso('Q3: Responsável vinculado não aprova a própria reserva restrita',async()=>{
+    const propria=await reservar(resp,[massa.B],85);assert.equal(propria.solicitanteId,massa.responsavel);assert.equal(propria.status,'SOLICITADA');
+    const negada=await conferir(await escrever(resp,'POST',`/api/reservas/${propria.id}/aprovacao`),403);
+    assert.equal((await negada.json()).codigo,'OPERACAO_NAO_PERMITIDA');
+    assert.equal((await ler(resp,'/api/reservas/'+propria.id)).status,'SOLICITADA');
+    assert.equal(sql(`SELECT status FROM reservas WHERE id=${propria.id}`),'SOLICITADA');
+    await conferir(await escrever(resp,'POST',`/api/reservas/${propria.id}/cancelamento`),200);
+    return {id:propria.id,vinculoCompleto:true,aprovacaoPropria:403,estadoDepoisDaNegativa:'SOLICITADA',cancelamentoExplicitoPosterior:'CANCELADA'};
+  });
+  await caso('Q1: início, conclusão e ausência recusam Administrador e aceitam Responsável',async()=>{
+    const emUso=await reservar(sol,[massa.B],-2);await conferir(await escrever(resp,'POST',`/api/reservas/${emUso.id}/aprovacao`),200);
+    await conferir(await escrever(admin,'POST',`/api/reservas/${emUso.id}/inicio`),403);assert.equal((await ler(sol,'/api/reservas/'+emUso.id)).status,'APROVADA');
+    const iniciou=await conferir(await escrever(resp,'POST',`/api/reservas/${emUso.id}/inicio`),200);assert.equal((await iniciou.json()).status,'EM_USO');
+    await conferir(await escrever(admin,'POST',`/api/reservas/${emUso.id}/conclusao`),403);assert.equal((await ler(sol,'/api/reservas/'+emUso.id)).status,'EM_USO');
+    const concluiu=await conferir(await escrever(resp,'POST',`/api/reservas/${emUso.id}/conclusao`),200);assert.equal((await concluiu.json()).status,'CONCLUIDA');
+    const ausencia=await reservar(sol,[massa.B],15);await conferir(await escrever(resp,'POST',`/api/reservas/${ausencia.id}/aprovacao`),200);
+    await conferir(await escrever(admin,'POST',`/api/reservas/${ausencia.id}/nao-comparecimento`),403);assert.equal((await ler(sol,'/api/reservas/'+ausencia.id)).status,'APROVADA');
+    const marcou=await conferir(await escrever(resp,'POST',`/api/reservas/${ausencia.id}/nao-comparecimento`),200);assert.equal((await marcou.json()).status,'NAO_COMPARECEU');
+    assert.equal(sql(`SELECT status FROM reservas WHERE id=${emUso.id}`),'CONCLUIDA');assert.equal(sql(`SELECT status FROM reservas WHERE id=${ausencia.id}`),'NAO_COMPARECEU');
+    return {reservaConcluida:emUso.id,reservaAusente:ausencia.id,administrador:{inicio:403,conclusao:403,ausencia:403},responsavel:{inicio:200,conclusao:200,ausencia:200},estadosPersistidos:['CONCLUIDA','NAO_COMPARECEU']};
   });
   resultado.massa={...massa};
 }

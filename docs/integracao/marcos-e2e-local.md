@@ -45,11 +45,22 @@ Não foram alterados `application.yml`, POM, migrações, Java, dependências, s
 
 ## Artefatos privados e reprodução em outra máquina
 
+Correção Quality Gate em13/11: `tools/paths.json` precisa informar também os arquivos absolutos `git` e `powershell`, de instalações conhecidas. Exemplo de formato (substituir pelos caminhos realmente conferidos nesta máquina):
+
+```json
+{
+  "git": "C:/caminho-da-instalacao-Git/cmd/git.exe",
+  "powershell": "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"
+}
+```
+
+Manter os campos anteriores de JDK/Maven/MySQL e versões. O executor recusa relativo, arquivo ausente, diretório ou nome diferente, resolve o caminho real e não busca pelo PATH. A configuração é privada/confiável e não acompanha clone/pull; não copiar credenciais. O controle principal/temporário continua validando identidade/PID/JAR/CreationDate antes de encerrar processos. Testes sem banco: `node --test tests/unit/e2e-local/configuracao.test.cjs`; na branch do complemento, `node --test tests/unit/e2e-local/*.test.cjs` também cobre viewport/integridade. [Diagnóstico e encaminhamento](marcos-qualitygate-equipe-2026-11-13.md).
+
 Tudo abaixo é ignorado pelo Git e **não acompanha clone/pull**:
 
 | Caminho sob `.aiox-core/local/` | Conteúdo |
 |---|---|
-| `tools/paths.json` | Caminhos absolutos dos diretórios `jdk`, `maven`, `mysql` e respectivas versões |
+| `tools/paths.json` | Diretórios absolutos `jdk`, `maven`, `mysql`, versões e arquivos absolutos `git`/`powershell` |
 | `tools/` | ZIPs verificados e distribuições extraídas |
 | `e2e/credentials.json` | `db` (host, port, name, user, password), `rootPassword`, `admin`, `solicitante`, `responsavel` (email/password fictícios) |
 | `e2e/mysql.ini` | basedir/datadir próprios, bind loopback, porta 13307, mysqlx e binlog desligados, timezone +00:00 |

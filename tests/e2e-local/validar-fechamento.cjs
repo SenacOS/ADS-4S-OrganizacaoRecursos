@@ -5,20 +5,21 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const assert = require('node:assert/strict');
-const { execFileSync } = require('node:child_process');
 const { chromium, request, expect } = require('@playwright/test');
-const { repo, dir, estado, ferramentas, credenciais, pronto, sql } = require('./controle.cjs');
+const { repo, dir, estado, ferramentas, comandos, credenciais, pronto, sql } = require('./controle.cjs');
 const { iniciarTemporaria } = require('./sessao-temporaria.cjs');
+const { projetarRelatorio } = require('./evidencias.cjs');
+const { viewportDaPagina } = require('./viewport.cjs');
 const pasta = path.join(dir, 'fechamento', new Date().toISOString().replaceAll(/[:.]/g, '-'));
 fs.mkdirSync(pasta, { recursive: true });
 const nonce = crypto.randomBytes(5).toString('hex');
 const hash = b => crypto.createHash('sha256').update(b).digest('hex');
 const pausa = ms => new Promise(resolve => setTimeout(resolve, ms));
-const relatorio = { inicio: new Date().toISOString(), base: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: repo, encoding: 'utf8' }).trim(),
-  branch: execFileSync('git', ['branch', '--show-current'], { cwd: repo, encoding: 'utf8' }).trim(), arvore: 'helpers novos ainda sem commit; produto preservado de 0775715',
+const relatorio = { inicio: new Date().toISOString(), base: comandos.git(['rev-parse', 'HEAD'], { cwd: repo, encoding: 'utf8' }).trim(),
+  branch: comandos.git(['branch', '--show-current'], { cwd: repo, encoding: 'utf8' }).trim(), arvore: 'correção local dos auxiliares ainda sem commit; produto preservado de 0775715',
   camadas: 'Chrome/HTTP/MySQL/tempo reais; concorrência de criação HTTP+SQL; sem mock, alteração de relógio ou escrita SQL',
   ferramentas: { java: ferramentas.jdkVersion, mysql: ferramentas.mysqlVersion }, cenarios: [], hashes: {} };
-const salvar = () => fs.writeFileSync(path.join(pasta, 'resultados.json'), JSON.stringify(relatorio, null, 2) + '\n');
+const salvar = () => fs.writeFileSync(path.join(pasta, 'resultados.json'), JSON.stringify(projetarRelatorio(relatorio), null, 2) + '\n');
 const segredos = [credenciais.rootPassword, credenciais.db.password, ...['admin','solicitante','responsavel'].map(k => credenciais[k].password)].filter(Boolean);
 const sanitizar = e => segredos.reduce((s, v) => s.replaceAll(v, '[REMOVIDO]'), String(e));
 const apis = [], errosJS = []; let browser, temporaria, timeoutTask;
@@ -37,8 +38,8 @@ async function autenticar(a, chave) {
   assert.equal((await escrita(a, 'POST', '/api/auth/login', { email: credenciais[chave].email, senha: credenciais[chave].password }, true)).status(), 204);
 }
 async function api(chave) { const a = await request.newContext({ baseURL: estado.baseURL }); apis.push(a); await autenticar(a, chave); return a; }
-async function pagina(chave, baseURL = estado.baseURL, viewport = { width: 1366, height: 900 }) {
-  const ctx = await browser.newContext({ baseURL, timezoneId: 'America/Sao_Paulo', viewport });
+async function pagina(chave, baseURL = estado.baseURL, viewport) {
+  const ctx = await browser.newContext({ baseURL, timezoneId: 'America/Sao_Paulo', viewport: viewportDaPagina(viewport) });
   const p = await ctx.newPage(); p.setDefaultTimeout(12000); p.on('pageerror', e => errosJS.push(e.message));
   await p.goto('/login.html');
   if (chave) { await p.getByLabel('E-mail', { exact: true }).fill(credenciais[chave].email); await p.getByLabel('Senha', { exact: true }).fill(credenciais[chave].password);
@@ -59,12 +60,14 @@ async function conferirFontes(a, nomes) { for (const nome of nomes) { const r = 
   const raiz = path.join(repo, 'backend/src/main/resources/static');
   const nomes = fontes(raiz).map(p => path.relative(raiz,p).replaceAll('\\','/'));
   for (const nome of nomes) relatorio.hashes['backend/src/main/resources/static/' + nome] = hash(fs.readFileSync(path.join(raiz,nome)));
-  for (const nome of ['tests/e2e-local/validar-fechamento.cjs','tests/e2e-local/sessao-temporaria.cjs','backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar']) relatorio.hashes[nome] = hash(fs.readFileSync(path.join(repo,nome)));
+  for (const nome of ['tests/e2e-local/validar-fechamento.cjs','tests/e2e-local/sessao-temporaria.cjs','tests/e2e-local/controle.cjs','tests/e2e-local/executaveis.cjs','tests/e2e-local/configuracao-local.cjs','tests/e2e-local/evidencias.cjs','tests/e2e-local/viewport.cjs','backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar']) relatorio.hashes[nome] = hash(fs.readFileSync(path.join(repo,nome)));
   const admin = await api('admin'), sol = await api('solicitante'), segunda = await api('solicitante');
   browser = await chromium.launch({ channel: 'chrome', headless: true }); relatorio.ferramentas.chrome = browser.version();
   await caso('Fontes servidas pelo JAR e regressão anterior preservadas', 'HTTP + SHA256', async () => {
     await conferirFontes(admin, nomes); const anterior = JSON.parse(fs.readFileSync(path.join(repo,'docs/testes/marcos-3-consulta-edicao/arvore-testada.json'),'utf8'));
-    for (const [p,h] of Object.entries(anterior.hashes)) assert.equal(hash(fs.readFileSync(path.join(repo,p))),h,p);
+    for (const [p,h] of Object.entries(anterior.hashes)) {
+      if (p.startsWith('backend/src/main/resources/static/') || p.startsWith('tests/browser/') || p.startsWith('tests/unit/frontend/')) assert.equal(hash(fs.readFileSync(path.join(repo,p))),h,p);
+    }
     return { arquivosServidos: nomes.length, hashes:'MATCH', regressaoAnterior:'81 unitários / 278 navegador; não reexecutada sem alteração da fonte' };
   });
   await caso('Login inválido, CSRF rotacionado e recuperação explícita na interface', 'Chrome + HTTP real', async () => {

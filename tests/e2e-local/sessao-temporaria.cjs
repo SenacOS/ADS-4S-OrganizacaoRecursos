@@ -6,16 +6,16 @@ const path = require('node:path');
 const net = require('node:net');
 const crypto = require('node:crypto');
 const assert = require('node:assert/strict');
-const { spawn, execFileSync } = require('node:child_process');
-const { repo, dir, ferramentas, credenciais, estado, pronto } = require('./controle.cjs');
+const { spawn } = require('node:child_process');
+const { repo, dir, ferramentas, comandos, credenciais, estado, pronto } = require('./controle.cjs');
 const pausa = ms => new Promise(resolve => setTimeout(resolve, ms));
 const normal = p => path.resolve(p).toLowerCase();
 
 function processo(pid) {
   assert(Number.isSafeInteger(pid) && pid > 0);
-  const texto = execFileSync('powershell.exe', ['-NoProfile', '-Command',
+  const texto = comandos.powershell(['-NoProfile', '-Command',
     `$p=Get-CimInstance Win32_Process -Filter 'ProcessId=${pid}'; if($p){$p|Select-Object ExecutablePath,CommandLine,CreationDate|ConvertTo-Json -Compress}`],
-  { encoding: 'utf8', windowsHide: true, timeout: 10000 });
+  { encoding: 'utf8', windowsHide: true, shell: false, timeout: 10000 });
   return texto.trim() ? JSON.parse(texto) : null;
 }
 async function livre(porta) {

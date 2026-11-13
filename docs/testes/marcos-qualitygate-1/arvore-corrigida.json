@@ -1,0 +1,69 @@
+{
+  "data": "2026-11-13",
+  "basePR28": "0775715",
+  "basePR29": "5537163",
+  "estado": "correções ainda sem commit",
+  "comunsIdenticos": true,
+  "artefatos": [
+    {
+      "arquivo": "tests/e2e-local/executaveis.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "f3c344d74dbbad3b8b7962962daaa5e13f5e87a1230657892c4022afec44abdd"
+    },
+    {
+      "arquivo": "tests/e2e-local/configuracao-local.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "5c0687d08a0fad2287c75d365f8b8e62c2b162fe2abdbe9853e35c8e819b4bc6"
+    },
+    {
+      "arquivo": "tests/e2e-local/controle.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "e68b5f04d9a9d31bc9ff29cb86e5454f7707a6693c1833abbd6d0d117268df06"
+    },
+    {
+      "arquivo": "tests/e2e-local/validar.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "fb634ba1c769fd7b3e7d20f42d914abea313a9f8396ec955464c4b887739c318"
+    },
+    {
+      "arquivo": "tests/e2e-local/validar-q9.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "4979dc204ffb969729560837619b62f624d85db13fe2dee404bf8b40b879353a"
+    },
+    {
+      "arquivo": "tests/e2e-local/validar-consulta-reservas.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "28e5941e3dee57cb3e4cf6beb6dcc6d570baaac2727f572f748b289089ae0c74"
+    },
+    {
+      "arquivo": "tests/unit/e2e-local/configuracao.test.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "a850a0b88aa9ab2cd2bcdfde9f60b79c1cf7bb6f9502f718c217249f12f463f4"
+    },
+    {
+      "arquivo": "tests/e2e-local/evidencias.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "aec14ce44c0bc991dbd358c2fbc46c1c827425749f642d1d531ce6ac2f6868a2"
+    },
+    {
+      "arquivo": "tests/e2e-local/viewport.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "1377c943174071a01ab6e4e2efa39a4a863f0fcdb6630c1832462c923de1f5a5"
+    },
+    {
+      "arquivo": "tests/e2e-local/sessao-temporaria.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "968c36f1933f9614e16a0a7ff2f0ceb604bb86d64d5f6e4433b09283446b6b92"
+    },
+    {
+      "arquivo": "tests/e2e-local/validar-fechamento.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "fc88df6c865ffa9e3a4cc7597286a6c09dbe2319eead6e45f965b08228288954"
+    },
+    {
+      "arquivo": "tests/unit/e2e-local/evidencias.test.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "6ed469625a8af223f840a5b72e6b63b550ec0c28ce7da3a83a07f780aa3261d4"
+    }
+  ]
+}
