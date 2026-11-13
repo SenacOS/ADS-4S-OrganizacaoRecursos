@@ -1,0 +1,14 @@
+{
+  "startTime": "2026-11-13T22:20:34.601Z",
+  "duration": 603587.694,
+  "expected": 346,
+  "skipped": 0,
+  "unexpected": 0,
+  "flaky": 0,
+  "unitariosFrontend": 97,
+  "falhasUnitarios": 0,
+  "comando": "npm.cmd run build",
+  "api": "Controlada exclusivamente nesta regressão",
+  "teardown": "Encerramento assistido do servidor estático próprio no Windows; duração inclui espera",
+  "exitCode": 0
+}

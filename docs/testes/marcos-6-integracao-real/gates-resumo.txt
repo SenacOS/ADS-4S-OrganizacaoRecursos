@@ -1,0 +1,17 @@
+13/11/2026 — America/Sao_Paulo
+Base: 806562688f9b359475d59441a1a1e75738f0cd28; feature/marcos-6-integracao-real, árvore sem commit.
+
+npm.cmd run build; PLAYWRIGHT_CHANNEL=chrome
+Lint: PASS; typecheck: PASS; unitários frontend: 97 PASS/0 FAIL; navegador: 346 PASS/0 FAIL/0 skipped/0 flaky. Exit 0 observado.
+Teardown Windows: após 346 execuções, servidor estático próprio aguardou encerramento. Cadeia/PID/CreationDate conferidos; Stop-Process falhou e Node encerrou somente o processo confirmado. Comando então concluiu e JSON final foi emitido. Nenhum teste/gate/configuração removido; duração inclui essa espera.
+
+mvn -f backend/pom.xml -Dmaven.repo.local=<cache isolado> -DskipITs package; Java 21
+277 unitários/HTTP: PASS/0 falhas/0 erros/0 ignorados. BUILD SUCCESS/exit 0. Sem Testcontainers/JaCoCo verify local.
+
+node tests/e2e-local/validar-relatorios.cjs
+13 PASS/0 FAIL; concluido=true; exit 0. Chrome/Spring/MySQL reais; sem interceptação.
+
+node --check tests/e2e-local/validar-relatorios.cjs e node --check tests/browser/relatorios-utilizacao-preview.mjs: PASS.
+Prévia fictícia: aviso Dados simulados e rota canônica conferidos por HTTP; processo próprio encerrado. Primeira invocação do inspetor corrigida de ASCII para UTF-8 no pipe PowerShell, sem mudança de produto.
+
+CodeRabbit local indisponível; nenhum novo check remoto executado. Aceite humano/revisão independente/commit/push permanecem separados.

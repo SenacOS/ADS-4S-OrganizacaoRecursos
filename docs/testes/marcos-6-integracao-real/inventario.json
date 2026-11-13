@@ -1,0 +1,493 @@
+{
+  "dataLocal": "2026-11-13",
+  "fuso": "America/Sao_Paulo",
+  "registradoEm": "2026-11-13T22:33:41.941Z",
+  "branch": "feature/marcos-6-integracao-real",
+  "head": "806562688f9b359475d59441a1a1e75738f0cd28",
+  "arvore": "Implementação local sem commit; identificada por inventário de fontes e JAR",
+  "baseDesenvolvimento": "806562688f9b359475d59441a1a1e75738f0cd28",
+  "resultados": {
+    "javaUnitariosHTTP": 277,
+    "unitariosFrontend": 97,
+    "navegadorControlado": 346,
+    "rf12Real": {
+      "PASS": 13,
+      "FAIL": 0
+    }
+  },
+  "jarSha256": "793e1081e1461e22f8244b7a61358b037906df9604fd3d142f4d22646b03f80f",
+  "artefatos": [
+    {
+      "arquivo": "backend/src/main/resources/static/js/relatorios-utilizacao.js",
+      "algoritmo": "SHA-256",
+      "digest": "fb29694d49289c033dc0377938610ef65ebb222d9bf3ca09cf08e768f22ab9f9"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/relatorios-utilizacao-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "eb2ebe69aedab879789b1bf3e9d45e2e45007c506d19f157cb271144d6d49eae"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/navegacao.js",
+      "algoritmo": "SHA-256",
+      "digest": "ffd3992a41ec3f4166b51f9db52ce8b826c92b15fcb6de5545a8a0129082e214"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/api.js",
+      "algoritmo": "SHA-256",
+      "digest": "085626083a7334e0e163a99a576efae78d1606911172a6410796f96a9a6d34a9"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/auth.js",
+      "algoritmo": "SHA-256",
+      "digest": "8d0d8e732b86f29cf345dfbd85d3a07ef6d77484b41229688722f110b919a273"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/datas.js",
+      "algoritmo": "SHA-256",
+      "digest": "44f35755602a1043e5126ed4807f5b0b31bc273908c7e4d079d6df34a9636bbe"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/forms.js",
+      "algoritmo": "SHA-256",
+      "digest": "42780d62d6d19cd367ab11b49cd629126235082c55d8b80f0e36a734b36ea27c"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/sessao-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "9b1ff5ece89faf331a067b2dce129ffaf8dd0169f40a85ccb573dbb522068890"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/ui.js",
+      "algoritmo": "SHA-256",
+      "digest": "d0103a10564a382d8908e4dd9b8d3d325538e20cbcd45e959dce122ce8f120e7"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/relatorios-utilizacao.html",
+      "algoritmo": "SHA-256",
+      "digest": "793985ddfde0a12a0f045439ccb93866f812efb35905a1bd423235d43ee9ac20"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/css/relatorios-utilizacao.css",
+      "algoritmo": "SHA-256",
+      "digest": "21a80c477ed0bcf6f12bac9b7a1bf0621b1ebe32be7e2d5b3256e861606945c0"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/css/app.css",
+      "algoritmo": "SHA-256",
+      "digest": "d65964a412c209e4e4c1815813296490ca02fe08f0cc93b3fe3427542f314892"
+    },
+    {
+      "arquivo": "tests/e2e-local/validar-relatorios.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "87afb26eff77a5331033c815e49506137bc497e8b778f3b1426d8865152292af"
+    },
+    {
+      "arquivo": "tests/e2e-local/controle.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "5c55ceec937e1ef82c91a521300ec24cd1975136acb81a9beb1d697a8c0fd93e"
+    },
+    {
+      "arquivo": "tests/e2e-local/executaveis.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "2b105b3dd55b0f61f83c9b3ef2de6f7a6dc7678d569764ac5b1e89b2c0c33c20"
+    },
+    {
+      "arquivo": "tests/e2e-local/evidencias.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "314cf1e39018a9c3dcbe912abd592c7bbe79f72d0c8286d59b9065b719b7fa71"
+    },
+    {
+      "arquivo": "tests/e2e-local/configuracao-local.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "0eb6bea02b990bff2e3fb3af3d64f845c571d0b36f6b09e299de2c55f1951d55"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/reserva/api/RelatorioUtilizacaoController.java",
+      "algoritmo": "SHA-256",
+      "digest": "923d0dd7ec98b2085fc3fbf03e63a577c3b93985569a175059f0110cf7a153cb"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/reserva/api/RelatorioUtilizacaoResponse.java",
+      "algoritmo": "SHA-256",
+      "digest": "9224f567372b7de1a2f189e8af75a35cc12b849bd65ccdbedc325c3b59d6ec4c"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/reserva/aplicacao/ConsultarRelatorioUtilizacao.java",
+      "algoritmo": "SHA-256",
+      "digest": "21932e205ce4bf07746d8d8d0558a640a0a3254fb8ee896a8460a76bd63de134"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/reserva/infraestrutura/ReservaRelatorioMysql.java",
+      "algoritmo": "SHA-256",
+      "digest": "181cbc8a71c44aa5c10eb5c11ee65e1eae065da7e1767e17137c97d575e40fb6"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/reserva/infraestrutura/RelatorioUtilizacaoTransacional.java",
+      "algoritmo": "SHA-256",
+      "digest": "5bd4cc39d161f763de72ffbae226dd4158fc6d857069615b612c8e419702f979"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/config/Item18Config.java",
+      "algoritmo": "SHA-256",
+      "digest": "1b01499421d5289b987d5b068e18d1effbd98d770de5c9256d920ad679e9be5a"
+    },
+    {
+      "arquivo": "backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar",
+      "algoritmo": "SHA-256",
+      "digest": "793e1081e1461e22f8244b7a61358b037906df9604fd3d142f4d22646b03f80f"
+    }
+  ],
+  "publicados": [
+    {
+      "arquivo": "resultados.json",
+      "sha256": "9b261180b9db484b17220c4a7e082c42c2158d127105937c939fd25eb833942c"
+    },
+    {
+      "arquivo": "navegador-resumo.json",
+      "sha256": "c5ee1f8bb53ba9994b723488721fd2060f0353caad264ccd554b756a00270e27"
+    },
+    {
+      "arquivo": "gates-resumo.txt",
+      "sha256": "c5e8a4ad2b1322b6a07724d9bb28c3f8fdaadc506e82e0f6f3effc4f7243c3e7"
+    },
+    {
+      "arquivo": "desktop-relatorio.png",
+      "sha256": "d5aea1e8372c1da8a5044630331be90ef8d556d0c793ba80549a6a0d7fb2cb08"
+    },
+    {
+      "arquivo": "mobile-relatorio.png",
+      "sha256": "1501061d6a76072dc24a9a951695a8dac8d09f5133d3860abd3ca2d19d2b9b84"
+    }
+  ],
+  "logsPrivados": [
+    {
+      "arquivo": "frontend-rf12-2026-11-13.log",
+      "comando": "npm.cmd run build",
+      "sha256": "9efd0cecf1a164979875811559338094191b9cfab418cc1116a7cc82ba8c7892"
+    },
+    {
+      "arquivo": "maven-rf12-2026-11-13.log",
+      "comando": "package -DskipITs",
+      "sha256": "4d67e72f752f8fab8d97c0630157e982b3d81a118fec7e5a99bacb9664ecf015"
+    },
+    {
+      "arquivo": "relatorios-rf12-2026-11-13.log",
+      "comando": "RF12 real",
+      "sha256": "fc4fd6153d063245824d8b28a7685a69e0040cb648059907852ae5f5f5acf9d4"
+    }
+  ],
+  "limites": [
+    "Árvore local ainda sem commit; sem nova execução remota ou aceite humano.",
+    "97/346 são regressão controlada; 13/0 é rodada real separada, sem soma de cobertura.",
+    "Sem alteração Java/SQL/Spring ou Testcontainers/JaCoCo verify local.",
+    "Servidor estático da regressão exigiu encerramento assistido por identidade após todos os testes.",
+    "Worker de notificações desligado e dados anteriores preservados."
+  ],
+  "regressaoControladaArtefatos": [
+    {
+      "arquivo": "backend/src/main/resources/static/css/administracao.css",
+      "algoritmo": "SHA-256",
+      "digest": "4d82a0fc051397b9e9a42bbb7c1e4bbd4c6d0df91e3bd714ec585f669b36e76a"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/css/app.css",
+      "algoritmo": "SHA-256",
+      "digest": "d65964a412c209e4e4c1815813296490ca02fe08f0cc93b3fe3427542f314892"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/css/consulta-reservas.css",
+      "algoritmo": "SHA-256",
+      "digest": "612ab227f3188ed3ad63c93356b896b7edd49d69b1fef62fb83247243a0f4f12"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/css/movimentacoes.css",
+      "algoritmo": "SHA-256",
+      "digest": "a344408d3afed7486906ee1405d1eab1943216c22f2cca93dda9957b278e07b5"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/css/relatorios-utilizacao.css",
+      "algoritmo": "SHA-256",
+      "digest": "21a80c477ed0bcf6f12bac9b7a1bf0621b1ebe32be7e2d5b3256e861606945c0"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/index.html",
+      "algoritmo": "SHA-256",
+      "digest": "126b3967a5b09974f318142e5df72c2f704c54d288012b059cdbb3400fcce5b1"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/administracao-recursos.js",
+      "algoritmo": "SHA-256",
+      "digest": "136ac62bc7b0eb1e5566cc10ff9466e2e0fb005fb278459cc9b7a7b37d4ba55c"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/api.js",
+      "algoritmo": "SHA-256",
+      "digest": "085626083a7334e0e163a99a576efae78d1606911172a6410796f96a9a6d34a9"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/aprovacoes-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "ccd53aaea68ca38cda868e18aaf373a27c756c07d8e8f0e0f59cf4b91d3f0085"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/aprovacoes.js",
+      "algoritmo": "SHA-256",
+      "digest": "641e0e456de266f946aa1354c1a4c4c5e4789dacb242e6dd2a074aa4095f15de"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/auth.js",
+      "algoritmo": "SHA-256",
+      "digest": "8d0d8e732b86f29cf345dfbd85d3a07ef6d77484b41229688722f110b919a273"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/consulta-reservas-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "51e16d0462a157cbb68072adc3f79642a8774349253a193c59b2a517e01e095f"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/consulta-reservas.js",
+      "algoritmo": "SHA-256",
+      "digest": "050f977bbb74be912bea4c297bc68d618dac5131eafa6b213ea4ad02233eddd6"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/dashboard-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "c60e99764c5783dc2b8cfd9aecf2ff5610cfbaddcdecff4eff7095300db41df8"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/datas.js",
+      "algoritmo": "SHA-256",
+      "digest": "44f35755602a1043e5126ed4807f5b0b31bc273908c7e4d079d6df34a9636bbe"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/forms.js",
+      "algoritmo": "SHA-256",
+      "digest": "42780d62d6d19cd367ab11b49cd629126235082c55d8b80f0e36a734b36ea27c"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/gestao-recursos-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "65ec54587b4ec1cf1ecb7917cb0678397fb64c8e6aff634f95e58625b656cf1e"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/login-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "2420f55cfc014f84c8067f880c4d466e9d3c48f63bbd88cbdcddffe901d73b06"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/movimentacoes-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "52775b2353ca8b0721868184b7d565f3b1aafc3220942d4254000c1f646876d9"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/movimentacoes.js",
+      "algoritmo": "SHA-256",
+      "digest": "44a2ed21c299230ae2b75870516a5a31d6b64dff0fe297d86188a0d7db77c939"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/navegacao.js",
+      "algoritmo": "SHA-256",
+      "digest": "ffd3992a41ec3f4166b51f9db52ce8b826c92b15fcb6de5545a8a0129082e214"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/recursos-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "5c2467fb378878ec1fcf0ba14b3ef742ba980617db9a56cfe9b311a395a0952b"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/recursos.js",
+      "algoritmo": "SHA-256",
+      "digest": "d53cb46d892a9ccacd2eda009ecb30cc84b43906ccaee176874bfcb8631b0a8e"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/relatorios-utilizacao-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "eb2ebe69aedab879789b1bf3e9d45e2e45007c506d19f157cb271144d6d49eae"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/relatorios-utilizacao.js",
+      "algoritmo": "SHA-256",
+      "digest": "fb29694d49289c033dc0377938610ef65ebb222d9bf3ca09cf08e768f22ab9f9"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/reservas.js",
+      "algoritmo": "SHA-256",
+      "digest": "5e2e4d7be7fb07851b9a91191de7884101808fbf53f863266d67f3e538e52e4f"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/sessao-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "9b1ff5ece89faf331a067b2dce129ffaf8dd0169f40a85ccb573dbb522068890"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/ui.js",
+      "algoritmo": "SHA-256",
+      "digest": "d0103a10564a382d8908e4dd9b8d3d325538e20cbcd45e959dce122ce8f120e7"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/login.html",
+      "algoritmo": "SHA-256",
+      "digest": "90a4b22c2ab059f1dabe1ff9ebcca426b3d1cd6822addd6c541960bfbc9c5eb8"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/aprovacoes.html",
+      "algoritmo": "SHA-256",
+      "digest": "405c3cb5f9df783caa003101e45faf556c3941b0f8eb83e89867630f76bf61ac"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/gestao-recursos.html",
+      "algoritmo": "SHA-256",
+      "digest": "612eea5dc812ec9830aa22643ba3411a18d5dade171542fb0bd52ab2fd6e5a21"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/minhas-reservas.html",
+      "algoritmo": "SHA-256",
+      "digest": "7b3f100ee87a975bcfd0c2d117ca96462b9b40a591853d4d39b8a9528c440d37"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/movimentacoes.html",
+      "algoritmo": "SHA-256",
+      "digest": "714c70fdc341666f0988ab2d438f371fe54ea35f204d6e2dd4742f298a15d76e"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/recursos.html",
+      "algoritmo": "SHA-256",
+      "digest": "0a33dfa7f5832db215ddc7683a4ac2a133e159786f3a062dea1ef4eaadefac6f"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/relatorios-utilizacao.html",
+      "algoritmo": "SHA-256",
+      "digest": "793985ddfde0a12a0f045439ccb93866f812efb35905a1bd423235d43ee9ac20"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/reservas.html",
+      "algoritmo": "SHA-256",
+      "digest": "39454b9fddbb9d19fb74e0f42524f7e08597c194c9e2a41a8bcc6ffddf893490"
+    },
+    {
+      "arquivo": "eslint.config.js",
+      "algoritmo": "SHA-256",
+      "digest": "bbad3877fc6f43a6ca875d4235bb8e8cb7276f08f0aa557881de48cbb981bb2b"
+    },
+    {
+      "arquivo": "jsconfig.json",
+      "algoritmo": "SHA-256",
+      "digest": "1d74b6808a84386e3534010eace49bbd613e3f4ca3e1f251eb1401a194f199e6"
+    },
+    {
+      "arquivo": "package-lock.json",
+      "algoritmo": "SHA-256",
+      "digest": "8e5f1640c8fa9c362f0b8548f2e5a64d2bbca5e39415e4714ebc08eb98b6c04e"
+    },
+    {
+      "arquivo": "package.json",
+      "algoritmo": "SHA-256",
+      "digest": "aae0df3bce6fb37116cbb246effb605aa4f531393fba47315846254716a7089f"
+    },
+    {
+      "arquivo": "playwright.config.js",
+      "algoritmo": "SHA-256",
+      "digest": "1f267e988dd1c5126c3f7fe587b1014567642cebb82ae516088bb1d1c930c63b"
+    },
+    {
+      "arquivo": "tests/browser/acesso.spec.js",
+      "algoritmo": "SHA-256",
+      "digest": "dcf1659d13423acdfadebe889fbad9c5c0d3755c3e0121807af9fec6dccf9fa2"
+    },
+    {
+      "arquivo": "tests/browser/administracao-recursos.spec.js",
+      "algoritmo": "SHA-256",
+      "digest": "b881b766d192555759e450cd9863b84e6b30e86fa79cff81851ad0c74c8d4a0a"
+    },
+    {
+      "arquivo": "tests/browser/aprovacoes.spec.js",
+      "algoritmo": "SHA-256",
+      "digest": "faf73e1bc6512357f85fef48627036fbbb7e537fa53777d9fd3a82a1cd2469c7"
+    },
+    {
+      "arquivo": "tests/browser/consulta-reservas.spec.js",
+      "algoritmo": "SHA-256",
+      "digest": "0060484cab1c4aab94addfcc4e5bc4d1e51b89cebf1d3f226647d7fe4c55f2ca"
+    },
+    {
+      "arquivo": "tests/browser/movimentacoes.spec.js",
+      "algoritmo": "SHA-256",
+      "digest": "80a3cd2cf0a87fe7d73421e9d1b68cc4db15bdc920ad7276996522c9594bcc69"
+    },
+    {
+      "arquivo": "tests/browser/recursos.spec.js",
+      "algoritmo": "SHA-256",
+      "digest": "f40613ebc50d6f687b9bc2afd710e0006d172af4dc2b73a7c524138c94d83ada"
+    },
+    {
+      "arquivo": "tests/browser/relatorios-utilizacao-preview.mjs",
+      "algoritmo": "SHA-256",
+      "digest": "453d96f2b14b449834486227e82335f6b8b01bcbe9936724b9e871648ae23f27"
+    },
+    {
+      "arquivo": "tests/browser/relatorios-utilizacao.spec.js",
+      "algoritmo": "SHA-256",
+      "digest": "db6d86a868cf07d84725147eed168343131e68e733cadc98f3d59c5dd8a5f5ee"
+    },
+    {
+      "arquivo": "tests/browser/static-server.mjs",
+      "algoritmo": "SHA-256",
+      "digest": "369aa427250fabe0cb7bf1336bf2a01dd9cbdb28bc83198f5e2ff64f94125c74"
+    },
+    {
+      "arquivo": "tests/unit/frontend/administracao-recursos.test.js",
+      "algoritmo": "SHA-256",
+      "digest": "a26226e5c58863d973173f94af13c5fd3dba06dec0ea8aaae44b7344fbebc52c"
+    },
+    {
+      "arquivo": "tests/unit/frontend/aprovacoes.test.js",
+      "algoritmo": "SHA-256",
+      "digest": "d2de8a4233d9b0076dd892dac34791090892c7f3ebf8977beb74efc67e3b1ab2"
+    },
+    {
+      "arquivo": "tests/unit/frontend/clientes.test.js",
+      "algoritmo": "SHA-256",
+      "digest": "4890b0867e4f2343738d8018644721483a30e2f7a2c09e9d4b658b8cef2ee767"
+    },
+    {
+      "arquivo": "tests/unit/frontend/consulta-reservas.test.js",
+      "algoritmo": "SHA-256",
+      "digest": "c211f9905924ecd4db01ac63b1c269b3eca282974689386404e3e68c4b2c6b9b"
+    },
+    {
+      "arquivo": "tests/unit/frontend/forms.test.js",
+      "algoritmo": "SHA-256",
+      "digest": "6139275cf1b02e7405c6ef0e88e84a98596f2865d4b956f73128f53eb2f2d4dd"
+    },
+    {
+      "arquivo": "tests/unit/frontend/movimentacoes.test.js",
+      "algoritmo": "SHA-256",
+      "digest": "5300d9ea8590625f0c96cf5ef511405a6459c4b4167f8ae588828929b993db81"
+    },
+    {
+      "arquivo": "tests/unit/frontend/recursos-datas.test.js",
+      "algoritmo": "SHA-256",
+      "digest": "993b549df6cba481698b9db37d695258e69886d49fac5e3ec68f5ba1c4ab30c5"
+    },
+    {
+      "arquivo": "tests/unit/frontend/relatorios-utilizacao.test.js",
+      "algoritmo": "SHA-256",
+      "digest": "8d3975aa1a478176316bf78373d25dddf8cd9a6f6f0eeeb5831ec91b15679525"
+    }
+  ],
+  "integridadeConferidaEm": "2026-11-13T22:40:29.493Z",
+  "validacaoDocumental": {
+    "data": "2026-11-13T22:41:55.034Z",
+    "arquivosAutorais": 25,
+    "linksNovosConferidos": 44,
+    "fileListCorresponde": true,
+    "jsonValido": true,
+    "diffCheck": true,
+    "diffCachedCheck": true,
+    "indexVazio": true,
+    "fontesDeProdutoETestesPreservadas": true,
+    "semCredenciaisNosArquivosAutorais": true,
+    "edicaoExternaPreservada": "docs/planejamento/marcos-fechamento-etapas-1-a-5.md"
+  }
+}

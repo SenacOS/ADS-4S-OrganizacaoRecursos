@@ -39,7 +39,7 @@ async function preparar(page) {
       estado.logouts++; expect(req.headers()['x-csrf-teste']).toBe('token-teste');
       return route.fulfill({ status: 204 });
     }
-    if (url.pathname === '/api/relatorios/utilizacao' && req.method() === 'GET') {
+    if (url.pathname === '/api/reservas/relatorio-utilizacao' && req.method() === 'GET') {
       estado.consultas.push({ url, headers: req.headers() });
       // Cada resposta conserva o cenário da requisição antes de qualquer atraso.
       const falha = estado.falha, rede = estado.rede, resposta = estado.gerar(url), esperar = estado.esperar;
@@ -62,11 +62,11 @@ async function filtros(page, recurso = '') {
 }
 const consultar = page => page.getByRole('button', { name: 'Consultar relatório', exact: true }).click();
 
-test('prévia identificada inicia sem dados, consulta automática ou link no menu', async ({ page, ambiente }) => {
-  await abrir(page); await expect(page.getByText('Prévia — integração pendente.', { exact: true })).toBeVisible();
+test('relatório inicia sem consulta automática e tem link no menu do Administrador', async ({ page, ambiente }) => {
+  await abrir(page); await expect(page.locator('.preview-notice')).toHaveCount(0);
   await expect(page.locator('#resultado-relatorio')).toBeHidden();
   expect(ambiente.consultas).toHaveLength(0); expect(ambiente.csrf).toBe(0);
-  await expect(page.locator('#navegacao a[href*="relatorios"]')).toHaveCount(0);
+  await expect(page.locator('#navegacao a[href="/pages/relatorios-utilizacao.html"]')).toHaveAttribute('aria-current', 'page');
 });
 test('consulta com offset deSP mesmo em navegador deTóquio, sem identidade nem CSRF', async ({ page, ambiente }) => {
   await abrir(page); await filtros(page); await consultar(page);

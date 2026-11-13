@@ -53,7 +53,7 @@ const server = createServer(async (request, response) => {
     if (url.pathname === '/api/auth/logout' && request.method === 'POST') {
       response.writeHead(204).end(); return;
     }
-    if (url.pathname === '/api/relatorios/utilizacao' && request.method === 'GET') {
+    if (url.pathname === '/api/reservas/relatorio-utilizacao' && request.method === 'GET') {
       try { return json(200, demonstracao(url)); }
       catch { return json(400, { codigo: 'REQUISICAO_INVALIDA', mensagem: 'Confira os filtros da demonstração.', correlationId: 'previa-simulada' }); }
     }
@@ -66,8 +66,8 @@ const server = createServer(async (request, response) => {
     if (!file.startsWith(resolve(root) + sep)) { response.writeHead(403).end(); return; }
     let content = await readFile(file);
     if (path === '/pages/relatorios-utilizacao.html') content = content.toString('utf8').replace(
-      /<p class="feedback preview-notice">[\s\S]*?<\/p>/,
-      '<p class="feedback preview-notice"><strong>Dados simulados — prévia local.</strong> Sessão e relatório fictícios, sem acesso ao banco. Exemplo: 17/11/2026, 10h–11h; recursos 1, 2 e 3. Não é integração real.</p>');
+      '<p class="page-description">',
+      '<p class="feedback preview-notice"><strong>Dados simulados — prévia local.</strong> Sessão e relatório fictícios, sem acesso ao banco. Exemplo: 17/11/2026, 10h–11h; recursos 1, 2 e 3. Não é integração real.</p><p class="page-description">');
     response.writeHead(200, { 'Content-Type': (tipos[extname(file)] ?? 'application/octet-stream') + '; charset=utf-8', 'Cache-Control': 'no-store' });
     response.end(request.method === 'HEAD' ? undefined : content);
   } catch { response.writeHead(404).end('Arquivo não encontrado.'); }

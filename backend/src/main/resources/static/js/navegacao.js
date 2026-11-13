@@ -18,6 +18,7 @@ export function areasDoPerfil(usuario) {
   }
   if (usuario.papel === 'ADMINISTRADOR') {
     areas.push({ titulo: 'Gerenciar recursos', descricao: 'Cuide dos cadastros e dos períodos de manutenção.', href: '/pages/gestao-recursos.html' });
+    areas.push({ titulo: 'Relatórios', descricao: 'Consulte a utilização dos recursos e os conflitos evitados.', href: '/pages/relatorios-utilizacao.html' });
   }
   if (usuario.papel === 'RESPONSAVEL' || usuario.papel === 'ADMINISTRADOR') {
     areas.push({ titulo: 'Movimentações', descricao: 'Acompanhe materiais retirados e devoluções pendentes.', href: '/pages/movimentacoes.html' });

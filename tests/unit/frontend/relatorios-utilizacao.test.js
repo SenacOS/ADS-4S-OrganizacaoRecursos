@@ -144,7 +144,7 @@ test('cliente usa GET com sessão sem buscarCSRF ou enviar identidade', async ()
   assert.equal(chamadas.length, 1); assert.equal(chamadas[0].opcoes.method, 'GET');
   assert.equal(chamadas[0].opcoes.credentials, 'same-origin'); assert.equal(chamadas[0].opcoes.body, undefined);
   assert.deepEqual(Object.fromEntries(chamadas[0].opcoes.headers), { accept: 'application/json' });
-  assert(chamadas[0].url.startsWith('/api/relatorios/utilizacao?'));
+  assert(chamadas[0].url.startsWith('/api/reservas/relatorio-utilizacao?'));
 });
 test('cliente captura filtros antes da resposta, não repete erro e valida antes doHTTP', async () => {
   const f = { ...filtros }, cliente = criarRelatoriosUtilizacao({ limparCsrf() {}, async requisitar() {

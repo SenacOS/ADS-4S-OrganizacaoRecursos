@@ -1,5 +1,13 @@
 # Ambiente local de integração de Marcos
 
+## RF12 real — 13/11/2026
+
+Na raiz da branch `feature/marcos-6-integracao-real`, sobre develop8065626: `node tests/e2e-local/controle.cjs status` e `node tests/e2e-local/validar-relatorios.cjs`. O auxiliar é opt-in Windows; exige ferramentas/configuração privada, JAR atual, banco isolado e API de reservas habilitada. Configurar caminhos absolutos `git` e `powershell` em `.aiox-core/local/tools/paths.json`, conforme `executaveis.cjs`; não consultar PATH ou publicar credenciais.
+
+[13cenários reais e comandos](../testes/marcos-6-integracao-real-resultados.md), [inventário](../testes/marcos-6-integracao-real/inventario.json) e [roteiro humano](../testes/marcos-6-integracao-real-verificacao.md). Cria recursos/reservas/conflito próprios por HTTP e escolhe janela global vazia dentro do expediente real; SQL de inspeção somente SELECT. Mantém dados anteriores, credenciais/logs privados e worker desligado. Não reescreve horários nem intercepta respostas. Preserva tentativas com erro e exige `concluido=true`/ausência de erro para declarar a rodada completa.
+
+JAR reconstruído após encerrar os processos próprios por identidade; principal disponível em `http://127.0.0.1:18080/login.html`. Package277 e build97/346 atuais separados das contagens históricas abaixo. O frontend usa `GET /api/reservas/relatorio-utilizacao`, e o menu é exclusivo do Administrador. Prévia fictícia permanece na porta4174, fora da rodada real.
+
 ## Fechamento delegado — 13/11/2026
 
 Marcos comunicou carta branca da equipe e adotou as decisões do [ADR-007](../arquitetura/adr/ADR-007-fechamento-contratos-vinculos-rf11.md). Os contratos atuais, incluindo vínculo com todos os recursos, ficam formalizados **por decisão delegada de Marcos**, sem atribuir assinaturas individuais aos demais integrantes. Datas com offset, PATCH conjunto,409/FORA_DO_EXPEDIENTE, estados/perfis de edição/cancelamento e escopos/erros Q9 permanecem como implementados; Q1/Q3/Q8 preservadas.
