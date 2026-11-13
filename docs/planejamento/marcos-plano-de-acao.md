@@ -83,6 +83,21 @@ Protótipos simples devem mostrar navegação, estados vazio/carregando/erro/suc
 
 ## Ordem de execução, sem sprints ou prazo inventado
 
+| Ordem | Incremento verificável | Critério de saída | Estado vigente em13/11/2026 |
+|---|---|---|---|
+| 0 | Levantamento/contratos/fontes | Contexto e responsabilidades identificados | CONCLUÍDO. |
+| 1 | Comunicação API/sessão/CSRF | Clientes e evidências integradas | CONCLUÍDO no recorte integrado das etapas1a5. |
+| 2 | Acesso e navegação | Sessão/perfis e aceite com evidências | CONCLUÍDO no recorte integrado das etapas1a5. |
+| 3 | Pesquisa, criação, consulta, edição e cancelamento | Contratos/escopo reais e aceite | CONCLUÍDO; complemento entregue no #28 e provas posteriores preservadas. |
+| 4 | Fila/aprovação/rejeição e Q9 | Escopo servidor, decisões e aceite | CONCLUÍDO; #24/#26/#27, ADR-007 e demonstração delegada integrada no #36. |
+| 5 | Administração e movimentações | Cadastros/bloqueios/expediente/retirada/devolução | CONCLUÍDO; #23 e complementos integrados. |
+| 6 | Relatórios e mensagens coerentes com eventos | Cliente/tela e integração com contrato RF12 | FRONTEND CONTROLADO implementado: [plano6](marcos-etapa-6-plano-de-acao.md), [story](../stories/marcos-6.md), [proposta mínima](../api/relatorios-utilizacao-proposta.md) e [resultados](../testes/marcos-6-resultados.md). QA e revisão visual aprovados; commit/push autorizados. #37 entrega leitura persistida; serviço/HTTP/autorização e E2E RF12 reais permanecem pendentes. |
+| 7 | E2E e acabamento | Evidências reais dos fluxos entregues | Caminhos mínimos1a5 comprovados; relatórios e demais cenários futuros conservam seus critérios. Não declarar etapa global encerrada. |
+| 8 | Revisão/entrega | Aceite, revisão e integração de cada recorte | Ciclo1a5 integrado pelo #36; registro documental no [PR #38](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/38). Entrega global/etapa6 continuam próprias. |
+
+<details>
+<summary>Tabela histórica da preparação inicial — não é lista atual de pendências</summary>
+
 | Ordem | Incremento verificável | Critério de saída | Estado |
 |---|---|---|---|
 | 0 | Ler PDF, inspecionar branches/contratos e levantar responsabilidades | Fontes e dependências identificadas neste documento | CONCLUÍDO |
@@ -94,6 +109,8 @@ Protótipos simples devem mostrar navegação, estados vazio/carregando/erro/suc
 | 6 | Relatórios e mensagens de eventos | Consumir API confirmada; validar filtros, unidades e períodos vazios | PENDENTE |
 | 7 | E2E real e acabamento | Fluxos completos, larguras móveis/desktop, falhas e evidências; RTM/README atualizados | PENDENTE |
 | 8 | Revisão e entrega | Revisão humana, CI verde, defeitos tratados e demonstração reproduzível | PENDENTE |
+
+</details>
 
 Os incrementos futuros recebem suas próprias stories e critérios antes do código. Não se considera a entrega inteira concluída pela implementação da primeira base.
 
@@ -142,3 +159,16 @@ A política Q9 permite especificar as consultas restantes; ela não disponibiliz
 - E2E final em navegador: login/logout, busca, comum APROVADA, conflito 409, restrita SOLICITADA, aprovação/rejeição, cancelamento, edição conflitante (CT19), retirada/devolução (CT16), expiração, CSRF/negação (CT14/17/18) e uso móvel.
 - Prova de concorrência e persistência continua em MySQL/Testcontainers com a equipe; mocks não substituem.
 - Cada evidência registra comando, data, ambiente, cenário e resultado; RTM compartilhada aponta para arquivos/CI reais. Metas 80%/70% pertencem à cobertura do projeto e não são inferidas destes testes.
+
+
+## Continuidade vigente — etapa6 com frontend controlado
+
+Marcos autorizou abrir o PR documental de encerramento1a5 e preparar a etapa6 em branch própria. [PR #38](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/38) aberto Ready for review; branch de trabalho6 criada da developc4279b6, sem misturar os8documentos daquele PR.
+
+O [plano detalhado6](marcos-etapa-6-plano-de-acao.md) separa preparação de contrato/story, cliente controlado, integração real e entrega. Após Marcos pedir seguir esse plano, SM/Architect refinaram a [proposta mínima RF12](../api/relatorios-utilizacao-proposta.md) para desenvolver cliente/tela com dados controlados. A página autenticada por URL direta, filtros, unidades/precisão, estados e testes estão implementados; não acrescenta link de menu por perfil. O [registro de resultados](../testes/marcos-6-resultados.md) distingue testes interceptados/prévia simulada de integração real.
+
+O #37 fornece porta/projeção/adaptador MySQL, mas não serviço/DTO/HTTP ou política RF12. Esses itens seguem pendentes de entrega/ratificação do backend; o aceite do recorte controlado não decide perfis reais. Marcos aprovou a revisão visual sem ajustes no formato de data e autorizou commit/push em13/11/2026. Próximo checkpoint: publicação autorizada do incremento; PR/revisão da equipe seguem separados. [Roteiro para Chrome](../testes/marcos-6-verificacao.txt).
+
+Pontos prioritários: horas por reserva distintas da duração por recurso; recorte pelo período; conflitos por instante de ocorrência; projeção/total autorizados quando a porta retorna todos os vínculos; transporte preciso de Duration. CSV permanece opcional e não se cria caixa de notificações ou status de envio RF11 sem contrato. As responsabilidades e confirmações necessárias estão nos documentos novos.
+
+As observações anteriores de GET ausente e contratos das etapas1a5 pendentes são históricas e superadas pelas entregas/ADR-007 já registrados. Esta preparação6 não reabre esses pontos nem encerra RF12 apenas pela existência do adaptador MySQL.

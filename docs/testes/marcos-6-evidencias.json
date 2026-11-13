@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "geradoEm": "2026-11-13T19:20:54.046Z",
+  "story": "docs/stories/marcos-6.md",
+  "branch": "feature/marcos-6-relatorios",
+  "commitBase": "c4279b6c596c61d48ca7098a38812fc68c54412d",
+  "commitIncremento": null,
+  "escopo": "Cliente e tela controlados RF12; não é E2E real nem aprovação de perfis/HTTP do backend.",
+  "ambiente": {
+    "node": "v26.13.0",
+    "playwrightChannel": "chrome",
+    "viewports": [
+      {
+        "width": 1366,
+        "height": 900
+      },
+      {
+        "width": 390,
+        "height": 844
+      }
+    ],
+    "timezoneNavegador": "Asia/Tokyo"
+  },
+  "build": {
+    "comando": "$env:PLAYWRIGHT_CHANNEL='chrome'; npm.cmd run build",
+    "exitCode": 0,
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unitarios": {
+      "pass": 96,
+      "fail": 0,
+      "novosRf12": 15
+    },
+    "navegador": {
+      "pass": 334,
+      "fail": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "novosRf12": 56
+    },
+    "inicioNavegador": "2026-11-13T19:16:02.364Z",
+    "duracaoNavegadorMs": 193433.999,
+    "logLocalSha256": "106450698d40e3b50b8bf9dff2177aac9208254c95f571237e1d197632f397c5",
+    "relatorioPlaywrightSha256": "d10b8b06a1a5f9acc4cf5c2f400a12688a0af5f817c5042e5f9783963d30b111"
+  },
+  "capturas": [
+    {
+      "nome": "desktop",
+      "viewport": {
+        "width": 1366,
+        "height": 900
+      },
+      "erros": [],
+      "semOverflow": true
+    },
+    {
+      "nome": "mobile",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "erros": [],
+      "semOverflow": true
+    }
+  ],
+  "revisaoVisualMarcos": "APROVADA em13/11/2026 no chat; formato de data mantido, commit e push autorizados.",
+  "integracaoRealRf12": "NAO_EXECUTADA: depende de serviço/DTO/HTTP/autorização do backend.",
+  "codeRabbit": "INDISPONIVEL: CLI local ausente e WSL não instalado.",
+  "arquivos": [
+    {
+      "caminho": "backend/src/main/resources/static/js/relatorios-utilizacao.js",
+      "sha256": "951074c696b721d37ff0d89354aa3cb3895e8f7a124b68609805618483a92c6e"
+    },
+    {
+      "caminho": "backend/src/main/resources/static/js/relatorios-utilizacao-page.js",
+      "sha256": "db9a5c74d3b0cb15efeb5a72c013066087310fa815fd7c0e9cd3455ce357861c"
+    },
+    {
+      "caminho": "backend/src/main/resources/static/pages/relatorios-utilizacao.html",
+      "sha256": "50d4bbfe0560b121d4a328f4118e0a43badac4ff544e1e5b168d8cdca4ae04ec"
+    },
+    {
+      "caminho": "backend/src/main/resources/static/css/relatorios-utilizacao.css",
+      "sha256": "3b2854cc61478e3dccca0bacb8f0b00517159e47784dd1adf18500e5738b8240"
+    },
+    {
+      "caminho": "tests/unit/frontend/relatorios-utilizacao.test.js",
+      "sha256": "bbffb48879b3d4591ea6da50bbca17a9a375bec5a5aaa8f8112ab4f727c11431"
+    },
+    {
+      "caminho": "tests/browser/relatorios-utilizacao.spec.js",
+      "sha256": "d48df9871d678560504afb9f1b609b54e8f5350835c7ee4673d5e2b9912eac93"
+    },
+    {
+      "caminho": "tests/browser/relatorios-utilizacao-preview.mjs",
+      "sha256": "6ce3ae61cf08b8588b4e92f12025a7e4b340252353c3a7c1502781d576cd584e"
+    },
+    {
+      "caminho": "docs/testes/evidencias/marcos-6/desktop-inicial.png",
+      "sha256": "73a19df1402e529ce36efa3b39df19ca75af875cf40a4180aff6c518b5db0aff"
+    },
+    {
+      "caminho": "docs/testes/evidencias/marcos-6/desktop-resultado.png",
+      "sha256": "a72a8edd00fcaeb06b97fb5dda0465e17d7093e8661163e7fe3f299520b789b2"
+    },
+    {
+      "caminho": "docs/testes/evidencias/marcos-6/mobile-inicial.png",
+      "sha256": "88c23c0371fea918fb7cd55699d91782f3eb906cd4356dc98df55fafe38a9940"
+    },
+    {
+      "caminho": "docs/testes/evidencias/marcos-6/mobile-resultado.png",
+      "sha256": "7bdb528caf6c8153ff1cd23b9860167977c86f07d9a5d757ca00ed1edd8b4674"
+    }
+  ]
+}
