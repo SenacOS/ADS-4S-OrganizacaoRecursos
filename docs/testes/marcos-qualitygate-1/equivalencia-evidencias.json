@@ -1,0 +1,33 @@
+{
+  "data": "2026-11-13",
+  "transformacao": "mapa de hashes para registros explícitos SHA-256; nenhuma prova alterada",
+  "provas": [
+    {
+      "arquivo": "docs/testes/marcos-fechamento-e2e-1/resultados-final.json",
+      "commitOriginal": "5537163108e3ea2c0645b04f6fd621e7208da587",
+      "sha256Original": "d98fb8c1defdc44e43a910322d09e3ea46882ad1f7c6837aff94ee6bbeac85a2",
+      "sha256Projetado": "fd87fe93dc36dde2d249d7e14e11e18c38ab35f18d8bd2c470224c6d2a1b6a58",
+      "artefatos": 35,
+      "demaisCamposIdenticos": true,
+      "todosDigestsPreservados": true
+    },
+    {
+      "arquivo": "docs/testes/marcos-fechamento-e2e-1/tentativa-coleta.json",
+      "commitOriginal": "5537163108e3ea2c0645b04f6fd621e7208da587",
+      "sha256Original": "8ad98d3e38a69bce4b6637404890d15d56734d9c561d7bf82e0229d9feb4d4eb",
+      "sha256Projetado": "0ebd5ddefa57ccb93265b886b25b5a38f211d3875812395aa56dc1f5b1e6a213",
+      "artefatos": 35,
+      "demaisCamposIdenticos": true,
+      "todosDigestsPreservados": true
+    },
+    {
+      "arquivo": "docs/testes/marcos-fechamento-e2e-1/tentativa-incompleta.json",
+      "commitOriginal": "5537163108e3ea2c0645b04f6fd621e7208da587",
+      "sha256Original": "a62a745a0bc0d1648c334d63250417175022862e9896ff3367299f10436ebf56",
+      "sha256Projetado": "5e6bfdefdcf15f42c1a2b7489d33251f631c86e692548ab52bca9d1bc5d015ee",
+      "artefatos": 35,
+      "demaisCamposIdenticos": true,
+      "todosDigestsPreservados": true
+    }
+  ]
+}

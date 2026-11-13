@@ -4,6 +4,22 @@ Data da conferência: **12/11/2026**, America/Sao_Paulo.\
 Responsável pelo frontend: **Marcos Boé**.\
 Estado: **EM EXECUÇÃO; frontend previsto implementado e aceito localmente, incluindo complemento da etapa 3; publicação e fechamento integrado pendentes**.
 
+## Checkpoint vigente — PR corretivo único após os merges, 13/11/2026
+
+PRs#28/#29 mesclados e develop **a0c0481**, incluindo Q3/#30 e Q1/#31. Marcos autorizou consolidar os fixes em `fix/marcos-qualitygate`, revalidar, fazer commit/push e abrir um único PR para develop. Preservadas por cópia/hash as duas árvores locais antes da troca; nenhum conteúdo da equipe foi substituído. Worktree antiga mantida como origem histórica.
+
+JAR reconstruído da base nova e testes reexecutados: **14unitários;16/0/0smoke;12/0Q9/Q1/Q3;8/0consulta;11/0fechamento**. [Relatório/manifesto](../testes/marcos-qualitygate-1-consolidacao-resultados.md) e [encaminhamento à equipe](../integracao/marcos-qualitygate-equipe-2026-11-13.md). Produto/CI permanecem iguais à develop; o corretivo altera auxiliares, testes de desenvolvimento, inventário de evidência e documentação.
+
+Próxima entrega é o PR corretivo, sem reabrir os PRs antigos. QA da base nova e novos checks remotos seguem separados dos pareceres/execuções anteriores. Token/permissão/organização/projeto do scanner Maven ainda exigem conferência da equipe; não se presume gate verde por resultado local. Não fazer merge automático. Checkpoints seguintes preservam o histórico.
+
+## Checkpoint vigente — correções dos PRs #28/#29, 13/11/2026
+
+PR#28 aberto sobre0775715 e PR#29 sobre5537163, ambos com base develop4cea177. Quality Gate anterior reprovou segurança dos auxiliares/metadados; testes Java/MySQL/JaCoCo/JMeter passaram, enquanto o scanner Maven falhou separadamente por autorização/projeto.
+
+Correções locais preparadas nas duas árvores: caminhos absolutos validados, include linear e, no#29, viewport e inventário explícito SHA256. Unitários9/0 no#28 e14/0 no#29; reexecuções reais16/0/0,10/0,8/0 e11/0 na árvore principal, com comuns idênticos. Produto preservado. [Resultados/rastreabilidade](../testes/marcos-qualitygate-1-resultados.md), [recorte #28](../testes/marcos-qualitygate-1-pr28-resultados.md) e [mensagem pronta à equipe](../integracao/marcos-qualitygate-equipe-2026-11-13.md).
+
+Ainda sem novos commits/push/análise remota: não declarar gate verde por testes locais. Débora/administrador confere token/permissão e variables do scanner, sem divulgação de segredo. Publicar correções e conferir novos checks somente pelo fluxo autorizado; revisão/merge e ratificações compartilhadas continuam separados. Os checkpoints seguintes são históricos.
+
 ## Checkpoint vigente — complemento real e entrega, 12/11/2026
 
 **Revisão das evidências do complemento aprovada por Marcos**, sem ajustes. [Registro](../testes/marcos-fechamento-e2e-1-aceite-2026-11-12.md). Frontend e complemento de testes têm aceite do autor; próximo passo local é o commit quando solicitado. Publicação, PRs, revisão da equipe, checks e merge continuam separados.

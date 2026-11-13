@@ -1,0 +1,17 @@
+PASS Flyway e identidade da base isolada
+PASS Arquivos servidos pelo JAR correspondem à fonte testada
+PASS Sem sessão retorna 401 NAO_AUTENTICADO
+PASS Bootstrap local e cadastro dos outros dois perfis
+PASS CSRF real e escritas proibidas por perfil
+PASS Expediente e recursos exclusivos da rodada
+PASS Login e cookie HttpOnly nos três perfis
+PASS Cadastro dos três tipos e edição de competências
+PASS Expediente completo salvo sem perda de frações
+PASS Criar/cancelar bloqueio e desativar sala
+PASS Pesquisar e criar reserva comum com offset de São Paulo
+PASS Reserva restrita, conflito e PATCH/cancelamento conhecidos por ID
+PASS Retirada e devolução pelo Responsável
+PASS Leituras de reservas disponíveis após PR26
+PASS Logout real dos três perfis e ausência de erros JavaScript
+PASS Persistência, auditoria e outbox real
+{"pasta":".aiox-core\\local\\e2e\\resultados\\2026-11-13T13-02-17-016Z","resumo":{"PASS":16,"FAIL":0,"BLOQUEADO":0}}

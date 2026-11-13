@@ -6,12 +6,16 @@ const path = require('node:path');
 const net = require('node:net');
 const { spawn, execFileSync } = require('node:child_process');
 const assert = require('node:assert/strict');
+const { criarExecutor } = require('./executaveis.cjs');
+const { possuiInclude } = require('./configuracao-local.cjs');
 
 const repo = path.resolve(__dirname, '../..');
 const local = path.join(repo, '.aiox-core/local');
 const dir = path.join(local, 'e2e');
 const ler = (arquivo) => JSON.parse(fs.readFileSync(arquivo, 'utf8').replace(/^\uFEFF/, ''));
 const ferramentas = ler(path.join(local, 'tools/paths.json'));
+const comandos = criarExecutor(ferramentas);
+const executaveis = comandos.caminhos;
 const credenciais = ler(path.join(dir, 'credentials.json'));
 const arquivoEstado = path.join(dir, 'state.json');
 const estado = ler(arquivoEstado);
@@ -37,7 +41,7 @@ function configurar() {
   assert.equal(estado.baseURL, `http://127.0.0.1:${estado.backendPort}`);
   assert.equal(estado.database, credenciais.db.name);
   const ini = fs.readFileSync(mysqlIni, 'utf8');
-  assert(!/^\s*!include/im.test(ini), 'Includes não permitidos.');
+  assert(!possuiInclude(ini), 'Includes não permitidos.');
   assert(/^bind-address=127\.0\.0\.1\s*$/m.test(ini), 'MySQL deve escutar apenas em loopback.');
   assert(ini.includes(`port=${estado.mysqlPort}`));
   assert(ini.includes(path.join(dir, 'mysql-data').replaceAll('\\', '/')), 'Datadir isolado obrigatório.');
@@ -64,9 +68,9 @@ function identificarBanco() {
 
 function processo(pid) {
   assert(Number.isInteger(pid) && pid > 0, 'PID inválido.');
-  const saida = execFileSync('powershell.exe', ['-NoProfile', '-Command',
+  const saida = comandos.powershell(['-NoProfile', '-Command',
     `$p=Get-CimInstance Win32_Process -Filter 'ProcessId=${pid}'; if ($p) { $p | Select-Object ExecutablePath,CommandLine,CreationDate | ConvertTo-Json -Compress }`,
-  ], { windowsHide: true, encoding: 'utf8', timeout: 10000 });
+  ], { windowsHide: true, shell: false, encoding: 'utf8', timeout: 10000 });
   return saida.trim() ? JSON.parse(saida) : null;
 }
 
@@ -154,7 +158,7 @@ async function parar() {
 }
 
 configurar();
-module.exports = { repo, dir, ferramentas, credenciais, estado, sql, pronto };
+module.exports = { repo, dir, ferramentas, executaveis, comandos, credenciais, estado, sql, pronto };
 if (require.main === module) {
   const comando = process.argv[2];
   (async () => {

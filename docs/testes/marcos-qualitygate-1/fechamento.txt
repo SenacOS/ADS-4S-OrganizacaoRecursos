@@ -1,0 +1,16 @@
+PASS Fontes servidas pelo JAR e regressão anterior preservadas
+PASS Login inválido, CSRF rotacionado e recuperação explícita na interface
+PASS Instância temporária isolada com fontes idênticas
+PASS Massa exclusiva e expediente real para pesquisa paginada
+PASS Duas sessões disputam a mesma reserva e só uma persiste
+PASS Pesquisa real tem paginação, vazio e ocupado sem seleção
+PASS Estado muda após abrir editor: PATCH recusado e detalhe reconciliado
+AGUARDANDO inatividade real: 15s
+AGUARDANDO inatividade real: 30s
+PASS Retirada, prazo vencido, Administrador somente leitura e devolução com atraso
+AGUARDANDO inatividade real: 45s
+AGUARDANDO inatividade real: 60s
+PASS Sessão expira por inatividade real e a interface volta ao login
+PASS Ausência de erros JavaScript nos contextos acompanhados
+PASS Somente instância temporária encerrada e principal preservada
+{"pasta":".aiox-core\\local\\e2e\\fechamento\\2026-11-13T13-02-37-096Z","resumo":{"PASS":11,"FAIL":0}}

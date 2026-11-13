@@ -1,0 +1,101 @@
+{
+  "data": "2026-11-13",
+  "base": "a0c04814211ed12f1c7086dc454560cb8cb56fc9",
+  "branch": "fix/marcos-qualitygate",
+  "estado": "correção consolidada ainda sem commit",
+  "preservacao": [
+    {
+      "arvore": "principal",
+      "branch": "test/marcos-fechamento-e2e",
+      "head": "5537163108e3ea2c0645b04f6fd621e7208da587",
+      "arquivos": 37,
+      "hashesConferidos": true
+    },
+    {
+      "arvore": "pr28",
+      "branch": "feature/marcos-reservas-consulta",
+      "head": "0775715d5a769d726e5cc63dc1b4125747084ff8",
+      "arquivos": 18,
+      "hashesConferidos": true
+    }
+  ],
+  "sobreposicaoComNovosArquivosEquipe": 0,
+  "jarAnterior": "6d84690abcf10e7c1b811875b8a8d726b9857afca670bccfee222dd62923fe20",
+  "artefatos": [
+    {
+      "arquivo": "tests/e2e-local/executaveis.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "f3c344d74dbbad3b8b7962962daaa5e13f5e87a1230657892c4022afec44abdd"
+    },
+    {
+      "arquivo": "tests/e2e-local/configuracao-local.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "5c0687d08a0fad2287c75d365f8b8e62c2b162fe2abdbe9853e35c8e819b4bc6"
+    },
+    {
+      "arquivo": "tests/e2e-local/evidencias.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "aec14ce44c0bc991dbd358c2fbc46c1c827425749f642d1d531ce6ac2f6868a2"
+    },
+    {
+      "arquivo": "tests/e2e-local/viewport.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "1377c943174071a01ab6e4e2efa39a4a863f0fcdb6630c1832462c923de1f5a5"
+    },
+    {
+      "arquivo": "tests/e2e-local/controle.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "e68b5f04d9a9d31bc9ff29cb86e5454f7707a6693c1833abbd6d0d117268df06"
+    },
+    {
+      "arquivo": "tests/e2e-local/validar.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "fb634ba1c769fd7b3e7d20f42d914abea313a9f8396ec955464c4b887739c318"
+    },
+    {
+      "arquivo": "tests/e2e-local/validar-q9.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "161d3bdfa150a0987f899106abd87ca7fb36cdbeec02a9d3db14f1f88e9551ab"
+    },
+    {
+      "arquivo": "tests/e2e-local/validar-consulta-reservas.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "28e5941e3dee57cb3e4cf6beb6dcc6d570baaac2727f572f748b289089ae0c74"
+    },
+    {
+      "arquivo": "tests/e2e-local/validar-fechamento.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "fc88df6c865ffa9e3a4cc7597286a6c09dbe2319eead6e45f965b08228288954"
+    },
+    {
+      "arquivo": "tests/e2e-local/sessao-temporaria.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "968c36f1933f9614e16a0a7ff2f0ceb604bb86d64d5f6e4433b09283446b6b92"
+    },
+    {
+      "arquivo": "tests/unit/e2e-local/configuracao.test.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "a850a0b88aa9ab2cd2bcdfde9f60b79c1cf7bb6f9502f718c217249f12f463f4"
+    },
+    {
+      "arquivo": "tests/unit/e2e-local/evidencias.test.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "6ed469625a8af223f840a5b72e6b63b550ec0c28ce7da3a83a07f780aa3261d4"
+    },
+    {
+      "arquivo": "backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar",
+      "algoritmo": "SHA-256",
+      "digest": "e1e620cbce823b926ec348fe4447edfdc352060b33c7dccf243cf5020c29d2e7"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/reserva/dominio/Reserva.java",
+      "algoritmo": "SHA-256",
+      "digest": "cc752f1f58d6d4e8f4de83afe2e402a5af93949b26c751ea4e8f662b4a466564"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/seguranca/SecurityConfig.java",
+      "algoritmo": "SHA-256",
+      "digest": "31266181e7caf3b35c4c95368c7bed33da7d52c37606773b46e6b2d6a3cfd644"
+    }
+  ]
+}

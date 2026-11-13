@@ -1,5 +1,7 @@
 # Contrato da API de reservas
 
+**Atualização13/11/2026, developa0c0481:** PR#30/Q3 impede o Responsável de aprovar reserva da qual é solicitante, mesmo com vínculo completo; PR#31/Q1 torna início, conclusão e não comparecimento exclusivos de RESPONSAVEL. As regras foram [revalidadas por HTTP real e persistência](../testes/marcos-qualitygate-1-consolidacao-resultados.md). Os registros anteriores abaixo mantêm seu contexto; os perfis das rotas na tabela foram conciliados com o servidor atual.
+
 **Estado atualizado em 12/11/2026:** datas, PATCH conjunto e 409 aceitos por Marcos para o frontend em 10/11. Autenticação integrada; PRs #26/#27 entregaram consultas e Q9 na develop `4cea177`, incorporada à base `f9c4912`. [Contrato de consultas](reservas-consulta-contrato.md) e [provas reais da interface de edição/cancelamento](../testes/marcos-3-consulta-edicao-resultados.md). Os 8 endpoints de escrita continuam desligados por padrão (`reservas.api.enabled=false`); os testes isolados ativam a API somente no processo local com provedores reais. Isso não altera padrões de implantação nem comprova todos os estados, concorrência ou entrega de notificações. Ratificações coletivas/revisão da equipe permanecem separadas.
 
 **Leitura em contrato próprio:** `GET /api/reservas` e `GET /api/reservas/{id}` estão disponíveis conforme o [contrato de consultas](reservas-consulta-contrato.md), com Q9 aplicada no servidor. O endpoint de pesquisa/disponibilidade de recursos é `GET /api/recursos`; não há novo endpoint de disponibilidade de reserva. A [política Q9](reservas-politica-leitura-q9.md) continua distinta da gestão administrativa dos vínculos.
@@ -24,11 +26,11 @@ Todas as escritas, inclusive login/logout, usam o cabeçalho CSRF retornado pelo
 | `POST /api/reservas` | autenticado | `criar` | 201 |
 | `PATCH /api/reservas/{id}` | dono | `editar` | 200 |
 | `POST /api/reservas/{id}/cancelamento` | dono ou Administrador | `cancelar` | 200 |
-| `POST /api/reservas/{id}/aprovacao` | Responsável | `aprovar` | 200 |
+| `POST /api/reservas/{id}/aprovacao` | Responsável, exceto o próprio solicitante (Q3) | `aprovar` | 200 |
 | `POST /api/reservas/{id}/rejeicao` | Responsável | `rejeitar` | 200 |
-| `POST /api/reservas/{id}/inicio` | Responsável/Administrador (PROPOSTO) | `iniciarUso` | 200 |
-| `POST /api/reservas/{id}/conclusao` | Responsável/Administrador (PROPOSTO) | `concluir` | 200 |
-| `POST /api/reservas/{id}/nao-comparecimento` | Responsável/Administrador (PROPOSTO) | `registrarNaoComparecimento` | 200 |
+| `POST /api/reservas/{id}/inicio` | Responsável (Q1) | `iniciarUso` | 200 |
+| `POST /api/reservas/{id}/conclusao` | Responsável (Q1) | `concluir` | 200 |
+| `POST /api/reservas/{id}/nao-comparecimento` | Responsável (Q1) | `registrarNaoComparecimento` | 200 |
 
 ## Alterar reserva
 

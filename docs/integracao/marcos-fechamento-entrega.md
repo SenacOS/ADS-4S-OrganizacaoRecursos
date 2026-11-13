@@ -1,5 +1,9 @@
 # Marcos — sequência de entrega e pendências finais
 
+Checkpoint vigente13/11: os PRs#28/#29 estão mesclados na developa0c0481. Agora há **um único PR corretivo** preparado na branch `fix/marcos-qualitygate`, com correções dos auxiliares/evidências e [revalidação do backend atualizado](../testes/marcos-qualitygate-1-consolidacao-resultados.md). Commit/push/abertura desse PR foram autorizados por Marcos após validar; merge e mensagens adicionais permanecem separados. As instruções anteriores de dois PRs/ausência de merge abaixo são históricas.
+
+Atualização em13/11: PRs#28/#29 já abertos, ambos para develop, e aguardam correções/checks. Há correções locais de auxiliares/metadados nas duas árvores e [encaminhamento pronto](marcos-qualitygate-equipe-2026-11-13.md), sem publicação automática. [Resultados](../testes/marcos-qualitygate-1-resultados.md). As menções abaixo à ausência dos PRs são da conferência original12/11; não criar PRs duplicados.
+
 **Revisão do complemento aprovada por Marcos em12/11/2026**, sem ajuste solicitado. [Aceite](../testes/marcos-fechamento-e2e-1-aceite-2026-11-12.md). Os auxiliares/fontes/resultados permanecem preservados. A revisão do autor prevista no passo2 abaixo foi atendida; commit/push/PR e revisão/checks/merge mantêm seus próprios passos.
 
 Marcos solicitou depois o **commit local** do complemento. O commit que inclui esse registro identifica sua entrega local em `test/marcos-fechamento-e2e`; push e PR continuam separados. As descrições abaixo de testes ainda sem commit identificam a conferência original e não reescrevem a origem das evidências.

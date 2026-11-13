@@ -4,6 +4,8 @@
 
 Ready for Review
 
+Atualização histórica de integridade em13/11: os JSONs dessa execução foram reprojetados sem perda para formato explícito de artefatos, com originais5537163 preservados. Auxiliares receberam correções próprias na [story de Quality Gate](marcos-qualitygate-1.md); provas novas e hashes corrigidos são separados. Os resultados/QA abaixo conservam a versão e o momento anteriores, sem reatribuição de testes ao código novo.
+
 **Aceite posterior em12/11/2026:** Marcos aprovou a revisão das evidências e da sequência de entrega, sem ajuste solicitado. [Registro e alcance](../testes/marcos-fechamento-e2e-1-aceite-2026-11-12.md). Não houve mudança de produto/auxiliares ou nova execução de testes. O veredicto QA abaixo conserva o momento anterior a esse aceite; commit/publicação/revisão da equipe/checks/merge continuam separados.
 
 Continuidade autorizada por Marcos em **12/11/2026**, após informar o push de `0775715` em `feature/marcos-reservas-consulta`. O agente principal confirmou a referência e a árvore inicialmente limpa, e criou `test/marcos-fechamento-e2e` sobre essa base, preservando commits/evidências existentes. Esta story autoriza preparação e validação locais, sem commit, push, PR ou merge automáticos.

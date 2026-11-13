@@ -1,5 +1,7 @@
 # Complemento real de fechamento — etapas 1 a 5
 
+**Formato de integridade atualizado em13/11/2026:** os três JSONs históricos sinalizados pelo Sonar agora usam `versaoFormato:2` e `artefatos:[{arquivo,algoritmo,digest}]`. São os mesmos35pares SHA256 de cada original5537163; demais campos/resultados permaneceram idênticos. [Equivalência e correções](marcos-qualitygate-1-resultados.md). Os hashes antigos dos auxiliares continuam identificando a execução original, não a implementação corrigida de13/11. Novas reexecuções/hashes têm provas próprias no relatório da correção.
+
 **Aceite posterior:** Marcos aprovou a revisão das evidências e da sequência de entrega em12/11/2026. [Registro e alcance](marcos-fechamento-e2e-1-aceite-2026-11-12.md). Sem alteração de produto/auxiliares ou nova execução; as menções abaixo a aceite do autor pendente são históricas. Commit/publicação/revisão da equipe/checks/merge continuam separados.
 
 Execução em **12/11/2026**, Windows, branch **test/marcos-fechamento-e2e**, criada sobre **0775715d5a769d726e5cc63dc1b4125747084ff8** após confirmação do push de Marcos. Helpers/documentação deste incremento ainda sem commit. Produto, configuração, dependências e testes da regressão frontend permanecem inalterados. [Story](../stories/marcos-fechamento-e2e-1.md).

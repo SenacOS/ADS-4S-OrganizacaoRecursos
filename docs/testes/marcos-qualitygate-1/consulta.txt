@@ -1,0 +1,9 @@
+PASS Arquivos da nova interface efetivamente servidos pelo JAR
+PASS Lista/detalhe do dono e PATCH completo sem perda de fração
+PASS Conflito real 409 preserva reserva e exige reconsulta antes de nova escrita
+PASS Editar um horário e adicionar recurso mantém o outro e todos os originais
+PASS Responsável autorizado consulta sem herdar edição/cancelamento do dono
+PASS Cancelamento do dono confirma estado sem apagar histórico
+PASS Administrador cancela reserva alheia sem obter edição
+PASS Detalhe móvel real e persistência do cancelamento
+{"pasta":".aiox-core\\local\\e2e\\consulta-reservas\\2026-11-13T13-02-30-552Z","resumo":{"PASS":8,"FAIL":0}}

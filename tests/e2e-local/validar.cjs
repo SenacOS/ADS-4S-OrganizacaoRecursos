@@ -5,9 +5,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const assert = require('node:assert/strict');
-const { execFileSync } = require('node:child_process');
 const { chromium, request, expect } = require('@playwright/test');
-const { repo, dir, ferramentas, credenciais, estado, sql, pronto } = require('./controle.cjs');
+const { repo, dir, ferramentas, comandos, credenciais, estado, sql, pronto } = require('./controle.cjs');
 
 const run = new Date().toISOString().replaceAll(/[:.]/g, '-');
 const sufixo = crypto.randomBytes(5).toString('hex');
@@ -15,8 +14,8 @@ const pasta = path.join(dir, 'resultados', run);
 fs.mkdirSync(pasta, { recursive: true });
 const relatorio = {
   inicio: new Date().toISOString(), baseURL: estado.baseURL,
-  base: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: repo, encoding: 'utf8' }).trim(),
-  branch: execFileSync('git', ['branch', '--show-current'], { cwd: repo, encoding: 'utf8' }).trim(),
+  base: comandos.git(['rev-parse', 'HEAD'], { cwd: repo, encoding: 'utf8' }).trim(),
+  branch: comandos.git(['branch', '--show-current'], { cwd: repo, encoding: 'utf8' }).trim(),
   arvore: 'worktree sem commit; hashes dos arquivos efetivamente usados abaixo',
   ferramentas: { java: ferramentas.jdkVersion, maven: ferramentas.mavenVersion, mysql: ferramentas.mysqlVersion },
   camadas: 'API HTTP real e Chrome headless real; sem route/intercept/mock. SQL somente SELECT para conferir persistência.',
@@ -26,7 +25,7 @@ for (const arquivo of ['backend/src/main/resources/static/js/administracao-recur
   'backend/src/main/resources/static/js/datas.js', 'tests/unit/frontend/administracao-recursos.test.js',
   'tests/unit/frontend/recursos-datas.test.js', 'tests/unit/frontend/movimentacoes.test.js',
   'tests/browser/movimentacoes.spec.js', 'tests/e2e-local/controle.cjs',
-  'tests/e2e-local/validar.cjs', 'backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar']) {
+  'tests/e2e-local/validar.cjs', 'tests/e2e-local/executaveis.cjs', 'tests/e2e-local/configuracao-local.cjs', 'backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar']) {
   relatorio.hashes[arquivo] = crypto.createHash('sha256').update(fs.readFileSync(path.join(repo, arquivo))).digest('hex');
 }
 const salvar = () => fs.writeFileSync(path.join(pasta, 'resultados.json'), JSON.stringify(relatorio, null, 2) + '\n');

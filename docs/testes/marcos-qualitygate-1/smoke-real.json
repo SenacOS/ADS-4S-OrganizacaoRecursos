@@ -1,0 +1,283 @@
+{
+  "inicio": "2026-11-13T13:02:17.019Z",
+  "baseURL": "http://127.0.0.1:18080",
+  "base": "5537163108e3ea2c0645b04f6fd621e7208da587",
+  "branch": "test/marcos-fechamento-e2e",
+  "arvore": "worktree sem commit; hashes dos arquivos efetivamente usados abaixo",
+  "ferramentas": {
+    "java": "21.0.13+9",
+    "maven": "3.9.16",
+    "mysql": "8.4.13",
+    "chrome": "157.0.8103.78"
+  },
+  "camadas": "API HTTP real e Chrome headless real; sem route/intercept/mock. SQL somente SELECT para conferir persistência.",
+  "cenarios": [
+    {
+      "nome": "Flyway e identidade da base isolada",
+      "camada": "SQL real",
+      "inicio": "2026-11-13T13:02:18.024Z",
+      "evidencia": {
+        "migracoes": [
+          "1\titem18\t1",
+          "2\tperfil usuarios\t1",
+          "3\tauditoria\t1",
+          "4\tnotificacoes\t1",
+          "5\tindice fila aprovacao\t1",
+          "6\tresponsaveis recursos\t1"
+        ],
+        "banco": "qs_marcos_e2e",
+        "porta": 13307
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Arquivos servidos pelo JAR correspondem à fonte testada",
+      "camada": "HTTP real + SHA256",
+      "inicio": "2026-11-13T13:02:18.099Z",
+      "evidencia": {
+        "datas.js": "44f35755602a1043e5126ed4807f5b0b31bc273908c7e4d079d6df34a9636bbe",
+        "administracao-recursos.js": "b3885630bcaaad766275d14599855d657753e7cfe80ed8df2fad90f77589e70a"
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Sem sessão retorna 401 NAO_AUTENTICADO",
+      "camada": "HTTP real",
+      "inicio": "2026-11-13T13:02:18.123Z",
+      "evidencia": {
+        "status": 401,
+        "codigo": "NAO_AUTENTICADO"
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Bootstrap local e cadastro dos outros dois perfis",
+      "camada": "HTTP real",
+      "inicio": "2026-11-13T13:02:18.140Z",
+      "evidencia": {
+        "perfis": [
+          "ADMINISTRADOR",
+          "SOLICITANTE",
+          "RESPONSAVEL"
+        ],
+        "usuariosIds": {
+          "admin": 1,
+          "solicitante": 2,
+          "responsavel": 3
+        }
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "CSRF real e escritas proibidas por perfil",
+      "camada": "HTTP real",
+      "inicio": "2026-11-13T13:02:18.732Z",
+      "evidencia": {
+        "semCsrf": 403,
+        "solicitanteCadastrandoRecurso": 403,
+        "administradorRetirando": 403
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Expediente e recursos exclusivos da rodada",
+      "camada": "HTTP real; preparação",
+      "inicio": "2026-11-13T13:02:18.758Z",
+      "evidencia": {
+        "material": 114,
+        "restrito": 115,
+        "janelas": 7
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Login e cookie HttpOnly nos três perfis",
+      "camada": "Chrome + HTTP reais",
+      "inicio": "2026-11-13T13:02:19.395Z",
+      "evidencia": {
+        "perfis": 3,
+        "cookie": {
+          "nome": "JSESSIONID",
+          "httpOnly": true,
+          "sameSite": "Lax",
+          "ambiente": "HTTP loopback"
+        }
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Cadastro dos três tipos e edição de competências",
+      "camada": "Chrome + HTTP + MySQL reais",
+      "inicio": "2026-11-13T13:02:21.097Z",
+      "evidencia": {
+        "sala": 116,
+        "docente": 117,
+        "material": 118
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Expediente completo salvo sem perda de frações",
+      "camada": "Chrome + HTTP reais",
+      "inicio": "2026-11-13T13:02:22.049Z",
+      "evidencia": {
+        "janelas": 7,
+        "fim": "23:59:59.999999"
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Criar/cancelar bloqueio e desativar sala",
+      "camada": "Chrome + HTTP reais",
+      "inicio": "2026-11-13T13:02:22.175Z",
+      "evidencia": {
+        "bloqueio": 8,
+        "status": "CANCELADO",
+        "salaDesativada": 116
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Pesquisar e criar reserva comum com offset de São Paulo",
+      "camada": "Chrome + HTTP reais",
+      "inicio": "2026-11-13T13:02:22.725Z",
+      "evidencia": {
+        "id": 96,
+        "status": "APROVADA",
+        "inicio": "2026-11-13T10:00:00-03:00",
+        "fim": "2026-11-13T10:45:00-03:00",
+        "recursosIds": [
+          114
+        ]
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Reserva restrita, conflito e PATCH/cancelamento conhecidos por ID",
+      "camada": "HTTP real; não é tela de edição",
+      "inicio": "2026-11-13T13:02:23.330Z",
+      "evidencia": {
+        "restrita": 97,
+        "criacao": "SOLICITADA",
+        "patch": 200,
+        "cancelamento": 200,
+        "conflito": 409
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Retirada e devolução pelo Responsável",
+      "camada": "Chrome + HTTP reais",
+      "inicio": "2026-11-13T13:02:23.449Z",
+      "evidencia": {
+        "movimentacao": 12,
+        "reserva": 96,
+        "devolvidoPor": 3,
+        "atrasoSegundos": 0
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Leituras de reservas disponíveis após PR26",
+      "camada": "HTTP real; própria reserva e escopo vazio",
+      "inicio": "2026-11-13T13:02:24.232Z",
+      "evidencia": {
+        "detalhe": 200,
+        "propriaReserva": 96,
+        "filaSemVinculo": {
+          "status": 200,
+          "total": 0
+        }
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Logout real dos três perfis e ausência de erros JavaScript",
+      "camada": "Chrome + HTTP reais",
+      "inicio": "2026-11-13T13:02:24.268Z",
+      "evidencia": {
+        "logouts": 3,
+        "meAposLogout": 401,
+        "errosJavaScript": 0
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Persistência, auditoria e outbox real",
+      "camada": "SELECT no MySQL real",
+      "inicio": "2026-11-13T13:02:25.128Z",
+      "evidencia": {
+        "recursos": "MATERIAL\tE2E-material-cf78d436d9\t1\r\nMATERIAL\tE2E-restrito-cf78d436d9\t1\r\nSALA\tUI-SALA-cf78d436d9\t0\r\nPROFESSOR\tUI-PROFESSOR-cf78d436d9\t1\r\nMATERIAL\tUI-MATERIAL-cf78d436d9\t1",
+        "reservas": "96\tAPROVADA\t2\r\n97\tCANCELADA\t2",
+        "movimentacao": "12\t96\t3\t3\t1\t0",
+        "auditoria": "EXPEDIENTE\tEDICAO\t1\r\nRECURSO\tCRIACAO\t2",
+        "notificacoes": "MATERIAL_DEVOLVIDO\tPENDENTE\t1\r\nRESERVA_APROVADA\tPENDENTE\t1\r\nRESERVA_CANCELADA\tPENDENTE\t1\r\nRESERVA_CRIADA\tPENDENTE\t2"
+      },
+      "estado": "PASS"
+    }
+  ],
+  "fim": "2026-11-13T13:02:25.554Z",
+  "resumo": {
+    "PASS": 16,
+    "FAIL": 0,
+    "BLOQUEADO": 0
+  },
+  "versaoFormato": 2,
+  "artefatos": [
+    {
+      "arquivo": "backend/src/main/resources/static/js/administracao-recursos.js",
+      "algoritmo": "SHA-256",
+      "digest": "b3885630bcaaad766275d14599855d657753e7cfe80ed8df2fad90f77589e70a"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/datas.js",
+      "algoritmo": "SHA-256",
+      "digest": "44f35755602a1043e5126ed4807f5b0b31bc273908c7e4d079d6df34a9636bbe"
+    },
+    {
+      "arquivo": "tests/unit/frontend/administracao-recursos.test.js",
+      "algoritmo": "SHA-256",
+      "digest": "72aef55369da2448e7656901c3dc995a885c278acfaf05ab4f793cf952b5515a"
+    },
+    {
+      "arquivo": "tests/unit/frontend/recursos-datas.test.js",
+      "algoritmo": "SHA-256",
+      "digest": "993b549df6cba481698b9db37d695258e69886d49fac5e3ec68f5ba1c4ab30c5"
+    },
+    {
+      "arquivo": "tests/unit/frontend/movimentacoes.test.js",
+      "algoritmo": "SHA-256",
+      "digest": "9db80b2ec8e74da65bf4bbae83b67b2d8696648ea2d35bf75b9127a54b967e43"
+    },
+    {
+      "arquivo": "tests/browser/movimentacoes.spec.js",
+      "algoritmo": "SHA-256",
+      "digest": "e899ad2cfcf9a74c6a843e21b680911d7599837b89f36921d2bebdc8891d6dc1"
+    },
+    {
+      "arquivo": "tests/e2e-local/controle.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "e68b5f04d9a9d31bc9ff29cb86e5454f7707a6693c1833abbd6d0d117268df06"
+    },
+    {
+      "arquivo": "tests/e2e-local/validar.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "fb634ba1c769fd7b3e7d20f42d914abea313a9f8396ec955464c4b887739c318"
+    },
+    {
+      "arquivo": "tests/e2e-local/executaveis.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "f3c344d74dbbad3b8b7962962daaa5e13f5e87a1230657892c4022afec44abdd"
+    },
+    {
+      "arquivo": "tests/e2e-local/configuracao-local.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "5c0687d08a0fad2287c75d365f8b8e62c2b162fe2abdbe9853e35c8e819b4bc6"
+    },
+    {
+      "arquivo": "backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar",
+      "algoritmo": "SHA-256",
+      "digest": "6d84690abcf10e7c1b811875b8a8d726b9857afca670bccfee222dd62923fe20"
+    }
+  ]
+}
