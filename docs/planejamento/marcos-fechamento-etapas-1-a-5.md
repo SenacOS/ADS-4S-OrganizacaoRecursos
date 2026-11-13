@@ -1,6 +1,19 @@
 # Marcos — plano de fechamento das etapas 1 a 5
 
-## Checkpoint vigente — decisões e demonstração delegadas
+## Checkpoint vigente — encerramento integrado em13/11/2026
+
+**Entrega das etapas 1 a 5 integrada à develop e encerrada no escopo de Marcos.** [PR #36](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/36) aprovado por jovemOG-Dev e mesclado em **c4279b6**; contratos/ADR-007, operação dos vínculos, RF11 simulada, evidências e aceite do autor entregues. [Registro verificável](../testes/marcos-encerramento-etapas-1-a-5-2026-11-13.json).
+
+Quality Gate do #36 **OK**; testes Java/MySQL, JaCoCo e JMeter aprovados na CI43472622587. A conclusão global continua failure no scanner Maven por autorização/projeto, com tratamento compartilhado temporariamente não bloqueante da implementação por orientação de Marcos. CodeRabbit local continua indisponível, sem aprovação presumida. Isso não declara toda a CI verde nem certifica requisitos globais/produção.
+
+A base foi sincronizada por fetch e branch documental própria em **c4279b6**, contendo também o [PR #37](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/37). Esse PR acrescenta a porta/projeção/adaptador MySQL do RF12 e7testes de integração aprovados na CI43474698759; **não entrega serviço/agregação, DTO ou endpoint HTTP de relatório**. RF12/etapa6 é continuidade distinta, fora deste encerramento.
+
+Frontend, procedimentos e auxiliares das etapas1a5 permanecem byte a byte como no headbe1dbc7 do #36. A diferença até a base sincronizada contém somente os4arquivos RF12 novos. Não foram repetidos frontend/demo/Maven nem reconstruído JAR nesta conferência; provas8/0,81/278, tentativas e respectivos hashes mantêm suas origens.
+
+Este registro pós-merge é exclusivamente documental. Marcos autorizou seu commit e push; o commit que inclui este checkpoint identifica a entrega na branch `docs/marcos-encerramento-etapas-1-a-5`. A integração desse registro conserva o fluxo de revisão/PR próprio. Não há nova implementação, decisão ou operação local pendente no plano1a5; a aplicação do runbook no ambiente compartilhado e os controles de produção conservam seus registros próprios.
+
+
+## Checkpoint histórico — decisões e demonstração delegadas
 
 **Aceite do incremento em13/11/2026:** Marcos aprovou os resultados e solicitou o commit local na branch `feature/marcos-fechamento-delegado`. Revisão do autor concluída, sem ajuste solicitado. O commit que inclui este registro identifica a entrega; publicação/PR e integração mantêm seus próximos passos. Os relatos de revisão ainda pendente abaixo conservam a preparação anterior.
 
@@ -15,7 +28,7 @@ As menções anteriores a ratificação por integrante, processo indefinido ou m
 
 Conferência atual: **13/11/2026**, America/Sao_Paulo. Responsável: **Marcos Boé**.
 
-**Estado: IMPLEMENTAÇÃO E CENÁRIOS MÍNIMOS CONCLUÍDOS; FECHAMENTO DOCUMENTAL E REVISÃO FINAL EM ANDAMENTO.**
+**Estado histórico anterior ao merge #36: implementação/cenários mínimos concluídos; entrega ainda em revisão naquela conferência. Estado vigente: encerrado no checkpoint inicial.**
 
 ## Checkpoint histórico — publicação, Quality Gate e fechamento
 
@@ -458,20 +471,19 @@ Provas de segurança, persistência, auditoria, notificação e concorrência pe
 - [x] Lacuna específica Q8/MySQL atendida e referenciada pela CI do #34,9testes sem falhas; limites da concorrência/notificação preservados.
 - [x] Evidências compartilhadas já disponíveis relacionadas à matriz e aos logs da CI, preservando limites e origens.
 - [x] Contratos, processo dos vínculos e modo RF11 decididos sob delegação de Marcos e registrados no ADR-007/runbooks/provas próprias; sem concordâncias individuais inventadas.
-- [ ] Publicação e revisão/integração da conciliação documental concluídas; commit/push/PR autorizados por Marcos nesta rodada.
-- [ ] Encerramento formal do recorte após revisão do autor, publicação e integração; operação de ambiente compartilhado conserva seu registro próprio.
+- [x] Conciliação publicada/revisada/integrada pelo #35 e complemento delegado pelo #36; merge/revisão humana confirmados.
+- [x] Recorte das etapas1a5 encerrado após aceite do autor, commit/push, revisão humana e merge do #36; este registro documental pós-merge não cria pendência funcional. Operação de ambiente compartilhado conserva seu registro próprio.
 
 O erro compartilhado do scanner permanece acompanhado pela equipe sem bloquear a implementação do Marcos por ora, conforme sua orientação. Isso não elimina a revisão/merge nem declara RFs globais encerrados.
 
-## 13. Continuidade após a delegação
+## 13. Continuidade após o encerramento
 
-| Ação | Responsável / condição |
+| Ação | Estado / responsabilidade |
 |---|---|
-| Conferir/publicar esta conciliação de plano, RTM, índice, stories e encaminhamento. | Marcos revisa; commit/push seguem o fluxo da sessão. |
-| Publicar a conciliação em branch documental própria. | #32/#33/#34 já revisados e integrados; commit/push desta documentação seguem o fluxo. |
-| Decisões delegadas registradas; preparar operação da demonstração conforme runbook. | Marcos coordena, Administrador autoriza e operador SQL executa; não aguardar novas assinaturas individuais para decisões já delegadas. |
-| Revisar as provas do novo recorte de operação/RF11. | [Resultados delegados](../testes/marcos-fechamento-delegado-1-resultados.md); evidências anteriores preservadas. |
-| Conferir base do futuro PR documental. | Trabalho já sobre develop1948e69; preservar alterações até sua publicação. |
+| Entrega funcional e decisões das etapas1a5 | Concluídas, aceitas e integradas pelo #36. |
+| Registro documental pós-merge | Preparado nesta branch; commit/publicação seguem o fluxo. |
+| Uso do procedimento no ambiente compartilhado | Administrador autoriza e operador aplica o runbook com IDs/credenciais daquele ambiente; não é operação executada pela conferência documental. |
+| Futuro RF12/etapa6 | #37 entregou só a leitura persistida; serviço/API/DTO e frontend exigem story/contrato próprios antes de iniciar. |
 
 GETs, edição/cancelamento, ambiente real e cenários mínimos não aguardam nova implementação. Nenhuma nova tela/endpoint ou teste adicional é criado apenas para preencher registros históricos desatualizados.
 
@@ -479,7 +491,7 @@ GETs, edição/cancelamento, ambiente real e cenários mínimos não aguardam no
 
 O recorte documental anterior é rastreado na story Marcos-qualitygate-1; o incremento atual delegado inclui procedimentos SQL/runbook, auxiliar opt-in e demonstração RF11/Q9 reais, sem mudança de produto. Conferir referências/PRs, links, File List, digests e resultados; build81/278 e8cenários da demonstração aprovados. Marcos revisa o incremento; commit/push seguem solicitação própria. A delegação foi registrada como decisão de Marcos, sem assinaturas individuais inventadas, mensagem externa ou merge automático.
 
-Próximo checkpoint: revisão/commit/publicação desta conciliação, com #32/#33/#34 integrados e base sincronizada, e registro das confirmações compartilhadas. Relatórios da etapa 6 e certificação global da etapa 7 permanecem fora do fechamento do frontend até a etapa 5.
+Próximo checkpoint: commit/publicação deste registro de encerramento integrado; #35/#36/#37 conferidos e basec4279b6 sincronizada. Decisões delegadas e demonstração já encerradas no recorte1a5. Relatórios da etapa 6 e certificação global da etapa 7 permanecem fora do fechamento do frontend até a etapa 5.
 
 ## 15. Fontes para retomar o contexto
 
