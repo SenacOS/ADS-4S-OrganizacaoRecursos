@@ -1,5 +1,16 @@
 # Marcos Boé — responsabilidades e plano de ação
 
+## Fechamento delegado — 13/11/2026
+
+Marcos comunicou carta branca da equipe e adotou as decisões do [ADR-007](../arquitetura/adr/ADR-007-fechamento-contratos-vinculos-rf11.md). Os contratos atuais, incluindo vínculo com todos os recursos, ficam formalizados **por decisão delegada de Marcos**, sem atribuir assinaturas individuais aos demais integrantes. Datas com offset, PATCH conjunto,409/FORA_DO_EXPEDIENTE, estados/perfis de edição/cancelamento e escopos/erros Q9 permanecem como implementados; Q1/Q3/Q8 preservadas.
+
+Processo de vínculos definido no [runbook restrito](../operacao/vinculos-responsaveis.md), com [SQL reutilizável](../operacao/vinculos-responsaveis.sql). Administrador autoriza, operador SQL executa pares explícitos com referência/registro; concessão exige RESPONSAVEL e recurso ativos, revogação remove pares obsoletos e é idempotente.
+
+RF11 adotada no **modo simulado real** previsto no ADR-006: base/processo exclusivos, worker e GatewayNotificacaoPadrao reais, URL vazia, log rastreável e ENVIADA na outbox. Sem envio externo. [Procedimento de demonstração](../operacao/demonstracao-fechamento.md), [story](../stories/marcos-fechamento-delegado-1.md) e [resultados/limites](../testes/marcos-fechamento-delegado-1-resultados.md). A execução local não é implantação no ambiente compartilhado.
+
+As menções anteriores a ratificação por integrante, processo indefinido ou modo RF11 aguardando decisão são históricas e foram superadas por esta delegação. Resultados antigos conservam sua origem. Restam revisão do incremento pelo autor, commit/publicação quando solicitados e revisão/integração dos PRs; não há fechamento global de todos os RFs por inferência.
+
+
 **Checkpoint vigente de fechamento em12/11:** frontend aceito enviado em0775715; novo complemento em `test/marcos-fechamento-e2e` com **11/0 reais**, sem alterar produto. Timeout genuíno, login/CSRF, pesquisa, disputa/estado concorrente e atraso de devolução agora têm provas próprias. [Matriz/resultados](../testes/marcos-fechamento-e2e-1-resultados.md), [sequência de entrega/PR](../integracao/marcos-fechamento-entrega.md). Restam revisão/commit solicitado do complemento, PRs/checks/merges e confirmações compartilhadas; leituras/telas não são novas pendências. Os relatos seguintes são históricos.
 
 **Aceite posterior do complemento Marcos-3:** Marcos confirmou os testes, aprovou a revisão visual e autorizou commit local em 12/11. [Registro](../testes/marcos-3-consulta-edicao-aceite-visual-2026-11-12.md). Próximos checkpoints são publicação/PR conforme solicitação, revisão da equipe, checks/merge e cenários integrados restantes. Os estados anteriores abaixo conservam seu momento; não há novo bloqueio de GET/Q9 ou de aceite visual deste incremento.

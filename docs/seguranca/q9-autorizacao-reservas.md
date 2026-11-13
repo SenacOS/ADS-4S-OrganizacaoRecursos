@@ -1,5 +1,16 @@
 # Q9 — controles de acesso em consultas e decisões de reservas
 
+## Fechamento delegado — 13/11/2026
+
+Marcos comunicou carta branca da equipe e adotou as decisões do [ADR-007](../arquitetura/adr/ADR-007-fechamento-contratos-vinculos-rf11.md). Os contratos atuais, incluindo vínculo com todos os recursos, ficam formalizados **por decisão delegada de Marcos**, sem atribuir assinaturas individuais aos demais integrantes. Datas com offset, PATCH conjunto,409/FORA_DO_EXPEDIENTE, estados/perfis de edição/cancelamento e escopos/erros Q9 permanecem como implementados; Q1/Q3/Q8 preservadas.
+
+Processo de vínculos definido no [runbook restrito](../operacao/vinculos-responsaveis.md), com [SQL reutilizável](../operacao/vinculos-responsaveis.sql). Administrador autoriza, operador SQL executa pares explícitos com referência/registro; concessão exige RESPONSAVEL e recurso ativos, revogação remove pares obsoletos e é idempotente.
+
+RF11 adotada no **modo simulado real** previsto no ADR-006: base/processo exclusivos, worker e GatewayNotificacaoPadrao reais, URL vazia, log rastreável e ENVIADA na outbox. Sem envio externo. [Procedimento de demonstração](../operacao/demonstracao-fechamento.md), [story](../stories/marcos-fechamento-delegado-1.md) e [resultados/limites](../testes/marcos-fechamento-delegado-1-resultados.md). A execução local não é implantação no ambiente compartilhado.
+
+As menções anteriores a ratificação por integrante, processo indefinido ou modo RF11 aguardando decisão são históricas e foram superadas por esta delegação. Resultados antigos conservam sua origem. Restam revisão do incremento pelo autor, commit/publicação quando solicitados e revisão/integração dos PRs; não há fechamento global de todos os RFs por inferência.
+
+
 ## Implementação integrada e conexão da fila
 
 - GET /api/reservas e GET /api/reservas/{id}, sob reservas.api.enabled=true, usam sempre o ator autenticado da sessão.
@@ -32,7 +43,7 @@ Fila, listagem e detalhe usam o mesmo predicado SQL de `ReservaAcessoMysql`. Ele
 
 ## Regra conservadora para reservas com vários recursos
 
-**Proposta sujeita a ratificação de Silva, Fausto e Marcos:** acesso de RESPONSAVEL à leitura completa e às decisões exige vínculo com todos os recursos da reserva. Exemplo: se A responde pela sala e B pelo projetor, nenhum dos dois pode consultar os detalhes completos nem decidir até que exista um responsável autorizado para ambos. Isto evita vazamento de informações de recursos alheios e decisões parciais sem contrato de aprovação conjunta.
+**Regra adotada sob delegação de Marcos no ADR-007:** acesso de RESPONSAVEL à leitura completa e às decisões exige vínculo com todos os recursos da reserva. Exemplo: se A responde pela sala e B pelo projetor, nenhum dos dois pode consultar os detalhes completos nem decidir até que exista um responsável autorizado para ambos. A decisão não atribui assinaturas individuais à equipe nem cria aprovação parcial.
 
 Essa regra é mais restritiva que a frase geral "vê reservas dos seus recursos". A equipe deve decidir se futuramente precisa de um mecanismo de aprovação parcial por recurso; **não se deve trocar para OR/permissão de qualquer recurso** sem projeto e testes apropriados.
 

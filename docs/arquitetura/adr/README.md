@@ -11,4 +11,6 @@
 | [ADR-005](ADR-005-politicas-de-reserva.md) | SOLICITADA, aprovação, materiais individualizados | APROVADO |
 | [ADR-006](ADR-006-timezone-expediente-notificacoes.md) | Timezone, expediente e notificações simuladas | APROVADO (timezone provisório) |
 
+| [ADR-007](ADR-007-fechamento-contratos-vinculos-rf11.md) | Contratos atuais, operação restrita dos vínculos e RF11 simulada | ADOTADO SOB DELEGAÇÃO DE MARCOS13/11/2026; execução/evidência próprias, sem assinatura individual atribuída |
+
 Formato: contexto, decisão, alternativas, consequências. Alterar uma decisão exige novo ADR que a substitua, apontando o impacto em requisitos, testes e documentação.

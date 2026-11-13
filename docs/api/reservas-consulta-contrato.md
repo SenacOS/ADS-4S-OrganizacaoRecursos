@@ -1,5 +1,16 @@
 # Reservas — consultas entregues no PR #26
 
+## Fechamento delegado — 13/11/2026
+
+Marcos comunicou carta branca da equipe e adotou as decisões do [ADR-007](../arquitetura/adr/ADR-007-fechamento-contratos-vinculos-rf11.md). Os contratos atuais, incluindo vínculo com todos os recursos, ficam formalizados **por decisão delegada de Marcos**, sem atribuir assinaturas individuais aos demais integrantes. Datas com offset, PATCH conjunto,409/FORA_DO_EXPEDIENTE, estados/perfis de edição/cancelamento e escopos/erros Q9 permanecem como implementados; Q1/Q3/Q8 preservadas.
+
+Processo de vínculos definido no [runbook restrito](../operacao/vinculos-responsaveis.md), com [SQL reutilizável](../operacao/vinculos-responsaveis.sql). Administrador autoriza, operador SQL executa pares explícitos com referência/registro; concessão exige RESPONSAVEL e recurso ativos, revogação remove pares obsoletos e é idempotente.
+
+RF11 adotada no **modo simulado real** previsto no ADR-006: base/processo exclusivos, worker e GatewayNotificacaoPadrao reais, URL vazia, log rastreável e ENVIADA na outbox. Sem envio externo. [Procedimento de demonstração](../operacao/demonstracao-fechamento.md), [story](../stories/marcos-fechamento-delegado-1.md) e [resultados/limites](../testes/marcos-fechamento-delegado-1-resultados.md). A execução local não é implantação no ambiente compartilhado.
+
+As menções anteriores a ratificação por integrante, processo indefinido ou modo RF11 aguardando decisão são históricas e foram superadas por esta delegação. Resultados antigos conservam sua origem. Restam revisão do incremento pelo autor, commit/publicação quando solicitados e revisão/integração dos PRs; não há fechamento global de todos os RFs por inferência.
+
+
 Conferência do frontend em 12/11/2026, develop `3f2a9a3`. GETs implementados e exercitados com Spring/MySQL reais na [integração Q9](../testes/marcos-integracao-q9-1-resultados.md). O aceite de Marcos para consumir o comportamento atual não equivale à ratificação de todos os integrantes.
 
 Revalidação posterior na develop **4cea177**, após PR #27: contrato externo preservado, fila encaminhada ao caso de uso/adaptador existente e predicado Q9 compartilhado. [10 cenários reais aprovados](../testes/marcos-integracao-q9-1-pr27-resultados.md), incluindo paginação vazia e revogação de consulta/decisão.
@@ -18,7 +29,7 @@ Revalidação posterior na develop **4cea177**, após PR #27: contrato externo p
 
 O ator vem da sessão; filtros não ampliam o escopo. Fora do escopo ou inexistente no detalhe: 404 `NAO_ENCONTRADO`. Sem sessão: 401; parâmetro inválido: 400 `REQUISICAO_INVALIDA`; escrita sem autorização: 403. Mantém-se o envelope de erro `{codigo,mensagem,correlationId}` e CSRF dinâmico em toda escrita.
 
-Marcos aceitou em 12/11 consumir a regra de todos os recursos. A ratificação coletiva dessa regra conservadora e o processo administrativo de manutenção dos vínculos permanecem pendentes. V6 cria `responsaveis_recursos` vazia; não há endpoint público de concessão. Os vínculos desta validação foram criados apenas na base isolada e para IDs de teste identificados.
+Marcos aceitou em12/11 consumir a regra de todos os recursos e a adotou sob delegação no ADR-007 em13/11. O processo administrativo de vínculos está definido e demonstrado no recorte delegado. V6 cria `responsaveis_recursos` vazia; não há endpoint público de concessão. As provas usam bases/IDs próprios, sem provisionar automaticamente o ambiente compartilhado.
 
 Leitura permitida não concede edição/cancelamento. A [interface geral implementada localmente](../stories/marcos-3-consulta-edicao.md) usa as regras de escrita atuais e exige GET de detalhe antes dessas ações; [provas e limites](../testes/marcos-3-consulta-edicao-resultados.md). A fila já usa a projeção suficiente para avaliar sem exigir GET de detalhe separado.
 

@@ -1,0 +1,16 @@
+> build
+> npm run lint && npm run typecheck && npm test
+> lint
+> eslint backend/src/main/resources/static/js tests/unit/frontend tests/browser eslint.config.js playwright.config.js
+> typecheck
+> tsc --project jsconfig.json
+> test
+> npm run test:unit && npm run test:browser
+> test:unit
+> node --test tests/unit/frontend/*.test.js
+ℹ tests 81
+ℹ pass 81
+ℹ fail 0
+> test:browser
+> playwright test
+  278 passed (2.8m)
