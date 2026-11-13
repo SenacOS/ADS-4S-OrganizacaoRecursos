@@ -1,5 +1,25 @@
 # Matriz de rastreabilidade - item 18
 
+
+## Estado vigente do frontend — pós-merges #32/#33
+
+**Alinhamento para publicação:** Marcos autorizou publicar a conciliação e informou que ainda não recebeu confirmações novas. [Pendências por responsável e texto pronto para encaminhar](integracao/marcos-pendencias-fechamento-2026-11-13.md). Evidências compartilhadas RF10/RF11/segurança agora relacionadas à CI43447037478: auditoria MySQL5, auditoria de usuário1 e controller4; outbox MySQL8 com gateway Mockito; gateway HTTP WireMock5; sessão/segurança/Q9 conforme matriz. Isso comprova os recortes executados, sem transformar gateway de teste em recebimento externo ou ratificação contratual. O modo de demonstração/aceite RF11 ainda exige confirmação da responsável. Commit/push/PR documental autorizados; nenhuma mensagem externa ou merge automático.
+
+
+**Atualização Q8/MySQL:** [PR #34](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/34) aprovado por Marcos e mesclado1948e69;9testes ReservaAprovacaoMysqlIT aprovados na CI43447037478 (incluídos nos66MySQL), mais261unitários/HTTP, JaCoCo/JMeter aprovados. [Evidências e limites](testes/marcos-q8-pr34-evidencias.json). Base documental atual1948e69, onze documentos preservados antes do fast-forward. Sem mudança de produção/reexecução local nesta rodada; scanner compartilhado continua com tratamento já alinhado. A lacuna específica Q8/MySQL está relacionada; ratificação contratual, operação dos vínculos, demais provas compartilhadas e publicação documental continuam separadas.
+
+Os parágrafos seguintes registram a sincronização e os testes locais anteriores ao #34; a base vigente é1948e69.
+
+
+RFs do cliente até a etapa5 implementados/aceitos e integrados. #32 aprovado por outro integrante e mesclado3e1a2a0; #33/Q8 aprovado por Marcos e integrado62cd48f. Base documental atual62cd48f, branch `docs/marcos-fechamento-etapas`, com dez arquivos preservados antes da troca. Revalidação direcionada:8unitários Q8 com AmbienteFake e12cenários reais Q9/Q1/Q3 com JAR novo. Não certifica negativos Q8/locks/rollback MySQL nem repete smoke/consulta/fechamento/frontend anteriores.
+
+[Plano vigente](planejamento/marcos-fechamento-etapas-1-a-5.md), [estado/limites](testes/marcos-fechamento-status-2026-11-13.md), [prova nova](testes/marcos-fechamento-pos-merge-32-33.json) e [entrega](integracao/marcos-fechamento-entrega.md). Quality Gate #32 OK; scanner compartilhado temporariamente não bloqueante da implementação por orientação de Marcos. CodeRabbit local indisponível. Faltam publicação documental, confirmações contratuais/processo dos vínculos e referências de evidências globais; não declara RFs globais encerrados.
+
+## Registros históricos — estados de cada execução
+
+As seções seguintes mantêm a proveniência de cada incremento. Expressões de GET ausente, aceite/publicação pendentes ou scanner/gate ainda não conferidos descrevem suas datas; o estado vigente é o checkpoint acima.
+
+
 ## Consolidação de Quality Gate — develop a0c0481
 
 Após os merges#28/#29/#30/#31 em13/11, a correção foi reunida em `fix/marcos-qualitygate`, preservando as árvores anteriores. [Revalidação/manifesto](testes/marcos-qualitygate-1-consolidacao-resultados.md):14unitários,16/0/0smoke,12/0Q9+Q1/Q3,8/0consulta e11/0fechamento com JAR novo. Q3 próprioResponsável403/SOLICITADA preservada; Q1ADMIN403/RESP200 início/conclusão/ausência e estados finais SQL. RF01/RF04/RF07/RF13/RF14 nos caminhos executados, sem certificar todas as combinações globais.

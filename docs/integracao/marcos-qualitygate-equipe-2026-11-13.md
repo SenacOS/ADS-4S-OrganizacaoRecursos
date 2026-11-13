@@ -1,4 +1,35 @@
-# Marcos — correções dos Quality Gates e encaminhamento à equipe
+# Marcos — correções de qualidade e alinhamento da equipe
+
+## Encaminhamento vigente — PRs #32/#33 mesclados
+
+**Q8 — complemento MySQL integrado:** [PR #34](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/34), de Silva, aprovado por Marcos e mesclado em **1948e69** em13/11/2026. A [CI43447037478](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43447037478) executou **9 testes Q8 com MySQL8.4/Testcontainers, zero falhas/erros/ignorados**, incluídos nos66testes de integração aprovados;261unitários/HTTP, JaCoCo e JMeter também passaram. A conclusão geral failure permanece pelo scanner compartilhado, temporariamente não bloqueante por orientação de Marcos. [Trechos de log, cenários, metadados e limites](../testes/marcos-q8-pr34-evidencias.json).
+
+A base de trabalho agora é **1948e69** na branch `docs/marcos-fechamento-etapas`, atualizada por fast-forward após preservar/reconferir os11documentos locais. #34 acrescenta somente `ReservaAprovacaoMysqlIT`: sem mudança de produção, sem novo JAR ou reexecução local injustificada. A lacuna específica de evidência Q8 em MySQL (recusas/rollback/auditoria/outbox/conflitos/lock) foi atendida pelos cenários executados na CI da equipe. Isso não certifica toda concorrência nem entrega externa de notificações. Documentação continua sem commit/push.
+
+
+Frontend das etapas 1 a 5 e complemento E2E integrados à develop. O [PR #32](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/32) foi **aprovado por jovemOG-Dev e mesclado** em **3e1a2a0**; o [PR #33](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/33), de Silva, foi **aprovado por Marcos e mesclado** em **62cd48f**. O #33 revalida disponibilidade antes de aprovar uma reserva (Q8); não publica a conciliação documental local.
+
+Base de trabalho atualizada inicialmente para **62cd48f** na branch **docs/marcos-fechamento-etapas**, preservando por cópia/hash os dez documentos locais. Corretivo e revisão humana do #32 já concluídos; documentação desta rodada ainda sem commit/push. O Quality Gate aprovado do #32 e o erro compartilhado do scanner permanecem registrados com suas origens. Por orientação de Marcos, esse erro não bloqueia sua implementação por enquanto. CodeRabbit local segue indisponível, sem resultado aprovado presumido.
+
+Após o #33, JAR reconstruído e **8 testes unitários Q8 + 12 cenários reais Q9/Q1/Q3 aprovados**. [Evidências da base nova](../testes/marcos-fechamento-pos-merge-32-33.json) e [estado/limites](../testes/marcos-fechamento-status-2026-11-13.md). Testes anteriores mantêm suas bases: não há nova execução de smoke16, consulta8, fechamento11 ou frontend81/278 atribuída a62cd48f. Os oito testes com AmbienteFake conservam esse limite; o complemento Q8/MySQL está agora comprovado nos9testes do #34, relacionados acima.
+
+Faltam publicação da conciliação, ratificação contratual/processo dos vínculos e relação de evidências compartilhadas além do cliente. Nenhuma nova tela prevista até a etapa5 foi identificada.
+
+## Pendências por responsável — encaminhamento manual
+
+Marcos confirmou nesta rodada que não recebeu decisões novas. [Texto completo pronto para enviar, por Silva, Fausto, Débora e equipe](marcos-pendencias-fechamento-2026-11-13.md), com resposta/evidência esperada em cada item.
+
+- Silva: ratificar contratos/edição/cancelamento e confirmar leituras/fila com Fausto/Débora.
+- Fausto, com Silva/segurança: aprovar operação dos vínculos reais e regra multirrecurso.
+- Débora: ratificar dados/erros Q9 e confirmar modo de demonstração/aceite RF11; referenciar evidência correspondente.
+- Todos: registrar decisões e revisar/integrar o PR documental.
+
+Auditoria/outbox/gateway de teste/segurança já têm provas relacionadas na CI43447037478; não solicitar nova implementação ou execução apenas por ausência de referência. Mockito/WireMock não são prova de recebimento por destino externo da implantação; a RF11 admite modos descritos no guia, sujeitos ao aceite combinado.
+
+A publicação do PR documental foi autorizada; esta mensagem adicional permanece local. Nenhum comentário, mensagem, e-mail, solicitação de revisão nominal ou merge foi enviado/executado.
+
+<details>
+<summary>Histórico do diagnóstico e das mensagens anteriores à aprovação do Quality Gate</summary>
 
 ## Encaminhamento vigente após os merges
 
@@ -62,3 +93,5 @@ Débora/administrador responsável pela CI precisa conferir a correspondência d
 4. Conferir a nova análise Sonar de cada head, além do scanner Maven depois da conferência administrativa. Só o resultado remoto confirma Quality Gate aprovado.
 
 Esta mensagem foi preparada localmente; nenhum comentário, mensagem externa, push ou alteração remota foi feito para produzi-la.
+
+</details>

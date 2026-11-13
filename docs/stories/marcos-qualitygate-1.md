@@ -59,7 +59,7 @@ Responsável: Marcos Boé. RF13/RF14 e qualidade/segurança das ferramentas de d
 - [x] Produzir relatório, evidências e mensagem local de encaminhamento com aplicação por PR e dependência Sonar (AC 11).
 - [x] Atualizar checklist/File List e disponibilizar revisão do incremento ao autor.
 - [x] Registrar veredicto independente AIOX QA da correção.
-- [ ] Criar commits/publicar/atualizar PRs ou enviar mensagens somente após pedidos correspondentes de Marcos.
+- [x] Commit/push/PR autorizados executados em 5569e57 / #32; nenhum envio adicional de mensagem ou merge realizado.
 
 ### Revalidação após a consolidação na develop a0c0481
 
@@ -70,7 +70,14 @@ Os checks acima descrevem a execução anterior sobre `5537163`; não se transfe
 - [x] Exercitar Q3 de autoaprovação própria 403 e Q1 de início/conclusão/ausência negados ao Administrador, com positivos pertinentes do Responsável e estados preservados (AC 13).
 - [x] Atualizar relatório/plano de entrega para um único PR (AC 11–12).
 - [x] Registrar complemento independente de QA da consolidação na base a0c0481.
-- [ ] Após validar, executar commit/push e abrir o novo PR conforme autorização expressa de Marcos; não fazer merge ou enviar mensagens externas adicionais (AC 12).
+- [x] Na etapa histórica da publicação, commit/push executados e PR #32 aberto Ready for review (AC 12). Depois foi aprovado/mesclado, conforme atualização posterior; nenhuma mensagem externa adicional.
+- [x] Conferir Quality Gate OK, registrar a orientação de Marcos sobre o scanner compartilhado e conciliar plano/entrega/RTM/índice/stories com evidência remota.
+- [x] Confirmar aprovação humana/merge do #32 e integração Q8/#33; preservar documentos e sincronizar base62cd48f.
+- [x] Reconstruir JAR e conferir os8testes Q8 entregues e12cenários reais Q9/Q1/Q3 após a mudança de backend, sem código autoral novo.
+- [x] Relacionar evidência compartilhada Q8/MySQL do #34 (9/0 na CI) e atualizar base1948e69 preservando documentos, sem novo código ou execução local.
+- [x] Conciliação documental conferida e commit/push/PR autorizados por Marcos nesta rodada; execução de publicação encaminhada ao DevOps.
+- [x] Relacionar evidências compartilhadas RF10/RF11/segurança à CI e preparar pendências por responsável, sem confirmação coletiva presumida.
+- [ ] Registrar ratificação contratual/processo dos vínculos e modo/evidências de aceite RF11 quando a equipe responder.
 
 ## Dev Notes
 
@@ -102,6 +109,27 @@ Tipo principal: Qualidade/segurança de ferramentas de desenvolvimento; secundá
 
 ## Dev Agent Record
 
+### Entrega documental autorizada e pendências para a equipe
+
+Marcos respondeu “vamos fazer isso” à publicação da conciliação e pediu a lista por responsável para encaminhar, informando que ainda não recebeu confirmações novas. Commit/push/PR documental autorizados nesta rodada, sem merge ou mensagens externas. [Texto pronto e respostas esperadas](../integracao/marcos-pendencias-fechamento-2026-11-13.md). Evidências disponíveis RF10/RF11/segurança relacionadas aos logs da CI do #34 e às fontes; Mockito/WireMock e controles de implantação mantêm seus limites. Nenhuma nova execução de suíte; nenhum código autoral/CI modificado. Status Ready for Review preservado para a documentação; formalização coletiva permanece pendente. O commit que inclui este registro identifica a entrega preparada; resultado da publicação será confirmado no PR.
+
+
+### Complemento compartilhado Q8/MySQL — PR #34
+
+#34 aprovado por Marcos e mesclado1948e69; adiciona somente ReservaAprovacaoMysqlIT. CI43447037478:9testes Q8/MySQL aprovados, incluídos no total66integrações;261unitários/HTTP, JaCoCo e JMeter aprovados. [Fonte, log, cenários e limites](../testes/marcos-q8-pr34-evidencias.json). Evidência da equipe relacionada à lacuna Q8/MySQL, sem nova execução local, reconstrução de JAR ou alteração autoral de código. Base documental atual1948e69 por fast-forward, onze documentos preservados antes da atualização. Scanner compartilhado mantém tratamento alinhado; sem novo Quality Gate inferido. Publicação documental e confirmações compartilhadas restantes seguem pendentes; pareceres QA e resultados anteriores conservam sua origem. Os checkpoints seguintes são históricos.
+
+
+### Atualização após os merges #32/#33
+
+#32 aprovado por jovemOG-Dev e mesclado3e1a2a0; #33/Q8 aprovado por Marcos e integrado62cd48f. Documentação local preservada por cópia/hash e trazida para `docs/marcos-fechamento-etapas` sobre62cd48f. Revalidação pertinente executada com JAR reconstruído:8/0unitários Q8 e12/0Q9/Q1/Q3 reais. [Nova prova e limites](../testes/marcos-fechamento-pos-merge-32-33.json). Suítes anteriores preservam base/hash/origem; não foram novamente executadas. Nenhum código autoral/CI modificado. CodeRabbit continua indisponível; scanner compartilhado não bloqueia a implementação por orientação de Marcos. Pareceres QA preservados, sem novo veredicto ou encerramento global. Documentação atual ainda sem commit/push; confirmações compartilhadas seguem pendentes. Os checkpoints seguintes descrevem as fotografias anteriores.
+
+
+### Checkpoint documental de publicação — 13/11/2026
+
+Commit/push concluídos em **5569e57**; [PR #32](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/32) aberto para developa0c0481 e já Ready for review, sem merge e com zero reviews submetidos. Quality Gate confirmado OK pela API pública; CI Maven failure pelo scanner, com253/57/JaCoCo/JMeter aprovados. Marcos orientou desconsiderar temporariamente o erro compartilhado como bloqueio de sua implementação, preservando o fato registrado. CodeRabbit permanece indisponível, sem aprovação presumida.
+
+Conciliação exclusivamente documental: plano com um checkpoint vigente, históricos rotulados, entrega/RTM/índice e registros das stories alinhados; [estado remoto e limites](../testes/marcos-fechamento-status-2026-11-13.md). Nenhum novo teste executado ou código de produto/CI alterado. Pareceres QA abaixo preservados sem edição ou novo veredicto inferido. A documentação desta rodada permanece sem commit/publicação; merge/revisão coletiva não executados.
+
 ### Completion Notes
 
 Correção local sobre5537163 em test/marcos-fechamento-e2e e recorte comum sobre0775715 na worktree feature/marcos-reservas-consulta. Sete fontes comuns idênticas, sem trazer os exclusivos do#29 ao#28. Resolução absoluta/validação e executor sem shell, include linear com todos os terminadores anteriores, viewport independente e inventário SHA256 explícito implementados.
@@ -124,6 +152,10 @@ Codex, preparação AIOX SM e execução AIOX Dev; revisão independente AIOX QA
 
 | Data | Descrição |
 |---|---|
+| 2026-11-13 | Conciliação documental com publicação autorizada; evidências RF10/RF11/segurança relacionadas e pendências por responsável preparadas após Marcos informar ausência de confirmações novas. |
+| 2026-11-13 | #34/Q8 MySQL aprovado e integrado1948e69;9testes reais confirmados na CI, fonte/limites relacionados e base documental atualizada com11arquivos preservados; sem nova execução local ou commit/push. |
+| 2026-11-13 | #32 aprovado/mesclado e #33/Q8 integrado; base62cd48f em branch documental preservada, JAR reconstruído,8unitários Q8 e12cenários reais aprovados; sem commit/push documental. |
+| 2026-11-13 | Publicação5569e57/#32, Quality Gate OK e Ready for review conferidos; conciliação documental local, scanner compartilhado temporariamente não bloqueante por orientação do autor; sem merge ou nova execução de testes. |
 | 2026-11-13 | Story Ready for Dev para achados Quality Gate PRs #28/#29: executáveis absolutos, regex/viewport, metadados SHA256 sem perda, dois recortes e diagnóstico do scanner separado, sem publicação automática. |
 
 | 2026-11-13 | Correções locais preparadas e verificadas no recorte#29 e comum; fontes e evidências preservadas, sem commit/push ou confirmação de gate remoto. |
@@ -183,6 +215,17 @@ Arquivos efetivamente criados/alterados na entrega consolidada:
 - `tests/e2e-local/viewport.cjs`
 - `tests/unit/e2e-local/configuracao.test.cjs`
 - `tests/unit/e2e-local/evidencias.test.cjs`
+
+- `docs/README.md`
+- `docs/stories/marcos-3-consulta-edicao.md`
+- `docs/testes/marcos-fechamento-status-2026-11-13.md`
+- `docs/testes/marcos-fechamento-status-2026-11-13.json`
+
+- `docs/testes/marcos-fechamento-pos-merge-32-33.json`
+
+- `docs/testes/marcos-q8-pr34-evidencias.json`
+
+- `docs/integracao/marcos-pendencias-fechamento-2026-11-13.md`
 
 Backups, worktree anterior, credenciais, ferramentas e configuração local permanecem privados/ignorados. Os arquivos históricos mantêm a proveniência; não publicar essas áreas privadas.
 
