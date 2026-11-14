@@ -16,7 +16,9 @@ A especificação oficial do projeto está em:
 
 **Leitura do estado do projeto:** a convenção acima distingue exigências oficiais de propostas da equipe. O estado efetivamente implementado é apresentado separadamente nas seções seguintes, com referência ao snapshot e às evidências correspondentes.
 
-**Snapshot de implementação documentado:** branch `develop`, commit `b73c501536a275cdc89101cc7130c7b481e52396`, conferido em 13/11/2026. Naquela conferência, `main` ainda estava no commit `33ad05fbebed8760f2a058b2e69d1e39cabc7612`, de 27/10/2026.
+**Snapshot integrado atual:** develop `4525512cb166f281ed1dfdc5363563690400c510`, após aprovação de `jovemOG-Dev` e merge do [PR #45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/45), em13/11/2026. Etapas1–7 de Marcos integradas; [dossiê e consolidação documental da etapa8](docs/entrega/marcos-entrega-final.md) prontos para revisão/publicação autorizadas. [Recibo de aprovação, merge e sincronização](docs/testes/marcos-8/encerramento-pr45.json).
+
+**Referência histórica:** a consolidação anterior do PR #44 documentava develop `b73c501536a275cdc89101cc7130c7b481e52396`. Naquela conferência, `main` estava em `33ad05fbebed8760f2a058b2e69d1e39cabc7612`, de27/10/2026; essa referência não declara o estado atual de `main`.
 
 ## Integrantes da Equipe
 
@@ -72,7 +74,7 @@ O sistema centraliza o cadastro e a consulta de recursos, a solicitação e a ap
 - A edição não altera a necessidade de aprovação. Reserva restrita já aprovada não é editável pelo fluxo de PATCH (Q2).
 - No contrato da API, o cancelamento administrativo de reserva de terceiro exige justificativa de até 500 caracteres, armazenada em `motivo_cancelamento`, separada de `motivo_decisao` (Q5).
 
-**Compatibilidade Q5:** no snapshot integrado `b73c501`, o cliente ainda enviava o cancelamento sem corpo e recebia HTTP 400 no cenário administrativo de terceiro. A [etapa7 do frontend](docs/stories/marcos-7.md) acrescenta justificativa condicional de até500caracteres e envio de `motivo`, preservando o cancelamento do dono sem corpo. Implementação/testes e [aceite do autor](docs/testes/marcos-7-verificacao.md#aceite-do-autor--13112026) concluídos localmente em13/11/2026; publicação autorizada, com revisão/integração da equipe pendentes. O backend não foi alterado. [Contrato vigente](docs/api/reservas-contrato.md) e [resultados por camada](docs/testes/marcos-7-resultados.md).
+**Compatibilidade Q5:** a [etapa7 do frontend](docs/stories/marcos-7.md), integrada pelo #45, acrescenta justificativa condicional de até500caracteres e envio de `motivo`, preservando o cancelamento do dono sem corpo. Implementação/testes, [aceite do autor](docs/testes/marcos-7-verificacao.md#aceite-do-autor--13112026), revisão independente e merge confirmados. O backend permanece o do #43; a incompatibilidade do cliente sem corpo no snapshot anterior `b73c501` foi resolvida. [Contrato vigente](docs/api/reservas-contrato.md) e [resultados por camada](docs/testes/marcos-7-resultados.md).
 
 ## Arquitetura e tecnologias
 
@@ -202,3 +204,4 @@ O script `build` executa lint, verificação de tipos, testes unitários e teste
 | [Sequência de reservas](docs/arquitetura/sequencia-reserva.md) | Fluxo transacional de criação e controle de conflitos. |
 | [Qualidade](docs/qualidade/relatorio-evidencias.md) | Evidências, cobertura, segurança e decisões de qualidade. |
 | [Relatório do módulo de reservas](docs/entrega/relatorio-modulo-reserva.md) | Domínio, integração, testes e manutenção do módulo `reserva/`. |
+| [Dossiê de entrega de Marcos](docs/entrega/marcos-entrega-final.md) | Escopo integrado, evidências, aprovação/merge e pendências compartilhadas. |

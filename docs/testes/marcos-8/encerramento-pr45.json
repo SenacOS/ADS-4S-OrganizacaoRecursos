@@ -1,0 +1,54 @@
+{
+  "versaoFormato": 1,
+  "registradoEm": "2026-11-14T02:13:27.891Z",
+  "dataLocal": "2026-11-13",
+  "fuso": "America/Sao_Paulo",
+  "pr": {
+    "number": 45,
+    "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/45",
+    "state": "closed",
+    "merged": true,
+    "head": "468bf0e600de10682b28c9952905cdb062193315",
+    "mergeCommit": "4525512cb166f281ed1dfdc5363563690400c510",
+    "mergedAt": "2026-11-14T02:09:17Z"
+  },
+  "revisaoIndependente": {
+    "id": "PRR_kwDOVQM54s8AAAABX7Ya0g",
+    "autor": "jovemOG-Dev",
+    "estado": "APPROVED",
+    "registradaEm": "2026-11-14T02:09:09Z",
+    "fonte": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/45"
+  },
+  "situacao": "Etapa7 integrada e encerrada no escopo de Marcos; consolidação documental da etapa8 pronta para revisão/publicação autorizadas.",
+  "ci": {
+    "run": 43542757976,
+    "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976",
+    "workflow": "failure",
+    "testesJavaMysqlJaCoCo": "success",
+    "jmeter": "success",
+    "scannerMaven": "failure: Not authorized or project not found",
+    "gateExterno": "OK informado pelo bot",
+    "fonteDetalhada": "docs/testes/marcos-8/ci-pr45.json"
+  },
+  "limites": [
+    "Aprovação e merge foram confirmados em consulta posterior à inspeção inicial; o JSON dessa inspeção foi preservado.",
+    "Scanner Maven falho não foi transformado em CI global verde.",
+    "Fechamento de Marcos não substitui confirmação de TDD de outros autores, aceite coletivo/ATAM ou controles de produção."
+  ],
+  "sincronizacao": {
+    "registradaEm": "2026-11-14T02:12:01.784Z",
+    "branch": "docs/marcos-8-entrega-final",
+    "baseAnterior": "468bf0e600de10682b28c9952905cdb062193315",
+    "baseAtual": "4525512cb166f281ed1dfdc5363563690400c510",
+    "metodo": "fetch origin + merge --ff-only origin/develop",
+    "arvoreIdentica": true,
+    "arquivosLocaisPreservados": 10,
+    "fontesExecutaveisPreservadas": 236,
+    "fontesReais": 68,
+    "fontesBuild": 58,
+    "evidenciasAnteriores": 17,
+    "edicaoManualPreservada": true,
+    "stashesAnterioresPreservados": 2,
+    "novosTestes": "Não repetidos: árvore executável e fontes dos gates idênticas; somente merge de integração e documentos locais."
+  }
+}

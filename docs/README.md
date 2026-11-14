@@ -1,5 +1,11 @@
 # Documentacao do Projeto
 
+## Etapa8 — consolidação da entrega integrada — 13/11/2026
+
+Etapa7 publicada em468bf0e no [PR #45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/45). Aprovação de `jovemOG-Dev` e merge do #45 em4525512 confirmados; branch documental sincronizada por fast-forward, com [recibo próprio](testes/marcos-8/encerramento-pr45.json). [Story Marcos-8](stories/marcos-8.md), [CI45/resultados próprios](testes/marcos-8-resultados.md), [dossiê preparado](entrega/marcos-entrega-final.md) e [plano atual](planejamento/marcos-plano-de-acao.md). Java/MySQL/JaCoCo/JMeter aprovados; bot Sonar informa gate OK, mas scanner Maven termina failure por autorização/projeto. Consolidação na branch `docs/marcos-8-entrega-final`, Ready for Review com commit/push/PR autorizados por Marcos.
+
+Os checkpoints abaixo preservam os estados anteriores ao envio do #45; revisão, integração e resultados atuais estão nas referências acima.
+
 ## Etapa7 — regressão integrada e acabamento — 13/11/2026
 
 Etapa6 aprovada e mesclada pelo #42. [Plano atual](planejamento/marcos-plano-de-acao.md), [story Marcos-7](stories/marcos-7.md), [resultados287/100/350 e sete suítes reais](testes/marcos-7-resultados.md), [matriz RF/CT](testes/marcos-7-matriz-evidencias.md), [CI compartilhada/limites](testes/marcos-7/ci-equipe.json) e [roteiro humano](testes/marcos-7-verificacao.md). Compatibilidade Q5/#43 implementada/validada localmente; [Aceite de Marcos registrado](testes/marcos-7-verificacao.md#aceite-do-autor--13112026); Commit/push/PR do recorte7 autorizados expressamente em13/11/2026; revisão da equipe/integração pendentes. [PR44 documental conferido/incorporado](testes/marcos-7-pr44-revisao.md), sem mudar código/evidências. Os checkpoints da etapa6 abaixo preservam seu momento anterior ao merge, sem reabrir sua entrega.
