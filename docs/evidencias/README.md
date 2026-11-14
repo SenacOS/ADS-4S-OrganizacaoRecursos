@@ -11,7 +11,7 @@
 
 | Campo solicitado | Estado atual | Link, quando há evidência real |
 |---|---|---|
-| Tag anotada `v1.0.0-rc1` | **PUBLICADA** — [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1); conferir SHA | [Tags](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/tags) |
+| Tag `v1.0.0-rc1` | **PUBLICADA** — SHA e tipo de tag por conferir | [Release](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) |
 | SHA do commit marcado pela tag | **PENDENTE DE CONFERÊNCIA** — SHA da tag não verificado neste relatório | Não inventar SHA de release |
 | CI verde executada na `main` nesse mesmo SHA | **NÃO APROVADA** — run #92 da main executou e falhou no SonarCloud | [GitHub Actions](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions) |
 | JaCoCo do SHA da tag | **PENDENTE** — existe histórico de PR, não do release | [Artefato histórico PR45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976/artifacts/14092304959) |
@@ -25,7 +25,7 @@
 | Artefato solicitado | Arquivo existente neste PR ou na main | Evidência / proveniência |
 |---|---|---|
 | Checklist de clone limpo | [`docs/entrega/checklist.md`](../entrega/checklist.md) | Confere inventário e descreve tentativa de acesso impedida por DNS, sem alegar clone realizado |
-| Changelog do candidato | [`CHANGELOG.md`](../../CHANGELOG.md) | Versão **Unreleased**; tag publicada, sem validação integral do SHA marcado |
+| Changelog do candidato | [`CHANGELOG.md`](../../CHANGELOG.md) | Release `v1.0.0-rc1` publicada; validação do SHA ainda pendente |
 | Índice de rastreabilidade | [`docs/rtm.md`](../rtm.md) → [matriz canônica](../RTM.md) | RF01–RF14 com referências históricas e limites |
 | Planejamento e relatórios de testes | [relatório de qualidade](../relatorio-qualidade.md), [resultados integrados](../testes/marcos-8-resultados.md), [plano JMeter](../qualidade/jmeter/README.md) | Não representam nova execução da tag |
 | JaCoCo e testes Java/MySQL | [CI de PR45 #43542757976](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976), [artifact #14092304959](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976/artifacts/14092304959) | **287 Surefire + 79 Failsafe**, sem falhas; **92,58% linhas / 76,39% branches** no PR45, não na tag |
@@ -51,4 +51,4 @@
 4. Editar este índice para que as URLs de CI, JaCoCo e Quality Gate **apontem para o mesmo SHA da tag** e conferir cada link. Não usar o run de PR como substituto.
 5. Se precisar corrigir após publicar, use `v1.0.0-rc2`. Nunca recrie/mova a `rc1`.
 
-**Resultado do Prompt 2:** changelog e pacote de evidências preparados, com links reais e pendências explícitas. **Tag não criada e release não publicado**, pois as pré-condições do próprio prompt ainda não estão atendidas.
+**Resultado do Prompt 2:** changelog e pacote de evidências preparados, com links reais e pendências explícitas. **Release `v1.0.0-rc1` publicada**, embora as evidências de CI verde e Quality Gate no SHA ainda não estejam completas.
