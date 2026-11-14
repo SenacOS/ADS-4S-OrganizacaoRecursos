@@ -1,7 +1,10 @@
 # Decisão de qualidade — Prompt 3 (Aula 14)
 
-**Decisão técnica proposta: BLOQUEAR a liberação do release candidate `v1.0.0-rc1`.**  
-**Data da conferência:** 13/11/2026 (São Paulo).  
+**Situação em 14/11/2026:** PR #50 integrado; CI do PR aprovada. A execução da `main` no commit `5e9b9ea` ocorreu, mas terminou com falha de autorização do SonarCloud (`Not authorized or project not found`). A release [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) foi publicada; a CI verde e o Quality Gate do SHA da tag não estão comprovados. Clone limpo independente ainda não foi realizado (limitação do ambiente de verificação); o projeto usa `mvn` instalado, não `./mvnw`.
+
+
+**Decisão técnica proposta: NÃO ATESTAR O ACEITE FINAL de `v1.0.0-rc1` até concluir a validação.**  
+**Data da conferência original:** 13/11/2026; **atualização:** 14/11/2026 (São Paulo).  
 **Snapshot de referência:** [main `548f8b0b95980a3e292f271b9676105473822ead`](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/commit/548f8b0b95980a3e292f271b9676105473822ead), após [PR #47](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/47).  
 **Importante:** esta é uma **avaliação técnica baseada nas evidências disponíveis**, não uma deliberação assinada em nome dos quatro integrantes. A decisão coletiva ainda deve ser formalizada.
 
@@ -29,7 +32,7 @@
 | Risco | Impacto | Justificativa / situação | Responsável proposto | Aceite |
 |---|---|---|---|---|
 | Sem clone e wrapper reproduzíveis | Alto — professor pode não conseguir rodar | `./mvnw` ausente; teste independente bloqueado por DNS | **Gabriel Silva Gomes** (coordenação do fluxo) com **Débora dos Santos** (qualidade) | **Não aceito; corrigir e demonstrar** |
-| Sem CI verde/Quality Gate íntegro na main | Alto — release sem gate auditável | Scanner Maven falha e workflow não aciona na main; bot de PR não substitui CI verde | **Débora dos Santos** (CI) + administração SonarCloud | **Não aceito; corrigir ou obter decisão explícita do professor** |
+| Sem CI verde/Quality Gate íntegro na main | Alto — release sem gate auditável | Scanner Maven falha e workflow aciona na main, mas análise SonarCloud falhou por autorização; bot de PR não substitui CI verde | **Débora dos Santos** (CI) + administração SonarCloud | **Não aceito; corrigir ou obter decisão explícita do professor** |
 | Grupos de teste/ambientes limitados | Médio — falhas não cobertas | Testcontainers/JMeter e E2E cobrem cenários, não a operação em produção | **Marcos Boé** (E2E/cliente) e **Gabriel Rodrigues Fausto** (persistência) | **Pendente de aceite formal com escopo** |
 | Imutabilidade de auditoria depende de grants | Alto — risco de modificação SQL privilegiada | Restrição append-only operacional requer credenciais separadas; [fonte](qualidade/rf10-auditoria.md) | **Débora dos Santos** + **Gabriel Rodrigues Fausto** | **Não aceito sem comprovação operacional** |
 | Notificações simuladas | Médio — não entrega mensagens externas | RF11 foi comprovada por outbox/log e testes WireMock, sem recebimento externo; [fonte](qualidade/rf11-notificacoes.md) | **Débora dos Santos** / deliberação de escopo do grupo | **Aceite de simulação descrito no ADR-007; não equivale a aceitar entrega externa** |
@@ -52,33 +55,12 @@ Cada integrante deve conferir sua participação, explicar em suas próprias pal
 
 1. Resolver os bloqueadores do [checklist](entrega/checklist.md) e repetir a instalação e o teste em clone limpo.
 2. Obter uma **execução verde da CI na main** vinculada ao SHA definido para release, incluindo os critérios de qualidade requeridos.
-3. Criar e publicar a **tag anotada** `v1.0.0-rc1` sobre esse mesmo SHA, atualizar o [índice](evidencias/README.md) e validar URLs.
+3. Conferir o SHA e o tipo da tag já publicada `v1.0.0-rc1`, atualizar o [índice](evidencias/README.md) e validar URLs; não mover a tag.
 4. Apresentar os riscos residuais ao grupo e registrar aceite/ressalvas com responsável, impacto e justificativa; então colher as quatro declarações.
 5. Um integrante envia o formulário do Hub **somente após** a conferência do pacote e da tag real.
 
 ## Texto curto para o Hub — rascunho NÃO ENVIAR ainda
 
-> Projeto: Organização de Recursos. Repositório público: https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos. Tag prevista para entrega: `v1.0.0-rc1` (**ainda não criada**). Integrantes: Gabriel Silva Gomes, Gabriel Rodrigues Fausto, Marcos Boé e Débora dos Santos. Envio condicionado à CI verde no commit da tag e à aprovação coletiva do pacote.
+> Projeto: Organização de Recursos. Repositório público: https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos. Tag publicada: [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) (CI verde do SHA pendente). Integrantes: Gabriel Silva Gomes, Gabriel Rodrigues Fausto, Marcos Boé e Débora dos Santos. Envio condicionado à CI verde no commit da tag e à aprovação coletiva do pacote.
 
 **Conclusão:** não afirmar “pronto para produção” nem “release aprovado”. Os resultados anteriores são positivos em cenários definidos, mas a cadeia de evidência exigida para a tag final não está completa.
-
-
-## Atualização de preparação da entrega — 14/11/2026
-
-- A documentação dos três prompts já foi integrada à `main` pelo [PR #48](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/48); este PR #49 contém uma versão alternativa e **não deve ser mesclado sem resolver a duplicação**.
-- A correção do workflow está proposta no [PR #50](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/50), com testes Maven/JaCoCo/JMeter nos PRs e SonarCloud na `main`. **A existência desse PR não comprova CI verde na `main`**.
-- A tag anotada `v1.0.0-rc1` está **planejada para publicação após os merges e a verificação do SHA final**. URL para conferência: https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/tags . **Não registrar tag criada antes de confirmar que existe**.
-- Evidências já verificadas no PR #45: 287 testes Surefire, 79 Failsafe, JaCoCo 92,58% linhas / 76,39% branches e quatro cenários JMeter. Essas métricas são históricas, **não equivalem à validação do SHA final**.
-- Para encerrar a entrega, preencher com links reais: execução verde da `main`, SHA da tag, resultado do SonarCloud na `main`, reprodução limpa e aceite individual dos integrantes. Esses itens não são atestados automaticamente por este documento.
-
-
-## Estado atualizado da entrega — 14/11/2026
-
-> **Esta seção substitui afirmações históricas acima sobre tag inexistente, CI não executada na main e workflow sem gatilho main.** As seções anteriores descrevem a inspeção de 13/11/2026, não o estado atual.
-
-- **PR #50 integrado e verificação de PR aprovada:** o workflow foi corrigido para executar CI em pushes na `main` e scanner SonarCloud somente nesse evento. Maven, Testcontainers, JaCoCo e JMeter permanecem como verificações de qualidade.
-- **CI da main executada, mas NÃO verde:** workflow `CI e SonarCloud` #92, commit [`5e9b9ea`](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/commit/5e9b9ea671714a5aae7a0e780cdad5e6ba8e38cf), terminou em **failure** na etapa de SonarCloud: `Not authorized or project not found`. A análise foi acionada na branch `main`; a falha indica necessidade de conferir permissões do token e identificação do projeto, não prova falha de testes.
-- **Pendência administrativa explícita:** revisar `SONAR_TOKEN`, `sonar.projectKey`, `sonar.organization`, organização do projeto e autorização para análise. Depois, reexecutar a CI na `main` e guardar a URL do resultado. Não declarar Quality Gate aprovado sem essa evidência.
-- **Tag/release publicada:** [`v1.0.0-rc1`](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1). A publicação da release não comprova CI verde no SHA da tag; a correspondência do SHA e o gate permanecem por validar.
-- **Evidências históricas preservadas:** CI do PR #45 registrou 287 testes Surefire, 79 Failsafe, JaCoCo 92,58% linhas e 76,39% branches, além de quatro cenários JMeter. Não atribuir esses números automaticamente ao commit da tag.
-- **Aceite final:** mantém ressalvas de reprodução em clone limpo e aprovação individual do grupo até evidência específica. Não declarar aprovação coletiva nem execução de clone que não ocorreu.
