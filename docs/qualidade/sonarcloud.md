@@ -1,5 +1,17 @@
 # Configuração SonarCloud — trabalho ainda condicionado a conta e credenciais
 
+## Estado conferido — PR45 — 13/11/2026
+
+O [bot Sonar no PR45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/45#issuecomment-6869673675) publicou **Quality Gate passed**, com [URL da análise](https://sonarcloud.io/dashboard?id=SenacOS_ADS-4S-OrganizacaoRecursos&pullRequest=45). A [CI43542757976](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976) aprovou testes Java/MySQL, JaCoCo e JMeter, mas o scanner Maven falhou com `Not authorized or project not found`; a conclusão global é failure.
+
+Os dois resultados têm fontes próprias. O gate informado pelo bot não demonstra correção das credenciais/chaves/permissões usadas pelo scanner Maven. Tampouco o erro do scanner demonstra sozinho projeto ausente, token faltante ou limitação de plano. A administração da integração conserva esse diagnóstico; nenhuma configuração foi alterada para ignorar o erro. [Evidência e limites](../testes/marcos-8-resultados.md).
+
+A cobertura de código novo0,0% informada no comentário do Sonar não é cobertura global nem resultado de cobertura da suíte frontend. JaCoCo92,58%linhas/76,39%branches pertence ao backend dessa CI e ao XML conferido.
+
+## Guia de configuração e histórico
+
+Os procedimentos seguintes preservam a orientação original. Aplicar conforme o diagnóstico do ambiente; as menções a criar projeto ou credenciais pendentes não constituem constatação atual de ausência.
+
 Foi adicionado `.github/workflows/ci.yml` com JDK 21, Maven `clean verify`,
 Testcontainers (Docker do runner), JaCoCo, upload de relatórios e SonarScanner
 for Maven. O scan exige um Quality Gate bem-sucedido

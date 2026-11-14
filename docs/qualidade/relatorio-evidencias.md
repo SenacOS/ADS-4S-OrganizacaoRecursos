@@ -9,6 +9,8 @@ evidências locais observadas de tarefas planejadas e de resultados ausentes.
 
 **Conferência posterior — 13/11/2026:** os oito itens da seção5 foram confrontados com a develop7d5480b, os artefatos reais da CI do PR #44 e as evidências locais da etapa7. [Checklist atual, fontes e pendências](../stories/marcos-7/qa/evidence_checklist.md): cinco itens com atendimento demonstrado no recorte, dois parciais e SonarCloud aberto. Consultas/Q9 e E2Es já têm provas posteriores; isso não altera retroativamente os resultados, checkboxes e defeitos registrados em10/11 abaixo.
 
+**Atualização da entrega — etapa8:** a etapa7 foi publicada no #45/468bf0e, aprovada por `jovemOG-Dev` e integrada em4525512. [Inspeção da CI própria e revisão atual](../testes/marcos-8-resultados.md), [artefatos conferidos](../testes/marcos-8/ci-pr45.json) e [dossiê preparado](../entrega/marcos-entrega-final.md): testes/JaCoCo/JMeter aprovados, gate externo OK informado pelo bot e scanner Maven falho. [Aprovação/merge e sincronização efetivos confirmados](../testes/marcos-8/encerramento-pr45.json), sem mudança executável ou nova execução local de testes. A publicação da consolidação8 foi autorizada por Marcos; revisão/integração do novo PR têm seu próprio ciclo. Esta atualização conserva os resultados e checkboxes históricos abaixo.
+
 ## 1. Execuções comprovadas até agora
 
 | Data (America/Sao_Paulo) | Branch/escopo | Comando/evidência observada | Resultado |

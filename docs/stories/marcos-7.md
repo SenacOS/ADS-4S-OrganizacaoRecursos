@@ -2,7 +2,9 @@
 
 ## Status
 
-Ready for Review
+Done
+
+**Entrega integrada confirmada na etapa8:** [PR #45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/45) aprovado por `jovemOG-Dev` e mesclado em4525512, com [recibo de aprovação/merge/sincronização](../testes/marcos-8/encerramento-pr45.json). Encerramento no escopo de Marcos; scanner Maven e demais limites compartilhados conservam seus resultados próprios. Os checkpoints anteriores abaixo preservam seus estados de origem.
 
 ## Story
 
@@ -39,7 +41,7 @@ Fora do recorte: novas telas/endpoints Java, mudança de SQL/migrações/seguran
 - [x] Registrar resultados/capturas e atualizar rastreabilidade/File List (AC6).
 - [x] Obter revisão do incremento e aceite de Marcos, informado em13/11/2026.
 - [x] Obter autorização explícita para commit/push/PR da etapa7 em13/11/2026.
-- [ ] Concluir revisão/integração da equipe pelo novo PR.
+- [x] Concluir revisão/integração da equipe pelo PR45, aprovado e mesclado em4525512.
 
 ## Dev Notes
 
@@ -136,6 +138,7 @@ Codex: preparação AIOX SM, implementação AIOX Dev e revisão técnica assist
 | 2026-11-13 | Contexto de Silva sobre integração Q5 recebido e confrontado com o recorte existente; requisitos obrigatórios contemplados, contador visual apenas desejável. Registro documental, sem código/testes novos, aceite ou publicação presumidos. |
 | 2026-11-13 | Aceite do autor informado; PR #44 conferido e incorporado por fast-forward, com conciliação documental e preservação por hash. Sem novo código, reexecução dos gates ou publicação. |
 | 2026-11-13 | Após a validação do checklist de evidências, Marcos autorizou commit/push/PR da etapa7. Encerramento local aceito, Ready for Review e revisão/integração da equipe preservados. |
+| 2026-11-13 | Revisão independente de jovemOG-Dev e integração do #45 confirmadas em4525512; status Done no escopo de Marcos. Recibo/sincronização documentados na etapa8, sem transformar scanner falho em CI verde. |
 
 ## QA Results
 
@@ -144,3 +147,6 @@ Revisão assistida do mesmo executor: contrato Q5, permissão antes de envio, li
 A revisão assistida não é parecer independente. O aceite de Marcos foi informado posteriormente e tem [registro próprio](../testes/marcos-7-verificacao.md#aceite-do-autor--13112026). CodeRabbit local indisponível; CI42/43 com Java/MySQL/JaCoCo/JMeter aprovados e scanner falho são provas compartilhadas anteriores, não CI deste frontend7. A conferência documental do #44 não encontrou nova incompatibilidade funcional. Ready for Review e pendências de revisão da equipe/entrega mantidos; nenhuma transição global para Done.
 
 Conferência posterior solicitada por Marcos, a pedido de Silva: [oito itens do checklist de evidências](marcos-7/qa/evidence_checklist.md). ZIPs da CI44 baixados, digests conferidos e XMLs lidos:287Surefire/79Failsafe,0falhas/erros/ignorados, JaCoCo92,58%linhas/76,39%branches;4JTL/4HTML/JSON JMeter aprovados. Cinco itens atendidos no recorte, dois parciais e Sonar aberto. Evidências obrigatórias da correção Q5 presentes (2críticas/2altas), sem confirmar ciclo REFACTOR não registrado ou revisão independente. [Prova estruturada](../testes/marcos-7/checklist-evidencias-ci44.json). Fontes68/58 e resultados/logs anteriores conferidos por hash; nenhum código/teste ou dependência alterado, nenhuma reexecução/publicação atribuída a essa inspeção. Status Ready for Review preservado.
+
+
+**Confirmação posterior — etapa8:** aprovação real de Silva e merge4525512 verificados no GitHub, seguidos de sincronização local por fast-forward com árvore executável idêntica. [Recibo](../testes/marcos-8/encerramento-pr45.json). Os trechos anteriores de Ready for Review descrevem os checkpoints anteriores ao merge; estado vigente Done no escopo integrado de Marcos.

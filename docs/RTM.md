@@ -1,6 +1,12 @@
 # Matriz de rastreabilidade — Organização de Recursos
 
-**Base vigente:** branch `develop`, commit `b73c501536a275cdc89101cc7130c7b481e52396`, conferido em 13/11/2026. Esta matriz consolida os RF01–RF14 e aponta as evidências disponíveis por requisito. Registros cronológicos anteriores foram preservados em [`RTM-historica-ate-2026-11-13.md`](RTM-historica-ate-2026-11-13.md).
+**Base integrada conferida:** develop `4525512cb166f281ed1dfdc5363563690400c510`, após aprovação/merge do #45 em13/11/2026. Esta matriz consolida os RF01–RF14 e aponta as evidências disponíveis por requisito. Registros cronológicos anteriores foram preservados em [`RTM-historica-ate-2026-11-13.md`](RTM-historica-ate-2026-11-13.md).
+
+## Entrega em conferência — etapa 8 — 13/11/2026
+
+Etapa7 publicada em468bf0e no [PR #45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/45), aprovado por `jovemOG-Dev` e mesclado em4525512; sincronização local concluída e consolidação8 pronta para revisão/publicação autorizadas. [Recibo](testes/marcos-8/encerramento-pr45.json). [Dossiê de Marcos](entrega/marcos-entrega-final.md), [story](stories/marcos-8.md), [resultados CI45](testes/marcos-8-resultados.md) e [artefatos/revisão](testes/marcos-8/ci-pr45.json). Conferidos287Surefire/79Failsafe, JaCoCo92,58%linhas/76,39%branches e4cenários JMeter aprovados. Gate externo OK informado pelo bot; scanner Maven falho e workflow failure conservam o resultado próprio. Aprovação e merge foram confirmados em consulta posterior à inspeção inicial; as evidências de CI e o recibo integrado mantêm registros separados.
+
+Os registros seguintes preservam os checkpoints e versões de origem; a documentação preparada não declara todos os RFs certificados, produção ou integração do PR ainda aberto.
 
 ## Complemento local — etapa 7 — 13/11/2026
 
@@ -15,7 +21,7 @@ Gates locais da etapa7: package287, build100/350 e sete suítes reais com result
 | **RF01** | Autenticação e autorização por perfil | Spring Security, sessão HttpOnly, CSRF, `UsuarioDetailsService` e provedor de ator autenticado. | [`seguranca.md`](qualidade/seguranca.md), `LoginMysqlIT`, `SegurancaComplementarTest` e [`q9-autorizacao-reservas.md`](seguranca/q9-autorizacao-reservas.md). Configuração `Secure` deve acompanhar o ambiente HTTPS. |
 | **RF02** | Cadastro e consulta de salas, professores e materiais | CRUD por tipo, filtros, paginação, desativação lógica, expediente e manutenção. | [`item18.md`](api/item18.md), `Item18MysqlIT` e resultados frontend Marcos-5. |
 | **RF03** | Pesquisa por tipo, capacidade, localização, competência e disponibilidade | Pesquisa no servidor, paginação, filtros e cálculo de disponibilidade por período. | `Item18MysqlIT`, `GET /api/recursos` e plano JMeter `01-consultas`. |
-| **RF04** | Criação, alteração e cancelamento de reservas | `ReservaService`, controller REST, consultas, edição/cancelamento, auditoria e notificação transacional. | [`reservas-contrato.md`](api/reservas-contrato.md), testes de domínio/serviço/API e E2E de edição. Backend Q5 integrado pelo #43; cliente/tela conciliados e aceitos localmente na etapa7, com [8 cenários reais Q5](testes/marcos-7/cancelamento-resultados.json), com publicação autorizada e revisão/integração pendentes. |
+| **RF04** | Criação, alteração e cancelamento de reservas | `ReservaService`, controller REST, consultas, edição/cancelamento, auditoria e notificação transacional. | [`reservas-contrato.md`](api/reservas-contrato.md), testes de domínio/serviço/API e E2E de edição. Backend Q5 integrado pelo #43; cliente/tela conciliados e aceitos localmente na etapa7, com [8 cenários reais Q5](testes/marcos-7/cancelamento-resultados.json), integrados pelo #45, com aprovação e merge confirmados. |
 | **RF05** | Detecção de sobreposição de horários, inclusive de professor | `IntervaloReserva`, `DetectorConflitos`, ocupações MySQL e verificação centralizada. | `IntervaloReservaTest`, `DetectorConflitosEExpedienteTest`, `Item18MysqlIT` e JMeter `02-disputa-reserva`. |
 | **RF06** | Proteção contra dupla reserva simultânea | Locks `FOR UPDATE`, ordenação de IDs, `READ_COMMITTED` e controle transacional compartilhado. | `Item18MysqlIT`, testes de concorrência/edição e JMeter `02-disputa-reserva` e `03-recursos-distintos`. Cargas são cenários controlados, não SLA. |
 | **RF07** | Aprovação obrigatória para recursos restritos | Fila de aprovação, aprovação/rejeição por Responsável, prevenção de autoaprovação e revalidação Q8. | `ReservaFilaMysqlIT`, `ReservaQ9MysqlIT`, `ReservaAprovacaoMysqlIT`, PRs #26/#27, #30/#31 e #33/#34. |
@@ -34,7 +40,7 @@ Gates locais da etapa7: package287, build100/350 e sete suítes reais com result
 | **Q1** | Início, conclusão e não comparecimento são exclusivos do Responsável. | Integrada no PR #31. |
 | **Q2** | Reserva restrita aprovada não é editável pelo PATCH. | Resolvida no ADR-007; sem código adicional. |
 | **Q3** | Responsável não aprova a própria reserva, mesmo com vínculo completo. | Integrada no PR #30. |
-| **Q5** | Administrador cancelando reserva de terceiro exige `motivo` não vazio, até 500 caracteres, persistido em `motivo_cancelamento` (V7). | Backend integrado no PR #43; integração do corpo e campo condicional implementados/testados e aceitos localmente na etapa7, com publicação autorizada e revisão/integração pendentes. |
+| **Q5** | Administrador cancelando reserva de terceiro exige `motivo` não vazio, até 500 caracteres, persistido em `motivo_cancelamento` (V7). | Backend integrado no PR #43; integração do corpo e campo condicional implementados/testados e aceitos localmente na etapa7, integrados pelo #45, com aprovação e merge confirmados. |
 | **Q8** | Aprovação revalida autorização, estado, ativos, expediente e conflitos dentro da transação. | Integrada nos PRs #33/#34. |
 | **Q9** | A consulta e a fila respeitam a identidade da sessão e o vínculo com todos os recursos da reserva. | Integrada nos PRs #26/#27 e formalizada no ADR-007. |
 
@@ -57,5 +63,5 @@ O arquivo [`relatorio-evidencias.md`](qualidade/relatorio-evidencias.md) preserv
 - As APIs de recursos, movimentações e reservas estão desabilitadas por padrão no `application.yml`; a execução local deve habilitar explicitamente as propriedades correspondentes.
 - A política de acesso ADMINISTRADOR do RF12 é provisória, conforme o serviço integrado.
 - RF11 está comprovada no modo de simulação por log e nos testes de gateway; isso não comprova entrega externa.
-- O ajuste do corpo Q5 no `reservas.js` foi concluído e aceito localmente na etapa7; não altera o estado implementado do backend e tem publicação autorizada e aguarda revisão/integração da equipe.
+- O ajuste do corpo Q5 no `reservas.js` foi concluído e aceito localmente na etapa7; não altera o estado implementado do backend e foi publicado, revisado e integrado pelo #45.
 - Os resultados apresentados comprovam os cenários e versões identificados; não são uma certificação de produção nem substituem o fechamento integrado de todos os módulos.

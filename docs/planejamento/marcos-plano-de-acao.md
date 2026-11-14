@@ -1,16 +1,18 @@
 # Marcos Boé — responsabilidades e plano de ação
 
-## Checkpoint atual — etapa 7 — 13/11/2026
+## Checkpoint atual — etapa 8 — 13/11/2026
 
-**Etapas 1–6 entregues à develop no escopo de Marcos; etapa 7 concluída localmente e aceita pelo autor, com publicação autorizada e revisão da equipe pendente.** O [PR #42](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/42) foi aprovado por **jovemOG-Dev** e mesclado em **11a3a56** às20:15 de13/11 em São Paulo. Contém a integração RF12 aceita por Marcos, commit **b5d2e8a**, com package277, build97/346 e13cenários reais aprovados. [Resultados e limites](../testes/marcos-6-integracao-real-resultados.md), [aceite humano](../testes/marcos-6-integracao-real-aceite-2026-11-13.md).
+**Etapas1–7 entregues à develop no escopo de Marcos; consolidação documental da etapa8 pronta para revisão/publicação autorizadas.** O #45 foi aprovado por `jovemOG-Dev` e mesclado em4525512; a branch local foi sincronizada por fast-forward com árvore executável idêntica. [Recibo de aprovação/merge/sincronização](../testes/marcos-8/encerramento-pr45.json). [Story Marcos-8](../stories/marcos-8.md), [CI45 e resultados](../testes/marcos-8-resultados.md), [dossiê preparado](../entrega/marcos-entrega-final.md). O [PR #42](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/42) foi aprovado por **jovemOG-Dev** e mesclado em **11a3a56** às20:15 de13/11 em São Paulo. Contém a integração RF12 aceita por Marcos, commit **b5d2e8a**, com package277, build97/346 e13cenários reais aprovados. [Resultados e limites](../testes/marcos-6-integracao-real-resultados.md), [aceite humano](../testes/marcos-6-integracao-real-aceite-2026-11-13.md).
 
 A develop avançou depois para **b73c501** pelo [PR #43 — Q5](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/43): Administrador cancelando reserva de terceiro precisa de justificativa; o dono continua sem essa exigência. Essa compatibilidade e a regressão da nova base pertencem à etapa7, sem reabrir as entregas anteriores.
 
 Após o aceite de Marcos, o [PR #44 documental](../testes/marcos-7-pr44-revisao.md) foi conferido e incorporado por fast-forward em **7d5480b**, sem mudança executável sobre b73c501. RTM/contrato conciliados e documentação histórica preservada. Nenhuma reexecução de testes atribuída a essa conferência.
 
-Pasta principal na branch **`test/marcos-7-validacao-integrada`**, criada de develop b73c501 e atualizada para7d5480b; [story Marcos-7](../stories/marcos-7.md). A edição manual no cabeçalho de `marcos-fechamento-etapas-1-a-5.md` permanece preservada e fora do recorte autoral. Stashes/backups antigos não foram reaplicados; os outros worktrees conservam suas branches.
+Etapa7 publicada em **468bf0e**, branch `test/marcos-7-validacao-integrada`, [PR #45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/45), destino develop7d5480b. Pasta principal agora na branch documental local **`docs/marcos-8-entrega-final`**, criada de468bf0e e sincronizada com a develop4525512; [story Marcos-8](../stories/marcos-8.md). A edição manual no cabeçalho de `marcos-fechamento-etapas-1-a-5.md` permanece preservada e fora do recorte autoral. Stashes/backups antigos não foram reaplicados; os outros worktrees conservam suas branches.
 
 A [CI do PR42](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43524879086) passou nas etapas de testes Java/MySQL, JaCoCo e job JMeter, mas terminou com falha no scanner Sonar. Isso não é CI inteiramente verde. O encaminhamento compartilhado do scanner continua separado; CodeRabbit local permanece indisponível, sem aprovação presumida.
+
+A [CI própria do PR45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976) teve287Surefire/79Failsafe, JaCoCo92,58%linhas/76,39%branches e4cenários JMeter aprovados; o scanner Maven falhou em autorização/projeto, com workflow failure. O bot externo publicou [Quality Gate passed](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/45#issuecomment-6869673675). Os resultados distintos estão [relacionados com artefatos próprios](../testes/marcos-8/ci-pr45.json); nenhum aceite humano ou CI global verde é inferido.
 
 Este é o plano vigente. A [versão anterior completa](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/blob/b5d2e8a973afbc927b7d73dfc052a7cd02263dd4/docs/planejamento/marcos-plano-de-acao.md) conserva checkpoints e tabelas históricos. Não usar pendências antigas de GETs, Q9, telas ou publicação dos PRs já mesclados para orientar o trabalho atual.
 
@@ -59,12 +61,12 @@ Fonte única: `backend/src/main/resources/static/`, HTML/CSS/JavaScript nativos.
 | 0 | Contexto, contratos e responsabilidades | CONCLUÍDO; fontes e decisões identificadas. |
 | 1 | API, sessão, CSRF e formulários | CONCLUÍDO no fechamento integrado1a5. |
 | 2 | Acesso, navegação e perfis | CONCLUÍDO, com testes/aceites próprios e integração. |
-| 3 | Pesquisa e reservas | CONCLUÍDO; #28/#29 e complementos, sem GET ausente. Q5/#43 requer compatibilidade nova na etapa7. |
+| 3 | Pesquisa e reservas | CONCLUÍDO; #28/#29 e complementos, sem GET ausente. Compatibilidade Q5/#43 concluída na etapa7 e publicada no #45. |
 | 4 | Fila, aprovação/rejeição e Q9 | CONCLUÍDO; #24/#26/#27, Q1/Q3/Q8 e ADR-007. |
 | 5 | Administração e movimentações | CONCLUÍDO; #23 e complementos integrados. |
 | 6 | Relatórios e mensagens coerentes com eventos | CONCLUÍDO no escopo de Marcos e INTEGRADO pelo #42, após #37/#39/#41. Testes e aceite humano próprios; RF11 conserva o modo adotado no fechamento1a5. |
-| 7 | E2E real, regressão e acabamento | CONCLUÍDO LOCALMENTE E ACEITO em b73c501 + ajustes Q5: [Marcos-7](../stories/marcos-7.md), package287, build100/350 e sete suítes reais aprovadas. [Resultados/matriz](../testes/marcos-7-resultados.md). [Aceite do autor registrado](../testes/marcos-7-verificacao.md#aceite-do-autor--13112026). Commit/push/PR autorizados expressamente por Marcos em13/11/2026; revisão independente/equipe e integração mantêm seu ciclo próprio. |
-| 8 | Revisão e entrega final | Ciclos1–6 já têm revisão/integração. O incremento7 tem gates locais e aceite do autor registrados; o fechamento final aguarda revisão da equipe, checks e entrega efetivos. Scanner/controles globais conservam limites próprios. |
+| 7 | E2E real, regressão e acabamento | CONCLUÍDO E INTEGRADO: [Marcos-7](../stories/marcos-7.md), package287, build100/350 e sete suítes reais aprovadas; aceite do autor, aprovação independente e merge do #45 em4525512 confirmados. [Resultados locais](../testes/marcos-7-resultados.md) e [recibo integrado](../testes/marcos-8/encerramento-pr45.json). Scanner Maven e demais limites compartilhados mantêm seus resultados próprios. |
+| 8 | Revisão e entrega final | CONSOLIDAÇÃO PRONTA PARA REVISÃO: aprovação/merge do #45 e sincronização confirmados; CI, dossiê/RTM e fechamento do escopo1–7 conferidos. Commit/push/PR documental autorizados. [Story](../stories/marcos-8.md); revisão/integração da própria consolidação e limites compartilhados conservam seus registros. |
 
 A [entrega1a5](../testes/marcos-encerramento-etapas-1-a-5-2026-11-13.json) está integrada pelos #36/#38. A [entrega6](../stories/marcos-6-integracao-real.md) foi aprovada e mesclada pelo #42. Não somar contagens históricas para declarar cobertura global ou converter aceite do autor em revisão independente.
 
@@ -82,6 +84,20 @@ A [entrega1a5](../testes/marcos-encerramento-etapas-1-a-5-2026-11-13.json) está
 A etapa7 não cria gráficos/CSV, novos relatórios, caixa de notificações, APIs de gestão de vínculos ou política de perfis. Não exige testar todas as combinações possíveis sem critério rastreável. A etapa8 conserva a revisão/entrega final, sem impedir correções proporcionais já autorizadas.
 
 **Conferência solicitada antes do envio:** [checklist de evidências](../stories/marcos-7/qa/evidence_checklist.md) do relatório preliminar validado contra artefatos reais da CI44 e provas locais. As evidências obrigatórias Q5 estão presentes; o checklist global mantém Sonar aberto, confirmação TDD por autor e revisão/CI/entrega em seus estados próprios. Não foi declarada conclusão global nem autorizada publicação por esse pedido.
+
+## Etapa 8 — revisão e entrega final
+
+A liberação inicial de Marcos foi seguida pela confirmação real: Silva aprovou o #45 em2026-11-14T02:09:09Z e o PR foi mesclado em2026-11-14T02:09:17Z, commit4525512. A aprovação/integração foram relacionadas somente após constarem no GitHub; sincronização local e preservação de fontes/evidências estão no recibo.
+
+| Tópico | Situação atual |
+|---|---|
+| 1. Revisão da equipe | CONCLUÍDA: aprovação efetiva de Silva confirmada e relacionada. |
+| 2. Apontamentos | Conferência atual concluída: nenhum comentário humano de correção e0novos problemas informados pelo bot. Analisar novos apontamentos quando publicados. |
+| 3. CI | Conferência concluída: testes/JaCoCo/JMeter aprovados; gate externo OK e scanner Maven falho registrados separadamente. |
+| 4. Integração | CONCLUÍDA: merge4525512 confirmado e branch documental sincronizada por fast-forward; fontes/testes preservados. |
+| 5. Consolidação | Documentação atualizada após integração; publicação autorizada por Marcos e revisão/integração do novo PR documental com ciclo próprio. |
+
+[Story Marcos-8](../stories/marcos-8.md), [provas atuais](../testes/marcos-8-resultados.md) e [dossiê final preparado](../entrega/marcos-entrega-final.md). Sem nova execução local de testes ou código funcional: o merge integrou árvore já testada e idêntica. Publicação documental autorizada; as evidências anteriores mantêm suas origens.
 
 ## Dependências concretas para integração
 
@@ -112,6 +128,6 @@ CT14/17/18, CT16 e CT19 conservam os cenários existentes de segurança, retirad
 
 ## Fluxo de trabalho e continuidade
 
-Seguir [fluxo acordado](fluxo-de-trabalho-marcos.md): story/contrato antes do código, implementação do recorte, verificações proporcionais, evidências/documentação, revisão humana e commit quando solicitado. A autorização de publicar a etapa6 foi atendida pelo #42. Após aceite e conferência do checklist, Marcos autorizou expressamente commit/push/PR da etapa7 em13/11/2026; essa autorização não é revisão independente nem aceite global do projeto.
+Seguir [fluxo acordado](fluxo-de-trabalho-marcos.md): story/contrato antes do código, implementação do recorte, verificações proporcionais, evidências/documentação, revisão humana e commit quando solicitado. A autorização de publicar a etapa6 foi atendida pelo #42. Após aceite e conferência do checklist, Marcos autorizou expressamente commit/push/PR da etapa7 em13/11/2026; autorização atendida por468bf0e/#45. A aprovação real e o merge do #45 foram depois confirmados; Marcos autorizou commit/push/PR da consolidação8. Encerramento do escopo de Marcos não é aceite global/ATAM ou implantação de produção.
 
 O histórico anterior, incluindo o [relatório de11/11](relatorio-marcos-2026-11-11.md) e a [versão anterior deste plano](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/blob/b5d2e8a973afbc927b7d73dfc052a7cd02263dd4/docs/planejamento/marcos-plano-de-acao.md), permanece consultável. As descrições de endpoints/telas/publicações ausentes nesses registros pertencem àqueles momentos.
