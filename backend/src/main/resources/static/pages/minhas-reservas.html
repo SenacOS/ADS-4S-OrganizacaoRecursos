@@ -75,6 +75,11 @@
             </section>
             <form id="form-cancelar-reserva" class="cancel-reservation" hidden>
               <h3>Cancelar reserva</h3><p id="alvo-cancelamento-reserva"></p>
+              <div id="justificativa-cancelamento" hidden>
+                <label for="motivo-cancelar">Justificativa do cancelamento</label>
+                <textarea id="motivo-cancelar" maxlength="500" rows="3" aria-describedby="ajuda-motivo-cancelar" disabled></textarea>
+                <p id="ajuda-motivo-cancelar" class="field-help">Obrigatória ao cancelar a reserva de outra pessoa. Máximo de 500 caracteres.</p>
+              </div>
               <label class="reservation-check"><input id="confirmar-cancelar" type="checkbox" required> Confirmo o cancelamento desta reserva, preservando seu histórico.</label>
               <button id="cancelar-reserva" class="button button-secondary" type="submit">Confirmar cancelamento</button>
             </form>

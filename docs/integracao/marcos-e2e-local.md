@@ -1,5 +1,13 @@
 # Ambiente local de integração de Marcos
 
+## Etapa7 — base b73c501, V1–V7 — 13/11/2026
+
+Branch `test/marcos-7-validacao-integrada`; [resultados e comandos](../testes/marcos-7-resultados.md), [matriz](../testes/marcos-7-matriz-evidencias.md) e [roteiro humano](../testes/marcos-7-verificacao.md). JAR anterior e dump privados preservados antes da V7; mesmo MySQL isolado, dados anteriores mantidos. Principal em `http://127.0.0.1:18080/login.html`, worker desligado. Demonstração RF11 usa base/processo próprios, gateway simulado real e URL vazia.
+
+Sequência real da nova base: `controle.cjs status`, `validar.cjs`, `validar-cancelamento.cjs`, `validar-q9.cjs`, `validar-consulta-reservas.cjs`, `validar-fechamento.cjs --manifesto-frontend=docs/testes/marcos-7/regressao-frontend.json`, `validar-relatorios.cjs` e `demonstrar-fechamento.cjs`, todos sob `node tests/e2e-local/`. O fechamento exige manifesto de build aprovado correspondente à fonte atual; não editar os hashes antigos nem gerar um PASS fictício. O manifesto publicado comprova100/350,58fontes e comparação estrita. Os demais auxiliares registram fontes/JAR e massas próprios.
+
+Q5 exige justificativa em cancelamentos administrativos de terceiros; as fixtures atuais preenchem/enviam esse campo, preservando cancelamento sem corpo do dono. O auxiliar de consulta usa o próximo dia de São Paulo09h para evitar atravessar a meia-noite. Tentativa antiga6/1 mantida no relatório. Scripts opt-in não instalam ferramentas/apagam dados nem publicam credenciais/logs brutos.
+
 ## RF12 real — 13/11/2026
 
 Na raiz da branch `feature/marcos-6-integracao-real`, sobre develop8065626: `node tests/e2e-local/controle.cjs status` e `node tests/e2e-local/validar-relatorios.cjs`. O auxiliar é opt-in Windows; exige ferramentas/configuração privada, JAR atual, banco isolado e API de reservas habilitada. Configurar caminhos absolutos `git` e `powershell` em `.aiox-core/local/tools/paths.json`, conforme `executaveis.cjs`; não consultar PATH ou publicar credenciais.

@@ -1,0 +1,281 @@
+{
+  "inicio": "2026-11-13T23:51:59.043Z",
+  "head": "b73c501536a275cdc89101cc7130c7b481e52396",
+  "branch": "test/marcos-7-validacao-integrada",
+  "arvore": "Incremento local sem commit; artefatos identificados por digest",
+  "baseURL": "http://127.0.0.1:18082",
+  "database": "qs_fechamento_bd5f654126a1",
+  "camada": "Spring/HTTP/MySQL e gateway simulado reais; nenhuma interceptação, Mockito ou WireMock",
+  "cenarios": [
+    {
+      "nome": "Base exclusiva, identidade MySQL e contas segregadas",
+      "estado": "PASS",
+      "evidencia": {
+        "database": "qs_fechamento_bd5f654126a1",
+        "porta": 18082,
+        "migracoes": 7,
+        "workerInicial": false,
+        "gateway": "SIMULADO_URL_VAZIA",
+        "contas": "runtime/migração da base descartável e operador de vínculos separados"
+      }
+    },
+    {
+      "nome": "Três perfis reais, recursos e sessão/CSRF na mesma origem",
+      "estado": "PASS",
+      "evidencia": {
+        "usuarios": 4,
+        "perfis": 3,
+        "recursos": [
+          1,
+          2
+        ],
+        "reservaId": 1,
+        "estado": "SOLICITADA",
+        "offset": "-03:00"
+      }
+    },
+    {
+      "nome": "Procedimento recusa parâmetros e concessão incompatível sem efeitos",
+      "estado": "PASS",
+      "evidencia": {
+        "negativas": 8,
+        "idsInvalidos": [
+          0,
+          -1
+        ],
+        "vinculos": 0,
+        "operadorNaoAlteraPapel": true,
+        "operadorNaoLeHashOuEmail": true
+      }
+    },
+    {
+      "nome": "Q9 sem vínculo e parcial; concessão idempotente no par autorizado",
+      "estado": "PASS",
+      "evidencia": {
+        "operacao": {
+          "resultado": "CONCEDIDO",
+          "base": "qs_fechamento_bd5f654126a1",
+          "operador": "qso_bd5f654126a1@127.0.0.1",
+          "momento": "2026-11-13 23:52:11.985900",
+          "acao": "CONCEDER",
+          "usuarioId": 3,
+          "recursoId": 1,
+          "referencia": "DEMO-bd5f654126a1",
+          "antes": 0,
+          "depois": 1
+        },
+        "repetida": {
+          "resultado": "CONCEDIDO",
+          "base": "qs_fechamento_bd5f654126a1",
+          "operador": "qso_bd5f654126a1@127.0.0.1",
+          "momento": "2026-11-13 23:52:12.030926",
+          "acao": "CONCEDER",
+          "usuarioId": 3,
+          "recursoId": 1,
+          "referencia": "DEMO-bd5f654126a1",
+          "antes": 1,
+          "depois": 1
+        },
+        "parcial": 404,
+        "outroSolicitante": 404,
+        "dono": 200,
+        "administrador": 200
+      }
+    },
+    {
+      "nome": "Vínculo completo, revogação efetiva e reconcessão antes da aprovação",
+      "estado": "PASS",
+      "evidencia": {
+        "concessao": {
+          "resultado": "CONCEDIDO",
+          "base": "qs_fechamento_bd5f654126a1",
+          "operador": "qso_bd5f654126a1@127.0.0.1",
+          "momento": "2026-11-13 23:52:12.083835",
+          "acao": "CONCEDER",
+          "usuarioId": 3,
+          "recursoId": 2,
+          "referencia": "DEMO-bd5f654126a1",
+          "antes": 0,
+          "depois": 1
+        },
+        "revogacao": {
+          "resultado": "REVOGADO",
+          "base": "qs_fechamento_bd5f654126a1",
+          "operador": "qso_bd5f654126a1@127.0.0.1",
+          "momento": "2026-11-13 23:52:12.163810",
+          "acao": "REVOGAR",
+          "usuarioId": 3,
+          "recursoId": 2,
+          "referencia": "DEMO-bd5f654126a1",
+          "antes": 1,
+          "depois": 0
+        },
+        "revogacaoIdempotente": {
+          "resultado": "REVOGADO",
+          "base": "qs_fechamento_bd5f654126a1",
+          "operador": "qso_bd5f654126a1@127.0.0.1",
+          "momento": "2026-11-13 23:52:12.292648",
+          "acao": "REVOGAR",
+          "usuarioId": 3,
+          "recursoId": 2,
+          "referencia": "DEMO-bd5f654126a1",
+          "antes": 0,
+          "depois": 0
+        },
+        "leituraRevogada": 404,
+        "decisaoRevogada": 403,
+        "reconcessaoAprovacao": 200
+      }
+    },
+    {
+      "nome": "Revogação limpa vínculo obsoleto sem ampliar permissões",
+      "estado": "PASS",
+      "evidencia": {
+        "usuarioInativo": {
+          "resultado": "REVOGADO",
+          "base": "qs_fechamento_bd5f654126a1",
+          "operador": "qso_bd5f654126a1@127.0.0.1",
+          "momento": "2026-11-13 23:52:12.485894",
+          "acao": "REVOGAR",
+          "usuarioId": 3,
+          "recursoId": 1,
+          "referencia": "DEMO-bd5f654126a1",
+          "antes": 1,
+          "depois": 0
+        },
+        "perfilAlterado": {
+          "resultado": "REVOGADO",
+          "base": "qs_fechamento_bd5f654126a1",
+          "operador": "qso_bd5f654126a1@127.0.0.1",
+          "momento": "2026-11-13 23:52:12.574887",
+          "acao": "REVOGAR",
+          "usuarioId": 3,
+          "recursoId": 2,
+          "referencia": "DEMO-bd5f654126a1",
+          "antes": 1,
+          "depois": 0
+        },
+        "vinculosFinais": 0
+      }
+    },
+    {
+      "nome": "RF11: outbox pendente após commit e auditoria reais",
+      "estado": "PASS",
+      "evidencia": {
+        "eventos": [
+          {
+            "id": 1,
+            "evento": "RESERVA_CRIADA",
+            "status": "PENDENTE",
+            "tentativas": 0,
+            "correlacaoId": "b2926c36-294c-4f85-9645-d4ba79138c80",
+            "criadoEm": "2026-11-13T23:52:11.035796Z",
+            "enviadoEm": "AUSENTE"
+          },
+          {
+            "id": 2,
+            "evento": "RESERVA_APROVADA",
+            "status": "PENDENTE",
+            "tentativas": 0,
+            "correlacaoId": "20604d56-bfde-442e-ba5c-a4c540f20f93",
+            "criadoEm": "2026-11-13T23:52:12.396999Z",
+            "enviadoEm": "AUSENTE"
+          }
+        ],
+        "auditorias": 2,
+        "worker": false
+      }
+    },
+    {
+      "nome": "RF11: worker e gateway simulado reais processam somente a base nova",
+      "estado": "PASS",
+      "evidencia": {
+        "gateway": "GatewayNotificacaoPadrao URL vazia",
+        "worker": "NotificacaoAgendamento real",
+        "destino": "SIMULACAO_LOCAL_SEM_REDE_EMAIL",
+        "eventos": [
+          {
+            "id": 1,
+            "evento": "RESERVA_CRIADA",
+            "reservaId": 1,
+            "correlacaoId": "b2926c36-294c-4f85-9645-d4ba79138c80",
+            "criadoEm": "2026-11-13T23:52:11.035796Z",
+            "enviadoEm": "2026-11-13T23:52:21.051988Z",
+            "logSimuladoEncontrado": true
+          },
+          {
+            "id": 2,
+            "evento": "RESERVA_APROVADA",
+            "reservaId": 1,
+            "correlacaoId": "20604d56-bfde-442e-ba5c-a4c540f20f93",
+            "criadoEm": "2026-11-13T23:52:12.396999Z",
+            "enviadoEm": "2026-11-13T23:52:21.063004Z",
+            "logSimuladoEncontrado": true
+          }
+        ],
+        "estado": "ENVIADA",
+        "tentativas": 1
+      }
+    }
+  ],
+  "principalAntes": {
+    "algoritmo": "SHA-256",
+    "estadoDigest": "a2aa0318748aa014c912b6ebad45277a6b5db84bda67b05213a7bb39a7e732d3",
+    "outboxDigest": "223a909eaaf88aa25dcd899f63470e2842d1c4fffc194508f64eb377b99af18d"
+  },
+  "principalDepois": {
+    "algoritmo": "SHA-256",
+    "estadoDigest": "a2aa0318748aa014c912b6ebad45277a6b5db84bda67b05213a7bb39a7e732d3",
+    "outboxDigest": "223a909eaaf88aa25dcd899f63470e2842d1c4fffc194508f64eb377b99af18d"
+  },
+  "isolamento": {
+    "baseDemoPreservada": "qs_fechamento_bd5f654126a1",
+    "temporariaEncerrada": true,
+    "estadoPrincipalPreservado": true,
+    "principalPronto": true,
+    "outboxPrincipalPreservada": true
+  },
+  "fim": "2026-11-13T23:52:22.621Z",
+  "resumo": {
+    "PASS": 8,
+    "FAIL": 0
+  },
+  "versaoFormato": 2,
+  "artefatos": [
+    {
+      "arquivo": "docs/operacao/vinculos-responsaveis.sql",
+      "algoritmo": "SHA-256",
+      "digest": "0cfff35573f6836b70d5f704762741da22c1709a39fb11d8135ab1b5b3d83432"
+    },
+    {
+      "arquivo": "tests/e2e-local/demonstrar-fechamento.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "6db9596547afa48650d5c8244fec06770ce68cd453bc9f175c85fd40f264e093"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/notificacao/GatewayNotificacaoPadrao.java",
+      "algoritmo": "SHA-256",
+      "digest": "b4cf39b4e85e2990e0c4b7016b43bd321a10f43951cd61436f4842a756fe73f7"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/notificacao/ProcessadorNotificacoes.java",
+      "algoritmo": "SHA-256",
+      "digest": "4221cf2b4e6e3875e6906e5c106715a7f58374a849bd10a1e3ca3d8a888db3d9"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/notificacao/NotificacaoAgendamento.java",
+      "algoritmo": "SHA-256",
+      "digest": "67af057fbdbbc35ab25c95da8e2a49009c38cb5a80e35b9368d6cfa5ada357ba"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/aprovacoes.js",
+      "algoritmo": "SHA-256",
+      "digest": "641e0e456de266f946aa1354c1a4c4c5e4789dacb242e6dd2a074aa4095f15de"
+    },
+    {
+      "arquivo": "backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar",
+      "algoritmo": "SHA-256",
+      "digest": "afe76ecce37678bc92350988081f5e5a73e36e1bca234831e6b16221bb3d88b4"
+    }
+  ]
+}

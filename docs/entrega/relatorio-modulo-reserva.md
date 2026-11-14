@@ -58,7 +58,7 @@ Q2 e Q5 são decisões de regra de negócio sob RF04/RF07, não requisitos funci
 - A falta de justificativa obrigatória produz HTTP 400, código `REQUISICAO_INVALIDA`. O handler HTTP apresenta a mensagem genérica `Requisição inválida.`; a validação de tamanho também retorna 400 no mesmo envelope.
 - O registro de cancelamento preserva reserva, vínculos, auditoria e notificação. A coluna `motivo_cancelamento` foi criada pela migration `V7__reserva_motivo_cancelamento.sql` como `VARCHAR(500) NULL`.
 
-**Integração do cliente:** no estado conferido de `develop` em 13/11/2026, `backend/src/main/resources/static/js/reservas.js` ainda executa o POST sem corpo. Por isso, o Administrador cancelando uma reserva de terceiro pela interface recebe 400 até que a frente de frontend envie `motivo`. O backend e a migration estão integrados no PR #43; o ajuste do cliente pertence à frente de frontend. `docs/api/frontend-integracao.md` não é alterado por este relatório.
+**Integração do cliente:** no snapshot integrado `b73c501`, o cliente executava o POST sem corpo e o Administrador cancelando reserva de terceiro recebia 400. A [etapa7 do frontend](../stories/marcos-7.md) acrescenta campo condicional/limite500/confirmação e envio de `motivo`; o dono, inclusive Administrador dono, continua sem justificativa obrigatória. Ajuste validado e [aceito localmente por Marcos](../testes/marcos-7-verificacao.md#aceite-do-autor--13112026), com publicação autorizada e revisão/integração da equipe pendentes. O backend e a migration permanecem os do PR #43. [Resultados e limites](../testes/marcos-7-resultados.md) e [integração frontend](../api/frontend-integracao.md).
 
 ## 3. Integração com os demais módulos
 
@@ -135,7 +135,7 @@ mvn -f backend/pom.xml clean verify
 
 ## 8. Limites conhecidos do recorte
 
-- Q5 está implementada no domínio, serviço, persistência e API. O cliente `reservas.js` ainda não envia `motivo` ao cancelar reserva de terceiro como Administrador; essa integração pertence à frente de frontend.
+- Q5 está implementada no domínio, serviço, persistência e API. O cliente/tela da etapa7 já envia `motivo` no cancelamento administrativo de reserva de terceiro e foi aceito localmente pelo autor; a publicação desse incremento foi autorizada; revisão/integração da equipe permanecem pendentes.
 - A flag `reservas.api.enabled` permanece `false` por padrão. A execução local deve habilitá-la explicitamente junto às APIs de recursos e movimentações necessárias ao cenário.
 - O acesso ADMINISTRADOR no RF12 é provisório. A tela real e o endpoint estão integrados, mas a decisão de acesso não é descrita como política definitiva.
 - RF11 utiliza o modo simulado por log quando o gateway externo está vazio. Isso comprova a demonstração simulada, não o recebimento de e-mail ou mensagem externa.

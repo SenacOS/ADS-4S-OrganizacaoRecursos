@@ -68,3 +68,26 @@ test('cancelamento sem corpo exige CANCELADA e preservação de alvo/intervalo/r
   await assert.rejects(preparar(r).cliente.cancelar(r),{codigo:'RESPOSTA_INVALIDA'});
   const outro=preparar(r,{...usuario,usuarioId:9});await assert.rejects(outro.cliente.cancelar(r),{status:403});assert.deepEqual(outro.chamadas,[]);
 });
+
+test('Q5: Administrador em reserva alheia recusa motivo ausente, branco, inválido ou maior que500 sem HTTP',async()=>{
+  const p=preparar({...r,status:'CANCELADA'},{...usuario,usuarioId:9,papel:'ADMINISTRADOR'});
+  for(const motivo of [undefined,'','  \n  ',null,17,'x'.repeat(501)]) {
+    await assert.rejects(p.cliente.cancelar(r,motivo),{codigo:'REQUISICAO_INVALIDA'});
+  }
+  assert.deepEqual(p.chamadas,[]);
+});
+
+test('Q5: justificativa administrativa envia somente motivo, preservando alvo e DTO sem eco do campo',async()=>{
+  const p=preparar({...r,status:'CANCELADA'},{...usuario,usuarioId:9,papel:'ADMINISTRADOR'});
+  await p.cliente.cancelar(r,'  Ajuste autorizado da agenda.  ');
+  assert.deepEqual(p.chamadas,[{url:'/api/reservas/31/cancelamento',method:'POST',body:{motivo:'Ajuste autorizado da agenda.'}}]);
+  const limite=preparar({...r,status:'CANCELADA'},{...usuario,usuarioId:9,papel:'ADMINISTRADOR'});
+  await limite.cliente.cancelar(r,'x'.repeat(500));assert.equal(limite.chamadas[0].body.motivo.length,500);
+});
+
+test('Q5: Administrador dono continua sem motivo e outro perfil não ganha permissão com justificativa',async()=>{
+  const dono=preparar({...r,status:'CANCELADA'},{...usuario,papel:'ADMINISTRADOR'});await dono.cliente.cancelar(r);
+  assert.deepEqual(dono.chamadas,[{url:'/api/reservas/31/cancelamento',method:'POST'}]);
+  const outro=preparar({...r,status:'CANCELADA'},{...usuario,usuarioId:9,papel:'RESPONSAVEL'});
+  await assert.rejects(outro.cliente.cancelar(r,'Motivo informado'),{status:403});assert.deepEqual(outro.chamadas,[]);
+});

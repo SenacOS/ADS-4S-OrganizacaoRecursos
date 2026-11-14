@@ -103,6 +103,26 @@ test('cancelamento requer conferência e confirma alvo/estado sem remover histó
   await expect(page.locator('#dados-reserva')).toContainText('CANCELADA');await expect(page.locator('#form-cancelar-reserva')).toBeHidden();
   expect(e.escritas).toHaveLength(1);expect(e.escritas[0]).toMatchObject({metodo:'POST',p:'/api/reservas/31/cancelamento',body:undefined});
 });
+test('Q5: cancelamento administrativo exige justificativa, confirma e envia uma vez',async({page})=>{
+  const e=await abrir(page,{papel:'ADMINISTRADOR',usuarioId:9});await detalhe(page);
+  const motivo=page.getByLabel('Justificativa do cancelamento',{exact:true});
+  await expect(motivo).toBeVisible();await expect(motivo).toHaveAttribute('maxlength','500');
+  await page.locator('#confirmar-cancelar').check();await page.locator('#cancelar-reserva').click();expect(e.escritas).toHaveLength(0);
+  await motivo.fill('   ');await page.locator('#confirmar-cancelar').check();await page.locator('#cancelar-reserva').click();
+  await expect(page.locator('#feedback-detalhe')).toContainText('justificativa');expect(e.escritas).toHaveLength(0);
+  await motivo.fill('  Ajuste autorizado da agenda.  ');await expect(page.locator('#confirmar-cancelar')).not.toBeChecked();
+  await page.locator('#confirmar-cancelar').check();await page.locator('#cancelar-reserva').evaluate(b=>{b.click();b.click();});
+  await expect(page.locator('#feedback-detalhe')).toContainText('Cancelamento confirmado');
+  expect(e.escritas).toHaveLength(1);expect(e.escritas[0].body).toEqual({motivo:'Ajuste autorizado da agenda.'});
+});
+
+test('Q5: Administrador dono não recebe campo obrigatório e cancela sem corpo',async({page})=>{
+  const e=await abrir(page,{papel:'ADMINISTRADOR',usuarioId:7});await detalhe(page);
+  await expect(page.locator('#justificativa-cancelamento')).toBeHidden();await expect(page.locator('#motivo-cancelar')).toBeDisabled();
+  await page.locator('#confirmar-cancelar').check();await page.locator('#cancelar-reserva').click();
+  await expect(page.locator('#feedback-detalhe')).toContainText('Cancelamento confirmado');expect(e.escritas[0].body).toBeUndefined();
+});
+
 test('estado EM_USO não oferece edição ou cancelamento',async({page})=>{
   await abrir(page,{registro:{...copiar(reserva),status:'EM_USO'}});await detalhe(page);
   await expect(page.locator('#form-edicao-reserva')).toBeHidden();await expect(page.locator('#form-cancelar-reserva')).toBeHidden();

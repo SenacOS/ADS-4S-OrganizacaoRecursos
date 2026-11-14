@@ -7,6 +7,8 @@ performance, RTM, análise de riscos e evidências.
 **Estado: preliminar, não é aceite final do projeto.** Este documento distingue
 evidências locais observadas de tarefas planejadas e de resultados ausentes.
 
+**Conferência posterior — 13/11/2026:** os oito itens da seção5 foram confrontados com a develop7d5480b, os artefatos reais da CI do PR #44 e as evidências locais da etapa7. [Checklist atual, fontes e pendências](../stories/marcos-7/qa/evidence_checklist.md): cinco itens com atendimento demonstrado no recorte, dois parciais e SonarCloud aberto. Consultas/Q9 e E2Es já têm provas posteriores; isso não altera retroativamente os resultados, checkboxes e defeitos registrados em10/11 abaixo.
+
 ## 1. Execuções comprovadas até agora
 
 | Data (America/Sao_Paulo) | Branch/escopo | Comando/evidência observada | Resultado |
@@ -59,6 +61,8 @@ E2E, revisao por colegas e merges ainda impedem o aceite final. Na revisão fina
 da equipe, não atribuir aceite retroativamente.
 
 ## 5. Checklist para fechar evidências sem falsificar resultados
+
+Os checkboxes seguintes preservam o checkpoint de10/11/2026. Para o estado conferido em13/11, consulte a [validação dos oito itens](../stories/marcos-7/qa/evidence_checklist.md), com inspeção dos ZIPs Surefire/Failsafe/JaCoCo/JMeter e separação entre aceite do autor, TDD histórico, revisão da equipe e falha Sonar. Não interpretar as pendências antigas de GET/E2E como diagnóstico atual.
 
 - [x] Java 21 real, Docker, `mvn clean verify` e JMeter aprovados na CI do PR #11 (run 42945777138).
 - [x] XML Surefire/Failsafe e JaCoCo HTML/XML arquivados no artefato `quality-evidence` do run 42945777138.

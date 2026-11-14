@@ -1,0 +1,13 @@
+{
+  "dataLocal": "2026-11-13",
+  "camada": "Unitário focal; antes da conciliação frontend Q5",
+  "testes": 3,
+  "pass": 1,
+  "fail": 2,
+  "motivos": [
+    "Justificativa faltante não era recusada antes do HTTP.",
+    "Motivo informado não era enviado no corpo."
+  ],
+  "logPrivadoSha256": "0e753f794f3bd6a8a7e40e66d645845f27b88359a994dc4bd1acdb91982c06c0",
+  "resultadoPosterior": "3/3 focal e100/350 no build final; Q5 real8/0"
+}

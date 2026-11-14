@@ -79,7 +79,7 @@ async function executar() {
   await pronto();
   await cenario('Flyway e identidade da base isolada', 'SQL real', async () => {
     const linhas = sql('SELECT version,description,success FROM flyway_schema_history ORDER BY installed_rank').split(/\r?\n/);
-    assert.equal(linhas.length, 6); assert(linhas.every((l) => l.endsWith('\t1')));
+    assert.equal(linhas.length, 7); assert(linhas.every((l) => l.endsWith('\t1')));
     return { migracoes: linhas, banco: estado.database, porta: estado.mysqlPort };
   });
   const anonima = await apiNova();

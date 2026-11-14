@@ -1,5 +1,9 @@
 # Documentacao do Projeto
 
+## Etapa7 — regressão integrada e acabamento — 13/11/2026
+
+Etapa6 aprovada e mesclada pelo #42. [Plano atual](planejamento/marcos-plano-de-acao.md), [story Marcos-7](stories/marcos-7.md), [resultados287/100/350 e sete suítes reais](testes/marcos-7-resultados.md), [matriz RF/CT](testes/marcos-7-matriz-evidencias.md), [CI compartilhada/limites](testes/marcos-7/ci-equipe.json) e [roteiro humano](testes/marcos-7-verificacao.md). Compatibilidade Q5/#43 implementada/validada localmente; [Aceite de Marcos registrado](testes/marcos-7-verificacao.md#aceite-do-autor--13112026); Commit/push/PR do recorte7 autorizados expressamente em13/11/2026; revisão da equipe/integração pendentes. [PR44 documental conferido/incorporado](testes/marcos-7-pr44-revisao.md), sem mudar código/evidências. Os checkpoints da etapa6 abaixo preservam seu momento anterior ao merge, sem reabrir sua entrega.
+
 ## Etapa6 — integração HTTP real local — 13/11/2026
 
 #40/#41 mesclados na develop8065626. [Story da integração](stories/marcos-6-integracao-real.md), [contrato HTTP efetivo](api/relatorios-utilizacao-proposta.md#contrato-http-efetivo--pr-41), [resultados13/0 reais e gates277/97/346](testes/marcos-6-integracao-real-resultados.md) e [roteiro humano](testes/marcos-6-integracao-real-verificacao.md). Rota/menu conciliados e [aceitos por Marcos](testes/marcos-6-integracao-real-aceite-2026-11-13.md). Implementação e validação local concluídas; revisão independente/equipe, commit e entrega do novo recorte pendentes. Resultados controlados anteriores preservam suas origens; etapas1–5 permanecem encerradas.

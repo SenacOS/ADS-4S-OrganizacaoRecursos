@@ -61,9 +61,15 @@ export function criarReservas(cliente = api) {
     async editar(id, dados) {
       return cliente.requisitar(rota(id), { method: 'PATCH', body: corpoReserva(dados) });
     },
-    /** @param {number} id */
-    cancelar(id) {
-      return cliente.requisitar(rota(id) + '/cancelamento', { method: 'POST' });
+    /** @param {number} id @param {string} [motivo] */
+    cancelar(id, motivo) {
+      if (motivo !== undefined && (typeof motivo !== 'string' || motivo.length > 500)) {
+        throw new ErroApi(400, 'REQUISICAO_INVALIDA', 'Informe uma justificativa de até 500 caracteres.');
+      }
+      const justificativa = motivo?.trim();
+      return cliente.requisitar(rota(id) + '/cancelamento', {
+        method: 'POST', ...(justificativa ? { body: { motivo: justificativa } } : {}),
+      });
     },
     /** @param {number} id */
     aprovar(id) {

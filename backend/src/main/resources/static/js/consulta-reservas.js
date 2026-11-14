@@ -60,6 +60,11 @@ export function podeCancelarReserva(r,u) {
   return ['SOLICITANTE','RESPONSAVEL','ADMINISTRADOR'].includes(u.papel)
     && (r.solicitanteId === u.usuarioId || u.papel === 'ADMINISTRADOR') && ['SOLICITADA','APROVADA'].includes(r.status);
 }
+/** Q5: o dono, inclusive Administrador, mantém o cancelamento sem motivo.
+ * @param {ReservaConsulta} r @param {import('./auth.js').Usuario} u */
+export function exigeJustificativaCancelamento(r,u) {
+  return u.papel === 'ADMINISTRADOR' && r.solicitanteId !== u.usuarioId;
+}
 /** @param {any} r @param {ReservaConsulta} anterior @param {import('./reservas.js').DadosReserva} envio @param {string} estado */
 function confirmar(r,anterior,envio,estado) {
   if (r?.id !== anterior.id || r.solicitanteId !== anterior.solicitanteId || r.status !== estado || r.restrita !== anterior.restrita
@@ -111,10 +116,13 @@ export function criarConsultaReservas(usuario,cliente=api) {
       if (!podeEditarReserva(anterior,usuario)) throw new ErroApi(403,'OPERACAO_NAO_PERMITIDA','Esta reserva não permite edição pelo seu usuário.');
       return confirmar(await escritas.editar(anterior.id,envio),anterior,envio,anterior.status);
     },
-    /** @param {ReservaConsulta} anterior */
-    async cancelar(anterior) {
+    /** @param {ReservaConsulta} anterior @param {string} [motivo] */
+    async cancelar(anterior,motivo) {
       if (!podeCancelarReserva(anterior,usuario)) throw new ErroApi(403,'OPERACAO_NAO_PERMITIDA','Esta reserva não permite cancelamento pelo seu usuário.');
-      return confirmar(await escritas.cancelar(anterior.id),anterior,anterior,'CANCELADA');
+      if (exigeJustificativaCancelamento(anterior,usuario) && (typeof motivo !== 'string' || !motivo.trim())) {
+        throw invalida('Informe a justificativa do cancelamento.');
+      }
+      return confirmar(await escritas.cancelar(anterior.id,motivo),anterior,anterior,'CANCELADA');
     },
   };
 }
