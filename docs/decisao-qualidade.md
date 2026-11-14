@@ -21,7 +21,7 @@
 | Performance | [JMeter](performance/resultado-01.md): quatro cenários e invariantes específicos aprovados | **Aprovado nos testes históricos**; não é SLA |
 | Frontend/integração | [Marcos-7](testes/marcos-7-resultados.md): 100 testes unitários / 350 de navegador e cenários reais separados | **Evidência local**, não execução deste SHA |
 | Análise SonarCloud | [Bot PR45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/45#issuecomment-6869673675) informou Quality Gate passed, mas [scanner Maven](qualidade/sonarcloud.md) terminou com `Not authorized or project not found` | **CI integrada vermelha**; não validado na tag |
-| CI verde no commit da tag | Workflow não executa na `main`; `v1.0.0-rc1` não existe | **Não atendido — bloqueador de release** |
+| CI verde no commit da tag | Workflow executa na `main`, mas o run #92 falhou no SonarCloud; tag publicada | **Não atendido — bloqueador de release** |
 | Documentação e decisões arquiteturais | [ADRs](arquitetura/adr/README.md), [sequências](arquitetura/sequencia-reserva.md), [índice](evidencias/README.md) | **Parcial**: contexto/componentes específicos pendentes |
 | Riscos e aceite do grupo | Registro abaixo, ainda sem assinaturas individuais | **Não atendido** |
 
