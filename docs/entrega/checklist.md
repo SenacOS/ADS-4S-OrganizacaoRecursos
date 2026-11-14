@@ -27,15 +27,15 @@
 | Diagramas de sequência | Sim | Mermaid existente, não renderizado aqui | [sequencia-reserva](../arquitetura/sequencia-reserva.md) |
 | Plano de testes | Parcial | Guias JMeter/E2E dispersos, sem plano final único | [JMeter](../qualidade/jmeter/README.md), [testes](../testes/) |
 | Relatório de testes | Sim | Relatórios históricos com versões de origem | [relatorio-evidencias](../qualidade/relatorio-evidencias.md), [Marcos-8](../testes/marcos-8-resultados.md) |
-| Pipeline CI | Sim | Gatilhos para `develop`, **não `main`** | [ci.yml](../../.github/workflows/ci.yml) |
-| CI verde da main/tag | **Não** | Nenhum run `main` identificado | [Actions](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions) |
+| Pipeline CI | Sim | Dispara em `develop` e `main` após PR #50 | [ci.yml](../../.github/workflows/ci.yml) |
+| CI verde da main/tag | **Não** | Run #92 executado na `main`, falhou no SonarCloud por autorização | [Actions](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions) |
 | SonarCloud/Quality Gate | Parcial | Bot do PR45: gate passed; scanner Maven falhou, CI global vermelha | [sonarcloud](../qualidade/sonarcloud.md), [run PR45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976) |
 | JaCoCo | Sim, histórico | PR45: 92,58% linhas/76,39% branches; não é tag | [artifact PR45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976/artifacts/14092304959) |
 | Plano de carga | Sim | Quatro planos JMeter | [JMeter README](../qualidade/jmeter/README.md) |
-| Resultado de carga | Sim, em outro caminho | `docs/performance/resultado-01.md` inexistente no snapshot | [evidencias JMeter](../qualidade/jmeter/evidencias-2026-11-10.md) |
-| Registro de defeitos | Sim, disperso | `docs/defeitos/` inexistente no snapshot | [defeitos frontend](../qualidade/defeitos-frontend.md), [relatório](../qualidade/relatorio-evidencias.md) |
+| Resultado de carga | Sim, em outro caminho | `docs/performance/resultado-01.md` incluído neste PR (não existia na inspeção de 13/11) | [evidencias JMeter](../qualidade/jmeter/evidencias-2026-11-10.md) |
+| Registro de defeitos | Sim, disperso | `docs/defeitos/README.md` incluído neste PR (não existia na inspeção de 13/11) | [defeitos frontend](../qualidade/defeitos-frontend.md), [relatório](../qualidade/relatorio-evidencias.md) |
 | Relatório de qualidade final | Parcial | Consolidação preliminar, sem decisão coletiva | [relatorio-evidencias](../qualidade/relatorio-evidencias.md) |
-| Tag `v1.0.0-rc1` | **Sim, publicada** | CI/Quality Gate no SHA ainda pendentes | [Tags](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/tags) |
+| Tag `v1.0.0-rc1` | **Sim** | Release publicada; SHA/CI ainda por conferir | [Release](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) |
 | Decisão assinada por quatro integrantes | **Não** | Review de PR não equivale a aceite de release | [ADR](../arquitetura/adr/README.md), [PR47](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/47) |
 
 ## Bloqueadores (priorizados)
