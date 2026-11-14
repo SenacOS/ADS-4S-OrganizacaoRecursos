@@ -1,49 +1,56 @@
-# Checklist final — Prompt 1 (Aula 14)
+# Checklist da entrega final — Prompt 1
 
-**Situação em 14/11/2026:** PR #50 integrado; CI do PR aprovada. A execução da `main` no commit `5e9b9ea` ocorreu, mas terminou com falha de autorização do SonarCloud (`Not authorized or project not found`). A release [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) foi publicada; a CI verde e o Quality Gate do SHA da tag não estão comprovados. Clone limpo independente ainda não foi realizado (limitação do ambiente de verificação); o projeto usa `mvn` instalado, não `./mvnw`.
+**Projeto:** Organização de Recursos — Senac ADS / Qualidade de Software, 2026.2  
+**Inspeção original:** 13/11/2026; **atualização:** 14/11/2026 (America/Sao_Paulo)  
+**Fonte:** https://afonsolelis.github.io/aulas_senac/pages/qualidade2/material/material_entrega-projeto-final.html  
+**Versão remota examinada:** [`548f8b0b95980a3e292f271b9676105473822ead`](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/tree/548f8b0b95980a3e292f271b9676105473822ead) na `main`, após o merge do [PR #47](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/47).
 
+> Este documento distingue **arquivo existente**, **atualização para a entrega** e **execução efetivamente reproduzida**. A presença de código ou evidência de outro SHA não equivale à aprovação da entrega.
 
-**Auditoria documental em 13/11/2026 (São Paulo).** Referência: [main `548f8b0b95980a3e292f271b9676105473822ead`](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/commit/548f8b0b95980a3e292f271b9676105473822ead), após [PR #47](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/47). Critérios: [aula 14](https://afonsolelis.github.io/aulas_senac/pages/qualidade2/material/material_entrega-projeto-final.html).
+**Atualização verificada — 14/11/2026:** o [PR #50](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/50) foi integrado. A tag/release [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) **existe e aponta para o commit `5e9b9ea671714a5aae7a0e780cdad5e6ba8e38cf`**; é uma tag *lightweight* (não anotada). A [CI #92 da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142), executada nesse mesmo SHA, aprovou os passos Maven/Testcontainers/JaCoCo e o job JMeter, com artefatos [quality-evidence da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142/artifacts/14096996614) e [jmeter-evidence da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142/artifacts/14096008151). O workflow global terminou com **failure** exclusivamente porque a análise Maven SonarCloud retornou `Not authorized or project not found`. A autorização do SonarCloud e o aceite coletivo seguem pendentes; clone limpo independente ainda não foi comprovado.
 
-## Clone limpo e reprodutibilidade
+## Clone limpo e reprodução solicitada
 
-- Foi tentado `git ls-remote https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos.git HEAD` a partir de um ambiente independente. O comando falhou com `Could not resolve host: github.com`. **Não foi possível clonar o projeto nem subir a aplicação.**
-- O ambiente possuía `git` e `java`, mas não `mvn`, `docker` ou `gh`. Não houve execução nova de testes neste trabalho.
-- Inspeção alternativa: árvore, arquivos e logs de PRs/Actions do SHA acima consultados por integração GitHub. Inspeção remota **não é clone limpo**.
-- A aula exige `./mvnw -B verify`; a árvore não contém `mvnw` ou `.mvn/wrapper`, e o README usa `mvn -f backend/pom.xml clean verify` com Maven externo. **Comando da aula não reproduzível no snapshot**.
-- O README tem instruções de `.env`, MySQL/Docker Compose, Spring Boot e build frontend. **Esses procedimentos não foram executados nesta conferência.**
+O professor solicita clonar do zero, seguir apenas o README, iniciar o sistema e executar `./mvnw -B verify`. A tentativa foi realizada em ambiente temporário sem checkout prévio, mas parou **antes do clone**:
 
-## Checklist do snapshot (antes de produzir os documentos dos prompts 2 e 3)
+```console
+$ git ls-remote https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos.git refs/heads/main
+fatal: unable to access 'https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos.git/':
+Could not resolve host: github.com
+```
 
-| Entregável | Existe? | Atualizado/comprovado? | Caminho real |
+Neste executor, `git` está disponível, mas `mvn` e `docker` não estão instalados. A árvore remota da `main` **não contém `mvnw`, `mvnw.cmd` nem `.mvn/wrapper`**. O README orienta `mvn -f backend/pom.xml clean verify`, não `./mvnw -B verify`. Portanto, a reprodução a partir de clone limpo, execução da aplicação e a suíte exigida pelo professor permanecem **não realizadas** nesta inspeção; não foram simuladas saídas de teste.
+
+## Inventário — item → existe → atualizado → caminho
+
+| Item exigido | Existe? | Atualizado para a main / RC? | Caminho / observação |
 |---|---|---|---|
-| Repositório público + review por pares | Sim | PR #47 aprovado por `jovemOG-Dev` e mesclado | [repo](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos), [PR 47](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/47) |
-| Aplicação após clone limpo | Fontes sim | **Execução não comprovada** | [backend](../../backend/), [README](../../README.md) |
-| README/reprodução | Sim | Maven externo, wrapper ausente; não testado | [README](../../README.md) |
-| Documentação API | Sim | Contratos publicados, sem nova validação | [docs/api](../api/) |
-| `docs/rtm.md` | **Não no caminho exato** | `docs/RTM.md` existe, caixa distinta no Linux | [RTM](../RTM.md) |
-| Diagrama de contexto | Não identificado | Pendência | [arquitetura](../arquitetura/adr/README.md) |
-| Diagrama de componentes | Não identificado | Pendência | [arquitetura](../arquitetura/adr/README.md) |
-| Diagramas de sequência | Sim | Mermaid existente, não renderizado aqui | [sequencia-reserva](../arquitetura/sequencia-reserva.md) |
-| Plano de testes | Parcial | Guias JMeter/E2E dispersos, sem plano final único | [JMeter](../qualidade/jmeter/README.md), [testes](../testes/) |
-| Relatório de testes | Sim | Relatórios históricos com versões de origem | [relatorio-evidencias](../qualidade/relatorio-evidencias.md), [Marcos-8](../testes/marcos-8-resultados.md) |
-| Pipeline CI | Sim | Dispara em `develop` e `main` após PR #50 | [ci.yml](../../.github/workflows/ci.yml) |
-| CI verde da main/tag | **Não** | Run #92 executado na `main`, falhou no SonarCloud por autorização | [Actions](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions) |
-| SonarCloud/Quality Gate | Parcial | Bot do PR45: gate passed; scanner Maven falhou, CI global vermelha | [sonarcloud](../qualidade/sonarcloud.md), [run PR45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976) |
-| JaCoCo | Sim, histórico | PR45: 92,58% linhas/76,39% branches; não é tag | [artifact PR45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976/artifacts/14092304959) |
-| Plano de carga | Sim | Quatro planos JMeter | [JMeter README](../qualidade/jmeter/README.md) |
-| Resultado de carga | Sim, em outro caminho | `docs/performance/resultado-01.md` incluído neste PR (não existia na inspeção de 13/11) | [evidencias JMeter](../qualidade/jmeter/evidencias-2026-11-10.md) |
-| Registro de defeitos | Sim, disperso | `docs/defeitos/README.md` incluído neste PR (não existia na inspeção de 13/11) | [defeitos frontend](../qualidade/defeitos-frontend.md), [relatório](../qualidade/relatorio-evidencias.md) |
-| Relatório de qualidade final | Parcial | Consolidação preliminar, sem decisão coletiva | [relatorio-evidencias](../qualidade/relatorio-evidencias.md) |
-| Tag `v1.0.0-rc1` | **Sim** | Release publicada; SHA/CI ainda por conferir | [Release](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) |
-| Decisão assinada por quatro integrantes | **Não** | Review de PR não equivale a aceite de release | [ADR](../arquitetura/adr/README.md), [PR47](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/47) |
+| Repositório público e revisão por pares | Sim | Integração sim; aceite final pendente | [Repositório](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos); [PR #47](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/47) aprovado por `jovemOG-Dev` e mesclado na `main` |
+| Aplicação reproduzível | Código e Compose presentes | **Não verificado por clone limpo** | `backend/`, `backend/pom.xml`, `compose.yml`, `README.md`; execução bloqueada pelo ambiente |
+| README de instalação | Sim | **Parcial** | `README.md`; contém instruções Maven/Docker e referência antiga à `develop` |
+| Documentação da API | Sim | Revisão final pendente | `docs/api/`, em especial `reservas-contrato.md`, `item18.md` e `frontend-integracao.md` |
+| `docs/rtm.md` | Equivalente, com capitalização distinta | Caminho canônico acrescentado neste PR | `docs/RTM.md`; no Linux `RTM.md` não é `rtm.md`. Índice em `docs/rtm.md` |
+| Diagramas de contexto, componentes e sequências | **Parcial** | **Incompleto** | `docs/arquitetura/sequencia-reserva.md` (sequências), `docs/arquitetura/adr/` (decisões); não localizados arquivos dedicados para contexto e componentes |
+| Plano e relatório de testes | Evidências e guias parciais | Plano global/aceite a verificar | `docs/qualidade/relatorio-evidencias.md`, `docs/testes/`, `docs/qualidade/seguranca.md`, `docs/qualidade/jmeter/README.md` |
+| Pipeline de CI | Sim | **Executa na main** | [PR #50](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/50) corrigiu gatilho; [CI #92 da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142) executou no SHA da tag |
+| SonarCloud | Configurado | **Falha de autorização na main** | [CI #92 da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142): `Not authorized or project not found`; Quality Gate não aprovado |
+| JaCoCo | Sim | **Step Maven/JaCoCo aprovado no SHA da tag** | [quality-evidence da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142/artifacts/14096996614) (sem atribuir ao SHA atual percentuais medidos em PR antigo); histórico PR #45: 92,58% linhas / 76,39% branches |
+| Plano de carga | Sim | Base histórica | `docs/qualidade/jmeter/01-consultas.jmx` a `04-manutencao-vs-reserva.jmx` |
+| Resultado da carga | Sim | **Job JMeter aprovado no SHA da tag** | [jmeter-evidence da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142/artifacts/14096008151), [resultados históricos](../performance/resultado-01.md) |
+| Defeitos | Dispersos | Índice novo, sem reclassificar indevidamente | `docs/qualidade/defeitos-frontend.md`, `docs/qualidade/relatorio-evidencias.md`, `docs/defeitos/README.md` |
+| Relatório final de qualidade | **Parcial** | **Não assinado/aceito** | `docs/qualidade/relatorio-evidencias.md` (preliminar); `docs/relatorio-qualidade.md` (síntese deste PR) |
+| Tag `v1.0.0-rc1` | **Publicada** | **Tipo: lightweight (não anotada); Quality Gate pendente** | [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) aponta para o commit [`5e9b9ea`](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/commit/5e9b9ea671714a5aae7a0e780cdad5e6ba8e38cf) |
+| Envio pelo Hub | Não verificável por repositório | **Pendente** | A equipe deve registrar um único envio; o assistente não enviou formulário |
 
-## Bloqueadores (priorizados)
+## Bloqueadores priorizados
 
-1. **CI verde na main e no SHA de release:** workflow dispara em `develop` e `main`; scanner Maven SonarCloud falha com `Not authorized or project not found`. Não assumir que a causa é o plano gratuito sem comprovação.
-2. **Clone limpo/comando do professor:** wrapper ausente; executar `./mvnw -B verify` após adequação, banco, app e frontend em ambiente limpo; guardar evidências.
-3. **Documentação arquitetural:** contexto e componentes não encontrados como diagramas próprios; plano único de testes ainda fragmentado.
-4. **Tag e cadeia de evidências:** tag `v1.0.0-rc1` já publicada; obter CI verde no SHA e registrar evidências sem mover a tag, com artefatos e links desse mesmo commit. Nunca mover uma tag já usada.
-5. **Aceite coletivo e Hub:** decidir riscos, obter declaração/assinatura de cada integrante e realizar envio por uma pessoa do grupo.
+| ID | Prioridade | Bloqueador e providência |
+|---|---|---|
+| B01 | Crítica | **CI global verde na main:** gatilho corrigido no PR #50; Maven/JaCoCo e JMeter aprovados no SHA da tag, mas SonarCloud falhou por autorização. Corrigir e reexecutar sem ocultar o erro |
+| B02 | Crítica | **Reprodução externa:** testar em clone limpo com Docker/JDK/Maven; fornecer Maven Wrapper ou obter aceitação explícita do professor para comando alternativo |
+| B03 | Alta | **Tipo da tag e aceite:** `v1.0.0-rc1` existe no SHA correto, mas é *lightweight*; registrar a divergência frente à tag anotada solicitada, sem movê-la |
+| B04 | Alta | **Evidências do RC:** anexar link da CI, artefatos JaCoCo/JMeter e Sonar da mesma revisão/tag; índices atuais distinguem provas históricas |
+| B05 | Média | **Documentação:** completar diagramas de contexto/componentes, plano global de testes e revisar o README para a `main` |
+| B06 | Alta | **Aceite e envio:** colher declarações individuais e assinatura/decisão coletiva; um integrante preenche o formulário do Hub |
 
-**Resultado do Prompt 1:** checklist concluído sem modificar fontes ou workflow. Clone, execução e CI na main **não comprovados**.
+**Resultado do Prompt 1:** inventário e bloqueadores documentados. O teste independente em clone limpo não foi executado. Posteriormente, o PR #50 corrigiu o gatilho da CI na `main`; a falha SonarCloud e o aceite final permanecem pendentes.

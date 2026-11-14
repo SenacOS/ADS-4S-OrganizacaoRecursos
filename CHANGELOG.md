@@ -1,32 +1,35 @@
-# Changelog — Organização de Recursos
+# CHANGELOG — Organização de Recursos
 
-**Situação em 14/11/2026:** PR #50 integrado; CI do PR aprovada. A execução da `main` no commit `5e9b9ea` ocorreu, mas terminou com falha de autorização do SonarCloud (`Not authorized or project not found`). A release [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) foi publicada; a CI verde e o Quality Gate do SHA da tag não estão comprovados. Clone limpo independente ainda não foi realizado (limitação do ambiente de verificação); o projeto usa `mvn` instalado, não `./mvnw`.
+## [v1.0.0-rc1] — publicada em 14/11/2026
 
+**Atualização verificada — 14/11/2026:** o [PR #50](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/50) foi integrado. A tag/release [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) **existe e aponta para o commit `5e9b9ea671714a5aae7a0e780cdad5e6ba8e38cf`**; é uma tag *lightweight* (não anotada). A [CI #92 da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142), executada nesse mesmo SHA, aprovou os passos Maven/Testcontainers/JaCoCo e o job JMeter, com artefatos [quality-evidence da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142/artifacts/14096996614) e [jmeter-evidence da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142/artifacts/14096008151). O workflow global terminou com **failure** exclusivamente porque a análise Maven SonarCloud retornou `Not authorized or project not found`. A autorização do SonarCloud e o aceite coletivo seguem pendentes; clone limpo independente ainda não foi comprovado.
 
-Histórico resumido do conteúdo integrado. **Release candidate `v1.0.0-rc1` publicado; validação integral do SHA marcado pendente.**
+**Snapshot histórico de 13/11/2026:** `main` em `548f8b0b95980a3e292f271b9676105473822ead`, integrada pelo [PR #47](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/47).
 
-## [v1.0.0-rc1] — release publicada em 14/11/2026 (evidências históricas de 13/11)
+### Funcionalidades presentes na árvore integrada
 
-**Referência histórica de 13/11:** [main `548f8b0b95980a3e292f271b9676105473822ead`](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/commit/548f8b0b95980a3e292f271b9676105473822ead), resultado do [PR #47](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/47).
+- RF01: autenticação por sessão, autorização por papéis e proteção CSRF.
+- RF02/RF03: cadastro e pesquisa de salas, professores e materiais, filtros de disponibilidade.
+- RF04–RF08: criação, edição, cancelamento, aprovação/rejeição, consistência de reservas, manutenção e expediente.
+- RF09: retirada e devolução de materiais.
+- RF10: auditoria de operações relevantes.
+- RF11: notificações baseadas em outbox transacional, com execução simulada documentada.
+- RF12: relatórios de utilização e conflitos evitados.
+- RF13/RF14: frontend HTML/CSS/JS responsivo, integração de API e documentação.
+- Ajustes Q1, Q3, Q5, Q8 e Q9 incorporados segundo o histórico de PRs e `docs/RTM.md`.
 
-### Recursos incluídos no snapshot
+### Qualidade e documentação
 
-- RF01: sessão Spring Security, CSRF, perfis e autorização por escopo Q9.
-- RF02–RF03 e RF08: gestão, pesquisa e disponibilidade de salas, professores e materiais, manutenção e expediente.
-- RF04–RF07: criação, edição, cancelamento, conflitos, locks ordenados, fila de aprovação e proteção Q1/Q3/Q5/Q8.
-- RF09–RF11: movimentações, auditoria transacional e notificações por outbox com demonstração simulada.
-- RF12–RF14: relatórios de utilização, frontend responsivo, contratos HTTP, ADRs e documentação de fluxos.
+- Suítes JUnit/Spring, Testcontainers/MySQL, Playwright e quatro cenários JMeter;
+- JaCoCo e workflow GitHub Actions;
+- Dossiês e matrizes existentes em `docs/qualidade/`, `docs/testes/`, `docs/RTM.md`;
+- Pacote documental de entrega: `docs/entrega/checklist.md`, `docs/evidencias/README.md`, `docs/decisao-qualidade.md`, `docs/relatorio-qualidade.md`, `docs/performance/resultado-01.md` e `docs/defeitos/README.md`.
 
-### Evidências disponíveis (não equivalentes a release certificado)
+### Pendências para aprovar a versão já publicada
 
-- [CI do PR #45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976): 287 testes Surefire + 79 Failsafe, JaCoCo 92,58% de linhas / 76,39% de branches, quatro cenários JMeter aprovados. O **scanner Maven SonarCloud falhou**, portanto o workflow inteiro terminou com failure.
-- [PR #47](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/47): integração `develop` → `main` com aprovação independente, **sem CI própria de main observada**.
-- [RTM](docs/RTM.md), [diagramas de sequência](docs/arquitetura/sequencia-reserva.md), [relatórios de qualidade](docs/qualidade/relatorio-evidencias.md), [índice em preparação](docs/evidencias/README.md).
+- Comprovar clone limpo, execução da aplicação e testes; o repositório ainda não possui Maven Wrapper;
+- CI global verde na `main`: Maven/JaCoCo e JMeter passaram no SHA da tag, porém o scanner SonarCloud falhou por permissão/configuração;
+- Conferir e anexar os artefatos de testes e carga já emitidos no **mesmo SHA da tag**, antes do aceite;
+- Revisão/aceite formal do grupo; a tag publicada é *lightweight*, embora a atividade solicite tag anotada. Registrar essa divergência e deliberar sobre a forma correta de atender à exigência sem mover a tag publicada.
 
-### Limitações de validação da release publicada
-
-Sem CI verde da `main` ligada ao SHA de release; clone limpo e `mvn -f backend/pom.xml clean verify` não reproduzidos de forma independente; scanner Sonar com erro; diagramas de contexto/componentes não identificados; assinatura/decisão coletiva não registrada. RF11 validada no modo simulado, sem comprovar envio externo.
-
-### Política de versão
-
-A release `v1.0.0-rc1` já foi publicada; conferir SHA e tipo da tag, vincular evidências e obter decisão da equipe antes de atestar aceite final. Se houver correção após publicar, usar `v1.0.0-rc2`. **Nunca mover ou sobrescrever tags publicadas.**
+**A publicação da release está comprovada; a aprovação integral de qualidade não está.** Se for preciso corrigir algo depois de publicar `v1.0.0-rc1`, criar uma nova tag `v1.0.0-rc2`, sem mover a anterior.

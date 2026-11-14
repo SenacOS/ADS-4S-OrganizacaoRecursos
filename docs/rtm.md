@@ -1,12 +1,9 @@
-# Matriz de rastreabilidade — caminho solicitado na Aula 14
+# RTM — entrada canônica da entrega
 
-**Situação em 14/11/2026:** PR #50 integrado; CI do PR aprovada. A execução da `main` no commit `5e9b9ea` ocorreu, mas terminou com falha de autorização do SonarCloud (`Not authorized or project not found`). A release [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) foi publicada; a CI verde e o Quality Gate do SHA da tag não estão comprovados. Clone limpo independente ainda não foi realizado (limitação do ambiente de verificação); o projeto usa `mvn` instalado, não `./mvnw`.
+A matriz de rastreabilidade integral já existe, com nome de arquivo em maiúsculas:
 
+**[Abrir a matriz RF01–RF14: docs/RTM.md](RTM.md).**
 
-A **matriz completa e mantida pelo grupo** está em [`docs/RTM.md`](RTM.md), com os requisitos RF01–RF14, contratos, implementação e evidências por requisito. Este arquivo disponibiliza o caminho em letras minúsculas `docs/rtm.md` exigido na entrega, sem criar duas matrizes divergentes.
+O professor exige o caminho `docs/rtm.md`; como Git diferencia maiúsculas e minúsculas, este arquivo é um índice explícito, **sem duplicar** a RTM ou introduzir uma versão divergente.
 
-- [Consultar a RTM canônica](RTM.md).
-- [Ver evidências por execução e por commit](evidencias/README.md).
-- [Ver a avaliação de release](decisao-qualidade.md).
-
-**Estado:** a RTM original traz referências a commits da `develop` anteriores à integração via PR #47. A presença na `main` não substitui reexecução de testes no commit de release.
+**Atenção (14/11/2026):** a RTM histórica documenta a integração em `develop` até o PR #45. A tag publicada [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) é *lightweight* e aponta para o commit `5e9b9ea671714a5aae7a0e780cdad5e6ba8e38cf`. A [CI #92 da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142) executou nesse SHA: Maven/JaCoCo e JMeter passaram, SonarCloud falhou por autorização. Revisar os vínculos da matriz com essa versão antes do aceite final; o clone limpo e a aprovação coletiva permanecem pendentes.

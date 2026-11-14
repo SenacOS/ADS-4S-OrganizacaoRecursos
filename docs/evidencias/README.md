@@ -1,54 +1,32 @@
-# Índice do pacote de evidências — Prompt 2 (Aula 14)
+# Pacote de evidências — Prompt 2 (preparação do release)
 
-**Situação em 14/11/2026:** PR #50 integrado; CI do PR aprovada. A execução da `main` no commit `5e9b9ea` ocorreu, mas terminou com falha de autorização do SonarCloud (`Not authorized or project not found`). A release [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) foi publicada; a CI verde e o Quality Gate do SHA da tag não estão comprovados. Clone limpo independente ainda não foi realizado (limitação do ambiente de verificação); o projeto usa `mvn` instalado, não `./mvnw`.
+**Estado:** `NÃO SELADO`: tag publicada e SHA confirmado; CI global da `main` sem aprovação por falha do SonarCloud.
 
+**Atualização verificada — 14/11/2026:** o [PR #50](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/50) foi integrado. A tag/release [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) **existe e aponta para o commit `5e9b9ea671714a5aae7a0e780cdad5e6ba8e38cf`**; é uma tag *lightweight* (não anotada). A [CI #92 da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142), executada nesse mesmo SHA, aprovou os passos Maven/Testcontainers/JaCoCo e o job JMeter, com artefatos [quality-evidence da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142/artifacts/14096996614) e [jmeter-evidence da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142/artifacts/14096008151). O workflow global terminou com **failure** exclusivamente porque a análise Maven SonarCloud retornou `Not authorized or project not found`. A autorização do SonarCloud e o aceite coletivo seguem pendentes; clone limpo independente ainda não foi comprovado.  
+**Base de inspeção:** [`548f8b0b95980a3e292f271b9676105473822ead`](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/tree/548f8b0b95980a3e292f271b9676105473822ead), `main` após [PR #47](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/47).  
+**Critério obrigatório:** cada evidência do release final deve corresponder ao **mesmo SHA do commit apontado pela tag**; provas históricas abaixo não substituem isso.
 
-**Status: pacote documental preparado; release [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) publicada, com ressalvas de validação.**  
-**Verificação histórica:** 13/11/2026 (America/Sao_Paulo). [main avaliada no commit `548f8b0b95980a3e292f271b9676105473822ead`](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/commit/548f8b0b95980a3e292f271b9676105473822ead).  
-**Critérios da aula:** [material do professor](https://afonsolelis.github.io/aulas_senac/pages/qualidade2/material/material_entrega-projeto-final.html).
-
-## Vínculo obrigatório entre tag, SHA e evidências
-
-| Campo solicitado | Estado atual | Link, quando há evidência real |
+| Evidência exigida | Fonte verificável | Situação perante a tag |
 |---|---|---|
-| Tag `v1.0.0-rc1` | **PUBLICADA** — SHA e tipo de tag por conferir | [Release](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) |
-| SHA do commit marcado pela tag | **PENDENTE DE CONFERÊNCIA** — SHA da tag não verificado neste relatório | Não inventar SHA de release |
-| CI verde executada na `main` nesse mesmo SHA | **NÃO APROVADA** — run #92 da main executou e falhou no SonarCloud | [GitHub Actions](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions) |
-| JaCoCo do SHA da tag | **PENDENTE** — existe histórico de PR, não do release | [Artefato histórico PR45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976/artifacts/14092304959) |
-| Quality Gate do SHA da tag | **PENDENTE** — bot do PR45 reportou OK, mas scanner Maven falhou | [Análise histórica do PR45](https://sonarcloud.io/dashboard?id=SenacOS_ADS-4S-OrganizacaoRecursos&pullRequest=45) |
-| Desempenho no SHA da tag | **PENDENTE** — há resultados históricos válidos com origem distinta | [Resultado histórico consolidado](../performance/resultado-01.md) |
+| Tag e SHA | [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) / [commit `5e9b9ea`](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/commit/5e9b9ea671714a5aae7a0e780cdad5e6ba8e38cf) | **CONFIRMADOS**; tag *lightweight*, não anotada |
+| CI verde no commit da tag | [CI #92 da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142) | **NÃO ATENDIDA**: Maven/JaCoCo e JMeter passaram, scanner SonarCloud falhou |
+| Execução da CI integrada mais recente examinada | [Run 43546313469 — develop](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43546313469) | Maven/MySQL/JaCoCo/JMeter aprovados, scanner Sonar falhou; **outro SHA** |
+| JaCoCo como artifact | [Artifact quality-evidence — PR #45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976/artifacts/14092304959) | **Histórico:** 92,58% linhas / 76,39% branches, não da tag |
+| SonarCloud / Quality Gate | [Dashboard do PR #45](https://sonarcloud.io/dashboard?id=SenacOS_ADS-4S-OrganizacaoRecursos&pullRequest=45) e [diagnóstico](../qualidade/sonarcloud.md) | Bot relatou gate aprovado no PR; scanner Maven falhou; **sem gate comprovado da tag** |
+| Resultado de carga | [Resumo](../performance/resultado-01.md) e [artifact JMeter do PR #45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976/artifacts/14092950367) | **Histórico:** quatro cenários, não da tag |
+| Matriz de rastreabilidade | [docs/rtm.md](../rtm.md) → [RTM existente](../RTM.md) | Documento versionado, precisa reconciliação com o SHA do RC |
+| Registro de defeitos | [docs/defeitos/](../defeitos/README.md) | Índice consolidado; existem bloqueadores abertos |
+| Relatório final de qualidade | [docs/relatorio-qualidade.md](../relatorio-qualidade.md) | Síntese auditável; **aceite coletivo pendente** |
+| Decisão | [docs/decisao-qualidade.md](../decisao-qualidade.md) | **BLOQUEAR**, avaliação técnica provisória sem assinaturas |
+| Checklist de reprodução/entregáveis | [docs/entrega/checklist.md](../entrega/checklist.md) | Lista de lacunas por prioridade |
+| Changelog | [CHANGELOG.md](../../CHANGELOG.md) | Release publicada, aceite de qualidade ainda pendente |
 
-**Regra de aceite:** só trocar qualquer “PENDENTE” por “APROVADO” depois de verificar, no GitHub, a tag e uma execução **verde** cujo commit corresponda exatamente ao SHA marcado. O PR de documentação não altera esse requisito.
+## Procedimento de selagem — **a concluir**
 
-## Artefatos do pacote e respectivos limites
+1. Corrigir B01–B06 do [checklist](../entrega/checklist.md), obter revisão da equipe e confirmar clone limpo + testes.
+2. Corrigir a autorização do SonarCloud e obter execução **totalmente verde** da CI no SHA `5e9b9ea671714a5aae7a0e780cdad5e6ba8e38cf` ou, caso novo commit seja necessário, definir novo RC sem alterar a tag já publicada.
+3. Vincular [quality-evidence da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142/artifacts/14096996614) e [jmeter-evidence da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142/artifacts/14096008151), já gerados no SHA da tag, e confirmar o Quality Gate SonarCloud no mesmo código.
+4. A tag `v1.0.0-rc1` já foi publicada como *lightweight*, embora a aula peça tag anotada: registrar a divergência e combinar adequação sem mover nem sobrescrever a tag. Se o código mudar, publicar `v1.0.0-rc2`.
+5. Manter links do SHA e da tag, adicionar o resultado do SonarCloud após correção, conferir a reprodução em clone limpo e recolher o aceite coletivo. Registrar o envio no formulário do Hub.
 
-| Artefato solicitado | Arquivo existente neste PR ou na main | Evidência / proveniência |
-|---|---|---|
-| Checklist de clone limpo | [`docs/entrega/checklist.md`](../entrega/checklist.md) | Confere inventário e descreve tentativa de acesso impedida por DNS, sem alegar clone realizado |
-| Changelog do candidato | [`CHANGELOG.md`](../../CHANGELOG.md) | Release `v1.0.0-rc1` publicada; validação do SHA ainda pendente |
-| Índice de rastreabilidade | [`docs/rtm.md`](../rtm.md) → [matriz canônica](../RTM.md) | RF01–RF14 com referências históricas e limites |
-| Planejamento e relatórios de testes | [relatório de qualidade](../relatorio-qualidade.md), [resultados integrados](../testes/marcos-8-resultados.md), [plano JMeter](../qualidade/jmeter/README.md) | Não representam nova execução da tag |
-| JaCoCo e testes Java/MySQL | [CI de PR45 #43542757976](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976), [artifact #14092304959](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976/artifacts/14092304959) | **287 Surefire + 79 Failsafe**, sem falhas; **92,58% linhas / 76,39% branches** no PR45, não na tag |
-| SonarCloud | [Relatório Sonar](../qualidade/sonarcloud.md), [dashboard do PR45](https://sonarcloud.io/dashboard?id=SenacOS_ADS-4S-OrganizacaoRecursos&pullRequest=45), [comentário do bot](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/45#issuecomment-6869673675) | Bot: Quality Gate passed para PR45; etapa **scanner Maven = failure**; não equivale à CI íntegra verde |
-| Plano de desempenho | [Quatro arquivos .jmx e guia](../qualidade/jmeter/README.md) | Cenários de consulta, disputa, recursos distintos, manutenção |
-| Resultado de desempenho | [`docs/performance/resultado-01.md`](../performance/resultado-01.md) | [Run histórico #42945127066](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/42945127066); [job JMeter de PR45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976) |
-| Registro de defeitos | [`docs/defeitos/README.md`](../defeitos/README.md), [detalhes frontend](../qualidade/defeitos-frontend.md) | Descreve defeitos corrigidos e lacunas abertas sem nova reexecução |
-| Relatório final de qualidade | [`docs/relatorio-qualidade.md`](../relatorio-qualidade.md) | Consolidação crítica com limitações explícitas |
-| Decisão de qualidade | [`docs/decisao-qualidade.md`](../decisao-qualidade.md) | **BLOQUEAR**; assinaturas individuais e liberação dependem da equipe |
-| Diagramas | [Sequências críticas](../arquitetura/sequencia-reserva.md), [ADRs](../arquitetura/adr/README.md) | Diagrama específico de contexto e componentes ainda não identificado |
-
-## Evidência da última CI de integração anterior ao merge na main
-
-- [Última CI da develop #43546313469](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43546313469) — SHA `b33706a31b2a0ad5d69de3562a0d18de08a97023`; job Maven/JaCoCo aprovado e JMeter aprovado, mas **workflow com status final failure no scanner Maven SonarCloud**.
-- A `main` incorporou a `develop` pelo [PR #47](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/47) no commit `548f8b0b95980a3e292f271b9676105473822ead`; essa ação **não criou uma execução verde da main**.
-- Os resultados do PR45 pertencem àquele PR, não ao SHA do PR47 nem à tag.
-
-## Procedimento para finalizar Prompt 2 depois da correção dos bloqueadores
-
-1. Confirmar a aplicação em clone limpo segundo o README e o teste exigido `./mvnw -B verify` (corrigir wrapper/documentação antes).
-2. Garantir que a CI execute na `main` e termine **verde**, incluindo os gates exigidos; obter o SHA exato e os artifacts do run.
-3. Confirmar a política de release com o grupo; então executar `git switch main && git pull --ff-only origin main`, `git tag -a v1.0.0-rc1 -m "Candidato a entrega final" <SHA_VALIDADO>` e `git push origin v1.0.0-rc1`.
-4. Editar este índice para que as URLs de CI, JaCoCo e Quality Gate **apontem para o mesmo SHA da tag** e conferir cada link. Não usar o run de PR como substituto.
-5. Se precisar corrigir após publicar, use `v1.0.0-rc2`. Nunca recrie/mova a `rc1`.
-
-**Resultado do Prompt 2:** changelog e pacote de evidências preparados, com links reais e pendências explícitas. **Release `v1.0.0-rc1` publicada**, embora as evidências de CI verde e Quality Gate no SHA ainda não estejam completas.
+**Já executados:** PR #50 integrado, tag publicada e CI da `main` no mesmo SHA (Maven/JaCoCo e JMeter aprovados, SonarCloud reprovado). **Não comprovados:** clone limpo independente, gate verde e envio do formulário. Não inventar evidências pendentes.

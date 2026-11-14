@@ -1,21 +1,32 @@
-# Registro de defeitos — índice de entrega
+# Registro consolidado de defeitos e bloqueios
 
-**Situação em 14/11/2026:** PR #50 integrado; CI do PR aprovada. A execução da `main` no commit `5e9b9ea` ocorreu, mas terminou com falha de autorização do SonarCloud (`Not authorized or project not found`). A release [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) foi publicada; a CI verde e o Quality Gate do SHA da tag não estão comprovados. Clone limpo independente ainda não foi realizado (limitação do ambiente de verificação); o projeto usa `mvn` instalado, não `./mvnw`.
+Índice auditável da situação da entrega final. Este arquivo **não substitui os registros históricos**, nem altera retrospectivamente o estado de um defeito.
 
+**Atualização verificada — 14/11/2026:** o [PR #50](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/50) foi integrado. A tag/release [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) **existe e aponta para o commit `5e9b9ea671714a5aae7a0e780cdad5e6ba8e38cf`**; é uma tag *lightweight* (não anotada). A [CI #92 da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142), executada nesse mesmo SHA, aprovou os passos Maven/Testcontainers/JaCoCo e o job JMeter, com artefatos [quality-evidence da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142/artifacts/14096996614) e [jmeter-evidence da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142/artifacts/14096008151). O workflow global terminou com **failure** exclusivamente porque a análise Maven SonarCloud retornou `Not authorized or project not found`. A autorização do SonarCloud e o aceite coletivo seguem pendentes; clone limpo independente ainda não foi comprovado.
 
-Este índice reúne **registros existentes**, sem inventar defeitos ou afirmar nova retestagem no release. A classificação original e as tentativas RED/GREEN permanecem nas fontes.
-
-| ID ou tema | Situação conforme evidência histórica | Registro |
+| Fonte | Escopo | Observação |
 |---|---|---|
-| FE-001 — estado do botão em submits simultâneos | Correção documentada e regressão específica | [Defeitos do frontend](../qualidade/defeitos-frontend.md) |
-| FE-002 — estado de carregamento após falha | Correção e teste descritos | [Defeitos do frontend](../qualidade/defeitos-frontend.md) |
-| FE-003 — reenvio após operação incerta | Correção e teste descritos | [Defeitos do frontend](../qualidade/defeitos-frontend.md) |
-| FE-004 — datas de retirada/devolução | Correção com cenário real documentada | [Defeitos do frontend](../qualidade/defeitos-frontend.md) |
-| FE-005 — edição com recurso restrito indevido | Bloqueio do fluxo e regressão descritos | [Defeitos do frontend](../qualidade/defeitos-frontend.md) |
-| FE-006 — intervalo submilissegundo | Comparação precisa e testes documentados | [Defeitos do frontend](../qualidade/defeitos-frontend.md) |
-| FE-007 — justificativa Q5 ausente no cliente | Correção e RED/GREEN documentados | [Defeitos do frontend](../qualidade/defeitos-frontend.md), [Marcos-7](../testes/marcos-7-resultados.md) |
-| DEF-01 a DEF-08 — backend/qualidade | Histórico dos erros de POM, autorização, SQL/trigger, WireMock e integração | [Relatório de qualidade preliminar](../qualidade/relatorio-evidencias.md) |
-| Scanner Maven SonarCloud | **Aberto no pipeline**: `Not authorized or project not found`, embora bot externo informe Quality Gate passado em PR | [SonarCloud](../qualidade/sonarcloud.md), [run #43542757976](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976) |
-| Reprodutibilidade de release | **Aberto**: wrapper Maven ausente; CI dispara na main, mas run #92 falhou no SonarCloud; clone limpo não comprovado | [Checklist da aula](../entrega/checklist.md) |
+| [Relatório histórico de qualidade](../qualidade/relatorio-evidencias.md#3-registro-de-defeitos-e-correcoes) | DEF-01 a DEF-08: POM, testes, Flyway, WireMock, CI, GET/IDOR e Sonar | É um retrato preliminar; alguns itens foram resolvidos por PRs posteriores. |
+| [Defeitos frontend](../qualidade/defeitos-frontend.md) | Problemas e correções de interface, UX, integração e regressão | Usar as datas e evidências citadas no registro original. |
+| [PR #26](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/26) e [PR #27](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/27) | Implementação e integração da política de acesso Q9 | PRs mesclados à `develop`; não confundir com teste de produção. |
+| [Dossiê de integração](../entrega/marcos-entrega-final.md) | Ajustes Q5, regressão frontend, evidências por camada | Contextualiza correções e limites do frontend integrado. |
+| [Checklist final](../entrega/checklist.md) | Bloqueadores de release B01–B06 | Fonte vigente para decidir sobre `v1.0.0-rc1`. |
 
-**Não há evidência confirmada de nova execução aprovada no SHA da tag**; a release foi publicada, mas o run #92 na `main` falhou no SonarCloud. Antes do aceite final, conferir se os defeitos críticos e os bloqueadores acima foram resolvidos, com testes e links da mesma versão.
+## Bloqueadores da entrega (abertos na inspeção)
+
+| ID | Severidade no release | Situação | Ação |
+|---|---|---|---|
+| B01 | Crítica | Workflow da main executou no SHA da tag, com Maven/JaCoCo e JMeter aprovados, mas SonarCloud falhou | Corrigir token/permissões/chaves e obter CI global verde; [CI #92 da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142) |
+| B02 | Crítica | Clone limpo não reproduzido; `./mvnw` inexistente | Validar ambiente limpo e wrapper/comando aceito pelo professor |
+| B03 | Alta | Tag `v1.0.0-rc1` publicada no SHA `5e9b9ea`, mas é lightweight, não anotada | Registrar divergência e resolver exigência sem mover a tag |
+| B04 | Alta | JaCoCo/JMeter já possuem artefatos no SHA da tag; SonarCloud não concluiu análise | [quality-evidence da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142/artifacts/14096996614), [jmeter-evidence da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142/artifacts/14096008151); pendente Quality Gate no mesmo SHA |
+| B05 | Média | Diagramas contexto/componentes e plano global não consolidados | Completar documentos e conferir contratos/README |
+| B06 | Alta | Declarações individuais e envio no Hub pendentes | Obter aceite do grupo e submeter formulário |
+
+### Defeitos de interface identificados
+
+O [registro de defeitos frontend](../qualidade/defeitos-frontend.md) detalha FE-001 a FE-007 (submits simultâneos, estado de carregamento, reenvio após falha, datas de retirada/devolução, edição restrita, precisão de intervalos e justificativa Q5). As correções relatadas nesse histórico não constituem, isoladamente, reteste da tag.
+
+### Como atualizar este índice
+
+Registrar data, SHA, evidência de reprodução, estado (aberto, mitigado, resolvido), responsável e link do PR que corrige. Não marcar resolvido baseado apenas em CI de outra branch; uma exceção de aceite deve explicitar impacto e justificativa.

@@ -2,9 +2,9 @@ name: CI e SonarCloud
 
 on:
   pull_request:
-    branches: [develop, feat/rf11-notificacoes, test/qualidade-final, test/fechamento-rf01-rf10-rf11]
+    branches: [main, develop, feat/rf11-notificacoes, test/qualidade-final, test/fechamento-rf01-rf10-rf11]
   push:
-    branches: [develop]
+    branches: [main, develop]
 
 permissions:
   contents: read
@@ -59,7 +59,9 @@ jobs:
             backend/target/site/jacoco/
             backend/target/jacoco.exec
 
+      # O plano gratuito do SonarCloud nao analisa pull requests; validar somente push na main.
       - name: Verificar disponibilidade do SonarCloud
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         id: sonar
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -76,7 +78,7 @@ jobs:
           fi
 
       - name: Analisar SonarCloud e aguardar Quality Gate
-        if: steps.sonar.outputs.enabled == 'true'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.sonar.outputs.enabled == 'true'
         working-directory: backend
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

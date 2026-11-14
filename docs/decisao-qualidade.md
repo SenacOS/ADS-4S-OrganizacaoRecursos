@@ -1,66 +1,62 @@
-# Decisão de qualidade — Prompt 3 (Aula 14)
+# Decisão de qualidade — Prompt 3
 
-**Situação em 14/11/2026:** PR #50 integrado; CI do PR aprovada. A execução da `main` no commit `5e9b9ea` ocorreu, mas terminou com falha de autorização do SonarCloud (`Not authorized or project not found`). A release [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) foi publicada; a CI verde e o Quality Gate do SHA da tag não estão comprovados. Clone limpo independente ainda não foi realizado (limitação do ambiente de verificação); o projeto usa `mvn` instalado, não `./mvnw`.
+**Projeto:** Organização de Recursos — Senac ADS 2026.2  
+**Inspeção inicial:** 13/11/2026; **atualização:** 14/11/2026 (America/Sao_Paulo)  
+**Base analisada:** [`main` `548f8b0b95980a3e292f271b9676105473822ead`](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/tree/548f8b0b95980a3e292f271b9676105473822ead)  
+**Estado de aprovação:** **avaliação técnica provisória, não assinada pela equipe**.
 
+**Atualização verificada — 14/11/2026:** o [PR #50](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/50) foi integrado. A tag/release [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) **existe e aponta para o commit `5e9b9ea671714a5aae7a0e780cdad5e6ba8e38cf`**; é uma tag *lightweight* (não anotada). A [CI #92 da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142), executada nesse mesmo SHA, aprovou os passos Maven/Testcontainers/JaCoCo e o job JMeter, com artefatos [quality-evidence da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142/artifacts/14096996614) e [jmeter-evidence da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142/artifacts/14096008151). O workflow global terminou com **failure** exclusivamente porque a análise Maven SonarCloud retornou `Not authorized or project not found`. A autorização do SonarCloud e o aceite coletivo seguem pendentes; clone limpo independente ainda não foi comprovado.
 
-**Decisão técnica proposta: NÃO ATESTAR O ACEITE FINAL de `v1.0.0-rc1` até concluir a validação.**  
-**Data da conferência original:** 13/11/2026; **atualização:** 14/11/2026 (São Paulo).  
-**Snapshot de referência:** [main `548f8b0b95980a3e292f271b9676105473822ead`](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/commit/548f8b0b95980a3e292f271b9676105473822ead), após [PR #47](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/47).  
-**Importante:** esta é uma **avaliação técnica baseada nas evidências disponíveis**, não uma deliberação assinada em nome dos quatro integrantes. A decisão coletiva ainda deve ser formalizada.
+## Decisão: **NÃO ATESTAR O ACEITE FINAL do release candidate já publicado**
 
-## Critérios avaliados e provas
+Não é uma rejeição de todas as funcionalidades implementadas. A release já foi publicada, mas seu **aceite de qualidade permanece bloqueado**: falta CI global verde (SonarCloud), reprodução independente e aceite formal do grupo. Os artefatos de Maven/JaCoCo e JMeter já existem no SHA marcado, porém o Quality Gate SonarCloud não foi aprovado. A tag é *lightweight*, não anotada; isso também exige avaliação frente ao requisito da aula.
 
-| Critério | Prova auditável | Status |
+## Critérios e evidências
+
+| Critério | Evidência consultada | Juízo |
 |---|---|---|
-| Repositório público e revisão por pares | [PR #47](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/47) aprovado por `jovemOG-Dev` e mesclado | **Atendido para integração**, não é aceite final |
-| Aplicação reproduzível por clone limpo | [Checklist](entrega/checklist.md): `git ls-remote` bloqueado por DNS; ambiente sem Maven/Docker | **Não comprovado** |
-| Execução `./mvnw -B verify` | Não há Maven wrapper na árvore; README usa Maven externo | **Bloqueado** |
-| Funcionalidade e rastreabilidade RF01–RF14 | [RTM canônica](RTM.md), [contratos](api/), [dossiê](entrega/marcos-entrega-final.md) | **Implementação documentada**, reteste do release pendente |
-| Testes Java/MySQL | [CI PR45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976): 287 Surefire / 79 Failsafe, sem falhas, conforme [relatório](testes/marcos-8-resultados.md) | **Aprovado naquele PR**, não comprova tag |
-| Cobertura | PR45: JaCoCo 92,58% linhas / 76,39% branches, acima de 80% / 70% configurados | **Aprovado naquele PR**, não comprova tag |
-| Performance | [JMeter](performance/resultado-01.md): quatro cenários e invariantes específicos aprovados | **Aprovado nos testes históricos**; não é SLA |
-| Frontend/integração | [Marcos-7](testes/marcos-7-resultados.md): 100 testes unitários / 350 de navegador e cenários reais separados | **Evidência local**, não execução deste SHA |
-| Análise SonarCloud | [Bot PR45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/45#issuecomment-6869673675) informou Quality Gate passed, mas [scanner Maven](qualidade/sonarcloud.md) terminou com `Not authorized or project not found` | **CI integrada vermelha**; não validado na tag |
-| CI verde no commit da tag | Workflow executa na `main`, mas o run #92 falhou no SonarCloud; tag publicada | **Não atendido — bloqueador de release** |
-| Documentação e decisões arquiteturais | [ADRs](arquitetura/adr/README.md), [sequências](arquitetura/sequencia-reserva.md), [índice](evidencias/README.md) | **Parcial**: contexto/componentes específicos pendentes |
-| Riscos e aceite do grupo | Registro abaixo, ainda sem assinaturas individuais | **Não atendido** |
+| Funcionalidades e contratos integrados | `README.md`, `docs/RTM.md`, [merge #47](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/47) | Código integrado na main, mas requer reprodução independente |
+| Testes backend e MySQL | [CI 43546313469 (develop)](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43546313469), [CI PR #45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976) | Maven/Testcontainers aprovados nos SHAs dessas execuções; não no SHA da main/tag |
+| Cobertura | `backend/pom.xml`, `docs/testes/marcos-8-resultados.md` | Limites 80%/70% atendidos no PR #45: JaCoCo 92,58% linhas, 76,39% branches; não extrapolar |
+| Robustez e carga | `docs/qualidade/jmeter/`, [run PR #45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976) | Quatro cenários aprovados em ambiente isolado; sem SLA de produção |
+| Segurança | `docs/qualidade/seguranca.md`, `docs/seguranca/q9-autorizacao-reservas.md` e testes citados na RTM | Evidências de autenticação, CSRF, Q9 e privilégios; não é auditoria de produção |
+| SonarCloud | `docs/qualidade/sonarcloud.md` e run do PR #45 | Bot comunicou gate aprovado no PR; scanner Maven com `Not authorized or project not found`; resultado global da CI: falha |
+| Release na main | [CI #92 da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142), [PR #50](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/50) | Main executada no SHA da tag; Maven/JaCoCo e JMeter aprovados, scanner SonarCloud falhou; CI global vermelha |
+| Reprodução do professor | [Checklist](entrega/checklist.md) | Clone não concluído por DNS; `./mvnw` ausente; Docker/Maven indisponíveis no executor |
+| Aceite do grupo | [PR #47](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/47), seção de responsabilidades abaixo | Review do merge **não é** assinatura da decisão de qualidade; assinaturas individuais pendentes |
 
-## Riscos residuais e decisão sobre aceitação
+## Riscos / bloqueadores, impactos e responsáveis propostos
 
-**Nenhum risco novo é declarado formalmente aceito pelo grupo nesta avaliação.** A tabela relaciona o impacto e **responsáveis sugeridos para tratar e submeter cada risco à equipe**; não é autorização individual retroativa.
-
-| Risco | Impacto | Justificativa / situação | Responsável proposto | Aceite |
+| ID | Risco e impacto | Mitigação exigida | Responsável proposto (a confirmar pelo grupo) | Aceito? |
 |---|---|---|---|---|
-| Sem clone e wrapper reproduzíveis | Alto — professor pode não conseguir rodar | `./mvnw` ausente; teste independente bloqueado por DNS | **Gabriel Silva Gomes** (coordenação do fluxo) com **Débora dos Santos** (qualidade) | **Não aceito; corrigir e demonstrar** |
-| Sem CI verde/Quality Gate íntegro na main | Alto — release sem gate auditável | Scanner Maven falha e workflow aciona na main, mas análise SonarCloud falhou por autorização; bot de PR não substitui CI verde | **Débora dos Santos** (CI) + administração SonarCloud | **Não aceito; corrigir ou obter decisão explícita do professor** |
-| Grupos de teste/ambientes limitados | Médio — falhas não cobertas | Testcontainers/JMeter e E2E cobrem cenários, não a operação em produção | **Marcos Boé** (E2E/cliente) e **Gabriel Rodrigues Fausto** (persistência) | **Pendente de aceite formal com escopo** |
-| Imutabilidade de auditoria depende de grants | Alto — risco de modificação SQL privilegiada | Restrição append-only operacional requer credenciais separadas; [fonte](qualidade/rf10-auditoria.md) | **Débora dos Santos** + **Gabriel Rodrigues Fausto** | **Não aceito sem comprovação operacional** |
-| Notificações simuladas | Médio — não entrega mensagens externas | RF11 foi comprovada por outbox/log e testes WireMock, sem recebimento externo; [fonte](qualidade/rf11-notificacoes.md) | **Débora dos Santos** / deliberação de escopo do grupo | **Aceite de simulação descrito no ADR-007; não equivale a aceitar entrega externa** |
-| Diagramas/aceite incompletos | Médio/alto — entrega documental pode ser recusada | Contexto/componentes e assinatura coletiva ainda não comprovados | **Equipe inteira**, coordenação a definir | **Pendente** |
+| R01 | RC sem CI global verde na main: validação SonarCloud incompleta | Gatilho da main corrigido no PR #50; obter nova execução success no SHA de release após corrigir a autorização SonarCloud | **Débora** — coordenação de CI/qualidade | **Não** |
+| R02 | Sonar scanner falha: análise obrigatória do workflow não é validada | Revisar chave/organização/token/permissões ou tratar formalmente o procedimento permitido pelo professor, sem falsificar verde | **Responsável pela organização/SonarCloud**, em alinhamento com Débora | **Não** |
+| R03 | Clone limpo não reproduzível: avaliador não consegue iniciar ou verificar aplicação | Testar de máquina limpa; providenciar wrapper ou aprovação explícita do comando substituto | **Gabriel Fausto** — ambiente/persistência; **Débora** — verificação Maven/CI | **Não** |
+| R04 | Tag publicada como lightweight, Quality Gate pendente: aceite sem cadeia completa | Confirmar SHA da tag (já verificado), indexar artefatos existentes no SHA e resolver pendência de tag anotada sem mover a publicada | **Débora** — pacote de evidências, com revisão dos quatro | **Não** |
+| R05 | Diagramas/plano global incompletos: entrega documental pode ser recusada | Completar contexto/componentes, plano de teste, contratos e README | **Gabriel Silva** — domínio/contratos; **Marcos** — frontend/E2E; **Gabriel Fausto** — arquitetura; **Débora** — rastreabilidade | **Não** |
+| R06 | Ausência de declaração de cada integrante e formulário | Coletar assinaturas e enviar uma única resposta no Hub | **Os quatro integrantes**; **remetente a designar** | **Não** |
 
-## Participação dos integrantes e confirmação pendente
+Os responsáveis acima são **propostas de atribuição baseadas na divisão pública do README**, não compromissos aceitos nem assinaturas.
 
-Os nomes e **focos de trabalho publicamente atribuídos** constam no [README](../README.md). A descrição abaixo é **pré-preenchimento para conferência**, não fala, depoimento ou assinatura redigida em nome de cada integrante.
+## Contribuição de cada integrante — registro do repositório, confirmação pessoal pendente
 
-| Integrante | Participação documentada, sujeita a confirmação individual | Declaração/assinatura |
+| Integrante | Foco registrado no README | Declaração e aceite individual |
 |---|---|---|
-| **Gabriel Silva Gomes** (GitHub `jovemOG-Dev`) | Reservas, regras de domínio, revisão e integrações | **PENDENTE de declaração pessoal** |
-| **Gabriel Rodrigues Fausto** (GitHub `gabriel-fausto`) | Recursos, persistência e modelagem de dados | **PENDENTE de declaração pessoal** |
-| **Marcos Boé** (GitHub `marcosboe`) | Frontend, experiência de uso e testes E2E | **PENDENTE de declaração pessoal** |
-| **Débora dos Santos** (GitHub `debbySantos`) | Segurança, auditoria, CI e qualidade transversal | **PENDENTE de declaração pessoal** |
+| **Gabriel Silva Gomes** (`jovemOG-Dev`) | Reservas, regras de domínio, contratos e integrações | **PENDENTE de confirmação pelo próprio integrante** |
+| **Gabriel Rodrigues Fausto** (`gabriel-fausto`) | Recursos, modelo de dados, persistência, locks e migrações | **PENDENTE de confirmação pelo próprio integrante** |
+| **Marcos Boé** (`marcosboe`) | Frontend, UX, testes de navegador e evidências E2E | **PENDENTE de confirmação pelo próprio integrante** |
+| **Débora dos Santos** (`debbySantos`) | RF01, RF10/RF11, segurança, CI, RTM, qualidade e documentação | **PENDENTE de confirmação pela própria integrante** |
 
-Cada integrante deve conferir sua participação, explicar em suas próprias palavras o que fez e registrar nome, data e concordância com a decisão. **Não presumir assinaturas a partir de merge, aprovação de PR ou atuação de agente.**
+**Assinaturas:** nenhuma coletada neste documento. A equipe deve registrar decisão explícita após correções, especificar riscos **realmente aceitos**, impacto, justificativa e responsável, e confirmar as contribuições pessoalmente. Revisão ou merge técnico não implica aceite da qualidade final.
 
-## Gatilhos para reavaliar o bloqueio
+## Texto para entrega no Hub — **não enviar enquanto bloqueado**
 
-1. Resolver os bloqueadores do [checklist](entrega/checklist.md) e repetir a instalação e o teste em clone limpo.
-2. Obter uma **execução verde da CI na main** vinculada ao SHA definido para release, incluindo os critérios de qualidade requeridos.
-3. Conferir o SHA e o tipo da tag já publicada `v1.0.0-rc1`, atualizar o [índice](evidencias/README.md) e validar URLs; não mover a tag.
-4. Apresentar os riscos residuais ao grupo e registrar aceite/ressalvas com responsável, impacto e justificativa; então colher as quatro declarações.
-5. Um integrante envia o formulário do Hub **somente após** a conferência do pacote e da tag real.
+```text
+Projeto: Organização de Recursos (Senac ADS)
+Repositório público: https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos
+Tag publicada: v1.0.0-rc1 (lightweight) no commit 5e9b9ea671714a5aae7a0e780cdad5e6ba8e38cf; Quality Gate pendente
+Situação: RELEASE PUBLICADA, ACEITE FINAL PENDENTE até CI verde na main,
+reprodução do README e aprovação coletiva do pacote de evidências.
+```
 
-## Texto curto para o Hub — rascunho NÃO ENVIAR ainda
-
-> Projeto: Organização de Recursos. Repositório público: https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos. Tag publicada: [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) (CI verde do SHA pendente). Integrantes: Gabriel Silva Gomes, Gabriel Rodrigues Fausto, Marcos Boé e Débora dos Santos. Envio condicionado à CI verde no commit da tag e à aprovação coletiva do pacote.
-
-**Conclusão:** não afirmar “pronto para produção” nem “release aprovado”. Os resultados anteriores são positivos em cenários definidos, mas a cadeia de evidência exigida para a tag final não está completa.
+A tag já foi verificada. Após a validação final, anexar a URL de CI verde, formalizar as assinaturas e enviar o formulário uma única vez por integrante designado. **Não foi realizado envio no Hub.**
