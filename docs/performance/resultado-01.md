@@ -1,6 +1,8 @@
 # Resultado 01 — carga JMeter (histórico, não RC)
 
-**Status:** comprovado em execuções antigas, **não validado no commit de tag**.  
+**Status:** série de métricas históricas descrita abaixo; o job JMeter **também foi aprovado no SHA da tag publicada**, com artefato específico para essa execução.
+
+**Atualização verificada — 14/11/2026:** o [PR #50](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/50) foi integrado. A tag/release [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) **existe e aponta para o commit `5e9b9ea671714a5aae7a0e780cdad5e6ba8e38cf`**; é uma tag *lightweight* (não anotada). A [CI #92 da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142), executada nesse mesmo SHA, aprovou os passos Maven/Testcontainers/JaCoCo e o job JMeter, com artefatos [quality-evidence da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142/artifacts/14096996614) e [jmeter-evidence da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142/artifacts/14096008151). O workflow global terminou com **failure** exclusivamente porque a análise Maven SonarCloud retornou `Not authorized or project not found`. A autorização do SonarCloud e o aceite coletivo seguem pendentes; clone limpo independente ainda não foi comprovado.  
 **Fonte:** [evidência JMeter original de 10/11](../qualidade/jmeter/evidencias-2026-11-10.md), [planos e procedimento](../qualidade/jmeter/README.md), [CI do PR #45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976).
 
 ## Metodologia
@@ -27,6 +29,6 @@ Na [CI 43542757976](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/action
 - Carga curta e pequena em runner GitHub, sem base semelhante à produção ou SLA operacional;
 - Percentis da amostra não garantem latência ou capacidade em produção;
 - Teste de contenção aproxima concorrência, sem garantia de interleavings precisos;
-- O próximo passo é executar a mesma suíte no SHA final de `main` e vincular o artifact real da tag neste documento.
+- A mesma suíte já foi executada na `main`, no SHA da tag, com job **success** e artefato [jmeter-evidence da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142/artifacts/14096008151). Os p95 publicados na tabela acima pertencem à amostra de 10/11 e não devem ser reaproveitados como métricas da CI #92 sem extrair os novos JTLs.
 
-**Veredito para release:** evidência histórica favorável à consistência, mas **insuficiente para liberar RC sem CI completa no commit da tag**.
+**Veredito para release:** evidência histórica favorável e JMeter aprovado no SHA da tag; o **aceite final permanece pendente** porque o SonarCloud falhou e o workflow global da CI #92 não ficou verde.

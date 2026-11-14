@@ -6,4 +6,4 @@ A matriz de rastreabilidade integral já existe, com nome de arquivo em maiúscu
 
 O professor exige o caminho `docs/rtm.md`; como Git diferencia maiúsculas e minúsculas, este arquivo é um índice explícito, **sem duplicar** a RTM ou introduzir uma versão divergente.
 
-**Atenção:** a RTM existente documenta a versão integrada na `develop` até o PR #45. Antes de publicar a tag `v1.0.0-rc1`, confrontar seus links/evidências com o SHA definitivo da `main` e aprovar a matriz revisada.
+**Atenção (14/11/2026):** a RTM histórica documenta a integração em `develop` até o PR #45. A tag publicada [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) é *lightweight* e aponta para o commit `5e9b9ea671714a5aae7a0e780cdad5e6ba8e38cf`. A [CI #92 da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142) executou nesse SHA: Maven/JaCoCo e JMeter passaram, SonarCloud falhou por autorização. Revisar os vínculos da matriz com essa versão antes do aceite final; o clone limpo e a aprovação coletiva permanecem pendentes.

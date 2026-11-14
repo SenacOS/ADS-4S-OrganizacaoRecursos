@@ -1,8 +1,10 @@
 # CHANGELOG — Organização de Recursos
 
-## [Não lançado] — preparação do v1.0.0-rc1 — 13/11/2026
+## [v1.0.0-rc1] — publicada em 14/11/2026
 
-**Estado:** candidato em preparação; **não há tag publicada ou CI verde da main** confirmadas nesta avaliação. A versão funcional analisada foi a `main` em `548f8b0b95980a3e292f271b9676105473822ead`, integrada pelo [PR #47](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/47).
+**Atualização verificada — 14/11/2026:** o [PR #50](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/50) foi integrado. A tag/release [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) **existe e aponta para o commit `5e9b9ea671714a5aae7a0e780cdad5e6ba8e38cf`**; é uma tag *lightweight* (não anotada). A [CI #92 da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142), executada nesse mesmo SHA, aprovou os passos Maven/Testcontainers/JaCoCo e o job JMeter, com artefatos [quality-evidence da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142/artifacts/14096996614) e [jmeter-evidence da main](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43552354142/artifacts/14096008151). O workflow global terminou com **failure** exclusivamente porque a análise Maven SonarCloud retornou `Not authorized or project not found`. A autorização do SonarCloud e o aceite coletivo seguem pendentes; clone limpo independente ainda não foi comprovado.
+
+**Snapshot histórico de 13/11/2026:** `main` em `548f8b0b95980a3e292f271b9676105473822ead`, integrada pelo [PR #47](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/47).
 
 ### Funcionalidades presentes na árvore integrada
 
@@ -21,13 +23,13 @@
 - Suítes JUnit/Spring, Testcontainers/MySQL, Playwright e quatro cenários JMeter;
 - JaCoCo e workflow GitHub Actions;
 - Dossiês e matrizes existentes em `docs/qualidade/`, `docs/testes/`, `docs/RTM.md`;
-- Novo pacote documental proposto: `docs/entrega/checklist.md`, `docs/evidencias/README.md`, `docs/decisao-qualidade.md`, `docs/relatorio-qualidade.md`, `docs/performance/resultado-01.md` e `docs/defeitos/README.md`.
+- Pacote documental de entrega: `docs/entrega/checklist.md`, `docs/evidencias/README.md`, `docs/decisao-qualidade.md`, `docs/relatorio-qualidade.md`, `docs/performance/resultado-01.md` e `docs/defeitos/README.md`.
 
-### Pendências para publicar a versão
+### Pendências para aprovar a versão já publicada
 
 - Comprovar clone limpo, execução da aplicação e testes; o repositório ainda não possui Maven Wrapper;
-- CI totalmente verde em `main`, incluindo solução para falha do scanner Sonar;
-- Validar artefatos de testes e carga no **mesmo SHA** a ser marcado;
-- Revisão/aceite formal do grupo e criação posterior de tag anotada `v1.0.0-rc1`.
+- CI global verde na `main`: Maven/JaCoCo e JMeter passaram no SHA da tag, porém o scanner SonarCloud falhou por permissão/configuração;
+- Conferir e anexar os artefatos de testes e carga já emitidos no **mesmo SHA da tag**, antes do aceite;
+- Revisão/aceite formal do grupo; a tag publicada é *lightweight*, embora a atividade solicite tag anotada. Registrar essa divergência e deliberar sobre a forma correta de atender à exigência sem mover a tag publicada.
 
-**Não tratar este changelog como confirmação de release publicado.** Se for preciso corrigir algo depois de publicar `v1.0.0-rc1`, criar uma nova tag `v1.0.0-rc2`, sem mover a anterior.
+**A publicação da release está comprovada; a aprovação integral de qualidade não está.** Se for preciso corrigir algo depois de publicar `v1.0.0-rc1`, criar uma nova tag `v1.0.0-rc2`, sem mover a anterior.
