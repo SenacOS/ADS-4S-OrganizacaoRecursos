@@ -1,5 +1,11 @@
 # RF11 — Notificacoes simuladas / gateway HTTP
 
+
+**Atualização em 13/11/2026:** a implementação da outbox, do processamento e do gateway simulado está integrada. As seções "Evidências a executar" e "Dependências entre PRs" abaixo preservam o roteiro do incremento original; não representam tarefas atuais de integração. A suíte Maven/MySQL/Testcontainers e os gates JaCoCo foram aprovados na CI do PR #43; o job JMeter também concluiu com sucesso ([execução 43525712520](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43525712520)). A demonstração operacional do modo simulado está registrada no [ADR-007](../arquitetura/adr/ADR-007-fechamento-contratos-vinculos-rf11.md) e no [procedimento de demonstração](../operacao/demonstracao-fechamento.md).
+
+**Limite de interpretação:** o gateway vazio registra a simulação por log. O estado `ENVIADA` nesse modo não comprova entrega de e-mail ou mensagem a um destinatário externo.
+
+
 ## Fechamento delegado — 13/11/2026
 
 Marcos comunicou carta branca da equipe e adotou as decisões do [ADR-007](../arquitetura/adr/ADR-007-fechamento-contratos-vinculos-rf11.md). Os contratos atuais, incluindo vínculo com todos os recursos, ficam formalizados **por decisão delegada de Marcos**, sem atribuir assinaturas individuais aos demais integrantes. Datas com offset, PATCH conjunto,409/FORA_DO_EXPEDIENTE, estados/perfis de edição/cancelamento e escopos/erros Q9 permanecem como implementados; Q1/Q3/Q8 preservadas.
@@ -37,7 +43,7 @@ As menções anteriores a ratificação por integrante, processo indefinido ou m
 - Nao ha endpoint publico que permita disparar/reexecutar notificacoes.
 - Use HTTPS e endpoint confiavel no ambiente real; nao configure segredos no URL.
 
-## Evidencias a executar
+## Escopo dos testes e evidências — registro do incremento original
 - NotificacaoMysqlIT: commit/rollback, envio apos commit, retry, falha definitiva,
   registro de devolucao, exigencia transacional.
 - GatewayNotificacaoWireMockTest: HTTP 202, falha HTTP 500, chave idempotente.
@@ -45,6 +51,6 @@ As menções anteriores a ratificação por integrante, processo indefinido ou m
 - Com Java 21 e Docker: mvn -f backend/pom.xml clean verify.
 - Inspecionar surefire/failsafe e JaCoCo do build; anexar resultados na RTM.
 
-## Dependencias entre PRs
+## Dependências entre PRs — sequência histórica da integração inicial
 PR #8 RF01 -> PR #9 RF10 -> este PR RF11 (migração V4).
 Depois dos merges, alterar base do PR para develop; exigir revisao por colega e CI.

@@ -1,5 +1,34 @@
 # Contrato da API de reservas
 
+## Cancelamento — `POST /api/reservas/{id}/cancelamento` (Q5 vigente)
+
+**Corpo JSON opcional:**
+
+```json
+{ "motivo": "Sala indisponível por evento institucional" }
+```
+
+| Campo | Tipo | Regra |
+|---|---|---|
+| `motivo` | string | Opcional no contrato; máximo de 500 caracteres. A obrigatoriedade depende do ator e da reserva. |
+
+**Quando a justificativa é obrigatória:** quando o ator autenticado é `ADMINISTRADOR` e não é o solicitante da reserva (cancelamento de reserva de terceiro). Depois de aparado (`strip`), o texto deve ser não vazio. O dono cancela sem justificativa; se enviar um motivo, ele também é aparado e gravado. O Administrador que cancela a própria reserva está na condição de dono e não precisa justificar.
+
+**Regras e persistência:**
+
+- Podem cancelar o dono ou o Administrador, somente em `SOLICITADA` ou `APROVADA`, conforme a matriz de estados do ADR-007.
+- Identidade e papel são obtidos exclusivamente da sessão autenticada; campos adicionais no corpo não definem o ator.
+- A ordem de validação no domínio é: permissão, justificativa e estado.
+- Sem justificativa válida quando obrigatória: HTTP `400`, código `REQUISICAO_INVALIDA`, mensagem HTTP `Requisição inválida.`. O domínio lança `IllegalArgumentException`; o handler padroniza a mensagem. Valor acima de 500 caracteres também retorna `400/REQUISICAO_INVALIDA`, com detalhe de validação do DTO.
+- A justificativa é persistida em `reservas.motivo_cancelamento`, criada por `V7__reserva_motivo_cancelamento.sql` como `VARCHAR(500) NULL`. Não reutiliza `motivo_decisao`, reservado à aprovação/rejeição.
+- O cancelamento mantém a reserva e os vínculos e preserva a auditoria e a notificação transacionais.
+
+**Compatibilidade do cliente — estado conferido em 13/11/2026:** `backend/src/main/resources/static/js/reservas.js` ainda envia o POST sem corpo. Assim, um Administrador que cancele uma reserva de terceiro pela interface recebe `400` até a frente frontend enviar `{ "motivo": "..." }`. O ajuste do cliente pertence à frente de frontend; esta atualização não altera `docs/api/frontend-integracao.md`.
+
+**Alinhamento dos trechos históricos:** a seção “Revisão de cliente” mais abaixo foi escrita antes dos PRs #26/#27. Os GETs de listagem/detalhe e a fila/Q9 já estão integrados; os contratos vigentes são [`reservas-consulta-contrato.md`](reservas-consulta-contrato.md), [`reservas-leitura-contrato.md`](reservas-leitura-contrato.md) e [`reservas-politica-leitura-q9.md`](reservas-politica-leitura-q9.md).
+
+**Mapeamento atual de erros de persistência:** `PessimisticLockingFailureException` retorna HTTP `409/TENTE_NOVAMENTE`; `DataIntegrityViolationException` retorna HTTP `409/INTEGRIDADE_DOS_DADOS`. A linha de deadlock/timeout na tabela de erros abaixo é um registro histórico anterior à implementação desses mapeamentos.
+
 ## Fechamento delegado — 13/11/2026
 
 Marcos comunicou carta branca da equipe e adotou as decisões do [ADR-007](../arquitetura/adr/ADR-007-fechamento-contratos-vinculos-rf11.md). Os contratos atuais, incluindo vínculo com todos os recursos, ficam formalizados **por decisão delegada de Marcos**, sem atribuir assinaturas individuais aos demais integrantes. Datas com offset, PATCH conjunto,409/FORA_DO_EXPEDIENTE, estados/perfis de edição/cancelamento e escopos/erros Q9 permanecem como implementados; Q1/Q3/Q8 preservadas.

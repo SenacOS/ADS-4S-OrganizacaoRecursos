@@ -1,5 +1,11 @@
 # RF10 — Auditoria de mudanças (implementação)
 
+
+**Atualização em 13/11/2026:** este arquivo preserva o registro técnico original da implementação de RF10. As seções de dependências e evidências abaixo descrevem o contexto do incremento inicial e não devem ser interpretadas como checklist atual de integração. A suíte backend foi executada na CI do PR #43, com Maven, MySQL/Testcontainers e gates JaCoCo concluídos com sucesso ([execução 43525712520](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43525712520)). Consulte também a [RTM vigente](../RTM.md).
+
+**Limite operacional ainda aberto:** o serviço não expõe operações de alteração ou exclusão da auditoria, mas a proteção contra SQL privilegiado depende de uma conta de runtime separada, com grants limitados, distinta da conta de migração. A validação dessa separação no ambiente operacional ainda precisa de evidência própria.
+
+
 ## Arquitetura
 - Persistência MySQL em V3__auditoria.sql, tabela destinada a registros append-only e índices por entidade/ID e correlação.
 - AuditoriaJdbc implementa duas portas já usadas no domínio:
@@ -19,12 +25,12 @@
 - GET /api/auditoria/{entidade}/{entidadeId}: exclusivo do papel ADMINISTRADOR, via SecurityConfig.
   Não retorna dados brutos além dos resumos seguros.
 
-## Dependências / ordem das migrações
+## Dependências / ordem das migrações — registro histórico do PR inicial
 V1__item18.sql (recursos e usuários) -> V2__perfil_usuarios.sql (RF01) -> V3__auditoria.sql (RF10).
 Este PR começa baseado na branch feat/session-aauth para evitar versão V2 colidente ou fora de ordem.
 Após integrar o PR #8, retargetar este PR para develop.
 
-## Evidências / testes a executar
+## Escopo dos testes — referência técnica do incremento original
 - AuditoriaMysqlIT: persistência após commit, trilha de criação/conclusão, rollback, privacidade,
   append-only via serviços, privacidade e transação obrigatória.
 - AuditoriaControllerTest: 401 anônimo; 403 solicitante; 200 administrador.
@@ -33,8 +39,7 @@ Após integrar o PR #8, retargetar este PR para develop.
 - Relatórios: backend/target/surefire-reports, backend/target/failsafe-reports,
   backend/target/site/jacoco/index.html.
 
-## Pendente para aceite final
-- Validar com MySQL/Testcontainers no ambiente local ou CI (esta implementação ainda não foi executada aqui).
-- Revisão por colega e merge após CI verde.
-- Para reforçar imutabilidade contra alterações SQL diretas, adotar conta runtime com grants limitados; documentar a conta no deploy sem credenciais no repositório.
-- Complementar evidências de auditoria de mudanças sensíveis de usuários caso o time inclua RF01 nesta trilha.
+## Pendências remanescentes / limites operacionais
+
+- **Privilégios SQL da auditoria:** provisionar e validar, no ambiente operacional, a conta de runtime com privilégios limitados a `INSERT` e `SELECT` em `auditoria`, mantendo a conta de migração separada. A conta compartilhada atual não garante imutabilidade contra uma conexão SQL privilegiada.
+- **Abrangência da auditoria de usuários:** a documentação de segurança já registra `UsuarioAuditoriaMysqlIT` e `AuditoriaResumoTest` para a criação de usuário. Qualquer ampliação para outras mudanças sensíveis de RF01 deve ser decidida contra o escopo oficial e registrada com evidência, não presumida como requisito adicional já aprovado.
