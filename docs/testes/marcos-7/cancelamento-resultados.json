@@ -1,0 +1,214 @@
+{
+  "inicio": "2026-11-13T23:48:03.748Z",
+  "base": "b73c501536a275cdc89101cc7130c7b481e52396",
+  "branch": "test/marcos-7-validacao-integrada",
+  "arvore": "Árvore local identificada pelos hashes",
+  "camada": "Spring/Chrome/MySQL reais, sem interceptação",
+  "cenarios": [
+    {
+      "nome": "V7 e fontes servidas correspondem à base Q5",
+      "estado": "PASS",
+      "evidencia": {
+        "migracao": 7,
+        "fontes": 7,
+        "hashes": "MATCH"
+      }
+    },
+    {
+      "nome": "Administrador sem motivo, branco ou acima de500 recebe400 sem alterar trilhas",
+      "estado": "PASS",
+      "evidencia": {
+        "recusas": 4,
+        "http": 400,
+        "estado": "APROVADA",
+        "trilhasPreservadas": true
+      }
+    },
+    {
+      "nome": "Outro perfil não cancela reserva alheia mesmo forjando identidade no corpo",
+      "estado": "PASS",
+      "evidencia": {
+        "http": 403,
+        "estadoPreservado": true,
+        "identidade": "Somente sessão"
+      }
+    },
+    {
+      "nome": "Limite500 é aceito e persistido separadamente de motivoDecisao",
+      "estado": "PASS",
+      "evidencia": {
+        "id": 36,
+        "status": "CANCELADA",
+        "motivoCaracteres": 500,
+        "auditoriaIncremento": 1,
+        "outboxIncremento": 1
+      }
+    },
+    {
+      "nome": "Dono e Administrador dono continuam cancelando sem corpo",
+      "estado": "PASS",
+      "evidencia": {
+        "solicitante": {
+          "id": 34,
+          "status": "CANCELADA",
+          "motivoCaracteres": 0,
+          "auditoriaIncremento": 1,
+          "outboxIncremento": 1
+        },
+        "administradorDono": {
+          "id": 33,
+          "status": "CANCELADA",
+          "motivoCaracteres": 0,
+          "auditoriaIncremento": 1,
+          "outboxIncremento": 1
+        }
+      }
+    },
+    {
+      "nome": "UI administrativa exige justificativa e confirma uma escrita — desktop",
+      "estado": "PASS",
+      "evidencia": {
+        "reserva": 32,
+        "posts": 1,
+        "motivoPersistido": true,
+        "semOverflow": true,
+        "errosJS": 0,
+        "viewport": {
+          "width": 1366,
+          "height": 900
+        }
+      }
+    },
+    {
+      "nome": "UI administrativa exige justificativa e confirma uma escrita — mobile",
+      "estado": "PASS",
+      "evidencia": {
+        "reserva": 35,
+        "posts": 1,
+        "motivoPersistido": true,
+        "semOverflow": true,
+        "errosJS": 0,
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      }
+    },
+    {
+      "nome": "Ambiente pronto, massa anterior preservada e duas reservas próprias para aceite",
+      "estado": "PASS",
+      "evidencia": {
+        "paraAceite": {
+          "administradorEmReservaAlheia": 37,
+          "administradorDono": 38
+        },
+        "sql": "Somente SELECT",
+        "ambientePronto": true
+      }
+    }
+  ],
+  "concluido": true,
+  "massa": {
+    "periodo": {
+      "inicio": "2026-11-15T00:00:00-03:00",
+      "fim": "2026-11-15T01:00:00-03:00"
+    },
+    "recursos": {
+      "A": 83,
+      "B": 84,
+      "C": 85,
+      "D": 86,
+      "E": 87,
+      "F": 88,
+      "G": 89
+    },
+    "reservas": {
+      "A": 32,
+      "B": 33,
+      "C": 34,
+      "D": 35,
+      "E": 36,
+      "F": 37,
+      "G": 38
+    }
+  },
+  "chrome": "157.0.8103.51",
+  "fim": "2026-11-13T23:48:09.867Z",
+  "resumo": {
+    "PASS": 8,
+    "FAIL": 0
+  },
+  "versaoFormato": 2,
+  "artefatos": [
+    {
+      "arquivo": "backend/src/main/resources/static/js/consulta-reservas.js",
+      "algoritmo": "SHA-256",
+      "digest": "343e5a912254f825079bbc92a48fce0211ac32653c0264670c06b94b8483da07"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/consulta-reservas-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "4877b5025eeb6939db06e1f4e712ab1432afb3fc4372fe1afba80fdabcb28b42"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/reservas.js",
+      "algoritmo": "SHA-256",
+      "digest": "019190a01323b6b42656c21d4a7f32f637dbbaafbb89f499a55d690a92004d80"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/forms.js",
+      "algoritmo": "SHA-256",
+      "digest": "42780d62d6d19cd367ab11b49cd629126235082c55d8b80f0e36a734b36ea27c"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/datas.js",
+      "algoritmo": "SHA-256",
+      "digest": "44f35755602a1043e5126ed4807f5b0b31bc273908c7e4d079d6df34a9636bbe"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/css/consulta-reservas.css",
+      "algoritmo": "SHA-256",
+      "digest": "8d15f9fde69c86a72f67f59f6ff9df36a62d9f3895526a431f9a7385deb8ed44"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/minhas-reservas.html",
+      "algoritmo": "SHA-256",
+      "digest": "e575694af0d33509dc7d5ee5ae6c0934be212ce4022d871a71fcd452a291d1a9"
+    },
+    {
+      "arquivo": "tests/e2e-local/validar-cancelamento.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "807db529290c465c44d4c8a7c974a6c9f0df48ed52211d631deb32494d34cbc7"
+    },
+    {
+      "arquivo": "tests/e2e-local/controle.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "5c55ceec937e1ef82c91a521300ec24cd1975136acb81a9beb1d697a8c0fd93e"
+    },
+    {
+      "arquivo": "tests/e2e-local/executaveis.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "2b105b3dd55b0f61f83c9b3ef2de6f7a6dc7678d569764ac5b1e89b2c0c33c20"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/reserva/dominio/Reserva.java",
+      "algoritmo": "SHA-256",
+      "digest": "8c82c2ac4016ab34544149e3c68830aa7332d99f7f923a865b062d3551a15972"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/reserva/api/CancelarReservaRequest.java",
+      "algoritmo": "SHA-256",
+      "digest": "2a5cbd886cddbcf98e1e6ec46b845c3d869b08f7c205ec238fd64b0648a1df53"
+    },
+    {
+      "arquivo": "backend/src/main/resources/db/migration/V7__reserva_motivo_cancelamento.sql",
+      "algoritmo": "SHA-256",
+      "digest": "6fac9f2189da1ca1e7e3a78eb80635a776358c5c6557f93752941e355f3ac6e6"
+    },
+    {
+      "arquivo": "backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar",
+      "algoritmo": "SHA-256",
+      "digest": "afe76ecce37678bc92350988081f5e5a73e36e1bca234831e6b16221bb3d88b4"
+    }
+  ]
+}

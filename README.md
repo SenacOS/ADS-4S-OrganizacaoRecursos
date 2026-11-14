@@ -72,7 +72,7 @@ O sistema centraliza o cadastro e a consulta de recursos, a solicitação e a ap
 - A edição não altera a necessidade de aprovação. Reserva restrita já aprovada não é editável pelo fluxo de PATCH (Q2).
 - No contrato da API, o cancelamento administrativo de reserva de terceiro exige justificativa de até 500 caracteres, armazenada em `motivo_cancelamento`, separada de `motivo_decisao` (Q5).
 
-**Compatibilidade da interface no snapshot:** a regra Q5 está implementada no backend; o cliente `reservas.js` ainda envia o cancelamento sem corpo. Por isso, o cancelamento de reserva de terceiro pelo Administrador via tela retorna HTTP 400 até que a interface envie `motivo`. O contrato e o comportamento do endpoint estão descritos em [`docs/api/reservas-contrato.md`](docs/api/reservas-contrato.md).
+**Compatibilidade Q5:** no snapshot integrado `b73c501`, o cliente ainda enviava o cancelamento sem corpo e recebia HTTP 400 no cenário administrativo de terceiro. A [etapa7 do frontend](docs/stories/marcos-7.md) acrescenta justificativa condicional de até500caracteres e envio de `motivo`, preservando o cancelamento do dono sem corpo. Implementação/testes e [aceite do autor](docs/testes/marcos-7-verificacao.md#aceite-do-autor--13112026) concluídos localmente em13/11/2026; publicação autorizada, com revisão/integração da equipe pendentes. O backend não foi alterado. [Contrato vigente](docs/api/reservas-contrato.md) e [resultados por camada](docs/testes/marcos-7-resultados.md).
 
 ## Arquitetura e tecnologias
 

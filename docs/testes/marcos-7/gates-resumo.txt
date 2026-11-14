@@ -1,0 +1,11 @@
+13/11/2026 — America/Sao_Paulo
+Base b73c501536a275cdc89101cc7130c7b481e52396; test/marcos-7-validacao-integrada, árvore sem commit.
+
+npm.cmd run build; PLAYWRIGHT_CHANNEL=chrome: exit0. Lint/typecheck PASS,100unitários e350navegador PASS;0falhas/ignorados/flaky/retries. Encerramento normal.
+Maven package -DskipITs; Java21/cache isolado:287unitários/HTTP,0falhas/erros/ignorados; BUILD SUCCESS/exit0. Sem Testcontainers/JaCoCo verify local.
+Q5 focal antes:3testes,1PASS/2FAIL; após conciliação:3/3PASS, incluídos no build final.
+Reais sem interceptação: smoke16/0/0; cancelamento8/0; Q9/Q1/Q3/Q8:12/0; consulta8/0; fechamento11/0; RF12:13/0; demonstração8/0 (base/worker/gateway simulados reais e isolados, sem envio externo). Todas com exit0.
+Consulta inicial6PASS/1FAIL preservada: fixture antiga sem justificativa obrigatória, envio bloqueado pela UI. Ajustada apenas a fixture e repetida com nova massa.
+Fechamento usa --manifesto-frontend=docs/testes/marcos-7/regressao-frontend.json;58fontes do build aprovado conferidas estritamente, sem reescrever manifesto histórico.
+JAR/dump do banco anteriores à V7 privados e preservados. V1–V7 aprovadas; dados anteriores mantidos.
+CodeRabbit local indisponível; sem nova CI da etapa7, revisão independente ou aceite humano presumidos.

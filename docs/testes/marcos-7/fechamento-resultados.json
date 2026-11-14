@@ -1,0 +1,486 @@
+{
+  "inicio": "2026-11-13T23:50:30.812Z",
+  "base": "b73c501536a275cdc89101cc7130c7b481e52396",
+  "branch": "test/marcos-7-validacao-integrada",
+  "arvore": "Árvore local sem commit; fontes/JAR e manifesto da regressão identificam o código testado",
+  "camadas": "Chrome/HTTP/MySQL/tempo reais; concorrência de criação HTTP+SQL; sem mock, alteração de relógio ou escrita SQL",
+  "ferramentas": {
+    "java": "21.0.13+9",
+    "mysql": "8.4.13",
+    "chrome": "157.0.8103.51"
+  },
+  "cenarios": [
+    {
+      "nome": "Fontes servidas pelo JAR e manifesto da regressão correspondem à árvore",
+      "camada": "HTTP + SHA256",
+      "inicio": "2026-11-13T23:50:31.958Z",
+      "evidencia": {
+        "arquivosServidos": 36,
+        "hashes": "MATCH",
+        "fontesDoBuild": 58,
+        "manifesto": "docs/testes/marcos-7/regressao-frontend.json",
+        "regressao": {
+          "status": "PASS",
+          "unitarios": 100,
+          "navegador": 350,
+          "falhas": 0,
+          "ignorados": 0,
+          "flaky": 0,
+          "exitCode": 0
+        }
+      },
+      "estado": "PASS",
+      "fim": "2026-11-13T23:50:32.187Z"
+    },
+    {
+      "nome": "Login inválido, CSRF rotacionado e recuperação explícita na interface",
+      "camada": "Chrome + HTTP real",
+      "inicio": "2026-11-13T23:50:32.189Z",
+      "evidencia": {
+        "credencialInvalida": 401,
+        "csrfRotacionado": 403,
+        "novaAcaoExplicita": 204,
+        "postsDoFormulario": 3,
+        "viewport": "390x844",
+        "teclado": "Enter no login inválido"
+      },
+      "estado": "PASS",
+      "fim": "2026-11-13T23:50:33.442Z"
+    },
+    {
+      "nome": "Instância temporária isolada com fontes idênticas",
+      "camada": "Processo + HTTP real",
+      "inicio": "2026-11-13T23:50:33.443Z",
+      "evidencia": {
+        "baseURL": "http://127.0.0.1:18081",
+        "timeout": "1m",
+        "cookieExclusivo": "QS_FECHAMENTO_SESSION",
+        "arquivosServidos": 36,
+        "hashes": "MATCH"
+      },
+      "estado": "PASS",
+      "fim": "2026-11-13T23:50:42.340Z"
+    },
+    {
+      "nome": "Massa exclusiva e expediente real para pesquisa paginada",
+      "camada": "HTTP real de preparação",
+      "inicio": "2026-11-13T23:50:42.342Z",
+      "evidencia": {
+        "recursos": [
+          98,
+          99,
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106,
+          107,
+          108,
+          109,
+          110,
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118
+        ],
+        "prefixo": "FECHO-c4cfcf371c",
+        "expediente": {
+          "zona": "America/Sao_Paulo",
+          "janelas": [
+            {
+              "dia": "MONDAY",
+              "inicio": "00:00:00",
+              "fim": "23:59:59.999999"
+            },
+            {
+              "dia": "TUESDAY",
+              "inicio": "00:00:00",
+              "fim": "23:59:59.999999"
+            },
+            {
+              "dia": "WEDNESDAY",
+              "inicio": "00:00:00",
+              "fim": "23:59:59.999999"
+            },
+            {
+              "dia": "THURSDAY",
+              "inicio": "00:00:00",
+              "fim": "23:59:59.999999"
+            },
+            {
+              "dia": "FRIDAY",
+              "inicio": "00:00:00",
+              "fim": "23:59:59.999999"
+            },
+            {
+              "dia": "SATURDAY",
+              "inicio": "00:00:00",
+              "fim": "23:59:59.999999"
+            },
+            {
+              "dia": "SUNDAY",
+              "inicio": "00:00:00",
+              "fim": "23:59:59.999999"
+            }
+          ]
+        }
+      },
+      "estado": "PASS",
+      "fim": "2026-11-13T23:50:43.006Z"
+    },
+    {
+      "nome": "Duas sessões disputam a mesma reserva e só uma persiste",
+      "camada": "HTTP concorrente + SQL SELECT",
+      "inicio": "2026-11-13T23:50:43.032Z",
+      "evidencia": {
+        "disparoSimultaneoMs": 1794613843038,
+        "statuses": [
+          201,
+          409
+        ],
+        "reserva": 50,
+        "recurso": 98,
+        "periodo": {
+          "inicio": "2026-11-14T00:10:00.000Z",
+          "fim": "2026-11-14T00:40:00.000Z"
+        },
+        "persistidas": 1,
+        "correlationId": "corrida-c4cfcf371c-1"
+      },
+      "estado": "PASS",
+      "fim": "2026-11-13T23:50:43.122Z"
+    },
+    {
+      "nome": "Pesquisa real tem paginação, vazio e ocupado sem seleção",
+      "camada": "Chrome + GETs reais",
+      "inicio": "2026-11-13T23:50:44.002Z",
+      "evidencia": {
+        "paginas": [
+          20,
+          1
+        ],
+        "total": 21,
+        "vazio": "prefixo inexistente exclusivo",
+        "ocupado": 98,
+        "selecaoImpedida": true,
+        "viewport": "390x844"
+      },
+      "estado": "PASS",
+      "fim": "2026-11-13T23:50:44.633Z"
+    },
+    {
+      "nome": "Estado muda após abrir editor: PATCH recusado e detalhe reconciliado",
+      "camada": "Chrome + HTTP de outro ator + SQL",
+      "inicio": "2026-11-13T23:50:44.634Z",
+      "evidencia": {
+        "reserva": 50,
+        "alteracaoExterna": "cancelamento administrativo",
+        "patchRecusado": 403,
+        "patchesComDuploClique": 1,
+        "reconsulta": "CANCELADA",
+        "viewport": "1366x900",
+        "focoAoAbrir": "detalhe-reserva"
+      },
+      "estado": "PASS",
+      "fim": "2026-11-13T23:50:45.341Z"
+    },
+    {
+      "nome": "Retirada, prazo vencido, Administrador somente leitura e devolução com atraso",
+      "camada": "Chrome + HTTP + relógio real + SQL",
+      "inicio": "2026-11-13T23:50:45.342Z",
+      "evidencia": {
+        "reserva": 51,
+        "movimentacao": 6,
+        "recurso": 99,
+        "retiradoEm": "2026-11-13T20:50:46.755371-03:00",
+        "fimPrevisto": "2026-11-13T20:51:11.320-03:00",
+        "devolvidoEm": "2026-11-13T20:51:14.541987-03:00",
+        "atrasoSegundos": 3,
+        "devolvidoPor": 3,
+        "administradorEscrevendo": 403,
+        "pendenciaMantidaDepoisPrazo": true,
+        "viewport": "390x844",
+        "focoNaConfirmacao": true
+      },
+      "estado": "PASS",
+      "fim": "2026-11-13T23:51:14.672Z"
+    },
+    {
+      "nome": "Sessão expira por inatividade real e a interface volta ao login",
+      "camada": "Chrome + timeout real do servidor",
+      "inicio": "2026-11-13T23:50:42.341Z",
+      "evidencia": {
+        "timeoutConfigurado": "1m",
+        "inatividadeMs": 65369,
+        "cookieMantidoAteRequisicao": true,
+        "resposta": 401,
+        "redirecionamento": "/login.html?sessao=expirada",
+        "semLogoutOuLimpeza": true
+      },
+      "estado": "PASS",
+      "fim": "2026-11-13T23:51:49.291Z"
+    },
+    {
+      "nome": "Ausência de erros JavaScript nos contextos acompanhados",
+      "camada": "Chrome real",
+      "inicio": "2026-11-13T23:51:49.292Z",
+      "evidencia": {
+        "errosJS": 0
+      },
+      "estado": "PASS",
+      "fim": "2026-11-13T23:51:49.292Z"
+    },
+    {
+      "nome": "Somente instância temporária encerrada e principal preservada",
+      "camada": "Identidade de processo + HTTP real",
+      "inicio": "2026-11-13T23:51:49.559Z",
+      "evidencia": {
+        "temporariaEncerrada": true,
+        "portaLivre": 18081,
+        "principalPronto": true,
+        "estadoPrincipalPreservado": true
+      },
+      "estado": "PASS",
+      "fim": "2026-11-13T23:51:51.031Z"
+    }
+  ],
+  "fim": "2026-11-13T23:51:51.031Z",
+  "resumo": {
+    "PASS": 11,
+    "FAIL": 0
+  },
+  "versaoFormato": 2,
+  "artefatos": [
+    {
+      "arquivo": "backend/src/main/resources/static/css/administracao.css",
+      "algoritmo": "SHA-256",
+      "digest": "4d82a0fc051397b9e9a42bbb7c1e4bbd4c6d0df91e3bd714ec585f669b36e76a"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/css/app.css",
+      "algoritmo": "SHA-256",
+      "digest": "d65964a412c209e4e4c1815813296490ca02fe08f0cc93b3fe3427542f314892"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/css/consulta-reservas.css",
+      "algoritmo": "SHA-256",
+      "digest": "8d15f9fde69c86a72f67f59f6ff9df36a62d9f3895526a431f9a7385deb8ed44"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/css/movimentacoes.css",
+      "algoritmo": "SHA-256",
+      "digest": "a344408d3afed7486906ee1405d1eab1943216c22f2cca93dda9957b278e07b5"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/css/relatorios-utilizacao.css",
+      "algoritmo": "SHA-256",
+      "digest": "21a80c477ed0bcf6f12bac9b7a1bf0621b1ebe32be7e2d5b3256e861606945c0"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/index.html",
+      "algoritmo": "SHA-256",
+      "digest": "126b3967a5b09974f318142e5df72c2f704c54d288012b059cdbb3400fcce5b1"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/administracao-recursos.js",
+      "algoritmo": "SHA-256",
+      "digest": "136ac62bc7b0eb1e5566cc10ff9466e2e0fb005fb278459cc9b7a7b37d4ba55c"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/api.js",
+      "algoritmo": "SHA-256",
+      "digest": "085626083a7334e0e163a99a576efae78d1606911172a6410796f96a9a6d34a9"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/aprovacoes-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "ccd53aaea68ca38cda868e18aaf373a27c756c07d8e8f0e0f59cf4b91d3f0085"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/aprovacoes.js",
+      "algoritmo": "SHA-256",
+      "digest": "641e0e456de266f946aa1354c1a4c4c5e4789dacb242e6dd2a074aa4095f15de"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/auth.js",
+      "algoritmo": "SHA-256",
+      "digest": "8d0d8e732b86f29cf345dfbd85d3a07ef6d77484b41229688722f110b919a273"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/consulta-reservas-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "4877b5025eeb6939db06e1f4e712ab1432afb3fc4372fe1afba80fdabcb28b42"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/consulta-reservas.js",
+      "algoritmo": "SHA-256",
+      "digest": "343e5a912254f825079bbc92a48fce0211ac32653c0264670c06b94b8483da07"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/dashboard-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "c60e99764c5783dc2b8cfd9aecf2ff5610cfbaddcdecff4eff7095300db41df8"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/datas.js",
+      "algoritmo": "SHA-256",
+      "digest": "44f35755602a1043e5126ed4807f5b0b31bc273908c7e4d079d6df34a9636bbe"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/forms.js",
+      "algoritmo": "SHA-256",
+      "digest": "42780d62d6d19cd367ab11b49cd629126235082c55d8b80f0e36a734b36ea27c"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/gestao-recursos-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "65ec54587b4ec1cf1ecb7917cb0678397fb64c8e6aff634f95e58625b656cf1e"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/login-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "2420f55cfc014f84c8067f880c4d466e9d3c48f63bbd88cbdcddffe901d73b06"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/movimentacoes-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "52775b2353ca8b0721868184b7d565f3b1aafc3220942d4254000c1f646876d9"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/movimentacoes.js",
+      "algoritmo": "SHA-256",
+      "digest": "44a2ed21c299230ae2b75870516a5a31d6b64dff0fe297d86188a0d7db77c939"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/navegacao.js",
+      "algoritmo": "SHA-256",
+      "digest": "ffd3992a41ec3f4166b51f9db52ce8b826c92b15fcb6de5545a8a0129082e214"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/recursos-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "5c2467fb378878ec1fcf0ba14b3ef742ba980617db9a56cfe9b311a395a0952b"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/recursos.js",
+      "algoritmo": "SHA-256",
+      "digest": "d53cb46d892a9ccacd2eda009ecb30cc84b43906ccaee176874bfcb8631b0a8e"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/relatorios-utilizacao-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "eb2ebe69aedab879789b1bf3e9d45e2e45007c506d19f157cb271144d6d49eae"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/relatorios-utilizacao.js",
+      "algoritmo": "SHA-256",
+      "digest": "fb29694d49289c033dc0377938610ef65ebb222d9bf3ca09cf08e768f22ab9f9"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/reservas.js",
+      "algoritmo": "SHA-256",
+      "digest": "019190a01323b6b42656c21d4a7f32f637dbbaafbb89f499a55d690a92004d80"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/sessao-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "9b1ff5ece89faf331a067b2dce129ffaf8dd0169f40a85ccb573dbb522068890"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/ui.js",
+      "algoritmo": "SHA-256",
+      "digest": "d0103a10564a382d8908e4dd9b8d3d325538e20cbcd45e959dce122ce8f120e7"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/login.html",
+      "algoritmo": "SHA-256",
+      "digest": "90a4b22c2ab059f1dabe1ff9ebcca426b3d1cd6822addd6c541960bfbc9c5eb8"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/aprovacoes.html",
+      "algoritmo": "SHA-256",
+      "digest": "405c3cb5f9df783caa003101e45faf556c3941b0f8eb83e89867630f76bf61ac"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/gestao-recursos.html",
+      "algoritmo": "SHA-256",
+      "digest": "612eea5dc812ec9830aa22643ba3411a18d5dade171542fb0bd52ab2fd6e5a21"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/minhas-reservas.html",
+      "algoritmo": "SHA-256",
+      "digest": "e575694af0d33509dc7d5ee5ae6c0934be212ce4022d871a71fcd452a291d1a9"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/movimentacoes.html",
+      "algoritmo": "SHA-256",
+      "digest": "714c70fdc341666f0988ab2d438f371fe54ea35f204d6e2dd4742f298a15d76e"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/recursos.html",
+      "algoritmo": "SHA-256",
+      "digest": "0a33dfa7f5832db215ddc7683a4ac2a133e159786f3a062dea1ef4eaadefac6f"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/relatorios-utilizacao.html",
+      "algoritmo": "SHA-256",
+      "digest": "793985ddfde0a12a0f045439ccb93866f812efb35905a1bd423235d43ee9ac20"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/reservas.html",
+      "algoritmo": "SHA-256",
+      "digest": "39454b9fddbb9d19fb74e0f42524f7e08597c194c9e2a41a8bcc6ffddf893490"
+    },
+    {
+      "arquivo": "tests/e2e-local/validar-fechamento.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "a8a9494f58dea9c9ba491f0f9aca670303dbb60190044eb8f7433cae61910bce"
+    },
+    {
+      "arquivo": "tests/e2e-local/sessao-temporaria.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "5602cb2618b7e8bc1b9eae8f70bf821ce798987e1e224bf1bbf4b039daee1b02"
+    },
+    {
+      "arquivo": "tests/e2e-local/controle.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "5c55ceec937e1ef82c91a521300ec24cd1975136acb81a9beb1d697a8c0fd93e"
+    },
+    {
+      "arquivo": "tests/e2e-local/executaveis.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "2b105b3dd55b0f61f83c9b3ef2de6f7a6dc7678d569764ac5b1e89b2c0c33c20"
+    },
+    {
+      "arquivo": "tests/e2e-local/configuracao-local.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "0eb6bea02b990bff2e3fb3af3d64f845c571d0b36f6b09e299de2c55f1951d55"
+    },
+    {
+      "arquivo": "tests/e2e-local/evidencias.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "314cf1e39018a9c3dcbe912abd592c7bbe79f72d0c8286d59b9065b719b7fa71"
+    },
+    {
+      "arquivo": "tests/e2e-local/viewport.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "6e3496338a07b98325a73ca82ab858412341f1a95a3882d28c151e29b5462b34"
+    },
+    {
+      "arquivo": "backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar",
+      "algoritmo": "SHA-256",
+      "digest": "afe76ecce37678bc92350988081f5e5a73e36e1bca234831e6b16221bb3d88b4"
+    },
+    {
+      "arquivo": "docs/testes/marcos-7/regressao-frontend.json",
+      "algoritmo": "SHA-256",
+      "digest": "ceac5b07f0a06f0edd58a3cbc7b3c37a6137649b062675dc75aa792b8bdb3f5d"
+    }
+  ]
+}

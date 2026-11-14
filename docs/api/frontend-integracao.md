@@ -1,5 +1,11 @@
 # Consumo da API pelo frontend
 
+## Etapa7 — Q5 e regressão integrada — 13/11/2026
+
+Etapa6 entregue pelo #42. Sobre developb73c501/#43, o cancelamento da reserva alheia pelo Administrador solicita justificativa não branca, até500caracteres; só `{motivo}` no corpo, confirmação após digitar e uma escrita. O dono, inclusive Administrador dono, continua sem justificativa/corpo. Guardas/erros/incerteza mantidos, identidade na sessão; campo não é motivoDecisao e não é devolvido no DTO. [Contrato Q5](reservas-contrato.md), [story](../stories/marcos-7.md), [resultados/matriz](../testes/marcos-7-resultados.md).
+
+Build100/350 controlado e sete suítes reais na nova base têm evidências próprias. [Aceite de Marcos registrado](../testes/marcos-7-verificacao.md#aceite-do-autor--13112026); revisão independente e entrega do recorte7 pendentes. PR44 documental incorporado em7d5480b, sem mudança executável. Publicações/aceites ainda pendentes nos checkpoints inferiores pertencem às suas versões; não reabrir etapas1–6 já integradas.
+
 ## RF12 HTTP — 13/11/2026
 
 Cliente/tela conciliados com #41: **GET `/api/reservas/relatorio-utilizacao`**, query `inicio`/`fim` com offset e `recursoId` opcional, DTO de minutos/listas do #39. Relatórios no menu somente para ADMINISTRADOR, com guarda por URL direta e autorização adicional do servidor. Nenhum papel/ID de identidade na query; sem CSRF no GET. [Contrato atual](relatorios-utilizacao-proposta.md#contrato-http-efetivo--pr-41), [story](../stories/marcos-6-integracao-real.md) e [13/0 reais, gates e limites](../testes/marcos-6-integracao-real-resultados.md).

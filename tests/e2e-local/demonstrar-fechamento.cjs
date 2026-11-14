@@ -142,8 +142,8 @@ async function executar(){
       await iniciar(false);
       assert.equal(sql('SELECT COUNT(*) FROM notificacoes'),'0');
       sql(`GRANT SELECT(id,perfil,ativo),UPDATE(id) ON ${database}.usuarios TO '${operadorDB}'@'127.0.0.1'; GRANT SELECT(id,codigo,ativo),UPDATE(id) ON ${database}.recursos TO '${operadorDB}'@'127.0.0.1'; GRANT SELECT,INSERT,DELETE,UPDATE(recurso_id) ON ${database}.responsaveis_recursos TO '${operadorDB}'@'127.0.0.1';`);
-      assert.equal(sql('SELECT COUNT(*) FROM flyway_schema_history WHERE success=1'),'6');
-      return {database,porta,migracoes:6,workerInicial:false,gateway:'SIMULADO_URL_VAZIA',contas:'runtime/migração da base descartável e operador de vínculos separados'};
+      assert.equal(sql('SELECT COUNT(*) FROM flyway_schema_history WHERE success=1'),'7');
+      return {database,porta,migracoes:7,workerInicial:false,gateway:'SIMULADO_URL_VAZIA',contas:'runtime/migração da base descartável e operador de vínculos separados'};
     });
     const admin=await novaApi(),sol=await novaApi(),resp=await novaApi(),outro=await novaApi();
     await caso('Três perfis reais, recursos e sessão/CSRF na mesma origem',async()=>{

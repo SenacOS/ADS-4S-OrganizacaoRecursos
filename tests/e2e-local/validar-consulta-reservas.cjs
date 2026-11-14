@@ -3,6 +3,7 @@
 // Integração real opt-in; configuração privada somente no ambiente isolado.
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict');
 const {execFileSync}=require('node:child_process');
+const {pathToFileURL}=require('node:url');
 const {chromium,request,expect}=require('@playwright/test');
 const {repo,dir,estado,credenciais,ferramentas,comandos,pronto,sql}=require('./controle.cjs');
 const nonce=crypto.randomBytes(5).toString('hex');
@@ -48,7 +49,9 @@ return `${partes.year}-${partes.month}-${partes.day}T${partes.hour}:${partes.min
  for(const rec of novos){assert(Number.isSafeInteger(rec.id));assert.equal(sql(`SELECT COUNT(*) FROM recursos WHERE id=${rec.id} AND codigo='${rec.dados.codigo}'`),'1');
   execFileSync(path.join(ferramentas.mysql,'bin/mysql.exe'),[`--defaults-file=${path.join(dir,'root-client.ini')}`,`--database=${estado.database}`,
     `--execute=INSERT INTO responsaveis_recursos(recurso_id,usuario_id) VALUES (${rec.id},${usuario})`],{windowsHide:true,timeout:10000,stdio:['ignore','pipe','pipe']});}
- const base=Math.floor(Date.now()/60000)*60000+600000+7123;
+ const {paraIsoOperacional}=await import(pathToFileURL(path.join(repo,'backend/src/main/resources/static/js/datas.js')).href);
+ const dia=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo'}).format(new Date(Date.now()+86400000));
+ const base=Date.parse(paraIsoOperacional(dia+'T09:00:07'))+123;
  const hora=n=>new Date(n).toISOString().replace('.123Z','.123456Z');
  const criar=async(inicio,fim,ids)=>{assert.equal(civil(inicio).slice(0,10),civil(fim).slice(0,10));const r=await escrever(sol,'POST','/api/reservas',{inicio,fim,recursosIds:ids});assert.equal(r.status(),201);return r.json();};
  const primeira=await criar(hora(base),hora(base+3600000),[novos[0].id,novos[1].id]);
@@ -86,8 +89,9 @@ return `${partes.year}-${partes.month}-${partes.day}T${partes.hour}:${partes.min
   const d=await detalhe(sol,primeira.id);assert.equal(d.status,'CANCELADA');await expect(page.locator('#form-edicao-reserva')).toBeHidden();await page.screenshot({path:path.join(pasta,'cancelamento-real.png'),fullPage:true});
   return {id:d.id,status:d.status,recursos:d.recursosIds};
  });
- await caso('Administrador cancela reserva alheia sem obter edição',async()=>{
+ await caso('Administrador cancela reserva alheia com justificativa sem obter edição',async()=>{
   const p=await entrar('admin');await filtrar(p,novos[0].id);await abrir(p,segunda.id);await expect(p.locator('#form-edicao-reserva')).toBeHidden();
+  await p.getByLabel('Justificativa do cancelamento',{exact:true}).fill('Conciliação autorizada da agenda de teste.');
   await p.locator('#confirmar-cancelar').check();await p.locator('#cancelar-reserva').click();await expect(p.locator('#feedback-detalhe')).toContainText('Cancelamento confirmado');
   assert.equal((await detalhe(sol,segunda.id)).status,'CANCELADA');return {id:segunda.id,status:'CANCELADA'};
  });

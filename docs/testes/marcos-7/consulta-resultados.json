@@ -1,0 +1,153 @@
+{
+  "inicio": "2026-11-13T23:50:24.066Z",
+  "head": "b73c501536a275cdc89101cc7130c7b481e52396",
+  "arvore": "worktree ainda sem commit, identificada pelos hashes",
+  "cenarios": [
+    {
+      "nome": "Arquivos da nova interface efetivamente servidos pelo JAR",
+      "estado": "PASS",
+      "evidencia": {
+        "arquivos": 7,
+        "hashes": "MATCH"
+      }
+    },
+    {
+      "nome": "Lista/detalhe do dono e PATCH completo sem perda de fração",
+      "estado": "PASS",
+      "evidencia": {
+        "id": 48,
+        "inicio": "2026-11-14T09:00:07.123456-03:00",
+        "fim": "2026-11-14T10:00:07.123456-03:00",
+        "recursos": [
+          95,
+          96
+        ]
+      }
+    },
+    {
+      "nome": "Conflito real 409 preserva reserva e exige reconsulta antes de nova escrita",
+      "estado": "PASS",
+      "evidencia": {
+        "conflito": 409,
+        "estado": "APROVADA",
+        "semReenvio": true
+      }
+    },
+    {
+      "nome": "Editar um horário e adicionar recurso mantém o outro e todos os originais",
+      "estado": "PASS",
+      "evidencia": {
+        "id": 48,
+        "inicio": "2026-11-14T09:05:07-03:00",
+        "fim": "2026-11-14T10:00:07.123456-03:00",
+        "recursos": [
+          95,
+          96,
+          97
+        ]
+      }
+    },
+    {
+      "nome": "Responsável autorizado consulta sem herdar edição/cancelamento do dono",
+      "estado": "PASS",
+      "evidencia": {
+        "id": 48,
+        "consulta": true,
+        "acoesDoDono": false
+      }
+    },
+    {
+      "nome": "Cancelamento do dono confirma estado sem apagar histórico",
+      "estado": "PASS",
+      "evidencia": {
+        "id": 48,
+        "status": "CANCELADA",
+        "recursos": [
+          95,
+          96,
+          97
+        ]
+      }
+    },
+    {
+      "nome": "Administrador cancela reserva alheia com justificativa sem obter edição",
+      "estado": "PASS",
+      "evidencia": {
+        "id": 49,
+        "status": "CANCELADA"
+      }
+    },
+    {
+      "nome": "Detalhe móvel real e persistência do cancelamento",
+      "estado": "PASS",
+      "evidencia": {
+        "viewport": "390x844",
+        "persistencia": "48\tCANCELADA\r\n49\tCANCELADA",
+        "errosJS": 0
+      }
+    }
+  ],
+  "fim": "2026-11-13T23:50:30.361Z",
+  "resumo": {
+    "PASS": 8,
+    "FAIL": 0
+  },
+  "versaoFormato": 2,
+  "artefatos": [
+    {
+      "arquivo": "backend/src/main/resources/static/js/consulta-reservas.js",
+      "algoritmo": "SHA-256",
+      "digest": "343e5a912254f825079bbc92a48fce0211ac32653c0264670c06b94b8483da07"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/consulta-reservas-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "4877b5025eeb6939db06e1f4e712ab1432afb3fc4372fe1afba80fdabcb28b42"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/navegacao.js",
+      "algoritmo": "SHA-256",
+      "digest": "ffd3992a41ec3f4166b51f9db52ce8b826c92b15fcb6de5545a8a0129082e214"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/minhas-reservas.html",
+      "algoritmo": "SHA-256",
+      "digest": "e575694af0d33509dc7d5ee5ae6c0934be212ce4022d871a71fcd452a291d1a9"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/css/consulta-reservas.css",
+      "algoritmo": "SHA-256",
+      "digest": "8d15f9fde69c86a72f67f59f6ff9df36a62d9f3895526a431f9a7385deb8ed44"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/datas.js",
+      "algoritmo": "SHA-256",
+      "digest": "44f35755602a1043e5126ed4807f5b0b31bc273908c7e4d079d6df34a9636bbe"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/reservas.js",
+      "algoritmo": "SHA-256",
+      "digest": "019190a01323b6b42656c21d4a7f32f637dbbaafbb89f499a55d690a92004d80"
+    },
+    {
+      "arquivo": "tests/e2e-local/validar-consulta-reservas.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "88d4dd44b2163bb3e553f98979d313a819295f22bc43b315ed35546d4fe84f0d"
+    },
+    {
+      "arquivo": "tests/e2e-local/controle.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "5c55ceec937e1ef82c91a521300ec24cd1975136acb81a9beb1d697a8c0fd93e"
+    },
+    {
+      "arquivo": "tests/e2e-local/executaveis.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "2b105b3dd55b0f61f83c9b3ef2de6f7a6dc7678d569764ac5b1e89b2c0c33c20"
+    },
+    {
+      "arquivo": "tests/e2e-local/configuracao-local.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "0eb6bea02b990bff2e3fb3af3d64f845c571d0b36f6b09e299de2c55f1951d55"
+    }
+  ]
+}

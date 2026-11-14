@@ -64,11 +64,11 @@ async function executar() {
   await conferir(await escrever(admin,'POST','/api/usuarios',{nome:'Outro solicitante Q9',email:`q9-${nonce}@example.test`,senha:segredo,perfil:'SOLICITANTE'}),201);
   await entrar(outro,`q9-${nonce}@example.test`,segredo);
   await caso('V6 e fontes servidas',async()=>{
-    assert.equal(sql('SELECT COUNT(*) FROM flyway_schema_history WHERE success=1'),'6');
+    assert.equal(sql('SELECT COUNT(*) FROM flyway_schema_history WHERE success=1'),'7');
     for(const nome of ['aprovacoes.js','aprovacoes-page.js','datas.js']) {
       const r=await conferir(await admin.get('/js/'+nome),200);
       assert.equal(crypto.createHash('sha256').update(await r.body()).digest('hex'),resultado.hashes['backend/src/main/resources/static/js/'+nome]);
-    } return {migracoes:6,hashesServidos:'MATCH'};
+    } return {migracoes:7,hashesServidos:'MATCH'};
   });
   for (const chave of ['A','B']) {
     const r=await conferir(await escrever(admin,'POST','/api/recursos',{tipo:'MATERIAL',codigo:`Q9-${nonce}-${chave}`,

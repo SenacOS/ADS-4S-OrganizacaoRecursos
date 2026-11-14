@@ -8,7 +8,7 @@ const assert = require('node:assert/strict');
 const { chromium, request, expect } = require('@playwright/test');
 const { repo, dir, estado, ferramentas, comandos, credenciais, pronto, sql } = require('./controle.cjs');
 const { iniciarTemporaria } = require('./sessao-temporaria.cjs');
-const { projetarRelatorio } = require('./evidencias.cjs');
+const { projetarRelatorio, restaurarRelatorio } = require('./evidencias.cjs');
 const { viewportDaPagina } = require('./viewport.cjs');
 const pasta = path.join(dir, 'fechamento', new Date().toISOString().replaceAll(/[:.]/g, '-'));
 fs.mkdirSync(pasta, { recursive: true });
@@ -16,7 +16,7 @@ const nonce = crypto.randomBytes(5).toString('hex');
 const hash = b => crypto.createHash('sha256').update(b).digest('hex');
 const pausa = ms => new Promise(resolve => setTimeout(resolve, ms));
 const relatorio = { inicio: new Date().toISOString(), base: comandos.git(['rev-parse', 'HEAD'], { cwd: repo, encoding: 'utf8' }).trim(),
-  branch: comandos.git(['branch', '--show-current'], { cwd: repo, encoding: 'utf8' }).trim(), arvore: 'correção local dos auxiliares ainda sem commit; produto preservado de 0775715',
+  branch: comandos.git(['branch', '--show-current'], { cwd: repo, encoding: 'utf8' }).trim(), arvore: 'Árvore local sem commit; fontes/JAR e manifesto da regressão identificam o código testado',
   camadas: 'Chrome/HTTP/MySQL/tempo reais; concorrência de criação HTTP+SQL; sem mock, alteração de relógio ou escrita SQL',
   ferramentas: { java: ferramentas.jdkVersion, mysql: ferramentas.mysqlVersion }, cenarios: [], hashes: {} };
 const salvar = () => fs.writeFileSync(path.join(pasta, 'resultados.json'), JSON.stringify(projetarRelatorio(relatorio), null, 2) + '\n');
@@ -63,12 +63,25 @@ async function conferirFontes(a, nomes) { for (const nome of nomes) { const r = 
   for (const nome of ['tests/e2e-local/validar-fechamento.cjs','tests/e2e-local/sessao-temporaria.cjs','tests/e2e-local/controle.cjs','tests/e2e-local/executaveis.cjs','tests/e2e-local/configuracao-local.cjs','tests/e2e-local/evidencias.cjs','tests/e2e-local/viewport.cjs','backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar']) relatorio.hashes[nome] = hash(fs.readFileSync(path.join(repo,nome)));
   const admin = await api('admin'), sol = await api('solicitante'), segunda = await api('solicitante');
   browser = await chromium.launch({ channel: 'chrome', headless: true }); relatorio.ferramentas.chrome = browser.version();
-  await caso('Fontes servidas pelo JAR e regressão anterior preservadas', 'HTTP + SHA256', async () => {
-    await conferirFontes(admin, nomes); const anterior = JSON.parse(fs.readFileSync(path.join(repo,'docs/testes/marcos-3-consulta-edicao/arvore-testada.json'),'utf8'));
-    for (const [p,h] of Object.entries(anterior.hashes)) {
-      if (p.startsWith('backend/src/main/resources/static/') || p.startsWith('tests/browser/') || p.startsWith('tests/unit/frontend/')) assert.equal(hash(fs.readFileSync(path.join(repo,p))),h,p);
+  await caso('Fontes servidas pelo JAR e manifesto da regressão correspondem à árvore', 'HTTP + SHA256', async () => {
+    await conferirFontes(admin, nomes);
+    const argumento = process.argv.find(a => a.startsWith('--manifesto-frontend='));
+    const manifesto = argumento ? argumento.slice('--manifesto-frontend='.length) : 'docs/testes/marcos-3-consulta-edicao/arvore-testada.json';
+    const arquivo = path.resolve(repo, manifesto), relativo = path.relative(path.join(repo, 'docs/testes'), arquivo);
+    assert(relativo && !relativo.startsWith('..') && !path.isAbsolute(relativo) && arquivo.endsWith('.json'), 'Manifesto deve estar em docs/testes.');
+    const bytes = fs.readFileSync(arquivo), registro = JSON.parse(bytes.toString('utf8'));
+    const anterior = argumento ? restaurarRelatorio(registro) : registro;
+    if (argumento) assert(anterior.frontend?.status === 'PASS' && anterior.frontend.falhas === 0, 'Manifesto não comprova build aprovado.');
+    const entradas = Object.entries(anterior.hashes).filter(([p]) => argumento || p.startsWith('backend/src/main/resources/static/') || p.startsWith('tests/browser/') || p.startsWith('tests/unit/frontend/'));
+    assert(entradas.length > 0, 'Inventário vazio.');
+    for (const [p,h] of entradas) {
+      const fonte = path.resolve(repo,p), r = path.relative(repo,fonte);
+      assert(r && !r.startsWith('..') && !path.isAbsolute(r), 'Fonte fora do projeto.');
+      assert.equal(hash(fs.readFileSync(fonte)),h,p);
     }
-    return { arquivosServidos: nomes.length, hashes:'MATCH', regressaoAnterior:'81 unitários / 278 navegador; não reexecutada sem alteração da fonte' };
+    relatorio.hashes[manifesto] = hash(bytes);
+    return { arquivosServidos: nomes.length, hashes:'MATCH', fontesDoBuild:entradas.length,
+      manifesto, regressao: argumento ? anterior.frontend : '81 unitários/278 navegador, manifesto histórico; não é nova execução' };
   });
   await caso('Login inválido, CSRF rotacionado e recuperação explícita na interface', 'Chrome + HTTP real', async () => {
     const p = await pagina(null, estado.baseURL, { width:390, height:844 }); const contagem = [];
@@ -144,7 +157,7 @@ async function conferirFontes(a, nomes) { for (const nome of nomes) { const r = 
     await p.setViewportSize({width:1366,height:900}); await p.goto('/pages/minhas-reservas.html'); await p.locator('#filtro-recurso').fill(String(recursos[0].id));
     await p.getByRole('button',{name:'Consultar reservas',exact:true}).click(); await p.getByRole('button',{name:'Consultar reserva '+vencedora.id,exact:true}).click();
     await expect(p.locator('#form-edicao-reserva')).toBeVisible(); assert.equal(await p.evaluate(()=>document.activeElement?.id),'detalhe-reserva');
-    const cancelar=await escrita(admin,'POST',`/api/reservas/${vencedora.id}/cancelamento`); assert.equal(cancelar.status(),200); assert.equal((await cancelar.json()).status,'CANCELADA');
+    const cancelar=await escrita(admin,'POST',`/api/reservas/${vencedora.id}/cancelamento`,{motivo:'Preparação explícita do cenário de estado concorrente.'}); assert.equal(cancelar.status(),200); assert.equal((await cancelar.json()).status,'CANCELADA');
     const patches=[]; p.on('request',r=>{if(r.method()==='PATCH'&&new URL(r.url()).pathname==='/api/reservas/'+vencedora.id)patches.push(1);});
     await p.locator('#confirmar-edicao').check(); const negada=resposta(p,'PATCH','/api/reservas/'+vencedora.id); await p.locator('#salvar-reserva').dblclick(); const n=await negada;
     assert.equal(n.status(),403); const erro=await n.json(); assert.equal(erro.codigo,'OPERACAO_NAO_PERMITIDA'); await expect(p.locator('#feedback-detalhe')).toContainText(erro.mensagem);

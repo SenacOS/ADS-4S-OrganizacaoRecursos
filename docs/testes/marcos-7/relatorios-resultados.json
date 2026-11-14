@@ -1,0 +1,344 @@
+{
+  "inicio": "2026-11-13T23:51:51.512Z",
+  "dataLocal": "2026-11-13",
+  "fuso": "America/Sao_Paulo",
+  "branch": "test/marcos-7-validacao-integrada",
+  "head": "b73c501536a275cdc89101cc7130c7b481e52396",
+  "arvore": "Implementação local sem commit; identificada por inventário de fontes e JAR",
+  "camada": "Spring/Chrome/MySQL reais, mesma origem, sem interceptações",
+  "cenarios": [
+    {
+      "nome": "Fontes servidas, JAR e migrações identificam a árvore testada",
+      "camada": "HTTP + SHA256 + SQL",
+      "estado": "PASS",
+      "evidencia": {
+        "fontesServidas": 12,
+        "hashes": "MATCH",
+        "migracoes": 7,
+        "baseURL": "http://127.0.0.1:18080"
+      }
+    },
+    {
+      "nome": "HTTP exige sessão e Administrador; identidade forjada não eleva perfil",
+      "camada": "HTTP real",
+      "estado": "PASS",
+      "evidencia": {
+        "semSessao": 401,
+        "solicitante": 403,
+        "responsavel": 403,
+        "identidade": "Somente sessão do servidor"
+      }
+    },
+    {
+      "nome": "Parâmetros inválidos retornam envelope 400 sem alterar persistência",
+      "camada": "HTTP + SQL",
+      "estado": "PASS",
+      "evidencia": {
+        "casos": 10,
+        "http": 400,
+        "envelope": "MATCH",
+        "persistenciaPreservada": true
+      }
+    },
+    {
+      "nome": "Total por reserva é distinto da soma das alocações e corresponde à massa SQL",
+      "camada": "HTTP + SQL",
+      "estado": "PASS",
+      "evidencia": {
+        "reservas": 3,
+        "microssegundosSQL": "3718000000",
+        "minutosTotal": 61,
+        "somaAlocacoes": 180,
+        "truncamentoIndependente": true
+      }
+    },
+    {
+      "nome": "Filtro seleciona a reserva e mantém os três recursos vinculados",
+      "camada": "HTTP + SQL",
+      "estado": "PASS",
+      "evidencia": {
+        "filtro": 119,
+        "reservas": 1,
+        "minutos": 60,
+        "recursos": [
+          119,
+          120,
+          121
+        ],
+        "somaAlocacoes": 180
+      }
+    },
+    {
+      "nome": "Período recorta a duração e exclui reserva que termina exatamente no início",
+      "camada": "HTTP real",
+      "estado": "PASS",
+      "evidencia": {
+        "recorteMinutos": 15,
+        "fronteira": "Fim da reserva excluído",
+        "vazio": true
+      }
+    },
+    {
+      "nome": "Reservas de 59 segundos conservam contagem com zero minuto e truncamento agregado",
+      "camada": "HTTP real",
+      "estado": "PASS",
+      "evidencia": {
+        "umaReserva": {
+          "segundos": 59,
+          "minutos": 0
+        },
+        "duasReservas": {
+          "segundos": 118,
+          "minutos": 1,
+          "grupos": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "nome": "Estados padrão excluem cancelada; filtro HTTP explícito e vazio são coerentes",
+      "camada": "HTTP real",
+      "estado": "PASS",
+      "evidencia": {
+        "padraoExcluiCancelada": true,
+        "filtroStatusSomenteHTTP": "CANCELADA",
+        "recursoSemReservas": 125
+      }
+    },
+    {
+      "nome": "Conflitos usam momento do evento e fronteira semiaberta, sem identidade pessoal",
+      "camada": "HTTP + SQL",
+      "estado": "PASS",
+      "evidencia": {
+        "evento": 12,
+        "momento": "2026-11-13T23:51:53.255669Z",
+        "intervaloTentadoForaDoPeriodo": true,
+        "inicioIncluido": true,
+        "fimExcluido": true,
+        "reservas": 0,
+        "conflitos": 1
+      }
+    },
+    {
+      "nome": "Navegação e URL direta recusam outros perfis sem consultar relatório",
+      "camada": "Chrome + HTTP real",
+      "estado": "PASS",
+      "evidencia": {
+        "perfis": [
+          "SOLICITANTE",
+          "RESPONSAVEL"
+        ],
+        "semLink": true,
+        "formularioOculto": true,
+        "consultas": 0
+      }
+    },
+    {
+      "nome": "Consulta real por menu, total/filtro/zero/conflito e layout — desktop",
+      "camada": "Chrome + HTTP real",
+      "estado": "PASS",
+      "evidencia": {
+        "viewport": {
+          "width": 1366,
+          "height": 900
+        },
+        "navegadorFuso": "Asia/Tokyo",
+        "consultas": 5,
+        "relatorioReal": true,
+        "semOverflow": true,
+        "errosJS": 0,
+        "logout": true
+      }
+    },
+    {
+      "nome": "Consulta real por menu, total/filtro/zero/conflito e layout — mobile",
+      "camada": "Chrome + HTTP real",
+      "estado": "PASS",
+      "evidencia": {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "navegadorFuso": "Asia/Tokyo",
+        "consultas": 5,
+        "relatorioReal": true,
+        "semOverflow": true,
+        "errosJS": 0,
+        "logout": true
+      }
+    },
+    {
+      "nome": "GETs não modificam reservas/trilhas; ambiente e dados anteriores preservados",
+      "camada": "HTTP + SQL + processos próprios",
+      "estado": "PASS",
+      "evidencia": {
+        "leiturasSemEscrita": true,
+        "sql": "Somente SELECT",
+        "dadosDaMassaPreservados": true,
+        "ambientePrincipalPronto": true,
+        "limite": "Sem certificação de todas as corridas ou de produção; transação/proxy também tem testes Java próprios."
+      }
+    }
+  ],
+  "concluido": true,
+  "massa": {
+    "recursos": {
+      "A": 119,
+      "B": 120,
+      "C": 121,
+      "D": 122,
+      "E": 123,
+      "F": 124,
+      "G": 125
+    },
+    "reservas": [
+      52,
+      53,
+      54,
+      55
+    ],
+    "periodo": {
+      "inicio": "2026-12-05T00:00:00-03:00",
+      "fim": "2026-12-05T02:00:00-03:00"
+    },
+    "conflito": {
+      "id": 12,
+      "momento": "2026-11-13T23:51:53.255669Z",
+      "intervaloTentado": {
+        "inicio": "2026-12-05T03:00:00.000Z",
+        "fim": "2026-12-05T04:00:00.000Z"
+      }
+    }
+  },
+  "chrome": "157.0.8103.51",
+  "fim": "2026-11-13T23:51:58.648Z",
+  "resumo": {
+    "PASS": 13,
+    "FAIL": 0
+  },
+  "versaoFormato": 2,
+  "artefatos": [
+    {
+      "arquivo": "backend/src/main/resources/static/js/relatorios-utilizacao.js",
+      "algoritmo": "SHA-256",
+      "digest": "fb29694d49289c033dc0377938610ef65ebb222d9bf3ca09cf08e768f22ab9f9"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/relatorios-utilizacao-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "eb2ebe69aedab879789b1bf3e9d45e2e45007c506d19f157cb271144d6d49eae"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/navegacao.js",
+      "algoritmo": "SHA-256",
+      "digest": "ffd3992a41ec3f4166b51f9db52ce8b826c92b15fcb6de5545a8a0129082e214"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/api.js",
+      "algoritmo": "SHA-256",
+      "digest": "085626083a7334e0e163a99a576efae78d1606911172a6410796f96a9a6d34a9"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/auth.js",
+      "algoritmo": "SHA-256",
+      "digest": "8d0d8e732b86f29cf345dfbd85d3a07ef6d77484b41229688722f110b919a273"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/datas.js",
+      "algoritmo": "SHA-256",
+      "digest": "44f35755602a1043e5126ed4807f5b0b31bc273908c7e4d079d6df34a9636bbe"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/forms.js",
+      "algoritmo": "SHA-256",
+      "digest": "42780d62d6d19cd367ab11b49cd629126235082c55d8b80f0e36a734b36ea27c"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/sessao-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "9b1ff5ece89faf331a067b2dce129ffaf8dd0169f40a85ccb573dbb522068890"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/ui.js",
+      "algoritmo": "SHA-256",
+      "digest": "d0103a10564a382d8908e4dd9b8d3d325538e20cbcd45e959dce122ce8f120e7"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/relatorios-utilizacao.html",
+      "algoritmo": "SHA-256",
+      "digest": "793985ddfde0a12a0f045439ccb93866f812efb35905a1bd423235d43ee9ac20"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/css/relatorios-utilizacao.css",
+      "algoritmo": "SHA-256",
+      "digest": "21a80c477ed0bcf6f12bac9b7a1bf0621b1ebe32be7e2d5b3256e861606945c0"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/css/app.css",
+      "algoritmo": "SHA-256",
+      "digest": "d65964a412c209e4e4c1815813296490ca02fe08f0cc93b3fe3427542f314892"
+    },
+    {
+      "arquivo": "tests/e2e-local/validar-relatorios.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "99bec933b0791191366c9fcef006731e5e10ea13119626f55f01037334a4ab65"
+    },
+    {
+      "arquivo": "tests/e2e-local/controle.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "5c55ceec937e1ef82c91a521300ec24cd1975136acb81a9beb1d697a8c0fd93e"
+    },
+    {
+      "arquivo": "tests/e2e-local/executaveis.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "2b105b3dd55b0f61f83c9b3ef2de6f7a6dc7678d569764ac5b1e89b2c0c33c20"
+    },
+    {
+      "arquivo": "tests/e2e-local/evidencias.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "314cf1e39018a9c3dcbe912abd592c7bbe79f72d0c8286d59b9065b719b7fa71"
+    },
+    {
+      "arquivo": "tests/e2e-local/configuracao-local.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "0eb6bea02b990bff2e3fb3af3d64f845c571d0b36f6b09e299de2c55f1951d55"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/reserva/api/RelatorioUtilizacaoController.java",
+      "algoritmo": "SHA-256",
+      "digest": "923d0dd7ec98b2085fc3fbf03e63a577c3b93985569a175059f0110cf7a153cb"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/reserva/api/RelatorioUtilizacaoResponse.java",
+      "algoritmo": "SHA-256",
+      "digest": "9224f567372b7de1a2f189e8af75a35cc12b849bd65ccdbedc325c3b59d6ec4c"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/reserva/aplicacao/ConsultarRelatorioUtilizacao.java",
+      "algoritmo": "SHA-256",
+      "digest": "21932e205ce4bf07746d8d8d0558a640a0a3254fb8ee896a8460a76bd63de134"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/reserva/infraestrutura/ReservaRelatorioMysql.java",
+      "algoritmo": "SHA-256",
+      "digest": "181cbc8a71c44aa5c10eb5c11ee65e1eae065da7e1767e17137c97d575e40fb6"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/reserva/infraestrutura/RelatorioUtilizacaoTransacional.java",
+      "algoritmo": "SHA-256",
+      "digest": "5bd4cc39d161f763de72ffbae226dd4158fc6d857069615b612c8e419702f979"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/config/Item18Config.java",
+      "algoritmo": "SHA-256",
+      "digest": "1b01499421d5289b987d5b068e18d1effbd98d770de5c9256d920ad679e9be5a"
+    },
+    {
+      "arquivo": "backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar",
+      "algoritmo": "SHA-256",
+      "digest": "afe76ecce37678bc92350988081f5e5a73e36e1bca234831e6b16221bb3d88b4"
+    }
+  ]
+}

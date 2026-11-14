@@ -1,0 +1,12 @@
+{
+  "startTime": "2026-11-13T23:41:12.894Z",
+  "duration": 286493.925,
+  "expected": 350,
+  "skipped": 0,
+  "unexpected": 0,
+  "flaky": 0,
+  "unitarios": 100,
+  "falhasUnitarios": 0,
+  "exitCode": 0,
+  "camada": "API controlada nesta regressão; suítes reais têm resultados separados."
+}

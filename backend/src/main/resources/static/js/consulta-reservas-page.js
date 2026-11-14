@@ -1,5 +1,5 @@
 import { ErroApi } from './api.js';
-import { criarConsultaReservas, podeEditarReserva, podeCancelarReserva, paraCampoReserva, horarioDaEdicao } from './consulta-reservas.js';
+import { criarConsultaReservas, podeEditarReserva, podeCancelarReserva, exigeJustificativaCancelamento, paraCampoReserva, horarioDaEdicao } from './consulta-reservas.js';
 import { recursos, identificarRecurso } from './recursos.js';
 import { apresentarData, intervaloDoFormulario, instanteComPrecisao } from './datas.js';
 import { iniciarPaginaAutenticada } from './sessao-page.js';
@@ -22,6 +22,8 @@ iniciarPaginaAutenticada('Reservas',(usuario)=>{
   elemento('escopo-reservas').textContent=usuario.papel === 'SOLICITANTE' ? 'Consulte suas reservas e acompanhe cada solicitação.'
     : usuario.papel === 'RESPONSAVEL' ? 'Consulte reservas em que todos os recursos estão sob sua responsabilidade.' : 'Consulte as reservas para acompanhar o uso dos recursos.';
   const controles=/** @type {HTMLFieldSetElement} */(elemento('controles-reservas'));
+  const motivoCancelar=/** @type {HTMLTextAreaElement} */(elemento('motivo-cancelar'));
+  motivoCancelar.addEventListener('input',()=>{campo('confirmar-cancelar').checked=false;});
   let ocupado=false,incerta=false,alvoId=0,versaoLista=0,versaoRecursos=0;
   /** @type {import('./consulta-reservas.js').PaginaReservas|undefined} */ let pagina;
   /** @type {import('./consulta-reservas.js').FiltrosReservas} */ let consulta={};
@@ -74,6 +76,8 @@ iniciarPaginaAutenticada('Reservas',(usuario)=>{
     form('form-edicao-reserva').hidden=!edita;elemento('busca-recursos-edicao').hidden=!edita;form('form-cancelar-reserva').hidden=!cancela;
     elemento('acoes-reserva').textContent=edita?'Confira o período e todos os recursos antes de salvar.':cancela?'Seu usuário pode cancelar esta reserva, mediante confirmação.':'Consulta disponível. Esta reserva não permite edição ou cancelamento pelo seu usuário no estado atual.';
     form('form-edicao-reserva').reset();form('form-cancelar-reserva').reset();form('form-recursos-edicao').reset();
+    const justifica=cancela&&exigeJustificativaCancelamento(r,usuario);
+    elemento('justificativa-cancelamento').hidden=!justifica;motivoCancelar.required=justifica;motivoCancelar.disabled=!justifica;
     campo('editar-inicio').value=paraCampoReserva(r.inicio);campo('editar-fim').value=paraCampoReserva(r.fim);
     horarioInicial=campo('editar-inicio').value;horarioFinal=campo('editar-fim').value;
     elemento('alvo-cancelamento-reserva').textContent=`Reserva #${r.id}: ${apresentarData(r.inicio)} até ${apresentarData(r.fim)}. ${r.recursos.length} recurso(s).`;
@@ -144,7 +148,7 @@ iniciarPaginaAutenticada('Reservas',(usuario)=>{
   });
   aoEnviar('form-cancelar-reserva','detalhe',async()=>{
     if(!detalhe||incerta||!campo('confirmar-cancelar').checked)return;
-    try{await cliente.cancelar(detalhe);}catch(e){falhaEscrita(e);return;}
+    try{await cliente.cancelar(detalhe,motivoCancelar.disabled?undefined:motivoCancelar.value);}catch(e){falhaEscrita(e);return;}
     incerta=true;invalidarSelecao();await reconciliar('Cancelamento confirmado pelo servidor.');
   });
   function invalidarRecursos(){versaoRecursos++;invalidarSelecao();paginaRecursos=undefined;elemento('resultados-edicao').replaceChildren();elemento('resumo-recursos-edicao').textContent='Consulte novamente os recursos para o período e filtros atuais.';ajustar();}

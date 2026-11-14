@@ -97,12 +97,12 @@ async function executar() {
       ...(filtros.recursoId === undefined ? {} : { recursoId: Number(filtros.recursoId) }) });
   }
   await caso('Fontes servidas, JAR e migrações identificam a árvore testada', 'HTTP + SHA256 + SQL', async () => {
-    assert.equal(sql('SELECT COUNT(*) FROM flyway_schema_history WHERE success=1'), '6');
+    assert.equal(sql('SELECT COUNT(*) FROM flyway_schema_history WHERE success=1'), '7');
     for (const nome of estaticos) {
       const r = await conferir(await admin.get('/' + nome), 200);
       assert.equal(crypto.createHash('sha256').update(await r.body()).digest('hex'), resultado.hashes['backend/src/main/resources/static/' + nome], nome);
     }
-    return { fontesServidas: estaticos.length, hashes: 'MATCH', migracoes: 6, baseURL: estado.baseURL };
+    return { fontesServidas: estaticos.length, hashes: 'MATCH', migracoes: 7, baseURL: estado.baseURL };
   });
   await caso('HTTP exige sessão e Administrador; identidade forjada não eleva perfil', 'HTTP real', async () => {
     const semSessao = await (await conferir(await anonimo.get(url(periodo)), 401)).json(); assert.equal(semSessao.codigo, 'NAO_AUTENTICADO');
@@ -139,7 +139,7 @@ async function executar() {
   const curtaD = await reservar(a + 3600000, a + 3659000, [recursos.D]);
   const curtaE = await reservar(a + 3660000, a + 3719000, [recursos.E]);
   const cancelada = await reservar(a, a + 3600000, [recursos.F]);
-  await conferir(await escrever(admin, 'POST', `/api/reservas/${cancelada.id}/cancelamento`), 200);
+  await conferir(await escrever(admin, 'POST', `/api/reservas/${cancelada.id}/cancelamento`, { motivo: 'Reserva exclusiva para validar filtro de estados do RF12.' }), 200);
   await conferir(await escrever(sol, 'POST', '/api/reservas', { inicio: iso(a), fim: iso(a + 3600000), recursosIds: [recursos.A] }), 409);
   const linhasConflito = sql(`SELECT id,DATE_FORMAT(momento,'%Y-%m-%dT%H:%i:%s.%fZ') FROM conflitos_evitados WHERE recurso_id=${recursos.A}`).split('\n');
   assert.equal(linhasConflito.length, 1); const [conflitoId, momento] = linhasConflito[0].split('\t'); id(Number(conflitoId));

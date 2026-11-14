@@ -1,0 +1,332 @@
+{
+  "versaoFormato": 1,
+  "tipo": "Conferência documental de evidências existentes; sem nova execução de testes",
+  "registradoEm": "2026-11-14T01:30:20.135Z",
+  "dataLocal": "2026-11-13",
+  "fuso": "America/Sao_Paulo",
+  "story": "docs/stories/marcos-7.md",
+  "solicitacao": "Validar os oito itens da seção 5 de docs/qualidade/relatorio-evidencias.md antes de publicar a etapa7.",
+  "fonte": {
+    "documento": "docs/qualidade/relatorio-evidencias.md",
+    "ref": "develop",
+    "commit": "7d5480b394e134dacd8c139a3dcd5c97670ee5da",
+    "blob": "00f9fc9038e836d79ce9f8b5757c037c6f37b377",
+    "conteudoRemotoConferido": true
+  },
+  "ci": {
+    "pr": 44,
+    "head": "28b9b408b22a4b76ce3b9a99aae8a1137d16d04f",
+    "runId": 43538288222,
+    "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43538288222",
+    "conclusao": "failure",
+    "jobJava": 132272528744,
+    "jobJmeter": 132272529024,
+    "unitariosMySQLJaCoCo": "success",
+    "jmeter": "success",
+    "sonar": {
+      "conclusao": "failure",
+      "mensagem": "Not authorized or project not found",
+      "qualityGateAprovado": false,
+      "causaEspecifica": "Não determinada nesta conferência; não se presume token ausente ou projeto inexistente."
+    },
+    "suiteXml": [
+      {
+        "camada": "surefire-reports",
+        "classes": 33,
+        "testes": 287,
+        "falhas": 0,
+        "erros": 0,
+        "ignorados": 0
+      },
+      {
+        "camada": "failsafe-reports",
+        "classes": 10,
+        "testes": 79,
+        "falhas": 0,
+        "erros": 0,
+        "ignorados": 0
+      }
+    ],
+    "cobertura": [
+      {
+        "tipo": "BRANCH",
+        "cobertos": 495,
+        "perdidos": 153,
+        "percentual": 76.39
+      },
+      {
+        "tipo": "LINE",
+        "cobertos": 1523,
+        "perdidos": 122,
+        "percentual": 92.58
+      }
+    ],
+    "filaAplicacaoJUnit": [
+      {
+        "camada": "surefire-reports",
+        "nome": "br.senac.recursos.reserva.aplicacao.ConsultarFilaAprovacaoTest",
+        "testes": 7,
+        "falhas": 0,
+        "erros": 0,
+        "ignorados": 0
+      },
+      {
+        "camada": "surefire-reports",
+        "nome": "br.senac.recursos.reserva.aplicacao.FiltroFilaAprovacaoTest",
+        "testes": 8,
+        "falhas": 0,
+        "erros": 0,
+        "ignorados": 0
+      },
+      {
+        "camada": "surefire-reports",
+        "nome": "br.senac.recursos.reserva.aplicacao.ItemFilaAprovacaoTest",
+        "testes": 5,
+        "falhas": 0,
+        "erros": 0,
+        "ignorados": 0
+      }
+    ],
+    "artefatos": [
+      {
+        "id": 14090962620,
+        "nome": "quality-evidence",
+        "digest": "112ba2f3d42c79a62ea659afc68eeced0f29b6b210f4653fdedee012d5782d66",
+        "xmlTestes": 43,
+        "jacocoXml": "site/jacoco/jacoco.xml",
+        "jacocoHtml": "site/jacoco/index.html",
+        "algoritmo": "SHA-256",
+        "digestConferido": true,
+        "expiraEm": "2027-02-12T01:04:07Z",
+        "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43538288222/artifacts/14090962620"
+      },
+      {
+        "id": 14090183668,
+        "nome": "jmeter-evidence",
+        "digest": "86b10c8ecbe73c4b142a179f89a84548442d81d1c6077388ca8c6c5959312232",
+        "jtl": 4,
+        "dashboardsHtml": 4,
+        "resultadoJson": "20261114-010419/resultado.json",
+        "algoritmo": "SHA-256",
+        "digestConferido": true,
+        "expiraEm": "2027-02-12T01:04:07Z",
+        "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43538288222/artifacts/14090183668"
+      }
+    ],
+    "jmeterCenarios": [
+      {
+        "cenario": "consultas",
+        "verificacaoHttp": "APROVADO",
+        "amostras": [
+          {
+            "rotulo": "Consulta recursos autenticada",
+            "total": 50,
+            "codigosHttp": {
+              "200": 50
+            },
+            "errosInesperados": 0,
+            "p95ms": 4
+          }
+        ]
+      },
+      {
+        "cenario": "disputa",
+        "verificacaoHttp": "APROVADO",
+        "invarianteBanco": true,
+        "ativasNoBanco": 1,
+        "amostras": [
+          {
+            "rotulo": "Criacao reserva",
+            "total": 8,
+            "codigosHttp": {
+              "201": 1,
+              "409": 7
+            },
+            "errosInesperados": 0,
+            "p95ms": 91
+          }
+        ]
+      },
+      {
+        "cenario": "distintos",
+        "verificacaoHttp": "APROVADO",
+        "invarianteBanco": true,
+        "reservasPorRecurso": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "amostras": [
+          {
+            "rotulo": "Criacao reserva",
+            "total": 5,
+            "codigosHttp": {
+              "201": 5
+            },
+            "errosInesperados": 0,
+            "p95ms": 26
+          }
+        ]
+      },
+      {
+        "cenario": "manutencao",
+        "verificacaoHttp": "APROVADO",
+        "amostras": [
+          {
+            "rotulo": "Criacao reserva",
+            "total": 5,
+            "codigosHttp": {
+              "201": 1,
+              "409": 4
+            },
+            "errosInesperados": 0,
+            "p95ms": 25
+          },
+          {
+            "rotulo": "Manutencao concorrente",
+            "total": 1,
+            "codigosHttp": {
+              "409": 1
+            },
+            "errosInesperados": 0,
+            "p95ms": 21
+          }
+        ]
+      }
+    ],
+    "jtlConferencia": [
+      {
+        "cenario": "consultas",
+        "jtl": "01-consultas.jtl",
+        "amostras": 65,
+        "contagensHttpConferem": true
+      },
+      {
+        "cenario": "disputa",
+        "jtl": "02-disputa-reserva.jtl",
+        "amostras": 32,
+        "contagensHttpConferem": true
+      },
+      {
+        "cenario": "distintos",
+        "jtl": "03-recursos-distintos.jtl",
+        "amostras": 20,
+        "contagensHttpConferem": true
+      },
+      {
+        "cenario": "manutencao",
+        "jtl": "04-manutencao-vs-reserva.jtl",
+        "amostras": 24,
+        "contagensHttpConferem": true
+      }
+    ]
+  },
+  "integracaoHistorica": [
+    {
+      "number": 8,
+      "state": "closed",
+      "merged": true,
+      "head": "a069474ed724f6e21fd55f4ee4cddfc989a5f5b7",
+      "merge": "bc701cbe984a6c1ecdcd7ef44ee4d03ba003a472",
+      "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/8"
+    },
+    {
+      "number": 9,
+      "state": "closed",
+      "merged": true,
+      "head": "93730e661656d057ebbbb6b58908e1e5aae1e9c4",
+      "merge": "854690e210e4f7b0d3de5c6db97dd60f65fb5c6d",
+      "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/9"
+    },
+    {
+      "number": 10,
+      "state": "closed",
+      "merged": true,
+      "head": "43e11984c18c77500134130cd4f9c6e069b75cfd",
+      "merge": "2d4f6ba50193e722f26934cfdbb1bce8eb58ac8d",
+      "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/10"
+    },
+    {
+      "number": 11,
+      "state": "closed",
+      "merged": true,
+      "head": "c3be4f9c3a36fb6d89901eba185a68e8c7e3e1a4",
+      "merge": "b62b8c836f1c7b41b09190769ae2a08842cb7af0",
+      "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/11"
+    },
+    {
+      "number": 12,
+      "state": "closed",
+      "merged": true,
+      "head": "4c4a80ab34277fa058fff50a759974fdc550ddf1",
+      "merge": "7825799d9671e30f956bf8034805f14669f525f1",
+      "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/12"
+    }
+  ],
+  "tdd": {
+    "filaRF07": {
+      "fonte": "docs/testes/rf07-fila-tdd.md",
+      "commits": [
+        {
+          "fase": "RED",
+          "commit": "8ed9bb9ae44b2ab0298fae359e7e2e0933ba384d"
+        },
+        {
+          "fase": "GREEN",
+          "commit": "d8173f9b32107dc99d2739f586c89c1c269fa46b"
+        },
+        {
+          "fase": "REFACTOR",
+          "commit": "4f154ca3c804f4400d1bce7c865da8a7d29ef7fb"
+        }
+      ],
+      "limite": "Fases descritas pelo autor com executor mínimo/stubs; esta conferência comprova os commits e a execução JUnit atual, sem reconstruir ou reatribuir o RED histórico. Confirmação final do autor permanece própria."
+    },
+    "q5": {
+      "fonte": "docs/testes/marcos-7/q5-red-resumo.json",
+      "red": {
+        "pass": 1,
+        "fail": 2,
+        "total": 3
+      },
+      "greenFocal": {
+        "pass": 3,
+        "fail": 0
+      },
+      "logRedHashConfere": true,
+      "refactorSeparado": "Não registrado nem presumido."
+    }
+  },
+  "preservacao": {
+    "fontesReais": 68,
+    "fontesBuild": 58,
+    "publicadosConferidos": 17,
+    "logsPrivadosConferidos": 10,
+    "manifestoBuildPreservado": true,
+    "resultadosAnterioresPreservados": true
+  },
+  "checklistGlobal": {
+    "itens": 8,
+    "atendidosNoRecorte": 5,
+    "parciais": 2,
+    "abertos": 1,
+    "completo": false,
+    "pendencias": [
+      "SonarCloud/Quality Gate",
+      "Confirmação do ciclo TDD pelo respectivo autor; sem aceite coletivo presumido",
+      "Publicação, revisão da equipe e CI do novo incremento; CI global atual falha no Sonar"
+    ]
+  },
+  "recorteMarcos": {
+    "evidenciaBugfixObrigatoria": {
+      "critical": 2,
+      "high": 2,
+      "provided": 4,
+      "missing": 0
+    },
+    "aceiteAutor": "Registrado em docs/testes/marcos-7-verificacao.md",
+    "estado": "Ready for Review; nenhuma entrega global certificada."
+  }
+}

@@ -1,5 +1,13 @@
 # Defeitos encontrados no frontend
 
+## FE-007 — Justificativa administrativa Q5 não era coletada/enviada
+
+- Estado: CORRIGIDO E VALIDADO LOCALMENTE em13/11/2026; severidade média(P2). [Story Marcos-7](../stories/marcos-7.md), baseb73c501.
+- Origem: #43, posterior à entrega/aceite da etapa6, exige motivo para Administrador cancelar reserva alheia. Cliente/tela antigos não ofereciam o campo e enviavam POST sem corpo.
+- Reprodução: novos testes focais registraram1PASS/2FAIL, cobrindo ausência/branco/limite e envio do motivo. [Resumo RED](../testes/marcos-7/q5-red-resumo.json).
+- Correção: justificativa com label/limite500/validação somente na hipótese obrigatória; confirmação depois de editar, corpo somente `{motivo}` e envio único. Donos continuam sem motivo; sem mudança Java/SQL ou exibição inventada do campo que o DTO não retorna.
+- Regressão:3/3focais, build100unitários/350navegador e8cenários Q5 reais com SQL/trilhas e UI desktop/mobile. [Resultados/tentativas](../testes/marcos-7-resultados.md). [Aceite do autor registrado](../testes/marcos-7-verificacao.md#aceite-do-autor--13112026); revisão independente e entrega deste incremento pendentes.
+
 ## FE-006 — Intervalo submilissegundo válido recusado como vazio
 
 - Estado: CORRIGIDO E VALIDADO LOCALMENTE em 12/11/2026. Story: [Marcos-3-consulta-edicao](../stories/marcos-3-consulta-edicao.md). Severidade baixa (P3), fronteira apontada na revisão assistida QA.

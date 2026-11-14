@@ -1,0 +1,271 @@
+{
+  "dataLocal": "2026-11-13",
+  "fuso": "America/Sao_Paulo",
+  "consultadoEm": "2026-11-13T23:52:54.779Z",
+  "origem": "Conector GitHub, leitura de PRs/jobs/logs; nenhuma execução remota nova",
+  "prs": [
+    {
+      "numero": 42,
+      "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/42",
+      "estado": "closed",
+      "merged": true,
+      "head": "b5d2e8a973afbc927b7d73dfc052a7cd02263dd4",
+      "merge": "11a3a56db797a76d38d790d93e93cd454454c6ee",
+      "merged_at": "2026-11-13T23:15:38Z",
+      "run": {
+        "id": 43524879086,
+        "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43524879086",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      "jobs": [
+        {
+          "id": 132228033564,
+          "nome": "Java 21 / Testcontainers / JaCoCo / SonarCloud",
+          "conclusao": "failure",
+          "etapas": [
+            {
+              "nome": "Set up job",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Checkout (historico para Sonar)",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Java 21 e cache Maven",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Validar estrutura dos planos JMeter e scripts de evidencia",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Executar unitarios, integracao MySQL e quality gates",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Publicar logs, testes, XML JaCoCo e HTML JaCoCo",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Verificar disponibilidade do SonarCloud",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Analisar SonarCloud e aguardar Quality Gate",
+              "conclusao": "failure"
+            },
+            {
+              "nome": "Post Java 21 e cache Maven",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Post Checkout (historico para Sonar)",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Complete job",
+              "conclusao": "success"
+            }
+          ]
+        },
+        {
+          "id": 132228033970,
+          "nome": "JMeter / banco isolado / métricas reais",
+          "conclusao": "success",
+          "etapas": [
+            {
+              "nome": "Set up job",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Checkout do PR",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Java 21",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Instalar Apache JMeter 5.6.3 (distribuicao oficial)",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Executar carga local isolada com MySQL 8.4",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Preservar JTL, dashboards HTML e invariantes SQL",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Post Java 21",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Post Checkout do PR",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Complete job",
+              "conclusao": "success"
+            }
+          ]
+        }
+      ],
+      "trechos": [
+        "2026-11-13T23:08:57.2425688Z HEAD is now at 930907c Merge b5d2e8a973afbc927b7d73dfc052a7cd02263dd4 into 806562688f9b359475d59441a1a1e75738f0cd28",
+        "2026-11-13T23:09:34.4091551Z [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.185 s -- in br.senac.recursos.reserva.infraestrutura.RelatorioUtilizacaoTransacaoSpringTest",
+        "2026-11-13T23:09:44.2077623Z [INFO] Tests run: 277, Failures: 0, Errors: 0, Skipped: 0",
+        "2026-11-13T23:10:19.0942990Z [INFO] Tests run: 23, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 32.06 s -- in br.senac.recursos.item18.Item18MysqlIT",
+        "2026-11-13T23:10:27.7020547Z [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.626 s -- in br.senac.recursos.auditoria.AuditoriaMysqlIT",
+        "2026-11-13T23:10:37.3453793Z [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.641 s -- in br.senac.recursos.seguranca.LoginMysqlIT",
+        "2026-11-13T23:10:46.1528505Z [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.798 s -- in br.senac.recursos.seguranca.UsuarioAuditoriaMysqlIT",
+        "2026-11-13T23:10:54.3876435Z [INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.242 s -- in br.senac.recursos.reserva.aplicacao.ReservaFilaMysqlIT",
+        "2026-11-13T23:11:02.8590215Z [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.470 s -- in br.senac.recursos.reserva.infraestrutura.ReservaRelatorioMysqlIT",
+        "2026-11-13T23:11:11.5878876Z [INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.726 s -- in br.senac.recursos.reserva.infraestrutura.ReservaQ9MysqlIT",
+        "2026-11-13T23:11:20.6912914Z [INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.103 s -- in br.senac.recursos.reserva.infraestrutura.ReservaAprovacaoMysqlIT",
+        "2026-11-13T23:11:31.0079325Z [INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.30 s -- in br.senac.recursos.notificacao.NotificacaoMysqlIT",
+        "2026-11-13T23:11:31.4609234Z [INFO] Tests run: 73, Failures: 0, Errors: 0, Skipped: 0",
+        "2026-11-13T23:11:32.4677970Z [INFO] All coverage checks have been met.",
+        "2026-11-13T23:11:48.6364917Z [ERROR] Not authorized or project not found. Please check the 'SONAR_TOKEN' environment variable, the 'sonar.projectKey' and 'sonar.organization' properties, or contact the project administrator to verify the token's permissions. A project with the same key may already exist in another organization."
+      ]
+    },
+    {
+      "numero": 43,
+      "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/43",
+      "estado": "closed",
+      "merged": true,
+      "head": "b8b570e354480fc2305e0236e86a964fa5699ad8",
+      "merge": "b73c501536a275cdc89101cc7130c7b481e52396",
+      "merged_at": "2026-11-13T23:16:53Z",
+      "run": {
+        "id": 43525712520,
+        "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43525712520",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      "jobs": [
+        {
+          "id": 132230815348,
+          "nome": "Java 21 / Testcontainers / JaCoCo / SonarCloud",
+          "conclusao": "failure",
+          "etapas": [
+            {
+              "nome": "Set up job",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Checkout (historico para Sonar)",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Java 21 e cache Maven",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Validar estrutura dos planos JMeter e scripts de evidencia",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Executar unitarios, integracao MySQL e quality gates",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Publicar logs, testes, XML JaCoCo e HTML JaCoCo",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Verificar disponibilidade do SonarCloud",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Analisar SonarCloud e aguardar Quality Gate",
+              "conclusao": "failure"
+            },
+            {
+              "nome": "Post Java 21 e cache Maven",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Post Checkout (historico para Sonar)",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Complete job",
+              "conclusao": "success"
+            }
+          ]
+        },
+        {
+          "id": 132230815817,
+          "nome": "JMeter / banco isolado / métricas reais",
+          "conclusao": "success",
+          "etapas": [
+            {
+              "nome": "Set up job",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Checkout do PR",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Java 21",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Instalar Apache JMeter 5.6.3 (distribuicao oficial)",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Executar carga local isolada com MySQL 8.4",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Preservar JTL, dashboards HTML e invariantes SQL",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Post Java 21",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Post Checkout do PR",
+              "conclusao": "success"
+            },
+            {
+              "nome": "Complete job",
+              "conclusao": "success"
+            }
+          ]
+        }
+      ],
+      "trechos": [
+        "2026-11-13T23:15:20.9351919Z HEAD is now at 2db5151 Merge b8b570e354480fc2305e0236e86a964fa5699ad8 into 806562688f9b359475d59441a1a1e75738f0cd28",
+        "2026-11-13T23:15:51.3332618Z [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.095 s -- in br.senac.recursos.reserva.infraestrutura.RelatorioUtilizacaoTransacaoSpringTest",
+        "2026-11-13T23:16:00.0103529Z [INFO] Tests run: 287, Failures: 0, Errors: 0, Skipped: 0",
+        "2026-11-13T23:16:34.0702422Z [INFO] Tests run: 23, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 31.39 s -- in br.senac.recursos.item18.Item18MysqlIT",
+        "2026-11-13T23:16:43.6666501Z [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.606 s -- in br.senac.recursos.auditoria.AuditoriaMysqlIT",
+        "2026-11-13T23:16:54.3609092Z [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.69 s -- in br.senac.recursos.seguranca.LoginMysqlIT",
+        "2026-11-13T23:17:03.8748469Z [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.512 s -- in br.senac.recursos.seguranca.UsuarioAuditoriaMysqlIT",
+        "2026-11-13T23:17:13.9106123Z [INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.04 s -- in br.senac.recursos.reserva.aplicacao.ReservaFilaMysqlIT",
+        "2026-11-13T23:17:23.6017146Z [INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.688 s -- in br.senac.recursos.reserva.infraestrutura.ReservaCancelamentoMysqlIT",
+        "2026-11-13T23:17:32.9748308Z [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.370 s -- in br.senac.recursos.reserva.infraestrutura.ReservaRelatorioMysqlIT",
+        "2026-11-13T23:17:42.3880453Z [INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.413 s -- in br.senac.recursos.reserva.infraestrutura.ReservaQ9MysqlIT",
+        "2026-11-13T23:17:52.1337054Z [INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.747 s -- in br.senac.recursos.reserva.infraestrutura.ReservaAprovacaoMysqlIT",
+        "2026-11-13T23:18:02.7732616Z [INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.63 s -- in br.senac.recursos.notificacao.NotificacaoMysqlIT",
+        "2026-11-13T23:18:03.1995968Z [INFO] Tests run: 79, Failures: 0, Errors: 0, Skipped: 0",
+        "2026-11-13T23:18:03.9307744Z [INFO] All coverage checks have been met.",
+        "2026-11-13T23:18:17.4398300Z [ERROR] Not authorized or project not found. Please check the 'SONAR_TOKEN' environment variable, the 'sonar.projectKey' and 'sonar.organization' properties, or contact the project administrator to verify the token's permissions. A project with the same key may already exist in another organization."
+      ]
+    }
+  ],
+  "limites": [
+    "Execuções de merges de teste dos heads dos PRs sobre8065626, não de um novo PR da etapa7.",
+    "Java do checkout b73c501 corresponde ao head do #43; frontend Q5 local tem provas próprias.",
+    "Scanner Maven falhou por autorização/projeto; causa específica não estabelecida.",
+    "Sucesso do job JMeter não foi convertido em métricas/limiares não inspecionados."
+  ]
+}
