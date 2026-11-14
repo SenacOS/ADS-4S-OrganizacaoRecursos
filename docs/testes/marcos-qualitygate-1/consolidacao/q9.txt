@@ -1,0 +1,13 @@
+PASS V6 e fontes servidas
+PASS Solicitante, paginação e total restritos às próprias reservas
+PASS Administrador lê sem herdar decisão
+PASS Responsável sem vínculo e filtros inválidos
+PASS Vínculo parcial preserva negativa multi-recurso
+PASS Vínculo completo habilita leitura multi-recurso
+PASS Fila real: identificação, aprovação e rejeição com motivo
+PASS Decisão multi-recurso permitida somente após vínculo completo
+PASS Página da fila além do fim preserva total autorizado
+PASS Revogação do vínculo exclusivo da rodada remove acesso
+PASS Q3: Responsável vinculado não aprova a própria reserva restrita
+PASS Q1: início, conclusão e ausência recusam Administrador e aceitam Responsável
+{"pasta":".aiox-core\\local\\e2e\\q9\\2026-11-13T13-29-24-897Z","resumo":{"PASS":12,"FAIL":0}}

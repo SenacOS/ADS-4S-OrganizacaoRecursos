@@ -1,0 +1,59 @@
+{
+  "data": "2026-11-10",
+  "story": "Marcos-4",
+  "base": "a10e0b5; alterações locais Marcos-4",
+  "escopo": "Cliente da especificação de fila/decisão com API controlada; não é E2E integrado",
+  "ambiente": {
+    "sistema": "Windows x64",
+    "node": "v24.22.2",
+    "npm": "11.19.1",
+    "playwright": "1.65.0",
+    "chrome": "157.0.8103.39",
+    "canal": "chrome",
+    "headless": true,
+    "timezoneId_marcos4": "Asia/Tokyo"
+  },
+  "viewports": {
+    "desktop": {
+      "width": 1366,
+      "height": 900
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844
+    }
+  },
+  "gates": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unitarios": {
+      "pass": 43,
+      "fail": 0,
+      "anteriores": 32,
+      "novos": 11
+    },
+    "navegador": {
+      "startTime": "2026-11-11T02:32:57.261Z",
+      "duration": 133202.071,
+      "expected": 124,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "navegador_por_escopo": {
+      "acesso": 30,
+      "recursos": 46,
+      "aprovacoes": 48
+    },
+    "build_exit_code": 0
+  },
+  "dependencias": "Sem mudanças em package.json/lockfile; override do minimatch preservado",
+  "backend": "GET da fila e autorização/projeção ainda dependem de Silva/Fausto/Débora; nenhuma API habilitada",
+  "revisao_independente": "PENDENTE",
+  "coderabbit": "INDISPONIVEL: CLI/WSL não instalados",
+  "ci": "PENDENTE",
+  "integracao_real": "PENDENTE",
+  "validacao_humana": "PENDENTE",
+  "commit": "NAO REALIZADO",
+  "push": "NAO REALIZADO"
+}

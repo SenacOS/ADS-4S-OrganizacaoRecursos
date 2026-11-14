@@ -1,0 +1,3825 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Users\\fsouza\\nodejs\\node.exe",
+      "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\node_modules\\@playwright\\test\\cli.js",
+      "test"
+    ],
+    "configFile": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\playwright.config.js",
+    "rootDir": "C:/Users/fsouza/OneDrive - C Kennedy - 2025.old/Documentos/Cods/QS_Project/ADS-4S-OrganizacaoRecursos/tests/browser",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/fsouza/OneDrive - C Kennedy - 2025.old/Documentos/Cods/QS_Project/ADS-4S-OrganizacaoRecursos/test-results/frontend",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "desktop",
+        "name": "desktop",
+        "testDir": "C:/Users/fsouza/OneDrive - C Kennedy - 2025.old/Documentos/Cods/QS_Project/ADS-4S-OrganizacaoRecursos/tests/browser",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.js"
+        ],
+        "timeout": 15000
+      },
+      {
+        "outputDir": "C:/Users/fsouza/OneDrive - C Kennedy - 2025.old/Documentos/Cods/QS_Project/ADS-4S-OrganizacaoRecursos/test-results/frontend",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "mobile",
+        "name": "mobile",
+        "testDir": "C:/Users/fsouza/OneDrive - C Kennedy - 2025.old/Documentos/Cods/QS_Project/ADS-4S-OrganizacaoRecursos/tests/browser",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.js"
+        ],
+        "timeout": 15000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\test-results\\frontend",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "desktop",
+        "testDir": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser",
+        "snapshotDir": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.js",
+        "timeout": 15000,
+        "use": {
+          "baseURL": "http://127.0.0.1:4173",
+          "browserName": "chromium",
+          "channel": "chrome",
+          "headless": true,
+          "screenshot": "only-on-failure",
+          "trace": "retain-on-failure",
+          "viewport": {
+            "width": 1366,
+            "height": 900
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "desktop"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\test-results\\frontend",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "mobile",
+        "testDir": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser",
+        "snapshotDir": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.js",
+        "timeout": 15000,
+        "use": {
+          "baseURL": "http://127.0.0.1:4173",
+          "browserName": "chromium",
+          "channel": "chrome",
+          "headless": true,
+          "screenshot": "only-on-failure",
+          "trace": "retain-on-failure",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "isMobile": true,
+          "hasTouch": true
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "mobile"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/frontend/results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.65.0",
+    "workers": 1,
+    "webServer": {
+      "command": "node tests/browser/static-server.mjs",
+      "url": "http://127.0.0.1:4173/login.html",
+      "reuseExistingServer": false,
+      "timeout": 15000
+    }
+  },
+  "suites": [
+    {
+      "title": "acesso.spec.js",
+      "file": "acesso.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "login por teclado envia formulário e CSRF, depois consulta o perfil",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 953,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:28:56.613Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 631,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:57.409Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d0f147b1eab53eebbff-067805e8cec44cc87fda",
+          "file": "acesso.spec.js",
+          "line": 61,
+          "column": 1
+        },
+        {
+          "title": "credenciais inválidas preservam formulário e mostram HTML como texto",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 511,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:28:58.189Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 421,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:58.293Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d0f147b1eab53eebbff-caa6df4b904944e60372",
+          "file": "acesso.spec.js",
+          "line": 81,
+          "column": 1
+        },
+        {
+          "title": "envios simultâneos de login executam uma escrita e indicam busy",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 481,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:28:58.714Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 434,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:58.727Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d0f147b1eab53eebbff-4351a26d72a5d287dd78",
+          "file": "acesso.spec.js",
+          "line": 96,
+          "column": 1
+        },
+        {
+          "title": "sessão expirada volta ao login sem loop nem dados privados",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 461,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:28:59.209Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 385,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:59.173Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d0f147b1eab53eebbff-96a5de7b59347a2813fe",
+          "file": "acesso.spec.js",
+          "line": 111,
+          "column": 1
+        },
+        {
+          "title": "sessão já válida evita novo login e ignora destinos externos",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 487,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:28:59.682Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 448,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:59.575Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d0f147b1eab53eebbff-699d439ca507d060d406",
+          "file": "acesso.spec.js",
+          "line": 122,
+          "column": 1
+        },
+        {
+          "title": "navegação do perfil SOLICITANTE sem ações ou links indevidos",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 389,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:00.181Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 373,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:00.041Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d0f147b1eab53eebbff-efbbf5604cd9436e3ec7",
+          "file": "acesso.spec.js",
+          "line": 131,
+          "column": 3
+        },
+        {
+          "title": "navegação do perfil RESPONSAVEL sem ações ou links indevidos",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 392,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:00.582Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 347,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:00.441Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d0f147b1eab53eebbff-226e1ab12989278e1ac3",
+          "file": "acesso.spec.js",
+          "line": 131,
+          "column": 3
+        },
+        {
+          "title": "navegação do perfil ADMINISTRADOR sem ações ou links indevidos",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 462,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:00.986Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 346,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:00.823Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d0f147b1eab53eebbff-7ed907a686b24c2de74a",
+          "file": "acesso.spec.js",
+          "line": 131,
+          "column": 3
+        },
+        {
+          "title": "logout usa CSRF e confirma saída somente após 204",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 591,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:01.462Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 550,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:01.189Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d0f147b1eab53eebbff-9c001d28a736f0044838",
+          "file": "acesso.spec.js",
+          "line": 146,
+          "column": 1
+        },
+        {
+          "title": "falha no logout restaura botão e não afirma sessão encerrada",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 451,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:02.065Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 423,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:01.758Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d0f147b1eab53eebbff-595a64716b323223fada",
+          "file": "acesso.spec.js",
+          "line": 158,
+          "column": 1
+        },
+        {
+          "title": "envios simultâneos de logout executam uma escrita",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 587,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:02.533Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 564,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:02.191Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d0f147b1eab53eebbff-ae0c32bd474ffbd09eb8",
+          "file": "acesso.spec.js",
+          "line": 171,
+          "column": 1
+        },
+        {
+          "title": "falha na leitura da sessão mantém painel oculto e permite nova leitura",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 440,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:03.132Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 418,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:02.766Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d0f147b1eab53eebbff-f8e76b72f748086b332c",
+          "file": "acesso.spec.js",
+          "line": 185,
+          "column": 1
+        },
+        {
+          "title": "perfil não reconhecido não revela painel nem ações",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 317,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:03.581Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 346,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:03.197Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d0f147b1eab53eebbff-61476dff5b65fa0cef60",
+          "file": "acesso.spec.js",
+          "line": 198,
+          "column": 1
+        },
+        {
+          "title": "403 no login não repete envio; nova ação busca outro token",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 573,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:03.910Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 549,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:03.559Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d0f147b1eab53eebbff-36c7810ae67a710073a5",
+          "file": "acesso.spec.js",
+          "line": 205,
+          "column": 1
+        },
+        {
+          "title": "login e entrada cabem na viewport sem rolagem horizontal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 764,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:04.493Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 658,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:04.122Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d0f147b1eab53eebbff-eeed2c571dbb20a80778",
+          "file": "acesso.spec.js",
+          "line": 221,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "administracao-recursos.spec.js",
+      "file": "administracao-recursos.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "SOLICITANTE não acessa nem consulta dados administrativos pela URL direta",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 345,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:05.296Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 334,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:04.816Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d874dc3f8ca778e4edab-a156b26c6f5c4df6e4b3",
+          "file": "administracao-recursos.spec.js",
+          "line": 100,
+          "column": 3
+        },
+        {
+          "title": "RESPONSAVEL não acessa nem consulta dados administrativos pela URL direta",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 352,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:05.651Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 324,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:05.163Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d874dc3f8ca778e4edab-9c1b94a47e9d96d9fb74",
+          "file": "administracao-recursos.spec.js",
+          "line": 100,
+          "column": 3
+        },
+        {
+          "title": "sem sessão redireciona ao login sem consultas administrativas",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 390,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:06.013Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 390,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:05.505Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d874dc3f8ca778e4edab-6faa5476b55db5a4d656",
+          "file": "administracao-recursos.spec.js",
+          "line": 106,
+          "column": 1
+        },
+        {
+          "title": "consulta paginada inclui inativos, combina filtros e reinicia página",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 525,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:06.414Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 489,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:05.909Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d874dc3f8ca778e4edab-69a4f425a870e7b7f373",
+          "file": "administracao-recursos.spec.js",
+          "line": 110,
+          "column": 1
+        },
+        {
+          "title": "cadastro de sala por teclado envia somente DTO e CSRF",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 623,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:06.950Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 526,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:06.408Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d874dc3f8ca778e4edab-4d842b734ec874097196",
+          "file": "administracao-recursos.spec.js",
+          "line": 121,
+          "column": 1
+        },
+        {
+          "title": "cadastro docente aceita competências vazias e não envia dados da sala",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 570,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:07.584Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 621,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:06.945Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d874dc3f8ca778e4edab-2790b1f9381c0946a569",
+          "file": "administracao-recursos.spec.js",
+          "line": 129,
+          "column": 1
+        },
+        {
+          "title": "cadastro material aceita condição livre e restrição",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 646,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:08.164Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 710,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:07.577Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d874dc3f8ca778e4edab-1f8081e827e14c6f84f6",
+          "file": "administracao-recursos.spec.js",
+          "line": 136,
+          "column": 1
+        },
+        {
+          "title": "edição consulta detalhe, fixa tipo e preserva campos no PUT completo",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 561,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:08.826Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 550,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:08.299Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d874dc3f8ca778e4edab-04b90d906623ce1d9948",
+          "file": "administracao-recursos.spec.js",
+          "line": 143,
+          "column": 1
+        },
+        {
+          "title": "detalhe ausente impede edição e não aproveita resumo incompleto",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 660,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:09.417Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 456,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:08.859Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d874dc3f8ca778e4edab-ea7fcbf21ee79d059d6c",
+          "file": "administracao-recursos.spec.js",
+          "line": 149,
+          "column": 1
+        },
+        {
+          "title": "detalhe pendente bloqueia troca de alvo e respostas não se misturam",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7264,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#controles-admin')\nExpected: disabled\nReceived: enabled\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" locator('#controles-admin') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#controles-admin')\u001b[22m\n\u001b[2m    14 × locator resolved to <fieldset disabled id=\"controles-admin\" class=\"admin-controls\">…</fieldset>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#controles-admin')\nExpected: disabled\nReceived: enabled\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" locator('#controles-admin') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#controles-admin')\u001b[22m\n\u001b[2m    14 × locator resolved to <fieldset disabled id=\"controles-admin\" class=\"admin-controls\">…</fieldset>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser\\administracao-recursos.spec.js:157:50",
+                    "location": {
+                      "file": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser\\administracao-recursos.spec.js",
+                      "column": 50,
+                      "line": 157
+                    },
+                    "snippet": " \u001b[90m 155 |\u001b[39m   \u001b[36mconst\u001b[39m estado \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m abrir(page)\u001b[33m;\u001b[39m \u001b[36mlet\u001b[39m liberar\u001b[33m;\u001b[39m estado\u001b[33m.\u001b[39mesperarDetalhe \u001b[33m=\u001b[39m \u001b[36mnew\u001b[39m \u001b[33mPromise\u001b[39m((r) \u001b[33m=>\u001b[39m { liberar \u001b[33m=\u001b[39m r\u001b[33m;\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 156 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'button'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Gerenciar SALA-01'\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 157 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'#controles-admin'\u001b[39m))\u001b[33m.\u001b[39mtoBeDisabled()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 158 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'button'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Gerenciar Ana · DOC-01'\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mevaluate((b) \u001b[33m=>\u001b[39m b\u001b[33m.\u001b[39mclick())\u001b[33m;\u001b[39m\n \u001b[90m 159 |\u001b[39m   liberar()\u001b[33m;\u001b[39m \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'#cad-codigo'\u001b[39m))\u001b[33m.\u001b[39mtoHaveValue(\u001b[32m'SALA-01'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 160 |\u001b[39m   expect(estado\u001b[33m.\u001b[39mconsultas\u001b[33m.\u001b[39mfilter((u) \u001b[33m=>\u001b[39m \u001b[35m/^\\/api\\/recursos\\/\\d+$/\u001b[39m\u001b[33m.\u001b[39mtest(u)))\u001b[33m.\u001b[39mtoEqual([\u001b[32m'/api/recursos/7'\u001b[39m])\u001b[33m;\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser\\administracao-recursos.spec.js",
+                        "column": 50,
+                        "line": 157
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#controles-admin')\nExpected: disabled\nReceived: enabled\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" locator('#controles-admin') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#controles-admin')\u001b[22m\n\u001b[2m    14 × locator resolved to <fieldset disabled id=\"controles-admin\" class=\"admin-controls\">…</fieldset>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  155 |   const estado = await abrir(page); let liberar; estado.esperarDetalhe = new Promise((r) => { liberar = r; });\n  156 |   await page.getByRole('button', { name: 'Gerenciar SALA-01', exact: true }).click();\n> 157 |   await expect(page.locator('#controles-admin')).toBeDisabled();\n      |                                                  ^\n  158 |   await page.getByRole('button', { name: 'Gerenciar Ana · DOC-01', exact: true }).evaluate((b) => b.click());\n  159 |   liberar(); await expect(page.locator('#cad-codigo')).toHaveValue('SALA-01');\n  160 |   expect(estado.consultas.filter((u) => /^\\/api\\/recursos\\/\\d+$/.test(u))).toEqual(['/api/recursos/7']);\n    at C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser\\administracao-recursos.spec.js:157:50"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:10.091Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\test-results\\frontend\\administracao-recursos-det-a11c8-e-respostas-não-se-misturam-desktop\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\test-results\\frontend\\administracao-recursos-det-a11c8-e-respostas-não-se-misturam-desktop\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\test-results\\frontend\\administracao-recursos-det-a11c8-e-respostas-não-se-misturam-desktop\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser\\administracao-recursos.spec.js",
+                    "column": 50,
+                    "line": 157
+                  }
+                }
+              ],
+              "status": "unexpected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5448,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#controles-admin')\nExpected: disabled\nReceived: enabled\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" locator('#controles-admin') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#controles-admin')\u001b[22m\n\u001b[2m    14 × locator resolved to <fieldset disabled id=\"controles-admin\" class=\"admin-controls\">…</fieldset>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#controles-admin')\nExpected: disabled\nReceived: enabled\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" locator('#controles-admin') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#controles-admin')\u001b[22m\n\u001b[2m    14 × locator resolved to <fieldset disabled id=\"controles-admin\" class=\"admin-controls\">…</fieldset>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser\\administracao-recursos.spec.js:157:50",
+                    "location": {
+                      "file": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser\\administracao-recursos.spec.js",
+                      "column": 50,
+                      "line": 157
+                    },
+                    "snippet": " \u001b[90m 155 |\u001b[39m   \u001b[36mconst\u001b[39m estado \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m abrir(page)\u001b[33m;\u001b[39m \u001b[36mlet\u001b[39m liberar\u001b[33m;\u001b[39m estado\u001b[33m.\u001b[39mesperarDetalhe \u001b[33m=\u001b[39m \u001b[36mnew\u001b[39m \u001b[33mPromise\u001b[39m((r) \u001b[33m=>\u001b[39m { liberar \u001b[33m=\u001b[39m r\u001b[33m;\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 156 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'button'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Gerenciar SALA-01'\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 157 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'#controles-admin'\u001b[39m))\u001b[33m.\u001b[39mtoBeDisabled()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 158 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'button'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Gerenciar Ana · DOC-01'\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mevaluate((b) \u001b[33m=>\u001b[39m b\u001b[33m.\u001b[39mclick())\u001b[33m;\u001b[39m\n \u001b[90m 159 |\u001b[39m   liberar()\u001b[33m;\u001b[39m \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'#cad-codigo'\u001b[39m))\u001b[33m.\u001b[39mtoHaveValue(\u001b[32m'SALA-01'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 160 |\u001b[39m   expect(estado\u001b[33m.\u001b[39mconsultas\u001b[33m.\u001b[39mfilter((u) \u001b[33m=>\u001b[39m \u001b[35m/^\\/api\\/recursos\\/\\d+$/\u001b[39m\u001b[33m.\u001b[39mtest(u)))\u001b[33m.\u001b[39mtoEqual([\u001b[32m'/api/recursos/7'\u001b[39m])\u001b[33m;\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser\\administracao-recursos.spec.js",
+                        "column": 50,
+                        "line": 157
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#controles-admin')\nExpected: disabled\nReceived: enabled\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" locator('#controles-admin') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#controles-admin')\u001b[22m\n\u001b[2m    14 × locator resolved to <fieldset disabled id=\"controles-admin\" class=\"admin-controls\">…</fieldset>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  155 |   const estado = await abrir(page); let liberar; estado.esperarDetalhe = new Promise((r) => { liberar = r; });\n  156 |   await page.getByRole('button', { name: 'Gerenciar SALA-01', exact: true }).click();\n> 157 |   await expect(page.locator('#controles-admin')).toBeDisabled();\n      |                                                  ^\n  158 |   await page.getByRole('button', { name: 'Gerenciar Ana · DOC-01', exact: true }).evaluate((b) => b.click());\n  159 |   liberar(); await expect(page.locator('#cad-codigo')).toHaveValue('SALA-01');\n  160 |   expect(estado.consultas.filter((u) => /^\\/api\\/recursos\\/\\d+$/.test(u))).toEqual(['/api/recursos/7']);\n    at C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser\\administracao-recursos.spec.js:157:50"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:09.324Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\test-results\\frontend\\administracao-recursos-det-a11c8-e-respostas-não-se-misturam-mobile\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\test-results\\frontend\\administracao-recursos-det-a11c8-e-respostas-não-se-misturam-mobile\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\test-results\\frontend\\administracao-recursos-det-a11c8-e-respostas-não-se-misturam-mobile\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser\\administracao-recursos.spec.js",
+                    "column": 50,
+                    "line": 157
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "d874dc3f8ca778e4edab-d83aac42acebade8b764",
+          "file": "administracao-recursos.spec.js",
+          "line": 154,
+          "column": 1
+        },
+        {
+          "title": "desativação exige confirmação e só muda estado após 204",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3827,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:18.124Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8001,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:15.566Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d874dc3f8ca778e4edab-0f94b8b2491172b2e765",
+          "file": "administracao-recursos.spec.js",
+          "line": 162,
+          "column": 1
+        },
+        {
+          "title": "409 na desativação mantém recurso ativo, dados e referência de suporte",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3585,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:22.221Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 953,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:23.804Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d874dc3f8ca778e4edab-63609177737aac024da2",
+          "file": "administracao-recursos.spec.js",
+          "line": 170,
+          "column": 1
+        },
+        {
+          "title": "bloqueio multidia converte fuso, preserva 409 e permite correção explícita",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2717,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:25.820Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 784,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:24.773Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d874dc3f8ca778e4edab-40b816c03d2e92d4aab9",
+          "file": "administracao-recursos.spec.js",
+          "line": 177,
+          "column": 1
+        },
+        {
+          "title": "cancelamento de bloqueio exige confirmação e remove ação do cancelado",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 698,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:28.550Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 906,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:25.570Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d874dc3f8ca778e4edab-1579f327e9a00baf83ea",
+          "file": "administracao-recursos.spec.js",
+          "line": 188,
+          "column": 1
+        },
+        {
+          "title": "expediente preserva todas as janelas e nanossegundos sem arredondamento",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 494,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:29.258Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3879,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:26.487Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d874dc3f8ca778e4edab-1687160a5abd3442b679",
+          "file": "administracao-recursos.spec.js",
+          "line": 196,
+          "column": 1
+        },
+        {
+          "title": "expediente vazio exige confirmação e deixa fechamento explícito",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 617,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:29.766Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 700,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:30.378Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d874dc3f8ca778e4edab-fa21b0061a1eba002dd1",
+          "file": "administracao-recursos.spec.js",
+          "line": 203,
+          "column": 1
+        },
+        {
+          "title": "expediente com sobreposição não envia; 409 conserva a edição",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 729,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:30.395Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 664,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:31.092Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d874dc3f8ca778e4edab-c75d70232c93822a4f3f",
+          "file": "administracao-recursos.spec.js",
+          "line": 210,
+          "column": 1
+        },
+        {
+          "title": "falha de leitura do expediente impede salvar e permite recuperação por GET",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 435,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:31.136Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 455,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:31.771Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d874dc3f8ca778e4edab-4c79ea65d1bf396601b9",
+          "file": "administracao-recursos.spec.js",
+          "line": 219,
+          "column": 1
+        },
+        {
+          "title": "duplo envio mantém uma escrita e controles bloqueados até resposta",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5635,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#controles-admin')\nExpected: disabled\nReceived: enabled\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" locator('#controles-admin') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#controles-admin')\u001b[22m\n\u001b[2m    14 × locator resolved to <fieldset disabled id=\"controles-admin\" class=\"admin-controls\">…</fieldset>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#controles-admin')\nExpected: disabled\nReceived: enabled\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" locator('#controles-admin') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#controles-admin')\u001b[22m\n\u001b[2m    14 × locator resolved to <fieldset disabled id=\"controles-admin\" class=\"admin-controls\">…</fieldset>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser\\administracao-recursos.spec.js:229:50",
+                    "location": {
+                      "file": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser\\administracao-recursos.spec.js",
+                      "column": 50,
+                      "line": 229
+                    },
+                    "snippet": " \u001b[90m 227 |\u001b[39m   \u001b[36mawait\u001b[39m enviarCadastro(page)\u001b[33m;\u001b[39m \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'#form-cadastro'\u001b[39m))\u001b[33m.\u001b[39mtoHaveAttribute(\u001b[32m'aria-busy'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'true'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 228 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#form-cadastro'\u001b[39m)\u001b[33m.\u001b[39mdispatchEvent(\u001b[32m'submit'\u001b[39m)\u001b[33m;\u001b[39m expect(estado\u001b[33m.\u001b[39mescritas)\u001b[33m.\u001b[39mtoHaveLength(\u001b[35m1\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 229 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'#controles-admin'\u001b[39m))\u001b[33m.\u001b[39mtoBeDisabled()\u001b[33m;\u001b[39m liberar()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 230 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'#feedback-cadastro'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'Recurso salvo'\u001b[39m)\u001b[33m;\u001b[39m \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'#controles-admin'\u001b[39m))\u001b[33m.\u001b[39mtoBeEnabled()\u001b[33m;\u001b[39m expect(estado\u001b[33m.\u001b[39mescritas)\u001b[33m.\u001b[39mtoHaveLength(\u001b[35m1\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 231 |\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 232 |\u001b[39m \u001b[36mfor\u001b[39m (\u001b[36mconst\u001b[39m problema \u001b[36mof\u001b[39m [\u001b[32m'rede'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'respostaInvalida'\u001b[39m]) {"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser\\administracao-recursos.spec.js",
+                        "column": 50,
+                        "line": 229
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#controles-admin')\nExpected: disabled\nReceived: enabled\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" locator('#controles-admin') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#controles-admin')\u001b[22m\n\u001b[2m    14 × locator resolved to <fieldset disabled id=\"controles-admin\" class=\"admin-controls\">…</fieldset>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  227 |   await enviarCadastro(page); await expect(page.locator('#form-cadastro')).toHaveAttribute('aria-busy', 'true');\n  228 |   await page.locator('#form-cadastro').dispatchEvent('submit'); expect(estado.escritas).toHaveLength(1);\n> 229 |   await expect(page.locator('#controles-admin')).toBeDisabled(); liberar();\n      |                                                  ^\n  230 |   await expect(page.locator('#feedback-cadastro')).toContainText('Recurso salvo'); await expect(page.locator('#controles-admin')).toBeEnabled(); expect(estado.escritas).toHaveLength(1);\n  231 | });\n  232 | for (const problema of ['rede', 'respostaInvalida']) {\n    at C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser\\administracao-recursos.spec.js:229:50"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:31.586Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\test-results\\frontend\\administracao-recursos-dup-ba4a7-les-bloqueados-até-resposta-desktop\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\test-results\\frontend\\administracao-recursos-dup-ba4a7-les-bloqueados-até-resposta-desktop\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\test-results\\frontend\\administracao-recursos-dup-ba4a7-les-bloqueados-até-resposta-desktop\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser\\administracao-recursos.spec.js",
+                    "column": 50,
+                    "line": 229
+                  }
+                }
+              ],
+              "status": "unexpected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5597,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#controles-admin')\nExpected: disabled\nReceived: enabled\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" locator('#controles-admin') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#controles-admin')\u001b[22m\n\u001b[2m    14 × locator resolved to <fieldset disabled id=\"controles-admin\" class=\"admin-controls\">…</fieldset>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#controles-admin')\nExpected: disabled\nReceived: enabled\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" locator('#controles-admin') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#controles-admin')\u001b[22m\n\u001b[2m    14 × locator resolved to <fieldset disabled id=\"controles-admin\" class=\"admin-controls\">…</fieldset>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser\\administracao-recursos.spec.js:229:50",
+                    "location": {
+                      "file": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser\\administracao-recursos.spec.js",
+                      "column": 50,
+                      "line": 229
+                    },
+                    "snippet": " \u001b[90m 227 |\u001b[39m   \u001b[36mawait\u001b[39m enviarCadastro(page)\u001b[33m;\u001b[39m \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'#form-cadastro'\u001b[39m))\u001b[33m.\u001b[39mtoHaveAttribute(\u001b[32m'aria-busy'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'true'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 228 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#form-cadastro'\u001b[39m)\u001b[33m.\u001b[39mdispatchEvent(\u001b[32m'submit'\u001b[39m)\u001b[33m;\u001b[39m expect(estado\u001b[33m.\u001b[39mescritas)\u001b[33m.\u001b[39mtoHaveLength(\u001b[35m1\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 229 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'#controles-admin'\u001b[39m))\u001b[33m.\u001b[39mtoBeDisabled()\u001b[33m;\u001b[39m liberar()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 230 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'#feedback-cadastro'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'Recurso salvo'\u001b[39m)\u001b[33m;\u001b[39m \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'#controles-admin'\u001b[39m))\u001b[33m.\u001b[39mtoBeEnabled()\u001b[33m;\u001b[39m expect(estado\u001b[33m.\u001b[39mescritas)\u001b[33m.\u001b[39mtoHaveLength(\u001b[35m1\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 231 |\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 232 |\u001b[39m \u001b[36mfor\u001b[39m (\u001b[36mconst\u001b[39m problema \u001b[36mof\u001b[39m [\u001b[32m'rede'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'respostaInvalida'\u001b[39m]) {"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser\\administracao-recursos.spec.js",
+                        "column": 50,
+                        "line": 229
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#controles-admin')\nExpected: disabled\nReceived: enabled\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" locator('#controles-admin') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#controles-admin')\u001b[22m\n\u001b[2m    14 × locator resolved to <fieldset disabled id=\"controles-admin\" class=\"admin-controls\">…</fieldset>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  227 |   await enviarCadastro(page); await expect(page.locator('#form-cadastro')).toHaveAttribute('aria-busy', 'true');\n  228 |   await page.locator('#form-cadastro').dispatchEvent('submit'); expect(estado.escritas).toHaveLength(1);\n> 229 |   await expect(page.locator('#controles-admin')).toBeDisabled(); liberar();\n      |                                                  ^\n  230 |   await expect(page.locator('#feedback-cadastro')).toContainText('Recurso salvo'); await expect(page.locator('#controles-admin')).toBeEnabled(); expect(estado.escritas).toHaveLength(1);\n  231 | });\n  232 | for (const problema of ['rede', 'respostaInvalida']) {\n    at C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser\\administracao-recursos.spec.js:229:50"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:32.246Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\test-results\\frontend\\administracao-recursos-dup-ba4a7-les-bloqueados-até-resposta-mobile\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\test-results\\frontend\\administracao-recursos-dup-ba4a7-les-bloqueados-até-resposta-mobile\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\test-results\\frontend\\administracao-recursos-dup-ba4a7-les-bloqueados-até-resposta-mobile\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\fsouza\\OneDrive - C Kennedy - 2025.old\\Documentos\\Cods\\QS_Project\\ADS-4S-OrganizacaoRecursos\\tests\\browser\\administracao-recursos.spec.js",
+                    "column": 50,
+                    "line": 229
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "d874dc3f8ca778e4edab-a0aaf3e2ed8b0a9df5e8",
+          "file": "administracao-recursos.spec.js",
+          "line": 225,
+          "column": 1
+        },
+        {
+          "title": "rede mantém cadastro sem sucesso falso nem retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 837,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:37.946Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 832,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:38.488Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d874dc3f8ca778e4edab-ac4ab788b65cdb18028a",
+          "file": "administracao-recursos.spec.js",
+          "line": 233,
+          "column": 3
+        },
+        {
+          "title": "respostaInvalida mantém cadastro sem sucesso falso nem retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 572,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:39.041Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 605,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:39.593Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d874dc3f8ca778e4edab-f73c3a3580a2225bdb44",
+          "file": "administracao-recursos.spec.js",
+          "line": 233,
+          "column": 3
+        },
+        {
+          "title": "403 não repete escrita e nova ação explícita renova token",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 716,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:39.625Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 727,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:40.209Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d874dc3f8ca778e4edab-dea7cd79e6b9fc7ecd91",
+          "file": "administracao-recursos.spec.js",
+          "line": 239,
+          "column": 1
+        },
+        {
+          "title": "textos da API são literais e página cabe em desktop/móvel",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 728,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:40.352Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 589,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:40.947Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d874dc3f8ca778e4edab-f6493d99595e0331ae7e",
+          "file": "administracao-recursos.spec.js",
+          "line": 245,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "recursos.spec.js",
+      "file": "recursos.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "pesquisa combina filtros, mostra expediente real e codifica datas no fuso operacional",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 669,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:41.128Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 603,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:41.580Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4230db46ec7bad0e53d0-fca47b282cb7b6547fd2",
+          "file": "recursos.spec.js",
+          "line": 90,
+          "column": 1
+        },
+        {
+          "title": "reserva comum seleciona sala e docente, envia DTO completo/CSRF e confirma resposta",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 698,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:41.809Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 679,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:42.193Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4230db46ec7bad0e53d0-a056f48cb164c448f313",
+          "file": "recursos.spec.js",
+          "line": 108,
+          "column": 1
+        },
+        {
+          "title": "reserva restrita exibe SOLICITADA e espera sem inventar aprovação ou notificação",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 613,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:42.520Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 611,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:42.885Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4230db46ec7bad0e53d0-9bac6b7e677c3bbef683",
+          "file": "recursos.spec.js",
+          "line": 124,
+          "column": 1
+        },
+        {
+          "title": "seleção atravessa páginas e nova pesquisa reinicia a página sem perder o mesmo período",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 860,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:43.152Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 868,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:43.508Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4230db46ec7bad0e53d0-edb1a67d99e4cca38754",
+          "file": "recursos.spec.js",
+          "line": 133,
+          "column": 1
+        },
+        {
+          "title": "alterar o período limpa seleção e resultados antes de permitir outra solicitação",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 649,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:44.024Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 524,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:44.387Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4230db46ec7bad0e53d0-b68cddd52723d2c9303f",
+          "file": "recursos.spec.js",
+          "line": 150,
+          "column": 1
+        },
+        {
+          "title": "não oferece seleção de recurso indisponível ou inativo",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 607,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:44.684Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 564,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:44.921Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4230db46ec7bad0e53d0-26d08b69d539cd9e9483",
+          "file": "recursos.spec.js",
+          "line": 160,
+          "column": 1
+        },
+        {
+          "title": "vazio e erro de consulta permitem corrigir e pesquisar novamente",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 704,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:45.305Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 619,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:45.494Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4230db46ec7bad0e53d0-91d059a9e37054e3606f",
+          "file": "recursos.spec.js",
+          "line": 171,
+          "column": 1
+        },
+        {
+          "title": "falha 400 na criação preserva período/seleção e não repete POST",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 605,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:46.020Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 643,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:46.125Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4230db46ec7bad0e53d0-3ce915082b94ff3a7862",
+          "file": "recursos.spec.js",
+          "line": 185,
+          "column": 3
+        },
+        {
+          "title": "falha 403 na criação preserva período/seleção e não repete POST",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 623,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:46.635Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 623,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:46.778Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4230db46ec7bad0e53d0-18dd4a08569de755d8dd",
+          "file": "recursos.spec.js",
+          "line": 185,
+          "column": 3
+        },
+        {
+          "title": "falha 404 na criação preserva período/seleção e não repete POST",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 664,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:47.270Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 606,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:47.412Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4230db46ec7bad0e53d0-c1aeedfd935aed941d1c",
+          "file": "recursos.spec.js",
+          "line": 185,
+          "column": 3
+        },
+        {
+          "title": "falha 409 na criação preserva período/seleção e não repete POST",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 959,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:47.948Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 632,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:48.028Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4230db46ec7bad0e53d0-ec6058231becf503c7ed",
+          "file": "recursos.spec.js",
+          "line": 185,
+          "column": 3
+        },
+        {
+          "title": "submissões simultâneas mantêm uma escrita e carregamento até a confirmação",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 644,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:48.929Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 576,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:48.670Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4230db46ec7bad0e53d0-b204347ee07f0e4f09e0",
+          "file": "recursos.spec.js",
+          "line": 201,
+          "column": 1
+        },
+        {
+          "title": "falha de rede não afirma sucesso e orienta conferir antes de reenviar",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 688,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:49.590Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 580,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:49.259Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4230db46ec7bad0e53d0-5f074f1d29873534e14f",
+          "file": "recursos.spec.js",
+          "line": 215,
+          "column": 1
+        },
+        {
+          "title": "resposta incoerente após POST não mostra sucesso nem repete a escrita",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 626,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:50.288Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 621,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:49.850Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4230db46ec7bad0e53d0-f19613182ef1ef6102a8",
+          "file": "recursos.spec.js",
+          "line": 225,
+          "column": 1
+        },
+        {
+          "title": "resposta atrasada é descartada se o período mudar durante a consulta",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 553,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:50.925Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 712,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:50.482Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4230db46ec7bad0e53d0-54023530d0047e1b48b7",
+          "file": "recursos.spec.js",
+          "line": 234,
+          "column": 1
+        },
+        {
+          "title": "sessão ausente não consulta recursos e retorna ao login",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 472,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:51.489Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 391,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:51.205Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4230db46ec7bad0e53d0-f50a0b9c5f1952a8d480",
+          "file": "recursos.spec.js",
+          "line": 255,
+          "column": 1
+        },
+        {
+          "title": "sessão expirada durante escrita segue fluxo central e não repete POST",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 703,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:51.974Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 628,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:51.612Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4230db46ec7bad0e53d0-02bf52e1f153f08ed1db",
+          "file": "recursos.spec.js",
+          "line": 264,
+          "column": 1
+        },
+        {
+          "title": "período inválido não dispara consultas",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 526,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:52.689Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 518,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:52.250Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4230db46ec7bad0e53d0-d5ddc7d4bdf3ecfbba7f",
+          "file": "recursos.spec.js",
+          "line": 274,
+          "column": 1
+        },
+        {
+          "title": "disponibilidade sem período é recusada e limpar filtros restaura a consulta geral",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 522,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:53.225Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 607,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:52.778Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4230db46ec7bad0e53d0-b8159bd3fa938ed5a38d",
+          "file": "recursos.spec.js",
+          "line": 288,
+          "column": 1
+        },
+        {
+          "title": "atualizar a pesquisa remove seleção que ficou indisponível",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 603,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:53.759Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 699,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:53.397Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4230db46ec7bad0e53d0-5bbade052bb2bc5bda35",
+          "file": "recursos.spec.js",
+          "line": 301,
+          "column": 1
+        },
+        {
+          "title": "expediente vazio não inventa horários e falha de leitura não impede consulta",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 624,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:54.376Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 561,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:54.108Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4230db46ec7bad0e53d0-931c2e86b3b5a9d46391",
+          "file": "recursos.spec.js",
+          "line": 311,
+          "column": 1
+        },
+        {
+          "title": "teclado, texto seguro e layout cabem em móvel/desktop com confirmação acessível",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 823,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:55.010Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 806,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:54.681Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4230db46ec7bad0e53d0-e43cefd8d1fd59572ba5",
+          "file": "recursos.spec.js",
+          "line": 323,
+          "column": 1
+        },
+        {
+          "title": "capturas de pesquisa e confirmação com recursos de teste identificados",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 870,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:29:55.843Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 15000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 804,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-11T16:30:55.499Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4230db46ec7bad0e53d0-5514b53458d25db10ecc",
+          "file": "recursos.spec.js",
+          "line": 342,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-11T16:28:55.777Z",
+    "duration": 120985.902,
+    "expected": 118,
+    "skipped": 0,
+    "unexpected": 4,
+    "flaky": 0
+  }
+}

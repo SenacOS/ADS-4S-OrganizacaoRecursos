@@ -1,0 +1,98 @@
+﻿Execução local: 2026-11-10 22:06:25 America/Sao_Paulo
+Branch: feature/marcos-base-frontend
+Commit: 5036ed3
+Node: v24.22.2
+npm: 11.19.1
+Chrome: 157.0.8103.39
+Preparação: npm ci --ignore-scripts --no-audit --no-fund, com NODE_USE_SYSTEM_CA=1
+PLAYWRIGHT_CHANNEL=chrome; NO_COLOR e FORCE_COLOR removidos apenas deste processo
+Comando: npm run build
+
+> build
+> npm run lint && npm run typecheck && npm test
+
+
+> lint
+> eslint backend/src/main/resources/static/js tests/unit/frontend tests/browser eslint.config.js playwright.config.js
+
+
+> typecheck
+> tsc --project jsconfig.json
+
+
+> test
+> npm run test:unit && npm run test:browser
+
+
+> test:unit
+> node --test tests/unit/frontend/*.test.js
+
+✔ GET usa sessão e não busca CSRF; me devolve perfil (70.649ms)
+✔ POST envia CSRF dinâmico e sessão (1.196ms)
+✔ PUT envia CSRF dinâmico e sessão (0.8113ms)
+✔ PATCH envia CSRF dinâmico e sessão (0.6178ms)
+✔ DELETE envia CSRF dinâmico e sessão (0.5872ms)
+✔ login codifica email/senha como formulário e aceita 204; logout renova CSRF (5.7866ms)
+✔ credenciais inválidas ficam no login; sessão ausente aciona redirecionamento (2.695ms)
+✔ erro 400 preserva contrato e não repete escrita (1.6639ms)
+✔ erro 403 preserva contrato e não repete escrita (0.7017ms)
+✔ erro 404 preserva contrato e não repete escrita (0.7637ms)
+✔ erro 409 preserva contrato e não repete escrita (0.6387ms)
+✔ 403 invalida token para próxima ação explícita, sem replay da anterior (0.8459ms)
+✔ PATCH completo preserva offset e remove campos de identidade/status (0.9085ms)
+✔ datas sem offset, fim não posterior e recursos inválidos falham antes do fetch (0.5636ms)
+✔ cancelamento, aprovação e rejeição usam rotas e motivo contratados (0.9705ms)
+✔ somente RESPONSAVEL recebe conveniência visual de aprovação (0.2271ms)
+✔ falha de rede e HTML inesperado não vazam detalhes nem repetem escrita (1.0312ms)
+✔ CSRF ausente não permite escrita e falha inicial pode ser recuperada (0.7595ms)
+✔ origem externa e correlação inválida falham antes de buscar token (0.6077ms)
+✔ escritas paralelas compartilham somente a busca de CSRF (0.9186ms)
+✔ guard ignora duplo envio, indica busy e restaura controles em sucesso e erro (2.1497ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 295.2509
+
+> test:browser
+> playwright test
+
+
+Running 30 tests using 1 worker
+
+  ok  1 [desktop] › tests\browser\acesso.spec.js:61:1 › login por teclado envia formulário e CSRF, depois consulta o perfil (1.4s)
+  ok  2 [desktop] › tests\browser\acesso.spec.js:81:1 › credenciais inválidas preservam formulário e mostram HTML como texto (1.2s)
+  ok  3 [desktop] › tests\browser\acesso.spec.js:96:1 › envios simultâneos de login executam uma escrita e indicam busy (1.4s)
+  ok  4 [desktop] › tests\browser\acesso.spec.js:111:1 › sessão expirada volta ao login sem loop nem dados privados (972ms)
+  ok  5 [desktop] › tests\browser\acesso.spec.js:122:1 › sessão já válida evita novo login e ignora destinos externos (898ms)
+  ok  6 [desktop] › tests\browser\acesso.spec.js:131:3 › navegação do perfil SOLICITANTE sem ações ou links indevidos (864ms)
+  ok  7 [desktop] › tests\browser\acesso.spec.js:131:3 › navegação do perfil RESPONSAVEL sem ações ou links indevidos (1.1s)
+  ok  8 [desktop] › tests\browser\acesso.spec.js:131:3 › navegação do perfil ADMINISTRADOR sem ações ou links indevidos (1.2s)
+  ok  9 [desktop] › tests\browser\acesso.spec.js:143:1 › logout usa CSRF e confirma saída somente após 204 (1.7s)
+  ok 10 [desktop] › tests\browser\acesso.spec.js:155:1 › falha no logout restaura botão e não afirma sessão encerrada (1.2s)
+  ok 11 [desktop] › tests\browser\acesso.spec.js:168:1 › envios simultâneos de logout executam uma escrita (1.2s)
+  ok 12 [desktop] › tests\browser\acesso.spec.js:182:1 › falha na leitura da sessão mantém painel oculto e permite nova leitura (906ms)
+  ok 13 [desktop] › tests\browser\acesso.spec.js:195:1 › perfil não reconhecido não revela painel nem ações (811ms)
+  ok 14 [desktop] › tests\browser\acesso.spec.js:202:1 › 403 no login não repete envio; nova ação busca outro token (1.2s)
+  ok 15 [desktop] › tests\browser\acesso.spec.js:218:1 › login e entrada cabem na viewport sem rolagem horizontal (1.5s)
+  ok 16 [mobile] › tests\browser\acesso.spec.js:61:1 › login por teclado envia formulário e CSRF, depois consulta o perfil (1.7s)
+  ok 17 [mobile] › tests\browser\acesso.spec.js:81:1 › credenciais inválidas preservam formulário e mostram HTML como texto (929ms)
+  ok 18 [mobile] › tests\browser\acesso.spec.js:96:1 › envios simultâneos de login executam uma escrita e indicam busy (942ms)
+  ok 19 [mobile] › tests\browser\acesso.spec.js:111:1 › sessão expirada volta ao login sem loop nem dados privados (806ms)
+  ok 20 [mobile] › tests\browser\acesso.spec.js:122:1 › sessão já válida evita novo login e ignora destinos externos (774ms)
+  ok 21 [mobile] › tests\browser\acesso.spec.js:131:3 › navegação do perfil SOLICITANTE sem ações ou links indevidos (833ms)
+  ok 22 [mobile] › tests\browser\acesso.spec.js:131:3 › navegação do perfil RESPONSAVEL sem ações ou links indevidos (774ms)
+  ok 23 [mobile] › tests\browser\acesso.spec.js:131:3 › navegação do perfil ADMINISTRADOR sem ações ou links indevidos (853ms)
+  ok 24 [mobile] › tests\browser\acesso.spec.js:143:1 › logout usa CSRF e confirma saída somente após 204 (1.3s)
+  ok 25 [mobile] › tests\browser\acesso.spec.js:155:1 › falha no logout restaura botão e não afirma sessão encerrada (949ms)
+  ok 26 [mobile] › tests\browser\acesso.spec.js:168:1 › envios simultâneos de logout executam uma escrita (1.0s)
+  ok 27 [mobile] › tests\browser\acesso.spec.js:182:1 › falha na leitura da sessão mantém painel oculto e permite nova leitura (778ms)
+  ok 28 [mobile] › tests\browser\acesso.spec.js:195:1 › perfil não reconhecido não revela painel nem ações (605ms)
+  ok 29 [mobile] › tests\browser\acesso.spec.js:202:1 › 403 no login não repete envio; nova ação busca outro token (972ms)
+  ok 30 [mobile] › tests\browser\acesso.spec.js:218:1 › login e entrada cabem na viewport sem rolagem horizontal (1.2s)
+
+  30 passed (37.5s)
+Exit code: 0

@@ -1,0 +1,46 @@
+{
+  "data": "2026-11-10",
+  "escopo": "Reexecução da Marcos-2 em outra máquina; navegador com API controlada, sem integração real do backend",
+  "commit_testado": "5036ed3",
+  "ambiente": {
+    "sistema": "Windows x64",
+    "node": "v24.22.2",
+    "node_instalacao": "MSI oficial, instalado em C:/Program Files/nodejs após validação SHA256 e assinatura OpenJS Foundation",
+    "npm": "11.19.1",
+    "playwright": "1.65.0",
+    "chrome": "157.0.8103.39",
+    "canal": "chrome",
+    "headless": true
+  },
+  "comando": "npm run build",
+  "viewports": {
+    "desktop": {
+      "width": 1366,
+      "height": 900
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844
+    }
+  },
+  "gates": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unitarios": {
+      "pass": 21,
+      "fail": 0
+    },
+    "navegador": {
+      "startTime": "2026-11-11T01:06:35.247Z",
+      "duration": 37485.077999999994,
+      "expected": 30,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "build_exit_code": 0
+  },
+  "revisao_independente": "PENDENTE",
+  "ci": "PENDENTE",
+  "integracao_real": "PENDENTE"
+}

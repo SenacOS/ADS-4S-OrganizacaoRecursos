@@ -1,0 +1,58 @@
+{
+  "dataLocal": "2026-11-12",
+  "zona": "America/Sao_Paulo",
+  "operacao": "sincronizacao_local_da_Marcos-4",
+  "branch": "feature/marcos-4-aprovacoes",
+  "headAnterior": "df5706327ce76aac67cec3935b9749ec96e68573",
+  "developIncorporada": "23cf839b6684ee5b53b7d85b5b1aa7964e83fbdd",
+  "mergeAutomaticoSemConflitos": true,
+  "frontend": {
+    "arquivosConferidos": 45,
+    "alteracoesEmProdutoTestesDependenciasOuConfiguracao": false,
+    "sha256ListaDeBlobsGit": "ff1790d8aa3b11183a52938c385a54f9f4757323893a40437527dec3ab11bf89"
+  },
+  "comando": "PLAYWRIGHT_CHANNEL=chrome; npm.cmd run build",
+  "buildExitCode": 0,
+  "lint": "PASS",
+  "typecheck": "PASS",
+  "unitarios": {
+    "aprovados": 68,
+    "falhas": 0,
+    "ignorados": 0
+  },
+  "navegador": {
+    "startTime": "2026-11-12T13:53:30.573Z",
+    "duration": 143184.598,
+    "expected": 238,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0,
+    "projetos": {
+      "desktop": 119,
+      "mobile": 119
+    },
+    "tentativas": 238,
+    "retries": 0
+  },
+  "ambiente": {
+    "sistema": "win32",
+    "arquitetura": "x64",
+    "node": "v26.13.0",
+    "npm": "11.20.0",
+    "playwright": "1.65.0",
+    "chromeInstalado": "157.0.8103.78",
+    "canal": "chrome",
+    "headless": true
+  },
+  "log": {
+    "arquivo": "docs/testes/marcos-sincronizacao-2026-11-12-verificacao.txt",
+    "sha256": "497e4dc79d9354109d1570b8a3f67c7c4393451cf6191a57533068141d9e7bc8",
+    "normalizacao": "UTF-8 e remocao de espacos finais do terminal; original preservado no backup local"
+  },
+  "backupLocalIgnorado": ".aiox-core/local/backups/marcos-sincronizacao-20261112T135039Z",
+  "e2eBackendReal": "NAO_EXECUTADO",
+  "mavenNestaMaquina": "NAO_EXECUTADO",
+  "revisaoIndependente": "NAO_REALIZADA_NESTA_SINCRONIZACAO",
+  "aceiteVisualMarcos4": "PENDENTE_DE_REGISTRO",
+  "publicacaoRemota": "NAO_EXECUTADA_NESTA_ETAPA"
+}

@@ -1,0 +1,168 @@
+{
+  "data": "2026-11-11",
+  "branch": "feature/marcos-4-aprovacoes",
+  "base": "f7360a238ac36ea672955c421ee44557436f1c7c",
+  "escopo": "Conciliação de clientes frontend das etapas 4 e 5 com API controlada; não é E2E com backend real",
+  "ambiente": {
+    "sistema": "Windows x64",
+    "node": "v24.22.2",
+    "npm": "11.19.1",
+    "playwright": "1.65.0",
+    "chrome": "157.0.8103.39",
+    "channel": "chrome",
+    "headless": true
+  },
+  "gates": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unitarios": {
+      "pass": 68,
+      "fail": 0
+    },
+    "navegador": {
+      "startTime": "2026-11-11T22:22:01.574Z",
+      "duration": 481361.77800000005,
+      "expected": 238,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "navegadorPorArquivo": {
+      "acesso.spec.js": 30,
+      "administracao-recursos.spec.js": 54,
+      "aprovacoes.spec.js": 48,
+      "movimentacoes.spec.js": 60,
+      "recursos.spec.js": 46
+    },
+    "navegadorPorProjeto": {
+      "desktop": 119,
+      "mobile": 119
+    },
+    "buildExitCode": 0
+  },
+  "primeiraExecucao": {
+    "pass": 237,
+    "fail": 1,
+    "unitarios": 68,
+    "duration": 877622.043,
+    "motivo": "Timeout de 15000ms na preparação do context do Chrome; corpo do teste não executado",
+    "artefatosPreservados": true
+  },
+  "diagnostico": {
+    "pass": 6,
+    "repeatEach": 3,
+    "projetos": [
+      "desktop",
+      "mobile"
+    ],
+    "durationSeconds": 18.8,
+    "codigoOuTimeoutAlterados": false
+  },
+  "codigoSha256": {
+    "backend/src/main/resources/static/css/app.css": "ca6308caba0036def57da8d939fec0f34190f9c78474e3d834c6a9f58b131f5d",
+    "backend/src/main/resources/static/js/aprovacoes.js": "6edd57333371c2502bfd269ff5721bf5c90dc111f7a29f2fe97799d7bdbd828d",
+    "backend/src/main/resources/static/js/aprovacoes-page.js": "0fec41d0ed127d952d53f13438331cc00b5992d862ba8a294e99e3097db894db",
+    "backend/src/main/resources/static/js/datas.js": "73fd784166bae8ab21e295773e1728bd4d1d48bbfd98ab5373325de972692797",
+    "backend/src/main/resources/static/js/navegacao.js": "52f3d3e67ec8d3c2311c07fc15a78abbcd15fed399982656a3931241b51f5175",
+    "backend/src/main/resources/static/pages/aprovacoes.html": "8e2b38c5a28afd2ab6e7743b8712b85255d613b1630a7260f282fb2194da32ef",
+    "tests/browser/aprovacoes.spec.js": "687b4a2017ebf26339234fa308848b06abb28d5acb9d630e982f10a47ea8210a",
+    "tests/browser/acesso.spec.js": "1900cdcc593b4f22d24cfc35d157fc3fb13825034d68594a4f8e2b225163872f",
+    "tests/unit/frontend/aprovacoes.test.js": "f8620745f3d0e284d15bb71b7cd9e119467e4c1f114f684fb7aa5f970077f426"
+  },
+  "capturas": [
+    {
+      "file": "fila-desktop.png",
+      "width": 1366,
+      "height": 2002,
+      "sha256": "ddf94e956011e102bec73b2e9df3849f49960846b07e59676337e679e62c72a9"
+    },
+    {
+      "file": "fila-mobile.png",
+      "width": 390,
+      "height": 3056,
+      "sha256": "3b1d53f2d2c656ce62bc676ff5727cc71cb40f9a998363cc90f3bac37a3bb92a"
+    },
+    {
+      "file": "decisao-desktop.png",
+      "width": 1366,
+      "height": 1319,
+      "sha256": "111386195b5f0d41596112e69b3989a9efb3665f9f93d17bc553732beab7d684"
+    },
+    {
+      "file": "decisao-mobile.png",
+      "width": 390,
+      "height": 1817,
+      "sha256": "7af05691178d00b20dcedddf14eac23b9abd77617affffac5e9e5adab60815ee"
+    }
+  ],
+  "validacaoHumana": "REEXECUÇÃO AUTOMATIZADA DO AUTOR APROVADA; REVISÃO VISUAL NÃO DESCRITA SEPARADAMENTE",
+  "revisaoIndependente": "PENDENTE",
+  "CI": "PENDENTE",
+  "backendReal": "PENDENTE",
+  "CodeRabbit": "INDISPONÍVEL: CLI ausente e WSL não instalado",
+  "commit": "AUTORIZADO POR MARCOS; REGISTRO PREPARADO ANTES DO COMMIT",
+  "push": "NÃO REALIZADO",
+  "execucoesDoAutor": [
+    {
+      "recebidoEm": "2026-11-11",
+      "dataDeExecucaoInformada": null,
+      "pasta": "C:/Users/marco/Documents/QS_Project/ADS-4S-OrganizacaoRecursos",
+      "escopo": "Marcos-4 anterior à conciliação, na pasta original; não inclui administração/movimentações",
+      "comando": "npm run build",
+      "lint": "PASS_PELA_SAIDA",
+      "typecheck": "PASS_PELA_SAIDA",
+      "unitarios": {
+        "pass": 43,
+        "fail": 0
+      },
+      "navegador": {
+        "pass": 124,
+        "duracaoInformada": "2.2m"
+      },
+      "exitCodeInformado": null,
+      "arquivo": "docs/testes/marcos-4-conciliacao-verificacao-marcos-pasta-original.txt",
+      "sha256": "23f8711d64c4ac5293bf0ee27d9a54cba74d49b2df424a012769eeb357ec126d",
+      "validacaoConjuntoConciliado": false,
+      "aceiteVisualInformado": false
+    },
+    {
+      "recebidoEm": "2026-11-11",
+      "dataDeExecucaoInformada": null,
+      "pasta": "C:/Users/marco/Documents/QS_Project/ADS-4S-OrganizacaoRecursos/.aiox-core/local/wt/m4",
+      "escopo": "Conjunto Marcos-4 conciliado com administração e movimentações",
+      "comando": "npm run build",
+      "lint": "PASS_PELA_SAIDA",
+      "typecheck": "PASS_PELA_SAIDA",
+      "unitarios": {
+        "pass": 68,
+        "fail": 0,
+        "skipped": 0
+      },
+      "navegador": {
+        "pass": 238,
+        "resultadosNumeradosConferidos": 238,
+        "duracaoInformada": "6.3m"
+      },
+      "exitCodeInformado": null,
+      "arquivo": "docs/testes/marcos-4-conciliacao-verificacao-marcos.txt",
+      "sha256": "f03967aa1ef898963bf8defb38a0268bc49b0f1152a2f6b105b34c5e33126dbb",
+      "validacaoConjuntoConciliado": true,
+      "aceiteVisualInformado": false,
+      "versoesCanalCommitNaoInformados": true
+    }
+  ],
+  "reexecucaoAutomatizadaPeloMarcos": "APROVADA_PELA_SAIDA_RECEBIDA",
+  "autorizacaoCommit": {
+    "recebidaEm": "2026-11-11",
+    "mensagem": "vamos fazer o commit",
+    "escopo": "Commit local do incremento Marcos-4 sobre movimentações",
+    "pushAutorizadoNestaSolicitacao": false,
+    "revisaoVisualDetalhadaInformada": false
+  },
+  "normalizacaoDocumental": {
+    "arquivo": "docs/planejamento/relatorio-marcos-2026-11-11.md",
+    "quebrasMarkdownNormalizadas": 6,
+    "alteracao": "Duplo espaço de quebra de linha substituído por barra invertida Markdown; texto preservado",
+    "originalIntegral": "Pasta original e backup .aiox-core/local/backups/marcos-4-20261111T215943Z/files/docs/planejamento/relatorio-marcos-2026-11-11.md"
+  }
+}

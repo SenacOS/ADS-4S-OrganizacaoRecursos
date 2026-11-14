@@ -1,0 +1,144 @@
+# Contrato da API de reservas
+
+## Cancelamento — `POST /api/reservas/{id}/cancelamento` (Q5 vigente)
+
+**Corpo JSON opcional:**
+
+```json
+{ "motivo": "Sala indisponível por evento institucional" }
+```
+
+| Campo | Tipo | Regra |
+|---|---|---|
+| `motivo` | string | Opcional no contrato; máximo de 500 caracteres. A obrigatoriedade depende do ator e da reserva. |
+
+**Quando a justificativa é obrigatória:** quando o ator autenticado é `ADMINISTRADOR` e não é o solicitante da reserva (cancelamento de reserva de terceiro). Depois de aparado (`strip`), o texto deve ser não vazio. O dono cancela sem justificativa; se enviar um motivo, ele também é aparado e gravado. O Administrador que cancela a própria reserva está na condição de dono e não precisa justificar.
+
+**Regras e persistência:**
+
+- Podem cancelar o dono ou o Administrador, somente em `SOLICITADA` ou `APROVADA`, conforme a matriz de estados do ADR-007.
+- Identidade e papel são obtidos exclusivamente da sessão autenticada; campos adicionais no corpo não definem o ator.
+- A ordem de validação no domínio é: permissão, justificativa e estado.
+- Sem justificativa válida quando obrigatória: HTTP `400`, código `REQUISICAO_INVALIDA`, mensagem HTTP `Requisição inválida.`. O domínio lança `IllegalArgumentException`; o handler padroniza a mensagem. Valor acima de 500 caracteres também retorna `400/REQUISICAO_INVALIDA`, com detalhe de validação do DTO.
+- A justificativa é persistida em `reservas.motivo_cancelamento`, criada por `V7__reserva_motivo_cancelamento.sql` como `VARCHAR(500) NULL`. Não reutiliza `motivo_decisao`, reservado à aprovação/rejeição.
+- O cancelamento mantém a reserva e os vínculos e preserva a auditoria e a notificação transacionais.
+
+**Compatibilidade do cliente — etapa7 local:** `backend/src/main/resources/static/js/reservas.js` envia `{ "motivo": "..." }` quando a justificativa é informada. A tela solicita texto não branco, máximo500 e confirmação ao Administrador em reserva de terceiro; o dono, inclusive Administrador dono, mantém cancelamento sem corpo. Cliente/tela implementados e aceitos por Marcos em13/11/2026, com [8 cenários Q5 reais, gates e matriz](../testes/marcos-7-resultados.md); têm publicação autorizada em13/11/2026; revisão/integração da equipe seguem seu ciclo próprio. O cliente sem corpo descrito pelo #44 corresponde ao snapshot integrado `b73c501`, anterior a esse ajuste local. [Integração frontend](frontend-integracao.md).
+
+**DTO e histórico:** o DTO atual de leitura/escrita não expõe `motivo_cancelamento`. Não exigir eco do motivo nem inventar sua exibição no frontend. A persistência separada de `motivo_decisao`, o estado e as trilhas de auditoria/outbox são conferidos por SELECT nos cenários reais; nenhuma alteração autoral Java/SQL integra a etapa7.
+
+**Alinhamento dos trechos históricos:** a seção “Revisão de cliente” mais abaixo foi escrita antes dos PRs #26/#27. Os GETs de listagem/detalhe e a fila/Q9 já estão integrados; os contratos vigentes são [`reservas-consulta-contrato.md`](reservas-consulta-contrato.md), [`reservas-leitura-contrato.md`](reservas-leitura-contrato.md) e [`reservas-politica-leitura-q9.md`](reservas-politica-leitura-q9.md).
+
+**Mapeamento atual de erros de persistência:** `PessimisticLockingFailureException` retorna HTTP `409/TENTE_NOVAMENTE`; `DataIntegrityViolationException` retorna HTTP `409/INTEGRIDADE_DOS_DADOS`. A linha de deadlock/timeout na tabela de erros abaixo é um registro histórico anterior à implementação desses mapeamentos.
+
+## Fechamento delegado — 13/11/2026
+
+Marcos comunicou carta branca da equipe e adotou as decisões do [ADR-007](../arquitetura/adr/ADR-007-fechamento-contratos-vinculos-rf11.md). Os contratos atuais, incluindo vínculo com todos os recursos, ficam formalizados **por decisão delegada de Marcos**, sem atribuir assinaturas individuais aos demais integrantes. Datas com offset, PATCH conjunto,409/FORA_DO_EXPEDIENTE, estados/perfis de edição/cancelamento e escopos/erros Q9 permanecem como implementados; Q1/Q3/Q8 preservadas.
+
+Processo de vínculos definido no [runbook restrito](../operacao/vinculos-responsaveis.md), com [SQL reutilizável](../operacao/vinculos-responsaveis.sql). Administrador autoriza, operador SQL executa pares explícitos com referência/registro; concessão exige RESPONSAVEL e recurso ativos, revogação remove pares obsoletos e é idempotente.
+
+RF11 adotada no **modo simulado real** previsto no ADR-006: base/processo exclusivos, worker e GatewayNotificacaoPadrao reais, URL vazia, log rastreável e ENVIADA na outbox. Sem envio externo. [Procedimento de demonstração](../operacao/demonstracao-fechamento.md), [story](../stories/marcos-fechamento-delegado-1.md) e [resultados/limites](../testes/marcos-fechamento-delegado-1-resultados.md). A execução local não é implantação no ambiente compartilhado.
+
+As menções anteriores a ratificação por integrante, processo indefinido ou modo RF11 aguardando decisão são históricas e foram superadas por esta delegação. Resultados antigos conservam sua origem. Restam revisão do incremento pelo autor, commit/publicação quando solicitados e revisão/integração dos PRs; não há fechamento global de todos os RFs por inferência.
+
+
+**Atualização13/11/2026, developa0c0481:** PR#30/Q3 impede o Responsável de aprovar reserva da qual é solicitante, mesmo com vínculo completo; PR#31/Q1 torna início, conclusão e não comparecimento exclusivos de RESPONSAVEL. As regras foram [revalidadas por HTTP real e persistência](../testes/marcos-qualitygate-1-consolidacao-resultados.md). Os registros anteriores abaixo mantêm seu contexto; os perfis das rotas na tabela foram conciliados com o servidor atual.
+
+**Estado atualizado em 12/11/2026:** datas, PATCH conjunto e 409 aceitos por Marcos para o frontend em 10/11. Autenticação integrada; PRs #26/#27 entregaram consultas e Q9 na develop `4cea177`, incorporada à base `f9c4912`. [Contrato de consultas](reservas-consulta-contrato.md) e [provas reais da interface de edição/cancelamento](../testes/marcos-3-consulta-edicao-resultados.md). Os 8 endpoints de escrita continuam desligados por padrão (`reservas.api.enabled=false`); os testes isolados ativam a API somente no processo local com provedores reais. Isso não altera padrões de implantação nem comprova todos os estados, concorrência ou entrega de notificações. Ratificações coletivas/revisão da equipe permanecem separadas.
+
+**Leitura em contrato próprio:** `GET /api/reservas` e `GET /api/reservas/{id}` estão disponíveis conforme o [contrato de consultas](reservas-consulta-contrato.md), com Q9 aplicada no servidor. O endpoint de pesquisa/disponibilidade de recursos é `GET /api/recursos`; não há novo endpoint de disponibilidade de reserva. A [política Q9](reservas-politica-leitura-q9.md) continua distinta da gestão administrativa dos vínculos.
+
+Convenções (ADR-004, ADR-006): sessão com cookie HttpOnly, CSRF no cabeçalho informado por `GET /api/auth/csrf` (`{token,header}`; não fixar o nome no cliente), JSON em UTF-8 nas operações de domínio, datas ISO 8601 **com offset** (`2026-11-10T13:00:00-03:00`), persistidas em UTC, exibidas em `America/Sao_Paulo`.
+
+## Autenticação — atualização comunicada em 10/11/2026
+
+| Método e rota | Envio / retorno |
+|---|---|
+| GET /api/auth/csrf | Retorna {token,header}; disponível antes do login |
+| POST /api/auth/login | application/x-www-form-urlencoded: email e senha; 204 sem corpo ou 401/CREDENCIAIS_INVALIDAS |
+| POST /api/auth/logout | 204 sem corpo |
+| GET /api/auth/me | Retorna {usuarioId,email,papel} |
+
+Todas as escritas, inclusive login/logout, usam o cabeçalho CSRF retornado pelo servidor e credentials same-origin. O cookie é HttpOnly. Renovar o token após login/logout. Não usar as rotas ilustrativas antigas do PDF. Detalhes de consumo em [frontend-integracao.md](frontend-integracao.md).
+
+## Endpoints
+
+| Método e rota | Perfil | Serviço | Sucesso |
+|---|---|---|---|
+| `POST /api/reservas` | autenticado | `criar` | 201 |
+| `PATCH /api/reservas/{id}` | dono | `editar` | 200 |
+| `POST /api/reservas/{id}/cancelamento` | dono ou Administrador | `cancelar` | 200 |
+| `POST /api/reservas/{id}/aprovacao` | Responsável, exceto o próprio solicitante (Q3) | `aprovar` | 200 |
+| `POST /api/reservas/{id}/rejeicao` | Responsável | `rejeitar` | 200 |
+| `POST /api/reservas/{id}/inicio` | Responsável (Q1) | `iniciarUso` | 200 |
+| `POST /api/reservas/{id}/conclusao` | Responsável (Q1) | `concluir` | 200 |
+| `POST /api/reservas/{id}/nao-comparecimento` | Responsável (Q1) | `registrarNaoComparecimento` | 200 |
+
+## Alterar reserva
+
+`PATCH /api/reservas/{id}` **substitui** `inicio`, `fim` e `recursosIds` juntos; os três são obrigatórios (mesmo corpo do POST). Não há alteração parcial.
+
+Comportamento atual de `Reserva.reagendar`, adotado sob delegação de Marcos no ADR-007: somente o dono em SOLICITADA ou APROVADA comum, sem mudar a necessidade de aprovação. Comentários históricos PROPOSTO no código conservam sua origem; a decisão atual é a registrada no ADR. Cancelamento exige dono ou Administrador e transição SOLICITADA/APROVADA para CANCELADA. Consulta autorizada não amplia essas permissões. A interface obtém detalhe completo antes da ação e mantém integralmente o ISO de cada data não editada e todos os recursos originais. [Consumo e confirmação](frontend-integracao.md#consulta-edição-e-cancelamento--complemento-da-marcos-3).
+
+## Criar reserva
+
+```http
+POST /api/reservas
+Content-Type: application/json
+X-CSRF-TOKEN: <token>
+
+{ "inicio": "2026-11-10T13:00:00-03:00", "fim": "2026-11-10T14:00:00-03:00", "recursosIds": [101, 305, 702] }
+```
+
+Resposta 201:
+
+```json
+{ "id": 1001, "solicitanteId": 7, "status": "APROVADA", "restrita": false,
+  "inicio": "2026-11-10T13:00:00-03:00", "fim": "2026-11-10T14:00:00-03:00",
+  "recursosIds": [101, 305, 702], "motivoDecisao": null }
+```
+
+Respostas trazem datas em `America/Sao_Paulo` com offset (ADR-006); o banco guarda UTC. Reserva com recurso restrito responde `"status": "SOLICITADA"` e `"restrita": true`; ela já bloqueia a agenda. O solicitante é sempre o usuário autenticado; **não existe** campo `solicitanteId` no corpo.
+
+## Rejeição
+
+```json
+{ "motivo": "Equipamento reservado para a coordenação." }
+```
+`motivo` é obrigatório (400 se vazio).
+
+## Revisão de cliente — decisões adotadas por Marcos
+
+O cliente aceita datas ISO com offset e PATCH com substituição conjunta de inicio/fim/recursosIds. Mantém-se 409/FORA_DO_EXPEDIENTE. A necessidade de leitura da fila, campos legíveis, filtros e paginação está [especificada para implementação](reservas-leitura-contrato.md), sem declarar o endpoint implementado ou as revisões dos demais integrantes aprovadas. Ver [decisões completas](../planejamento/marcos-plano-de-acao.md#respostas-adotadas-para-o-contrato).
+
+O cabeçalho X-CSRF-TOKEN dos exemplos HTTP é ilustrativo: usar o nome retornado pelo endpoint de CSRF. Ações de aprovação/rejeição continuam exclusivas de RESPONSAVEL; não atribuir a ADMINISTRADOR por hierarquia visual.
+
+## Erros
+
+Formato único: `{ "codigo": "...", "mensagem": "...", "correlationId": "..." }`.
+
+| Exceção de domínio | HTTP | `codigo` |
+|---|---|---|
+| `IntervaloInvalidoException`, `IllegalArgumentException`, validação de DTO, JSON malformado, data fora do ISO 8601, id não numérico | 400 | `REQUISICAO_INVALIDA` |
+| (sem sessão) | 401 | `NAO_AUTENTICADO` |
+| `OperacaoNaoPermitidaException` | 403 | `OPERACAO_NAO_PERMITIDA` |
+| `ReservaNaoEncontradaException`, `RecursoNaoEncontradoException` | 404 | `NAO_ENCONTRADO` |
+| `ConflitoDisponibilidadeException` | 409 | `RECURSO_INDISPONIVEL` |
+| `RecursoIndisponivelException` (recurso desativado) | 409 | `RECURSO_DESATIVADO` |
+| `ForaDoExpedienteException` | 409 (aceito pelo cliente) | `FORA_DO_EXPEDIENTE` |
+| `TransicaoInvalidaException` | 409 | `TRANSICAO_INVALIDA` |
+| `AlteracaoConcorrenteException` (reserva mudou durante o bloqueio) | 409 | `TENTE_NOVAMENTE` |
+| método sem mapeamento | 405 | `METODO_NAO_PERMITIDO` |
+| `Content-Type` não JSON | 415 | `TIPO_DE_CONTEUDO_NAO_SUPORTADO` |
+| deadlock/timeout de lock do banco | a mapear quando o adaptador do Fausto existir (409 ou 503) | `TENTE_NOVAMENTE` |
+| qualquer outra | 500 | `ERRO_INTERNO` (detalhes só no log) |
+
+Mensagens nunca incluem SQL, stack trace nem dados de outros usuários. O 409 de conflito não revela quem ocupa o recurso.
+
+## Correlação
+
+O cliente pode enviar `X-Correlation-Id` (1 a 64 caracteres entre letras, números, `.`, `_` e `-`); ele é devolvido no erro. Valores fora desse padrão são trocados por um UUID. Hoje o ID de auditoria e o ID do erro HTTP são diferentes (a unificar com Débora).
+
+## Idempotência (PROPOSTO, **não implementado**)
+
+Cabeçalho opcional `Idempotency-Key` em `POST /api/reservas`: repetir a mesma chave do mesmo usuário devolve a reserva já criada em vez de uma segunda. Escopo e prazo a definir (S3).

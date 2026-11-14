@@ -1,0 +1,246 @@
+{
+  "inicio": "2026-11-12T15:32:44.388Z",
+  "baseURL": "http://127.0.0.1:18080",
+  "base": "da5881bcb65dcf048678b784ed14ae3013feabc2",
+  "branch": "fix/marcos-qualidade-frontend",
+  "arvore": "worktree sem commit; hashes dos arquivos efetivamente usados abaixo",
+  "ferramentas": {
+    "java": "21.0.13+9",
+    "maven": "3.9.16",
+    "mysql": "8.4.13",
+    "chrome": "157.0.8103.78"
+  },
+  "camadas": "API HTTP real e Chrome headless real; sem route/intercept/mock. SQL somente SELECT para conferir persistência.",
+  "cenarios": [
+    {
+      "nome": "Flyway e identidade da base isolada",
+      "camada": "SQL real",
+      "inicio": "2026-11-12T15:32:45.484Z",
+      "evidencia": {
+        "migracoes": [
+          "1\titem18\t1",
+          "2\tperfil usuarios\t1",
+          "3\tauditoria\t1",
+          "4\tnotificacoes\t1",
+          "5\tindice fila aprovacao\t1"
+        ],
+        "banco": "qs_marcos_e2e",
+        "porta": 13307
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Arquivos servidos pelo JAR correspondem à fonte testada",
+      "camada": "HTTP real + SHA256",
+      "inicio": "2026-11-12T15:32:45.587Z",
+      "evidencia": {
+        "datas.js": "4aa2ca0259b58e808e15c7c9eca3b3f3048e506c3fdb6a84ead658635a2a5cd7",
+        "administracao-recursos.js": "b3885630bcaaad766275d14599855d657753e7cfe80ed8df2fad90f77589e70a"
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Sem sessão retorna 401 NAO_AUTENTICADO",
+      "camada": "HTTP real",
+      "inicio": "2026-11-12T15:32:45.624Z",
+      "evidencia": {
+        "status": 401,
+        "codigo": "NAO_AUTENTICADO"
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Bootstrap local e cadastro dos outros dois perfis",
+      "camada": "HTTP real",
+      "inicio": "2026-11-12T15:32:45.635Z",
+      "evidencia": {
+        "perfis": [
+          "ADMINISTRADOR",
+          "SOLICITANTE",
+          "RESPONSAVEL"
+        ],
+        "usuariosIds": {
+          "admin": 1,
+          "solicitante": 2,
+          "responsavel": 3
+        }
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "CSRF real e escritas proibidas por perfil",
+      "camada": "HTTP real",
+      "inicio": "2026-11-12T15:32:46.003Z",
+      "evidencia": {
+        "semCsrf": 403,
+        "solicitanteCadastrandoRecurso": 403,
+        "administradorRetirando": 403
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Expediente e recursos exclusivos da rodada",
+      "camada": "HTTP real; preparação",
+      "inicio": "2026-11-12T15:32:46.027Z",
+      "evidencia": {
+        "material": 10,
+        "restrito": 11,
+        "janelas": 7
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Login e cookie HttpOnly nos três perfis",
+      "camada": "Chrome + HTTP reais",
+      "inicio": "2026-11-12T15:32:46.417Z",
+      "evidencia": {
+        "perfis": 3,
+        "cookie": {
+          "nome": "JSESSIONID",
+          "httpOnly": true,
+          "sameSite": "Lax",
+          "ambiente": "HTTP loopback"
+        }
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Cadastro dos três tipos e edição de competências",
+      "camada": "Chrome + HTTP + MySQL reais",
+      "inicio": "2026-11-12T15:32:48.554Z",
+      "evidencia": {
+        "sala": 12,
+        "docente": 13,
+        "material": 14
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Expediente completo salvo sem perda de frações",
+      "camada": "Chrome + HTTP reais",
+      "inicio": "2026-11-12T15:32:49.345Z",
+      "evidencia": {
+        "janelas": 7,
+        "fim": "23:59:59.999999"
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Criar/cancelar bloqueio e desativar sala",
+      "camada": "Chrome + HTTP reais",
+      "inicio": "2026-11-12T15:32:49.462Z",
+      "evidencia": {
+        "bloqueio": 2,
+        "status": "CANCELADO",
+        "salaDesativada": 12
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Pesquisar e criar reserva comum com offset de São Paulo",
+      "camada": "Chrome + HTTP reais",
+      "inicio": "2026-11-12T15:32:50.017Z",
+      "evidencia": {
+        "id": 5,
+        "status": "APROVADA",
+        "inicio": "2026-11-12T12:30:00-03:00",
+        "fim": "2026-11-12T13:15:00-03:00",
+        "recursosIds": [
+          10
+        ]
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Reserva restrita, conflito e PATCH/cancelamento conhecidos por ID",
+      "camada": "HTTP real; não é tela de edição",
+      "inicio": "2026-11-12T15:32:50.484Z",
+      "evidencia": {
+        "restrita": 6,
+        "criacao": "SOLICITADA",
+        "patch": 200,
+        "cancelamento": 200,
+        "conflito": 409
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Retirada e devolução pelo Responsável",
+      "camada": "Chrome + HTTP reais",
+      "inicio": "2026-11-12T15:32:50.573Z",
+      "evidencia": {
+        "movimentacao": 3,
+        "reserva": 5,
+        "devolvidoPor": 3,
+        "atrasoSegundos": 0
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Fila/lista/detalhe e autorização Q9",
+      "estado": "BLOQUEADO",
+      "motivo": "Endpoints HTTP de leitura ausentes nesta base; sem E2E de aprovação/rejeição pela fila nem de reabertura de edição/cancelamento."
+    },
+    {
+      "nome": "GETs de reservas ausentes são registrados como bloqueio",
+      "camada": "HTTP real; diagnóstico",
+      "inicio": "2026-11-12T15:32:51.294Z",
+      "evidencia": [
+        {
+          "rota": "/api/reservas",
+          "status": 405
+        },
+        {
+          "rota": "/api/reservas/5",
+          "status": 405
+        },
+        {
+          "rota": "/api/reservas?status=SOLICITADA&pagina=0&tamanho=20",
+          "status": 405
+        }
+      ],
+      "estado": "PASS"
+    },
+    {
+      "nome": "Logout real dos três perfis e ausência de erros JavaScript",
+      "camada": "Chrome + HTTP reais",
+      "inicio": "2026-11-12T15:32:51.308Z",
+      "evidencia": {
+        "logouts": 3,
+        "meAposLogout": 401,
+        "errosJavaScript": 0
+      },
+      "estado": "PASS"
+    },
+    {
+      "nome": "Persistência, auditoria e outbox real",
+      "camada": "SELECT no MySQL real",
+      "inicio": "2026-11-12T15:32:52.079Z",
+      "evidencia": {
+        "recursos": "MATERIAL\tE2E-material-9ff8119349\t1\r\nMATERIAL\tE2E-restrito-9ff8119349\t1\r\nSALA\tUI-SALA-9ff8119349\t0\r\nPROFESSOR\tUI-PROFESSOR-9ff8119349\t1\r\nMATERIAL\tUI-MATERIAL-9ff8119349\t1",
+        "reservas": "5\tAPROVADA\t2\r\n6\tCANCELADA\t2",
+        "movimentacao": "3\t5\t3\t3\t1\t0",
+        "auditoria": "EXPEDIENTE\tEDICAO\t1\r\nRECURSO\tCRIACAO\t2",
+        "notificacoes": "MATERIAL_DEVOLVIDO\tPENDENTE\t1\r\nRESERVA_APROVADA\tPENDENTE\t1\r\nRESERVA_CANCELADA\tPENDENTE\t1\r\nRESERVA_CRIADA\tPENDENTE\t2"
+      },
+      "estado": "PASS"
+    }
+  ],
+  "hashes": {
+    "backend/src/main/resources/static/js/administracao-recursos.js": "b3885630bcaaad766275d14599855d657753e7cfe80ed8df2fad90f77589e70a",
+    "backend/src/main/resources/static/js/datas.js": "4aa2ca0259b58e808e15c7c9eca3b3f3048e506c3fdb6a84ead658635a2a5cd7",
+    "tests/unit/frontend/administracao-recursos.test.js": "72aef55369da2448e7656901c3dc995a885c278acfaf05ab4f793cf952b5515a",
+    "tests/unit/frontend/recursos-datas.test.js": "993b549df6cba481698b9db37d695258e69886d49fac5e3ec68f5ba1c4ab30c5",
+    "tests/unit/frontend/movimentacoes.test.js": "9db80b2ec8e74da65bf4bbae83b67b2d8696648ea2d35bf75b9127a54b967e43",
+    "tests/browser/movimentacoes.spec.js": "e899ad2cfcf9a74c6a843e21b680911d7599837b89f36921d2bebdc8891d6dc1",
+    "tests/e2e-local/controle.cjs": "833a5a89f335a10595873420fe3f0d4459dafee995aa1fc97b73447f8a35eed6",
+    "tests/e2e-local/validar.cjs": "349ba2a6dbe57d739366cfe1c63b514de34b94b58117fea9b8c5833bcc9aba90",
+    "backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar": "c97b351c5ed00dac1c882276782d0aa4e6035d9981641a702265f30aa7eeff10"
+  },
+  "fim": "2026-11-12T15:32:52.445Z",
+  "resumo": {
+    "PASS": 16,
+    "FAIL": 0,
+    "BLOQUEADO": 1
+  }
+}

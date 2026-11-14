@@ -1,0 +1,49 @@
+Execução local em 10/11/2026 — branch feature/marcos-base-frontend
+Node v24.22.2 / npm 11.19.1 / Windows PowerShell
+Comando: npm run build
+Exit code: 0
+
+> build
+> npm run lint && npm run typecheck && npm test
+
+
+> lint
+> eslint backend/src/main/resources/static/js tests/unit/frontend eslint.config.js
+
+
+> typecheck
+> tsc --project jsconfig.json
+
+
+> test
+> node --test tests/unit/frontend/*.test.js
+
+✔ GET usa sessão e não busca CSRF; me devolve perfil (27.516ms)
+✔ POST envia CSRF dinâmico e sessão (0.7796ms)
+✔ PUT envia CSRF dinâmico e sessão (0.4434ms)
+✔ PATCH envia CSRF dinâmico e sessão (0.3771ms)
+✔ DELETE envia CSRF dinâmico e sessão (0.3807ms)
+✔ login codifica email/senha como formulário e aceita 204; logout renova CSRF (2.9372ms)
+✔ credenciais inválidas ficam no login; sessão ausente aciona redirecionamento (1.3687ms)
+✔ erro 400 preserva contrato e não repete escrita (0.8597ms)
+✔ erro 403 preserva contrato e não repete escrita (0.3966ms)
+✔ erro 404 preserva contrato e não repete escrita (0.3977ms)
+✔ erro 409 preserva contrato e não repete escrita (0.3431ms)
+✔ 403 invalida token para próxima ação explícita, sem replay da anterior (0.528ms)
+✔ PATCH completo preserva offset e remove campos de identidade/status (0.4666ms)
+✔ datas sem offset, fim não posterior e recursos inválidos falham antes do fetch (0.3138ms)
+✔ cancelamento, aprovação e rejeição usam rotas e motivo contratados (0.6075ms)
+✔ somente RESPONSAVEL recebe conveniência visual de aprovação (0.1276ms)
+✔ falha de rede e HTML inesperado não vazam detalhes nem repetem escrita (0.7161ms)
+✔ CSRF ausente não permite escrita e falha inicial pode ser recuperada (0.4905ms)
+✔ origem externa e correlação inválida falham antes de buscar token (0.4149ms)
+✔ escritas paralelas compartilham somente a busca de CSRF (0.3768ms)
+✔ guard ignora duplo envio, indica busy e restaura controles em sucesso e erro (1.2625ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 208.9214

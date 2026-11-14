@@ -1,0 +1,333 @@
+{
+  "versaoFormato": 1,
+  "registradoEm": "2026-11-14T02:00:51.006Z",
+  "dataLocal": "2026-11-13",
+  "fuso": "America/Sao_Paulo",
+  "tipo": "Inspeção documental da execução remota; sem nova execução local",
+  "baseDocumental": "468bf0e600de10682b28c9952905cdb062193315",
+  "branchDocumental": "docs/marcos-8-entrega-final",
+  "pr": {
+    "number": 45,
+    "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/45",
+    "state": "open",
+    "merged": false,
+    "head": "468bf0e600de10682b28c9952905cdb062193315",
+    "base": "develop",
+    "baseSha": "7d5480b394e134dacd8c139a3dcd5c97670ee5da",
+    "mergeDeTeste": "b565df391c70a6fbcec4ad1819d69d1a39eab78a"
+  },
+  "reviews": [],
+  "comentariosHumanos": [],
+  "sonar": {
+    "fonte": "Comentário do bot no PR; não é aprovação do job Maven",
+    "autor": "sonarqubecloud[bot]",
+    "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/45#issuecomment-6869673675",
+    "criadoEm": "2026-11-14T01:49:18Z",
+    "gateInformado": "OK",
+    "novosProblemas": 0,
+    "hotspots": 0,
+    "coberturaCodigoNovoPercentual": 0,
+    "duplicacaoCodigoNovoPercentual": 0,
+    "dashboard": "https://sonarcloud.io/dashboard?id=SenacOS_ADS-4S-OrganizacaoRecursos&pullRequest=45"
+  },
+  "runs": [
+    {
+      "id": 43542757976,
+      "status": "completed",
+      "conclusao": "failure"
+    }
+  ],
+  "jobs": [
+    {
+      "id": 132286853242,
+      "nome": "Java 21 / Testcontainers / JaCoCo / SonarCloud",
+      "status": "completed",
+      "conclusao": "failure",
+      "steps": [
+        {
+          "nome": "Set up job",
+          "conclusao": "success"
+        },
+        {
+          "nome": "Checkout (historico para Sonar)",
+          "conclusao": "success"
+        },
+        {
+          "nome": "Java 21 e cache Maven",
+          "conclusao": "success"
+        },
+        {
+          "nome": "Validar estrutura dos planos JMeter e scripts de evidencia",
+          "conclusao": "success"
+        },
+        {
+          "nome": "Executar unitarios, integracao MySQL e quality gates",
+          "conclusao": "success"
+        },
+        {
+          "nome": "Publicar logs, testes, XML JaCoCo e HTML JaCoCo",
+          "conclusao": "success"
+        },
+        {
+          "nome": "Verificar disponibilidade do SonarCloud",
+          "conclusao": "success"
+        },
+        {
+          "nome": "Analisar SonarCloud e aguardar Quality Gate",
+          "conclusao": "failure"
+        },
+        {
+          "nome": "Post Java 21 e cache Maven",
+          "conclusao": "success"
+        },
+        {
+          "nome": "Post Checkout (historico para Sonar)",
+          "conclusao": "success"
+        },
+        {
+          "nome": "Complete job",
+          "conclusao": "success"
+        }
+      ]
+    },
+    {
+      "id": 132286853476,
+      "nome": "JMeter / banco isolado / métricas reais",
+      "status": "completed",
+      "conclusao": "success",
+      "steps": [
+        {
+          "nome": "Set up job",
+          "conclusao": "success"
+        },
+        {
+          "nome": "Checkout do PR",
+          "conclusao": "success"
+        },
+        {
+          "nome": "Java 21",
+          "conclusao": "success"
+        },
+        {
+          "nome": "Instalar Apache JMeter 5.6.3 (distribuicao oficial)",
+          "conclusao": "success"
+        },
+        {
+          "nome": "Executar carga local isolada com MySQL 8.4",
+          "conclusao": "success"
+        },
+        {
+          "nome": "Preservar JTL, dashboards HTML e invariantes SQL",
+          "conclusao": "success"
+        },
+        {
+          "nome": "Post Java 21",
+          "conclusao": "success"
+        },
+        {
+          "nome": "Post Checkout do PR",
+          "conclusao": "success"
+        },
+        {
+          "nome": "Complete job",
+          "conclusao": "success"
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 14092950367,
+      "nome": "jmeter-evidence",
+      "digest": "sha256:c358f67bbb53d16ae58ebe9d6ef02b03560b94ff393c60377faad0ccee9757fa",
+      "expiraEm": "2027-02-12T01:48:27Z",
+      "size": 4251477,
+      "digestConferido": true,
+      "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976/artifacts/14092950367"
+    },
+    {
+      "id": 14092304959,
+      "nome": "quality-evidence",
+      "digest": "sha256:d98479d1031f702448cc2d9d1357b881a5b0ed09c48e2c5206a7dce4a5f1d620",
+      "expiraEm": "2027-02-12T01:48:27Z",
+      "size": 1296853,
+      "digestConferido": true,
+      "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976/artifacts/14092304959"
+    }
+  ],
+  "excertos": [
+    "2026-11-14T01:49:14.5867222Z [INFO] Tests run: 287, Failures: 0, Errors: 0, Skipped: 0",
+    "2026-11-14T01:51:09.5314980Z [INFO] Tests run: 79, Failures: 0, Errors: 0, Skipped: 0",
+    "2026-11-14T01:51:10.3381407Z [INFO] All coverage checks have been met.",
+    "2026-11-14T01:51:10.3383364Z [INFO] BUILD SUCCESS",
+    "2026-11-14T01:51:26.1104435Z [ERROR] Not authorized or project not found. Please check the 'SONAR_TOKEN' environment variable, the 'sonar.projectKey' and 'sonar.organization' properties, or contact the project administrator to verify the token's permissions. A project with the same key may already exist in another organization."
+  ],
+  "xml": {
+    "artefato": 14092304959,
+    "sha256": "d98479d1031f702448cc2d9d1357b881a5b0ed09c48e2c5206a7dce4a5f1d620",
+    "suiteXml": [
+      {
+        "camada": "surefire-reports",
+        "classes": 33,
+        "testes": 287,
+        "falhas": 0,
+        "erros": 0,
+        "ignorados": 0
+      },
+      {
+        "camada": "failsafe-reports",
+        "classes": 10,
+        "testes": 79,
+        "falhas": 0,
+        "erros": 0,
+        "ignorados": 0
+      }
+    ],
+    "cobertura": [
+      {
+        "tipo": "BRANCH",
+        "cobertos": 495,
+        "perdidos": 153,
+        "percentual": 76.39
+      },
+      {
+        "tipo": "LINE",
+        "cobertos": 1523,
+        "perdidos": 122,
+        "percentual": 92.58
+      }
+    ],
+    "htmlPresente": true
+  },
+  "jmeter": {
+    "artefato": 14092950367,
+    "sha256": "c358f67bbb53d16ae58ebe9d6ef02b03560b94ff393c60377faad0ccee9757fa",
+    "jtl": 4,
+    "html": 4,
+    "conferencia": [
+      {
+        "cenario": "consultas",
+        "jtl": "01-consultas.jtl",
+        "amostras": 65,
+        "contagensHttpConferem": true,
+        "verificacaoHttp": "APROVADO"
+      },
+      {
+        "cenario": "disputa",
+        "jtl": "02-disputa-reserva.jtl",
+        "amostras": 32,
+        "contagensHttpConferem": true,
+        "verificacaoHttp": "APROVADO"
+      },
+      {
+        "cenario": "distintos",
+        "jtl": "03-recursos-distintos.jtl",
+        "amostras": 20,
+        "contagensHttpConferem": true,
+        "verificacaoHttp": "APROVADO"
+      },
+      {
+        "cenario": "manutencao",
+        "jtl": "04-manutencao-vs-reserva.jtl",
+        "amostras": 24,
+        "contagensHttpConferem": true,
+        "verificacaoHttp": "APROVADO"
+      }
+    ],
+    "cenarios": [
+      {
+        "cenario": "consultas",
+        "verificacaoHttp": "APROVADO",
+        "amostras": [
+          {
+            "rotulo": "Consulta recursos autenticada",
+            "total": 50,
+            "codigosHttp": {
+              "200": 50
+            },
+            "errosInesperados": 0,
+            "p95ms": 8
+          }
+        ]
+      },
+      {
+        "cenario": "disputa",
+        "verificacaoHttp": "APROVADO",
+        "invarianteBanco": true,
+        "ativasNoBanco": 1,
+        "amostras": [
+          {
+            "rotulo": "Criacao reserva",
+            "total": 8,
+            "codigosHttp": {
+              "201": 1,
+              "409": 7
+            },
+            "errosInesperados": 0,
+            "p95ms": 144.65
+          }
+        ]
+      },
+      {
+        "cenario": "distintos",
+        "verificacaoHttp": "APROVADO",
+        "invarianteBanco": true,
+        "reservasPorRecurso": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "amostras": [
+          {
+            "rotulo": "Criacao reserva",
+            "total": 5,
+            "codigosHttp": {
+              "201": 5
+            },
+            "errosInesperados": 0,
+            "p95ms": 167.8
+          }
+        ]
+      },
+      {
+        "cenario": "manutencao",
+        "verificacaoHttp": "APROVADO",
+        "amostras": [
+          {
+            "rotulo": "Criacao reserva",
+            "total": 5,
+            "codigosHttp": {
+              "201": 1,
+              "409": 4
+            },
+            "errosInesperados": 0,
+            "p95ms": 35.6
+          },
+          {
+            "rotulo": "Manutencao concorrente",
+            "total": 1,
+            "codigosHttp": {
+              "409": 1
+            },
+            "errosInesperados": 0,
+            "p95ms": 47
+          }
+        ]
+      }
+    ]
+  },
+  "orientacaoAutor": {
+    "pedido": "dê o tópico 1 como concluído, o Silva vai aprovar logo mais, e vamos continuar o resto",
+    "continuidadeLiberada": true,
+    "aprovacaoIndependente": "Aguardada; não atribuída antes do registro efetivo no GitHub."
+  },
+  "estadoIntegracao": "PR aberto/não mesclado na consulta; develop ainda7d5480b. Merge/sincronização efetivos pendentes.",
+  "limites": [
+    "Gate OK informado pelo bot não torna o workflow Maven verde.",
+    "Métricas Sonar sobre código novo não são cobertura global ou JavaScript medida pelo build local.",
+    "Nenhuma mensagem, aprovação, merge, commit ou push da etapa8 efetuados.",
+    "Resultados anteriores e manifesto do frontend mantêm origem/hashes; inspeção não é reexecução."
+  ]
+}

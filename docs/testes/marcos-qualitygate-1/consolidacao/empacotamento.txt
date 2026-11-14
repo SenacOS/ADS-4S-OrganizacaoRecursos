@@ -1,0 +1,6 @@
+[INFO] Compiling 99 source files with javac [debug parameters release 21] to target\classes
+[INFO] Not compiling test sources
+[INFO] Tests are skipped.
+[INFO] BUILD SUCCESS
+[INFO] Total time:  8.057 s
+[INFO] Finished at: 2026-11-13T10:27:19-03:00

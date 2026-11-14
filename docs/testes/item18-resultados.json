@@ -1,0 +1,34 @@
+{
+  "date": "2026-11-09",
+  "command": "mvn verify",
+  "java": "Temurin 21.0.13+9",
+  "springBoot": "3.5.7",
+  "mysqlImage": "mysql:8.4",
+  "docker": "29.4.0",
+  "tests": {
+    "surefire-reports": {
+      "tests": 167,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failsafe-reports": {
+      "tests": 15,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "coverage": {
+    "BRANCH": {
+      "covered": 255,
+      "missed": 85,
+      "percent": 75.0
+    },
+    "LINE": {
+      "covered": 850,
+      "missed": 86,
+      "percent": 90.81
+    }
+  }
+}

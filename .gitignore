@@ -27,6 +27,8 @@ jacoco.exec
 .sonar/
 *.jtl
 jmeter.log
+test-results/
+playwright-report/
 
 # ===== Dependências Node (ferramental AIOX) =====
 node_modules/
@@ -63,3 +65,6 @@ CLAUDE.local.md
 # .gemini/
 # .grok/
 # .kimi/
+
+# Arquivos e dashboards gerados pela carga JMeter local
+quality-output/

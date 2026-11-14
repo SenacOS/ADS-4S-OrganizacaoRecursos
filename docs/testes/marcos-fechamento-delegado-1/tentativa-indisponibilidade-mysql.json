@@ -1,0 +1,69 @@
+{
+  "inicio": "2026-11-13T16:52:05.148Z",
+  "head": "ab50d26da838dfd381a025d1c38df453945b9383",
+  "branch": "feature/marcos-fechamento-delegado",
+  "arvore": "Incremento local sem commit; artefatos identificados por digest",
+  "baseURL": "http://127.0.0.1:18082",
+  "database": "qs_fechamento_ef4251ced36e",
+  "camada": "Spring/HTTP/MySQL e gateway simulado reais; nenhuma interceptação, Mockito ou WireMock",
+  "cenarios": [
+    {
+      "nome": "Base exclusiva, identidade MySQL e contas segregadas",
+      "estado": "FAIL",
+      "erro": "Java temporário encerrou antes da prontidão."
+    }
+  ],
+  "isolamento": {
+    "baseDemoPreservada": "qs_fechamento_ef4251ced36e",
+    "temporariaEncerrada": true,
+    "estadoPrincipalPreservado": true
+  },
+  "falhasDeEncerramento": [
+    "Principal não confirmou prontidão.",
+    "Outbox principal divergente."
+  ],
+  "fim": "2026-11-13T16:52:16.701Z",
+  "resumo": {
+    "PASS": 0,
+    "FAIL": 1
+  },
+  "erro": "Falha no cenário Base exclusiva, identidade MySQL e contas segregadas",
+  "versaoFormato": 2,
+  "artefatos": [
+    {
+      "arquivo": "docs/operacao/vinculos-responsaveis.sql",
+      "algoritmo": "SHA-256",
+      "digest": "fdc05e882f09ad5bebc963ce2c18ae9e9403269559463c6e44769974e9814468"
+    },
+    {
+      "arquivo": "tests/e2e-local/demonstrar-fechamento.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "e00f6067e1ef223d1f78be0bb3c585585dd28f7d9ae010677acc7b191cdf8552"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/notificacao/GatewayNotificacaoPadrao.java",
+      "algoritmo": "SHA-256",
+      "digest": "b4cf39b4e85e2990e0c4b7016b43bd321a10f43951cd61436f4842a756fe73f7"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/notificacao/ProcessadorNotificacoes.java",
+      "algoritmo": "SHA-256",
+      "digest": "4221cf2b4e6e3875e6906e5c106715a7f58374a849bd10a1e3ca3d8a888db3d9"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/notificacao/NotificacaoAgendamento.java",
+      "algoritmo": "SHA-256",
+      "digest": "67af057fbdbbc35ab25c95da8e2a49009c38cb5a80e35b9368d6cfa5ada357ba"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/aprovacoes.js",
+      "algoritmo": "SHA-256",
+      "digest": "641e0e456de266f946aa1354c1a4c4c5e4789dacb242e6dd2a074aa4095f15de"
+    },
+    {
+      "arquivo": "backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar",
+      "algoritmo": "SHA-256",
+      "digest": "4b8633a55e59f5f2b5d11865338cb7658eb0f943b50b35d6baa0eb2ebfb0def5"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+﻿<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Disponibilidade · Organização de Recursos</title>
+  <link rel="stylesheet" href="/css/app.css">
+  <script type="module" src="/js/recursos-page.js"></script>
+</head>
+<body data-reserva="false">
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+  <div id="estado-sessao" class="session-check">
+    <div class="brand brand-dark"><span class="brand-mark" aria-hidden="true">OR</span><span>Organização de Recursos</span></div>
+    <p id="feedback-inicial" class="feedback" role="status" aria-live="polite" tabindex="-1">Verificando seu acesso…</p>
+    <p id="referencia-inicial" class="support-reference" hidden></p>
+    <button id="tentar-sessao" class="button button-secondary" type="button" hidden>Tentar novamente</button>
+    <noscript><p>Ative o JavaScript no navegador para acessar o sistema.</p></noscript>
+  </div>
+  <div id="painel" class="app-layout" hidden>
+    <aside class="sidebar">
+      <a class="brand" href="/index.html" aria-label="Organização de Recursos, início"><span class="brand-mark" aria-hidden="true">OR</span><span>Organização<br>de Recursos</span></a>
+      <p class="sidebar-label">SEU ESPAÇO</p>
+      <nav aria-label="Navegação principal"><ul id="navegacao" class="nav-list"></ul></nav>
+      <div class="sidebar-footer">Recursos bem compartilhados.</div>
+    </aside>
+    <div class="app-main">
+      <header class="topbar">
+        <p class="breadcrumb">Seu espaço <span aria-hidden="true">/</span> <strong>Disponibilidade</strong></p>
+        <form id="form-logout"><button class="button button-secondary" type="submit">Sair da conta</button></form>
+      </header>
+      <main id="conteudo" class="dashboard-content" tabindex="-1">
+        <div class="page-heading"><div><p class="eyebrow">SALAS · DOCENTES · MATERIAIS</p><h1>Encontre o recurso certo.</h1></div><span id="perfil-badge" class="profile-badge"></span></div>
+        <p class="page-description">Consulte salas, docentes e materiais. Informe um período para verificar a disponibilidade.</p>
+        <p id="feedback-painel" class="feedback" role="status" aria-live="polite" tabindex="-1" hidden></p>
+        <p id="referencia-painel" class="support-reference" hidden></p>
+        <details class="schedule-panel"><summary>Horários de funcionamento</summary><p id="expediente" role="status">Consultando o funcionamento…</p><p id="referencia-expediente" class="support-reference" hidden></p></details>
+        <section class="account-panel" aria-labelledby="pesquisa-title">
+          <div class="section-heading"><h2 id="pesquisa-title">1. Escolha o período e os filtros</h2><span class="muted">Horários de São Paulo</span></div>
+          <p id="periodo-ajuda" class="field-help">Use início e fim no mesmo dia. A disponibilidade será confirmada novamente ao solicitar.</p>
+          <form id="form-pesquisa">
+            <fieldset id="filtros" aria-describedby="periodo-ajuda">
+              <legend class="sr-only">Período e filtros de recursos</legend>
+              <div class="filters-grid">
+                <div><label for="inicio">Início</label><input id="inicio" name="inicio" type="datetime-local" step="60" ></div>
+                <div><label for="fim">Fim</label><input id="fim" name="fim" type="datetime-local" step="60" ></div>
+                <div><label for="tipo">Tipo de recurso</label><select id="tipo" name="tipo"><option value="">Todos os tipos</option><option value="SALA">Sala</option><option value="PROFESSOR">Docente</option><option value="MATERIAL">Material</option></select></div>
+                <div><label for="capacidade">Capacidade mínima (salas)</label><input id="capacidade" name="capacidadeMinima" type="number" min="1" step="1" inputmode="numeric" placeholder="Ex.: 20"></div>
+                <div><label for="localizacao">Localização</label><input id="localizacao" name="localizacao" type="search" maxlength="200" placeholder="Ex.: bloco A"></div>
+                <div><label for="competencia">Competência (docentes)</label><input id="competencia" name="competencia" type="search" maxlength="120" placeholder="Ex.: Java"></div>
+                <div><label for="patrimonio">Patrimônio (materiais)</label><input id="patrimonio" name="patrimonio" type="search" maxlength="80" placeholder="Ex.: PAT-01"></div>
+                <div><label for="disponivel">Disponibilidade</label><select id="disponivel" name="disponivel"><option value="">Todos os resultados</option><option value="true">Somente disponíveis</option><option value="false">Somente indisponíveis</option></select></div>
+                <div><label for="tamanho">Resultados por página</label><select id="tamanho" name="tamanho"><option value="20">20</option><option value="50">50</option><option value="100">100</option></select></div>
+              </div>
+              <div class="form-actions"><button id="pesquisar" class="button button-primary" type="submit">Pesquisar recursos</button><button class="button button-secondary" type="reset">Limpar filtros</button></div>
+            </fieldset>
+          </form>
+          <p id="feedback-pesquisa" class="feedback" role="status" aria-live="polite" tabindex="-1" hidden></p>
+          <p id="referencia-pesquisa" class="support-reference" hidden></p>
+        </section>
+        <section aria-labelledby="resultados-title" class="results-section">
+          <div class="section-heading"><h2 id="resultados-title">2. Recursos encontrados</h2><p id="resultados-resumo" role="status">Consulte os recursos ou informe um período.</p></div>
+          <div id="resultados" class="resource-grid"></div>
+          <nav class="pagination" aria-label="Páginas de recursos"><button id="pagina-anterior" class="button button-secondary" type="button" disabled>Anterior</button><span id="pagina-atual">Nenhuma pesquisa realizada</span><button id="pagina-seguinte" class="button button-secondary" type="button" disabled>Próxima</button></nav>
+        </section>
+        <p class="next-flow"><a class="button button-primary" href="/pages/reservas.html">Nova reserva</a></p>
+        <footer class="dashboard-footer">Organização de Recursos <span>Fuso: America/Sao_Paulo</span></footer>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

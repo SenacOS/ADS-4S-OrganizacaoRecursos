@@ -1,0 +1,74 @@
+{
+  "data": "2026-11-10",
+  "story": "Marcos-deps-1",
+  "alteracao": {
+    "eslint": {
+      "antes": "10.14.0",
+      "depois": "10.14.0"
+    },
+    "eslint_js": "10.0.1",
+    "minimatch": {
+      "antes": "10.2.6",
+      "depois": "11.0.1"
+    },
+    "override": {
+      "eslint": {
+        "minimatch": "11.0.1"
+      }
+    },
+    "nova_dependencia_transitiva": "@isaacs/nonrecursive-glob-match@1.1.0"
+  },
+  "ambiente": {
+    "node": "v24.22.2",
+    "npm": "11.19.1",
+    "playwright": "1.65.0",
+    "canal": "chrome",
+    "headless": true
+  },
+  "reinstalacao": "npm ci --ignore-scripts --no-fund: exit code 0",
+  "audit": {
+    "antes": {
+      "info": 0,
+      "low": 0,
+      "moderate": 4,
+      "high": 0,
+      "critical": 0,
+      "total": 4
+    },
+    "depois": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "exit_code_depois": 0
+  },
+  "lint_compatibilidade": {
+    "arquivos": 20,
+    "arquivos_e_diagnosticos_iguais": true,
+    "regras_intencionais": "PASS"
+  },
+  "gates": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unitarios": {
+      "pass": 32,
+      "fail": 0
+    },
+    "navegador": {
+      "startTime": "2026-11-11T02:06:14.646Z",
+      "duration": 58969.201,
+      "expected": 76,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "build_exit_code": 0
+  },
+  "limite": "Compatibilidade verificada neste projeto; minimatch 11 está fora do range original do ESLint. Reavaliar o override em atualizações futuras.",
+  "revisao_independente": "PENDENTE",
+  "commit": "NAO REALIZADO",
+  "push": "NAO REALIZADO"
+}

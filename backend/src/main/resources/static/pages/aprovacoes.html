@@ -1,0 +1,88 @@
+﻿<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Aprovações · Organização de Recursos</title>
+  <link rel="stylesheet" href="/css/app.css">
+  <script type="module" src="/js/aprovacoes-page.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+  <div id="estado-sessao" class="session-check">
+    <div class="brand brand-dark"><span class="brand-mark" aria-hidden="true">OR</span><span>Organização de Recursos</span></div>
+    <p id="feedback-inicial" class="feedback" role="status" aria-live="polite" tabindex="-1">Verificando seu acesso…</p>
+    <p id="referencia-inicial" class="support-reference" hidden></p>
+    <button id="tentar-sessao" class="button button-secondary" type="button" hidden>Tentar novamente</button>
+    <noscript><p>Ative o JavaScript no navegador para acessar o sistema.</p></noscript>
+  </div>
+  <div id="painel" class="app-layout" hidden>
+    <aside class="sidebar">
+      <a class="brand" href="/index.html" aria-label="Organização de Recursos, início"><span class="brand-mark" aria-hidden="true">OR</span><span>Organização<br>de Recursos</span></a>
+      <p class="sidebar-label">SEU ESPAÇO</p>
+      <nav aria-label="Navegação principal"><ul id="navegacao" class="nav-list"></ul></nav>
+      <div class="sidebar-footer">Recursos bem compartilhados.</div>
+    </aside>
+    <div class="app-main">
+      <header class="topbar">
+        <p class="breadcrumb">Seu espaço <span aria-hidden="true">/</span> <strong>Aprovações</strong></p>
+        <form id="form-logout"><button class="button button-secondary" type="submit">Sair da conta</button></form>
+      </header>
+      <main id="conteudo" class="dashboard-content" tabindex="-1">
+        <div class="page-heading"><div><p class="eyebrow">SOLICITAÇÕES RESTRITAS</p><h1>Avalie as solicitações.</h1></div><span id="perfil-badge" class="profile-badge"></span></div>
+        <p class="page-description">Confira os recursos e o período solicitado antes de aprovar ou rejeitar.</p>
+        <p id="feedback-painel" class="feedback" role="status" aria-live="polite" tabindex="-1" hidden></p>
+        <p id="referencia-painel" class="support-reference" hidden></p>
+        <p id="acesso-negado" class="feedback" role="alert" tabindex="-1" hidden>Esta área é exclusiva do perfil Responsável.</p>
+        <div id="area-aprovacoes" hidden>
+          <section class="account-panel" aria-labelledby="filtros-title">
+            <div class="section-heading"><h2 id="filtros-title">Solicitações pendentes</h2><span class="muted">Horários de São Paulo</span></div>
+            <p id="filtros-ajuda" class="field-help">Consulte as pendentes dos recursos sob sua responsabilidade ou informe início e fim para encontrar solicitações que coincidam com o período.</p>
+            <form id="form-fila">
+              <fieldset id="filtros-fila" aria-describedby="filtros-ajuda">
+                <legend class="sr-only">Filtros da fila de aprovação</legend>
+                <div class="filters-grid">
+                  <div><label for="inicio-fila">Início do período</label><input id="inicio-fila" name="inicio" type="datetime-local" step="60"></div>
+                  <div><label for="fim-fila">Fim do período</label><input id="fim-fila" name="fim" type="datetime-local" step="60"></div>
+                  <div><label for="recurso-fila">ID do recurso (opcional)</label><input id="recurso-fila" name="recursoId" type="number" min="1" step="1" inputmode="numeric"></div>
+                  <div><label for="tamanho-fila">Resultados por página</label><select id="tamanho-fila" name="tamanho"><option value="20">20</option><option value="50">50</option><option value="100">100</option></select></div>
+                </div>
+                <div class="form-actions"><button class="button button-primary" type="submit">Consultar fila</button><button class="button button-secondary" type="reset">Limpar filtros</button></div>
+              </fieldset>
+            </form>
+          </section>
+          <section class="results-section" aria-labelledby="fila-title">
+            <div class="section-heading"><h2 id="fila-title">Aguardando sua avaliação</h2><button id="atualizar-fila" class="button button-secondary" type="button">Atualizar fila</button></div>
+            <p id="feedback-fila" class="feedback" role="status" aria-live="polite" tabindex="-1">Consultando solicitações…</p>
+            <p id="referencia-fila" class="support-reference" hidden></p>
+            <p id="resumo-fila" class="field-help" role="status"></p>
+            <div id="lista-fila" class="resource-grid"></div>
+            <nav class="pagination" aria-label="Páginas de solicitações"><button id="fila-anterior" class="button button-secondary" type="button" disabled>Anterior</button><span id="pagina-fila">Consultando…</span><button id="fila-seguinte" class="button button-secondary" type="button" disabled>Próxima</button></nav>
+          </section>
+          <p id="feedback-decisao" class="feedback" role="status" aria-live="polite" tabindex="-1" hidden></p>
+          <p id="referencia-decisao" class="support-reference" hidden></p>
+          <section id="detalhes-pendente" class="account-panel decision-panel" aria-labelledby="detalhes-title" tabindex="-1" hidden>
+            <div class="section-heading"><h2 id="detalhes-title">Confira a solicitação</h2><span class="profile-badge">SOLICITADA</span></div>
+            <dl id="dados-pendente" class="confirmation-details"></dl>
+            <h3 class="detail-subtitle">Recursos solicitados</h3><ul id="recursos-pendente" class="detail-resources"></ul>
+            <form id="form-decisao">
+              <fieldset id="campos-decisao">
+                <legend>Qual é sua decisão?</legend>
+                <div class="decision-options">
+                  <label><input type="radio" name="decisao" value="APROVADA" checked> Aprovar</label>
+                  <label><input type="radio" name="decisao" value="REJEITADA"> Rejeitar</label>
+                </div>
+                <div id="campo-motivo" hidden><label for="motivo-decisao">Motivo da rejeição</label><textarea id="motivo-decisao" name="motivo" rows="4" aria-describedby="motivo-ajuda"></textarea><p id="motivo-ajuda" class="field-help">Informe o motivo para que o solicitante entenda a decisão.</p></div>
+                <p class="field-help">A decisão será registrada ao confirmar. A solicitação mantém o período reservado enquanto aguarda uma decisão.</p>
+                <div class="form-actions"><button id="confirmar-decisao" class="button button-primary" type="submit">Confirmar aprovação</button><button id="fechar-detalhes" class="button button-secondary" type="button">Fechar detalhes</button></div>
+              </fieldset>
+            </form>
+          </section>
+        </div>
+        <footer class="dashboard-footer">Organização de Recursos <span>Fuso: America/Sao_Paulo</span></footer>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

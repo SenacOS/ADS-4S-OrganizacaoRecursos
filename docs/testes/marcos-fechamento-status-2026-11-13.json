@@ -1,0 +1,143 @@
+{
+  "conferidoEm": "2026-11-13 13:58:33 UTC",
+  "escopo": "Consulta documental; nenhuma nova execução de testes ou alteração de código",
+  "pr": {
+    "numero": 32,
+    "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/32",
+    "head": "5569e574a12d85da6820d131049856df400f3948",
+    "base": "develop",
+    "baseSha": "a0c04814211ed12f1c7086dc454560cb8cb56fc9",
+    "estado": "open",
+    "rascunho": false,
+    "mesclado": false,
+    "revisoesSubmetidas": 0
+  },
+  "prsMesclados": [
+    {
+      "number": 28,
+      "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/28",
+      "merged": true,
+      "mergedAt": "2026-11-13T12:57:36Z",
+      "head": "0775715d5a769d726e5cc63dc1b4125747084ff8",
+      "mergeCommit": "a0c04814211ed12f1c7086dc454560cb8cb56fc9"
+    },
+    {
+      "number": 29,
+      "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/29",
+      "merged": true,
+      "mergedAt": "2026-11-13T12:57:34Z",
+      "head": "5537163108e3ea2c0645b04f6fd621e7208da587",
+      "mergeCommit": "a0c04814211ed12f1c7086dc454560cb8cb56fc9"
+    },
+    {
+      "number": 30,
+      "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/30",
+      "merged": true,
+      "mergedAt": "2026-11-12T23:56:35Z",
+      "head": "1f91e25b83054f56fd025ea7e0bcbe5d743f0588",
+      "mergeCommit": "02f64c80f3b98e3c9f980ce7edca08b72e55ccfc"
+    },
+    {
+      "number": 31,
+      "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/31",
+      "merged": true,
+      "mergedAt": "2026-11-12T23:57:24Z",
+      "head": "0cf6edbb5dfca357b1da9637e50b7247dd59a6c6",
+      "mergeCommit": "53b0adedc53804342e1ef0ab1c90237daa4be2a6"
+    }
+  ],
+  "qualityGate": {
+    "origem": "https://sonarcloud.io/api/qualitygates/project_status?projectKey=SenacOS_ADS-4S-OrganizacaoRecursos&pullRequest=32",
+    "status": "OK",
+    "reliability": "A",
+    "security": "A",
+    "maintainability": "A",
+    "duplicacaoNovaPercentual": 0,
+    "hotspotsRevisadosPercentual": 100
+  },
+  "ci": {
+    "runId": 43435832752,
+    "url": "https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43435832752",
+    "conclusao": "failure",
+    "jobs": [
+      {
+        "id": 131920565783,
+        "nome": "JMeter / banco isolado / métricas reais",
+        "conclusao": "success",
+        "etapas": [
+          {
+            "nome": "Set up job",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Checkout do PR",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Java 21",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Instalar Apache JMeter 5.6.3 (distribuicao oficial)",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Executar carga local isolada com MySQL 8.4",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Preservar JTL, dashboards HTML e invariantes SQL",
+            "conclusao": "success"
+          }
+        ]
+      },
+      {
+        "id": 131920566107,
+        "nome": "Java 21 / Testcontainers / JaCoCo / SonarCloud",
+        "conclusao": "failure",
+        "etapas": [
+          {
+            "nome": "Set up job",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Checkout (historico para Sonar)",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Java 21 e cache Maven",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Validar estrutura dos planos JMeter e scripts de evidencia",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Executar unitarios, integracao MySQL e quality gates",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Publicar logs, testes, XML JaCoCo e HTML JaCoCo",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Verificar disponibilidade do SonarCloud",
+            "conclusao": "success"
+          },
+          {
+            "nome": "Analisar SonarCloud e aguardar Quality Gate",
+            "conclusao": "failure"
+          }
+        ]
+      }
+    ],
+    "testesUnitariosHttp": 253,
+    "testesMysql": 57,
+    "scannerMaven": "Not authorized or project not found"
+  },
+  "orientacaoDoUsuario": {
+    "scannerCompartilhado": "Desconsiderar como bloqueio da implementação do Marcos por enquanto; manter registro da falha real.",
+    "contratos": "Não há nova ratificação coletiva recebida nesta conciliação."
+  },
+  "operacoesRemotas": "Somente leitura; PR já estava Ready for review."
+}

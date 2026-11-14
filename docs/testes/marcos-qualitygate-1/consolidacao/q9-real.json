@@ -1,0 +1,243 @@
+{
+  "inicio": "2026-11-13T13:29:24.964Z",
+  "head": "a0c04814211ed12f1c7086dc454560cb8cb56fc9",
+  "merge": null,
+  "branch": "fix/marcos-qualitygate",
+  "camada": "HTTP/Chrome/MySQL reais, sem interceptação",
+  "cenarios": [
+    {
+      "nome": "V6 e fontes servidas",
+      "estado": "PASS",
+      "evidencia": {
+        "migracoes": 6,
+        "hashesServidos": "MATCH"
+      }
+    },
+    {
+      "nome": "Solicitante, paginação e total restritos às próprias reservas",
+      "estado": "PASS",
+      "evidencia": {
+        "totalProprias": 3,
+        "alheia": 404,
+        "detalheCompleto": 200
+      }
+    },
+    {
+      "nome": "Administrador lê sem herdar decisão",
+      "estado": "PASS",
+      "evidencia": {
+        "total": 4,
+        "aprovacao": 403
+      }
+    },
+    {
+      "nome": "Responsável sem vínculo e filtros inválidos",
+      "estado": "PASS",
+      "evidencia": {
+        "fila": 0,
+        "detalhe": 404,
+        "decisao": 403,
+        "parametros": 400,
+        "semSessao": 401
+      }
+    },
+    {
+      "nome": "Vínculo parcial preserva negativa multi-recurso",
+      "estado": "PASS",
+      "evidencia": {
+        "total": 3,
+        "multipla": 404,
+        "decisao": 403,
+        "estadoPreservado": "SOLICITADA"
+      }
+    },
+    {
+      "nome": "Vínculo completo habilita leitura multi-recurso",
+      "estado": "PASS",
+      "evidencia": {
+        "total": 4,
+        "multipla": 200,
+        "recursos": 2
+      }
+    },
+    {
+      "nome": "Fila real: identificação, aprovação e rejeição com motivo",
+      "estado": "PASS",
+      "evidencia": {
+        "aprovada": 108,
+        "rejeitada": 111,
+        "motivoObrigatorio": true,
+        "errosJS": 0
+      }
+    },
+    {
+      "nome": "Decisão multi-recurso permitida somente após vínculo completo",
+      "estado": "PASS",
+      "evidencia": {
+        "id": 110,
+        "status": "APROVADA",
+        "recursos": 2
+      }
+    },
+    {
+      "nome": "Página da fila além do fim preserva total autorizado",
+      "estado": "PASS",
+      "evidencia": {
+        "pagina": 99,
+        "itens": 0,
+        "total": 1
+      }
+    },
+    {
+      "nome": "Revogação do vínculo exclusivo da rodada remove acesso",
+      "estado": "PASS",
+      "evidencia": {
+        "filaResponsavel": 0,
+        "detalhes": 404,
+        "decisao": 403,
+        "reservaPreservada": true,
+        "filaAdministrador": 1
+      }
+    },
+    {
+      "nome": "Q3: Responsável vinculado não aprova a própria reserva restrita",
+      "estado": "PASS",
+      "evidencia": {
+        "id": 112,
+        "vinculoCompleto": true,
+        "aprovacaoPropria": 403,
+        "estadoDepoisDaNegativa": "SOLICITADA",
+        "cancelamentoExplicitoPosterior": "CANCELADA"
+      }
+    },
+    {
+      "nome": "Q1: início, conclusão e ausência recusam Administrador e aceitam Responsável",
+      "estado": "PASS",
+      "evidencia": {
+        "reservaConcluida": 113,
+        "reservaAusente": 114,
+        "administrador": {
+          "inicio": 403,
+          "conclusao": 403,
+          "ausencia": 403
+        },
+        "responsavel": {
+          "inicio": 200,
+          "conclusao": 200,
+          "ausencia": 200
+        },
+        "estadosPersistidos": [
+          "CONCLUIDA",
+          "NAO_COMPARECEU"
+        ]
+      }
+    }
+  ],
+  "massa": {
+    "responsavel": 3,
+    "A": 150,
+    "B": 151,
+    "propria": {
+      "id": 108,
+      "solicitanteId": 2,
+      "status": "SOLICITADA",
+      "restrita": true,
+      "inicio": "2026-11-13T10:34:00-03:00",
+      "fim": "2026-11-13T10:44:00-03:00",
+      "recursosIds": [
+        150
+      ],
+      "motivoDecisao": null
+    },
+    "alheia": {
+      "id": 109,
+      "solicitanteId": 29,
+      "status": "SOLICITADA",
+      "restrita": true,
+      "inicio": "2026-11-13T10:54:00-03:00",
+      "fim": "2026-11-13T11:04:00-03:00",
+      "recursosIds": [
+        150
+      ],
+      "motivoDecisao": null
+    },
+    "multipla": {
+      "id": 110,
+      "solicitanteId": 2,
+      "status": "SOLICITADA",
+      "restrita": true,
+      "inicio": "2026-11-13T11:14:00-03:00",
+      "fim": "2026-11-13T11:24:00-03:00",
+      "recursosIds": [
+        150,
+        151
+      ],
+      "motivoDecisao": null
+    },
+    "rejeitar": {
+      "id": 111,
+      "solicitanteId": 2,
+      "status": "SOLICITADA",
+      "restrita": true,
+      "inicio": "2026-11-13T11:34:00-03:00",
+      "fim": "2026-11-13T11:44:00-03:00",
+      "recursosIds": [
+        150
+      ],
+      "motivoDecisao": null
+    }
+  },
+  "fim": "2026-11-13T13:29:29.452Z",
+  "resumo": {
+    "PASS": 12,
+    "FAIL": 0
+  },
+  "versaoFormato": 2,
+  "artefatos": [
+    {
+      "arquivo": "tests/e2e-local/validar-q9.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "161d3bdfa150a0987f899106abd87ca7fb36cdbeec02a9d3db14f1f88e9551ab"
+    },
+    {
+      "arquivo": "tests/e2e-local/validar.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "fb634ba1c769fd7b3e7d20f42d914abea313a9f8396ec955464c4b887739c318"
+    },
+    {
+      "arquivo": "tests/e2e-local/controle.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "e68b5f04d9a9d31bc9ff29cb86e5454f7707a6693c1833abbd6d0d117268df06"
+    },
+    {
+      "arquivo": "tests/e2e-local/executaveis.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "f3c344d74dbbad3b8b7962962daaa5e13f5e87a1230657892c4022afec44abdd"
+    },
+    {
+      "arquivo": "tests/e2e-local/configuracao-local.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "5c0687d08a0fad2287c75d365f8b8e62c2b162fe2abdbe9853e35c8e819b4bc6"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/aprovacoes.js",
+      "algoritmo": "SHA-256",
+      "digest": "641e0e456de266f946aa1354c1a4c4c5e4789dacb242e6dd2a074aa4095f15de"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/aprovacoes-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "ccd53aaea68ca38cda868e18aaf373a27c756c07d8e8f0e0f59cf4b91d3f0085"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/datas.js",
+      "algoritmo": "SHA-256",
+      "digest": "44f35755602a1043e5126ed4807f5b0b31bc273908c7e4d079d6df34a9636bbe"
+    },
+    {
+      "arquivo": "backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar",
+      "algoritmo": "SHA-256",
+      "digest": "e1e620cbce823b926ec348fe4447edfdc352060b33c7dccf243cf5020c29d2e7"
+    }
+  ]
+}

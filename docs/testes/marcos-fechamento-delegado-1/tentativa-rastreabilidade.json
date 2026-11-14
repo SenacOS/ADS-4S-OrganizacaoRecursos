@@ -1,0 +1,217 @@
+{
+  "inicio": "2026-11-13T16:47:43.678Z",
+  "head": "ab50d26da838dfd381a025d1c38df453945b9383",
+  "branch": "feature/marcos-fechamento-delegado",
+  "arvore": "Incremento local sem commit; artefatos identificados por digest",
+  "baseURL": "http://127.0.0.1:18082",
+  "database": "qs_fechamento_5bffaa84b539",
+  "camada": "Spring/HTTP/MySQL e gateway simulado reais; nenhuma interceptação, Mockito ou WireMock",
+  "cenarios": [
+    {
+      "nome": "Base exclusiva, identidade MySQL e contas segregadas",
+      "estado": "PASS",
+      "evidencia": {
+        "database": "qs_fechamento_5bffaa84b539",
+        "porta": 18082,
+        "migracoes": 6,
+        "workerInicial": false,
+        "gateway": "SIMULADO_URL_VAZIA",
+        "contas": "runtime/migração da base descartável e operador de vínculos separados"
+      }
+    },
+    {
+      "nome": "Três perfis reais, recursos e sessão/CSRF na mesma origem",
+      "estado": "PASS",
+      "evidencia": {
+        "usuarios": 4,
+        "perfis": 3,
+        "recursos": [
+          1,
+          2
+        ],
+        "reservaId": 1,
+        "estado": "SOLICITADA",
+        "offset": "-03:00"
+      }
+    },
+    {
+      "nome": "Procedimento recusa parâmetros e concessão incompatível sem efeitos",
+      "estado": "PASS",
+      "evidencia": {
+        "negativas": 8,
+        "idsInvalidos": [
+          0,
+          -1
+        ],
+        "vinculos": 0,
+        "operadorNaoAlteraPapel": true
+      }
+    },
+    {
+      "nome": "Q9 sem vínculo e parcial; concessão idempotente no par autorizado",
+      "estado": "PASS",
+      "evidencia": {
+        "operacao": {
+          "resultado": "CONCEDIDO",
+          "base": "qs_fechamento_5bffaa84b539",
+          "operador": "qso_5bffaa84b539@127.0.0.1",
+          "momento": "2026-11-13 16:47:54.936950",
+          "acao": "CONCEDER",
+          "usuarioId": 3,
+          "recursoId": 1,
+          "referencia": "DEMO-5bffaa84b539",
+          "antes": 0,
+          "depois": 1
+        },
+        "repetida": {
+          "resultado": "CONCEDIDO",
+          "base": "qs_fechamento_5bffaa84b539",
+          "operador": "qso_5bffaa84b539@127.0.0.1",
+          "momento": "2026-11-13 16:47:55.007797",
+          "acao": "CONCEDER",
+          "usuarioId": 3,
+          "recursoId": 1,
+          "referencia": "DEMO-5bffaa84b539",
+          "antes": 1,
+          "depois": 1
+        },
+        "parcial": 404,
+        "outroSolicitante": 404,
+        "dono": 200,
+        "administrador": 200
+      }
+    },
+    {
+      "nome": "Vínculo completo, revogação efetiva e reconcessão antes da aprovação",
+      "estado": "PASS",
+      "evidencia": {
+        "concessao": {
+          "resultado": "CONCEDIDO",
+          "base": "qs_fechamento_5bffaa84b539",
+          "operador": "qso_5bffaa84b539@127.0.0.1",
+          "momento": "2026-11-13 16:47:55.087480",
+          "acao": "CONCEDER",
+          "usuarioId": 3,
+          "recursoId": 2,
+          "referencia": "DEMO-5bffaa84b539",
+          "antes": 0,
+          "depois": 1
+        },
+        "revogacao": {
+          "resultado": "REVOGADO",
+          "base": "qs_fechamento_5bffaa84b539",
+          "operador": "qso_5bffaa84b539@127.0.0.1",
+          "momento": "2026-11-13 16:47:55.194782",
+          "acao": "REVOGAR",
+          "usuarioId": 3,
+          "recursoId": 2,
+          "referencia": "DEMO-5bffaa84b539",
+          "antes": 1,
+          "depois": 0
+        },
+        "revogacaoIdempotente": {
+          "resultado": "REVOGADO",
+          "base": "qs_fechamento_5bffaa84b539",
+          "operador": "qso_5bffaa84b539@127.0.0.1",
+          "momento": "2026-11-13 16:47:55.361823",
+          "acao": "REVOGAR",
+          "usuarioId": 3,
+          "recursoId": 2,
+          "referencia": "DEMO-5bffaa84b539",
+          "antes": 0,
+          "depois": 0
+        },
+        "leituraRevogada": 404,
+        "decisaoRevogada": 403,
+        "reconcessaoAprovacao": 200
+      }
+    },
+    {
+      "nome": "Revogação limpa vínculo obsoleto sem ampliar permissões",
+      "estado": "PASS",
+      "evidencia": {
+        "usuarioInativo": {
+          "resultado": "REVOGADO",
+          "base": "qs_fechamento_5bffaa84b539",
+          "operador": "qso_5bffaa84b539@127.0.0.1",
+          "momento": "2026-11-13 16:47:55.638116",
+          "acao": "REVOGAR",
+          "usuarioId": 3,
+          "recursoId": 1,
+          "referencia": "DEMO-5bffaa84b539",
+          "antes": 1,
+          "depois": 0
+        },
+        "perfilAlterado": {
+          "resultado": "REVOGADO",
+          "base": "qs_fechamento_5bffaa84b539",
+          "operador": "qso_5bffaa84b539@127.0.0.1",
+          "momento": "2026-11-13 16:47:55.785356",
+          "acao": "REVOGAR",
+          "usuarioId": 3,
+          "recursoId": 2,
+          "referencia": "DEMO-5bffaa84b539",
+          "antes": 1,
+          "depois": 0
+        },
+        "vinculosFinais": 0
+      }
+    },
+    {
+      "nome": "RF11: outbox pendente após commit e auditoria reais",
+      "estado": "FAIL",
+      "erro": "The expression evaluated to a falsy value:\n\n  assert(eventos.every(e=>e.correlacaoId==='delegado-'+nonce&&e.enviadoEm==='AUSENTE'))\n"
+    }
+  ],
+  "isolamento": {
+    "baseDemoPreservada": "qs_fechamento_5bffaa84b539",
+    "temporariaEncerrada": true,
+    "estadoPrincipalPreservado": true,
+    "principalPronto": true,
+    "outboxPrincipalPreservada": true
+  },
+  "fim": "2026-11-13T16:47:57.414Z",
+  "resumo": {
+    "PASS": 6,
+    "FAIL": 1
+  },
+  "erro": "Falha no cenário RF11: outbox pendente após commit e auditoria reais",
+  "versaoFormato": 2,
+  "artefatos": [
+    {
+      "arquivo": "docs/operacao/vinculos-responsaveis.sql",
+      "algoritmo": "SHA-256",
+      "digest": "fdc05e882f09ad5bebc963ce2c18ae9e9403269559463c6e44769974e9814468"
+    },
+    {
+      "arquivo": "tests/e2e-local/demonstrar-fechamento.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "f28a7087aadbaea90eb745d8173d9e71e1fa897e08ae691e394e1536200864e4"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/notificacao/GatewayNotificacaoPadrao.java",
+      "algoritmo": "SHA-256",
+      "digest": "b4cf39b4e85e2990e0c4b7016b43bd321a10f43951cd61436f4842a756fe73f7"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/notificacao/ProcessadorNotificacoes.java",
+      "algoritmo": "SHA-256",
+      "digest": "4221cf2b4e6e3875e6906e5c106715a7f58374a849bd10a1e3ca3d8a888db3d9"
+    },
+    {
+      "arquivo": "backend/src/main/java/br/senac/recursos/notificacao/NotificacaoAgendamento.java",
+      "algoritmo": "SHA-256",
+      "digest": "67af057fbdbbc35ab25c95da8e2a49009c38cb5a80e35b9368d6cfa5ada357ba"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/aprovacoes.js",
+      "algoritmo": "SHA-256",
+      "digest": "641e0e456de266f946aa1354c1a4c4c5e4789dacb242e6dd2a074aa4095f15de"
+    },
+    {
+      "arquivo": "backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar",
+      "algoritmo": "SHA-256",
+      "digest": "4b8633a55e59f5f2b5d11865338cb7658eb0f943b50b35d6baa0eb2ebfb0def5"
+    }
+  ]
+}

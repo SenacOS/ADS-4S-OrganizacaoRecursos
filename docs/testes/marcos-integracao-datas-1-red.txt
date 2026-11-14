@@ -1,0 +1,46 @@
+✖ movimentações aceitam minutos na consulta/retirada/devolução e comparam instantes equivalentes (1.3094ms)
+✖ respostas aceitam precisão de minuto com offset e preservam limites civis (1.4868ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 150.4169
+
+✖ failing tests:
+
+test at tests\unit\frontend\movimentacoes.test.js:26:1
+✖ movimentações aceitam minutos na consulta/retirada/devolução e comparam instantes equivalentes (1.3094ms)
+  ErroApi: Não foi possível confirmar os dados da movimentação. Atualize as pendências antes de reenviar uma operação.
+      at incerta (file:///C:/Users/fsouza/OneDrive%20-%20C%20Kennedy%20-%202025.old/Documentos/Cods/QS_Project/ADS-4S-OrganizacaoRecursos/backend/src/main/resources/static/js/movimentacoes.js:13:10)
+      at conferirMovimentacao (file:///C:/Users/fsouza/OneDrive%20-%20C%20Kennedy%20-%202025.old/Documentos/Cods/QS_Project/ADS-4S-OrganizacaoRecursos/backend/src/main/resources/static/js/movimentacoes.js:25:75)
+      at TestContext.<anonymous> (file:///C:/Users/fsouza/OneDrive%20-%20C%20Kennedy%20-%202025.old/Documentos/Cods/QS_Project/ADS-4S-OrganizacaoRecursos/tests/unit/frontend/movimentacoes.test.js:28:20)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    status: 200,
+    codigo: 'RESPOSTA_INVALIDA',
+    correlationId: null
+  }
+
+test at tests\unit\frontend\recursos-datas.test.js:30:1
+✖ respostas aceitam precisão de minuto com offset e preservam limites civis (1.4868ms)
+  AssertionError [ERR_ASSERTION]: 2026-11-12T13:08-03:00
+
+  false !== true
+
+      at TestContext.<anonymous> (file:///C:/Users/fsouza/OneDrive%20-%20C%20Kennedy%20-%202025.old/Documentos/Cods/QS_Project/ADS-4S-OrganizacaoRecursos/tests/unit/frontend/recursos-datas.test.js:33:12)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

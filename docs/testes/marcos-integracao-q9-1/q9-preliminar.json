@@ -1,0 +1,141 @@
+{
+  "inicio": "2026-11-12T17:16:35.610Z",
+  "head": "8c21a437e1e48dd9f2edfc2999169b06e1c63b55",
+  "merge": "3f2a9a3bb4e4f7d0c08ca5095deb1e4e808c6f4c",
+  "branch": "feature/marcos-integracao-q9",
+  "camada": "HTTP/Chrome/MySQL reais, sem interceptação",
+  "cenarios": [
+    {
+      "nome": "V6 e fontes servidas",
+      "estado": "PASS",
+      "evidencia": {
+        "migracoes": 6,
+        "hashesServidos": "MATCH"
+      }
+    },
+    {
+      "nome": "Solicitante, paginação e total restritos às próprias reservas",
+      "estado": "PASS",
+      "evidencia": {
+        "totalProprias": 3,
+        "alheia": 404,
+        "detalheCompleto": 200
+      }
+    },
+    {
+      "nome": "Administrador lê sem herdar decisão",
+      "estado": "PASS",
+      "evidencia": {
+        "total": 4,
+        "aprovacao": 403
+      }
+    },
+    {
+      "nome": "Responsável sem vínculo e filtros inválidos",
+      "estado": "PASS",
+      "evidencia": {
+        "fila": 0,
+        "detalhe": 404,
+        "decisao": 403,
+        "parametros": 400,
+        "semSessao": 401
+      }
+    },
+    {
+      "nome": "Vínculo parcial preserva negativa multi-recurso",
+      "estado": "PASS",
+      "evidencia": {
+        "total": 3,
+        "multipla": 404,
+        "decisao": 403,
+        "estadoPreservado": "SOLICITADA"
+      }
+    },
+    {
+      "nome": "Vínculo completo habilita leitura multi-recurso",
+      "estado": "PASS",
+      "evidencia": {
+        "total": 4,
+        "multipla": 200,
+        "recursos": 2
+      }
+    },
+    {
+      "nome": "Fila real: identificação, aprovação e rejeição com motivo",
+      "estado": "PASS",
+      "evidencia": {
+        "aprovada": 21,
+        "rejeitada": 24,
+        "motivoObrigatorio": true,
+        "errosJS": 0
+      }
+    }
+  ],
+  "hashes": {
+    "tests/e2e-local/validar-q9.cjs": "045ea9d784c38b8183b05c384a57619d7f4ec6fa01f6cdcffd3b8a0d12c3197b",
+    "tests/e2e-local/validar.cjs": "97242bb4bfe5698abe25ba97ba446fa4600548e3a4026d2f4f93b59088650c7b",
+    "backend/src/main/resources/static/js/aprovacoes.js": "641e0e456de266f946aa1354c1a4c4c5e4789dacb242e6dd2a074aa4095f15de",
+    "backend/src/main/resources/static/js/aprovacoes-page.js": "ccd53aaea68ca38cda868e18aaf373a27c756c07d8e8f0e0f59cf4b91d3f0085",
+    "backend/src/main/resources/static/js/datas.js": "4aa2ca0259b58e808e15c7c9eca3b3f3048e506c3fdb6a84ead658635a2a5cd7",
+    "backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar": "17bbdcb64f88373fbe691190c4c98c7f9471d1e5d5a7dcf0dcfeb0da888da894"
+  },
+  "massa": {
+    "responsavel": 3,
+    "A": 32,
+    "B": 33,
+    "propria": {
+      "id": 21,
+      "solicitanteId": 2,
+      "status": "SOLICITADA",
+      "restrita": true,
+      "inicio": "2026-11-12T14:21:00-03:00",
+      "fim": "2026-11-12T14:31:00-03:00",
+      "recursosIds": [
+        32
+      ],
+      "motivoDecisao": null
+    },
+    "alheia": {
+      "id": 22,
+      "solicitanteId": 14,
+      "status": "SOLICITADA",
+      "restrita": true,
+      "inicio": "2026-11-12T14:41:00-03:00",
+      "fim": "2026-11-12T14:51:00-03:00",
+      "recursosIds": [
+        32
+      ],
+      "motivoDecisao": null
+    },
+    "multipla": {
+      "id": 23,
+      "solicitanteId": 2,
+      "status": "SOLICITADA",
+      "restrita": true,
+      "inicio": "2026-11-12T15:01:00-03:00",
+      "fim": "2026-11-12T15:11:00-03:00",
+      "recursosIds": [
+        32,
+        33
+      ],
+      "motivoDecisao": null
+    },
+    "rejeitar": {
+      "id": 24,
+      "solicitanteId": 2,
+      "status": "SOLICITADA",
+      "restrita": true,
+      "inicio": "2026-11-12T15:21:00-03:00",
+      "fim": "2026-11-12T15:31:00-03:00",
+      "recursosIds": [
+        32
+      ],
+      "motivoDecisao": null
+    }
+  },
+  "fim": "2026-11-12T17:16:39.413Z",
+  "resumo": {
+    "PASS": 7,
+    "FAIL": 0
+  }
+}

@@ -1,0 +1,206 @@
+{
+  "inicio": "2026-11-12T19:46:37.381Z",
+  "base": "0775715d5a769d726e5cc63dc1b4125747084ff8",
+  "branch": "test/marcos-fechamento-e2e",
+  "arvore": "helpers novos ainda sem commit; produto preservado de 0775715",
+  "camadas": "Chrome/HTTP/MySQL/tempo reais; concorrência de criação HTTP+SQL; sem mock, alteração de relógio ou escrita SQL",
+  "ferramentas": {
+    "java": "21.0.13+9",
+    "mysql": "8.4.13",
+    "chrome": "157.0.8103.78"
+  },
+  "cenarios": [
+    {
+      "nome": "Fontes servidas pelo JAR e regressão anterior preservadas",
+      "camada": "HTTP + SHA256",
+      "inicio": "2026-11-12T19:46:38.730Z",
+      "evidencia": {
+        "arquivosServidos": 32,
+        "hashes": "MATCH",
+        "regressaoAnterior": "81 unitários / 278 navegador; não reexecutada sem alteração da fonte"
+      },
+      "estado": "PASS",
+      "fim": "2026-11-12T19:46:38.845Z"
+    }
+  ],
+  "estadoDaTentativa": "INCOMPLETA",
+  "observacao": "Helper encerrou por rejeição não tratada enquanto o seletor de submit aguardava o rótulo acessível antigo; só primeiro cenário gravado. Sem instância temporária nem massa de recursos iniciadas.",
+  "versaoFormato": 2,
+  "artefatos": [
+    {
+      "arquivo": "backend/src/main/resources/static/css/administracao.css",
+      "algoritmo": "SHA-256",
+      "digest": "38ec6ad935a432783f164c8837cab1c42d42a38435760fd255243d34cf4f5a29"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/css/app.css",
+      "algoritmo": "SHA-256",
+      "digest": "d65964a412c209e4e4c1815813296490ca02fe08f0cc93b3fe3427542f314892"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/css/consulta-reservas.css",
+      "algoritmo": "SHA-256",
+      "digest": "dc27a7ecd9b91712773fcb8b4789f87b6baf86fb6341cc1477e638706103dce7"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/css/movimentacoes.css",
+      "algoritmo": "SHA-256",
+      "digest": "0cb06d7766c0b145aa40130aa465e684d8837d5373e3c02b4bb4cf940b2e556c"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/index.html",
+      "algoritmo": "SHA-256",
+      "digest": "126b3967a5b09974f318142e5df72c2f704c54d288012b059cdbb3400fcce5b1"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/administracao-recursos.js",
+      "algoritmo": "SHA-256",
+      "digest": "b3885630bcaaad766275d14599855d657753e7cfe80ed8df2fad90f77589e70a"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/api.js",
+      "algoritmo": "SHA-256",
+      "digest": "2eaf25254aea02d3b7af36682beb925fb9886eb3fd189503985b09824055d79e"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/aprovacoes-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "ccd53aaea68ca38cda868e18aaf373a27c756c07d8e8f0e0f59cf4b91d3f0085"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/aprovacoes.js",
+      "algoritmo": "SHA-256",
+      "digest": "641e0e456de266f946aa1354c1a4c4c5e4789dacb242e6dd2a074aa4095f15de"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/auth.js",
+      "algoritmo": "SHA-256",
+      "digest": "3a217e3d316a52bb10a9ea67da2d5336e1c87a8e5b209b8e8859922b24e3d189"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/consulta-reservas-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "95aa36d96c8641da4bb43eacc0d2a2014ffd3c2ec0bb2cf357b434353aedcc4f"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/consulta-reservas.js",
+      "algoritmo": "SHA-256",
+      "digest": "bde2b04cc4e2dca62907c9bd766c3ba7ba2205faa935f7966cd61839e849a8da"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/dashboard-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "df08e712c03ea2babb6dd3dc1efa1ee30bc6ecce91ff4033659f4f7f8afef11b"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/datas.js",
+      "algoritmo": "SHA-256",
+      "digest": "44f35755602a1043e5126ed4807f5b0b31bc273908c7e4d079d6df34a9636bbe"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/forms.js",
+      "algoritmo": "SHA-256",
+      "digest": "2ae5863cde43725fe720967f420390910942fe1c7dbbb11dcd6defab9f53da60"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/gestao-recursos-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "a7c7b2ce348af0e3c73496e6f5672db82f15219ff45cf0779f404b26682f3e9c"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/login-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "e000ccd36ce0a321560ad5eef51551662d50213d0f0acec0d4009eeb23a586d4"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/movimentacoes-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "d1f3a8c69e752b8847c3dad9407f127164de117d2005292bf06196dd6961f2e7"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/movimentacoes.js",
+      "algoritmo": "SHA-256",
+      "digest": "444fae3b3d916e8b65a341548fa1b74b63af0ff062412d8bb3f2193308145139"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/navegacao.js",
+      "algoritmo": "SHA-256",
+      "digest": "3b32c672b906e8ce1f58e8688b301335415f1d7ce22426fd46505f059367f0b6"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/recursos-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "42639ed98dd500ea4c082c77163a81218a883fbcd97bc269822265366da3b1f8"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/recursos.js",
+      "algoritmo": "SHA-256",
+      "digest": "911f343d802895422ee328e62d6cf839add62dfbe24ef358d47ec00d3bc7040f"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/reservas.js",
+      "algoritmo": "SHA-256",
+      "digest": "5e2e4d7be7fb07851b9a91191de7884101808fbf53f863266d67f3e538e52e4f"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/sessao-page.js",
+      "algoritmo": "SHA-256",
+      "digest": "33a29fcace084790134d50071db0a846b5597dec7a5de5e27bdcc368cbc0a6c7"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/js/ui.js",
+      "algoritmo": "SHA-256",
+      "digest": "645b246d3de6a90732d97c1600e6c4e5cc28af2a03b9c9fa1ba2df6ef03c605a"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/login.html",
+      "algoritmo": "SHA-256",
+      "digest": "e52c726574ded166f7282c4862b365203976876a3014c2007249bcb99c13e86e"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/aprovacoes.html",
+      "algoritmo": "SHA-256",
+      "digest": "405c3cb5f9df783caa003101e45faf556c3941b0f8eb83e89867630f76bf61ac"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/gestao-recursos.html",
+      "algoritmo": "SHA-256",
+      "digest": "c0c77ee0e34315bd23a4c0c0d973d35cab4fcfe0a4d7758e1f922802ce5fb641"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/minhas-reservas.html",
+      "algoritmo": "SHA-256",
+      "digest": "9b8369b32d78226b9391730d8a4176a9d49602d1755c6c95fd93647856ef6c42"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/movimentacoes.html",
+      "algoritmo": "SHA-256",
+      "digest": "8daa0710cb77123398a64f068932338254a2763c1bf604e0943b2334ecdf5233"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/recursos.html",
+      "algoritmo": "SHA-256",
+      "digest": "034d64a1d5c56c37b775b1500d3789aebf0dc15e8b84bbbf63a91551e66857a5"
+    },
+    {
+      "arquivo": "backend/src/main/resources/static/pages/reservas.html",
+      "algoritmo": "SHA-256",
+      "digest": "fdce4dce7359bce78da6300deb4fb833f243b46b8c0057ae5ad01d4bce6153f5"
+    },
+    {
+      "arquivo": "tests/e2e-local/validar-fechamento.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "259214e1a0e837f6b77647b67af35faef9b4a697408b6736dfff05f29629a5f9"
+    },
+    {
+      "arquivo": "tests/e2e-local/sessao-temporaria.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "eda9033de0c44b24271cd25fed0c349e9ad0541609790015161dd1bce7d7eb41"
+    },
+    {
+      "arquivo": "backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar",
+      "algoritmo": "SHA-256",
+      "digest": "6d84690abcf10e7c1b811875b8a8d726b9857afca670bccfee222dd62923fe20"
+    }
+  ]
+}

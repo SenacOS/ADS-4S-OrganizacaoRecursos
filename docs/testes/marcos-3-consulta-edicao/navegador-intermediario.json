@@ -1,0 +1,3602 @@
+{
+  "comando": "npm.cmd run build",
+  "api": "controlada exclusivamente nos testes de navegador",
+  "stats": {
+    "startTime": "2026-11-12T18:47:26.676Z",
+    "duration": 176125.49699999997,
+    "expected": 276,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "casos": [
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "login por teclado envia formulário e CSRF, depois consulta o perfil",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 643
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "login por teclado envia formulário e CSRF, depois consulta o perfil",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 733
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "credenciais inválidas preservam formulário e mostram HTML como texto",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 496
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "credenciais inválidas preservam formulário e mostram HTML como texto",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 450
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "envios simultâneos de login executam uma escrita e indicam busy",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 515
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "envios simultâneos de login executam uma escrita e indicam busy",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 639
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "sessão expirada volta ao login sem loop nem dados privados",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 390
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "sessão expirada volta ao login sem loop nem dados privados",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 400
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "sessão já válida evita novo login e ignora destinos externos",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 411
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "sessão já válida evita novo login e ignora destinos externos",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 369
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "navegação do perfil SOLICITANTE sem ações ou links indevidos",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 387
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "navegação do perfil SOLICITANTE sem ações ou links indevidos",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 369
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "navegação do perfil RESPONSAVEL sem ações ou links indevidos",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 406
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "navegação do perfil RESPONSAVEL sem ações ou links indevidos",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 428
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "navegação do perfil ADMINISTRADOR sem ações ou links indevidos",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 402
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "navegação do perfil ADMINISTRADOR sem ações ou links indevidos",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 421
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "logout usa CSRF e confirma saída somente após 204",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 657
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "logout usa CSRF e confirma saída somente após 204",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 567
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "falha no logout restaura botão e não afirma sessão encerrada",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 425
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "falha no logout restaura botão e não afirma sessão encerrada",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 473
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "envios simultâneos de logout executam uma escrita",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 514
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "envios simultâneos de logout executam uma escrita",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 548
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "falha na leitura da sessão mantém painel oculto e permite nova leitura",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 370
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "falha na leitura da sessão mantém painel oculto e permite nova leitura",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 448
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "perfil não reconhecido não revela painel nem ações",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 330
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "perfil não reconhecido não revela painel nem ações",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 325
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "403 no login não repete envio; nova ação busca outro token",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 498
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "403 no login não repete envio; nova ação busca outro token",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 494
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "login e entrada cabem na viewport sem rolagem horizontal",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 729
+        }
+      ]
+    },
+    {
+      "arquivo": "acesso.spec.js",
+      "cenario": "login e entrada cabem na viewport sem rolagem horizontal",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 675
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "SOLICITANTE não acessa nem consulta dados administrativos pela URL direta",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 321
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "SOLICITANTE não acessa nem consulta dados administrativos pela URL direta",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 373
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "RESPONSAVEL não acessa nem consulta dados administrativos pela URL direta",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 347
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "RESPONSAVEL não acessa nem consulta dados administrativos pela URL direta",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 362
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "sem sessão redireciona ao login sem consultas administrativas",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 351
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "sem sessão redireciona ao login sem consultas administrativas",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 358
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "consulta paginada inclui inativos, combina filtros e reinicia página",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 494
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "consulta paginada inclui inativos, combina filtros e reinicia página",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 506
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "cadastro de sala por teclado envia somente DTO e CSRF",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 621
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "cadastro de sala por teclado envia somente DTO e CSRF",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 607
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "cadastro docente aceita competências vazias e não envia dados da sala",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 628
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "cadastro docente aceita competências vazias e não envia dados da sala",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 559
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "cadastro material aceita condição livre e restrição",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 838
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "cadastro material aceita condição livre e restrição",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 751
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "edição consulta detalhe, fixa tipo e preserva campos no PUT completo",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 669
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "edição consulta detalhe, fixa tipo e preserva campos no PUT completo",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 540
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "detalhe ausente impede edição e não aproveita resumo incompleto",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 510
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "detalhe ausente impede edição e não aproveita resumo incompleto",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 479
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "detalhe pendente bloqueia troca de alvo e respostas não se misturam",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 496
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "detalhe pendente bloqueia troca de alvo e respostas não se misturam",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 485
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "desativação exige confirmação e só muda estado após 204",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 676
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "desativação exige confirmação e só muda estado após 204",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 632
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "409 na desativação mantém recurso ativo, dados e referência de suporte",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 632
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "409 na desativação mantém recurso ativo, dados e referência de suporte",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 610
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "bloqueio multidia converte fuso, preserva 409 e permite correção explícita",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 713
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "bloqueio multidia converte fuso, preserva 409 e permite correção explícita",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 681
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "cancelamento de bloqueio exige confirmação e remove ação do cancelado",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 702
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "cancelamento de bloqueio exige confirmação e remove ação do cancelado",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 719
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "expediente preserva todas as janelas e nanossegundos sem arredondamento",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 550
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "expediente preserva todas as janelas e nanossegundos sem arredondamento",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 609
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "expediente vazio exige confirmação e deixa fechamento explícito",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 724
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "expediente vazio exige confirmação e deixa fechamento explícito",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 697
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "expediente com sobreposição não envia; 409 conserva a edição",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 814
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "expediente com sobreposição não envia; 409 conserva a edição",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 1101
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "falha de leitura do expediente impede salvar e permite recuperação por GET",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 575
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "falha de leitura do expediente impede salvar e permite recuperação por GET",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 515
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "duplo envio mantém uma escrita e controles bloqueados até resposta",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 658
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "duplo envio mantém uma escrita e controles bloqueados até resposta",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 663
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "rede mantém cadastro sem sucesso falso nem retry",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 692
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "rede mantém cadastro sem sucesso falso nem retry",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 656
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "respostaInvalida mantém cadastro sem sucesso falso nem retry",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 618
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "respostaInvalida mantém cadastro sem sucesso falso nem retry",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 654
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "403 não repete escrita e nova ação explícita renova token",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 728
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "403 não repete escrita e nova ação explícita renova token",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 854
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "textos da API são literais e página cabe em desktop/móvel",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 822
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "textos da API são literais e página cabe em desktop/móvel",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 807
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "desativação via edição também exige confirmação identificada",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 693
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "desativação via edição também exige confirmação identificada",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 823
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "capturas administrativas usam somente dados fictícios",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 870
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "capturas administrativas usam somente dados fictícios",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 873
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "falha de pesquisa encerra carregamento e permite recuperação explícita",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 456
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "falha de pesquisa encerra carregamento e permite recuperação explícita",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 490
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "bloqueio confirmado com falha de atualização mantém aviso de consulta sem repetir POST",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 689
+        }
+      ]
+    },
+    {
+      "arquivo": "administracao-recursos.spec.js",
+      "cenario": "bloqueio confirmado com falha de atualização mantém aviso de consulta sem repetir POST",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 713
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "Responsável consulta somente pendentes e vê detalhes legíveis no fuso operacional",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 440
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "Responsável consulta somente pendentes e vê detalhes legíveis no fuso operacional",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 432
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "SOLICITANTE na URL direta não consulta fila nem recebe ações",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 335
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "SOLICITANTE na URL direta não consulta fila nem recebe ações",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 433
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "ADMINISTRADOR na URL direta não consulta fila nem recebe ações",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 346
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "ADMINISTRADOR na URL direta não consulta fila nem recebe ações",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 450
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "aprovação confirma resposta, envia CSRF sem corpo e atualiza fila",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 546
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "aprovação confirma resposta, envia CSRF sem corpo e atualiza fila",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 510
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "rejeição exige motivo e envia apenas a justificativa aparada",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 700
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "rejeição exige motivo e envia apenas a justificativa aparada",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 570
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "submits simultâneos produzem um POST e bloqueiam troca/filtros até confirmar",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 538
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "submits simultâneos produzem um POST e bloqueiam troca/filtros até confirmar",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 587
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "GET falhando após POST confirmado preserva sucesso e permite só atualizar a fila",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 593
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "GET falhando após POST confirmado preserva sucesso e permite só atualizar a fila",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 561
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "decisão no último item de uma página retorna à página anterior com GETs",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 731
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "decisão no último item de uma página retorna à página anterior com GETs",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 607
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "filtros aceitam vários dias, codificam recurso e reiniciam paginação",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 892
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "filtros aceitam vários dias, codificam recurso e reiniciam paginação",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 564
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "filtros inválidos não consultam e limpar filtros restaura a consulta padrão",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 706
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "filtros inválidos não consultam e limpar filtros restaura a consulta padrão",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 622
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "resposta atrasada não revela a fila após alteração de filtros",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 717
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "resposta atrasada não revela a fila após alteração de filtros",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 552
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "fila vazia e erro de API ausente têm estados diferentes e permitem nova consulta",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 664
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "fila vazia e erro de API ausente têm estados diferentes e permitem nova consulta",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 541
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "projeção incoerente impede renderização parcial e decisão",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 440
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "projeção incoerente impede renderização parcial e decisão",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 431
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "erro 400 na decisão não repete POST e permite recuperação",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 853
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "erro 400 na decisão não repete POST e permite recuperação",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 523
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "erro 403 na decisão não repete POST e permite recuperação",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 656
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "erro 403 na decisão não repete POST e permite recuperação",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 524
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "erro 404 na decisão não repete POST e permite recuperação",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 747
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "erro 404 na decisão não repete POST e permite recuperação",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 571
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "erro 409 na decisão não repete POST e permite recuperação",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 694
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "erro 409 na decisão não repete POST e permite recuperação",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 652
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "403 invalida CSRF e nova decisão explícita obtém token novo",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 703
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "403 invalida CSRF e nova decisão explícita obtém token novo",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 541
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "rede após decisão impede replay e pede conferir resultado pela fila",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 592
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "rede após decisão impede replay e pede conferir resultado pela fila",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 477
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "resposta de decisão incoerente não afirma sucesso nem mantém ações antigas",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 695
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "resposta de decisão incoerente não afirma sucesso nem mantém ações antigas",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 517
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "sessão expirada na decisão volta ao login sem repetir a escrita",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 630
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "sessão expirada na decisão volta ao login sem repetir a escrita",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 524
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "servidor negando consulta com 403 não expõe solicitações",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 371
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "servidor negando consulta com 403 não expõe solicitações",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 376
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "dados e erro com HTML permanecem texto, sem expor campos extras da projeção",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 509
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "dados e erro com HTML permanecem texto, sem expor campos extras da projeção",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 533
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "detalhes e rejeição funcionam por teclado em móvel/desktop com capturas",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 869
+        }
+      ]
+    },
+    {
+      "arquivo": "aprovacoes.spec.js",
+      "cenario": "detalhes e rejeição funcionam por teclado em móvel/desktop com capturas",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 968
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "lista pagina no servidor, aplica filtros completos e não envia identidade",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 528
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "lista pagina no servidor, aplica filtros completos e não envia identidade",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 499
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "detalhe GET preserva todos os recursos e frações no PATCH sem editar campos",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 652
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "detalhe GET preserva todos os recursos e frações no PATCH sem editar campos",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 530
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "seleção original ocupada sobrevive à pesquisa e às páginas; novos indisponíveis não entram",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 808
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "seleção original ocupada sobrevive à pesquisa e às páginas; novos indisponíveis não entram",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 808
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "remover todos permite pesquisar e selecionar substituto antes de salvar",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 623
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "remover todos permite pesquisar e selecionar substituto antes de salvar",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 627
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "reserva comum não oferece inclusão de recurso novo que exige aprovação",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 620
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "reserva comum não oferece inclusão de recurso novo que exige aprovação",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 500
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "alterar um horário preserva o outro e invalida confirmação anterior",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 574
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "alterar um horário preserva o outro e invalida confirmação anterior",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 556
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "RESPONSAVEL não herda edição de reserva alheia",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 492
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "RESPONSAVEL não herda edição de reserva alheia",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 458
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "ADMINISTRADOR não herda edição de reserva alheia",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 471
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "ADMINISTRADOR não herda edição de reserva alheia",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 440
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "cancelamento requer conferência e confirma alvo/estado sem remover histórico",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 588
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "cancelamento requer conferência e confirma alvo/estado sem remover histórico",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 555
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "estado EM_USO não oferece edição ou cancelamento",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 445
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "estado EM_USO não oferece edição ou cancelamento",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 528
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "falha 404 no detalhe não habilita ações nem expõe a lista como detalhe",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 482
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "falha 404 no detalhe não habilita ações nem expõe a lista como detalhe",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 417
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "consulta falha encerra carregamento e permite recuperação por GET",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 454
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "consulta falha encerra carregamento e permite recuperação por GET",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 421
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "incoerente não repete escrita; nova tentativa exige GET detalhe e conferência",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 932
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "incoerente não repete escrita; nova tentativa exige GET detalhe e conferência",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 755
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "conflito não repete escrita; nova tentativa exige GET detalhe e conferência",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 779
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "conflito não repete escrita; nova tentativa exige GET detalhe e conferência",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 773
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "GET falho após escrita confirmada mantém sucesso e impede reenvio",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 590
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "GET falho após escrita confirmada mantém sucesso e impede reenvio",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 541
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "duplo submit mantém uma escrita durante a resposta pendente",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 550
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "duplo submit mantém uma escrita durante a resposta pendente",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 574
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "sem sessão redireciona antes de consultar reservas",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 409
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "sem sessão redireciona antes de consultar reservas",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 357
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "textos da API são literais e página/detalhe cabem no viewport com foco",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 561
+        }
+      ]
+    },
+    {
+      "arquivo": "consulta-reservas.spec.js",
+      "cenario": "textos da API são literais e página/detalhe cabem no viewport com foco",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 455
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "Solicitante pela URL direta não consulta movimentações ou cadastros",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 366
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "Solicitante pela URL direta não consulta movimentações ou cadastros",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 330
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "Administrador consulta abertas sem retirada, devolução ou busca de materiais",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 486
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "Administrador consulta abertas sem retirada, devolução ou busca de materiais",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 463
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "sem sessão redireciona antes de consultar pendências",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 396
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "sem sessão redireciona antes de consultar pendências",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 385
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "pendência fora do prazo continua aberta com estimativa e hora em São Paulo",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 439
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "pendência fora do prazo continua aberta com estimativa e hora em São Paulo",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 417
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "cadastro inacessível preserva pendência e permite confirmar devolução",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 548
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "cadastro inacessível preserva pendência e permite confirmar devolução",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 532
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "seleção de patrimônio é explícita, pagina no servidor e trocar página invalida confirmação",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 642
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "seleção de patrimônio é explícita, pagina no servidor e trocar página invalida confirmação",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 805
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "alterar reserva ou patrimônio invalida confirmação e seleção obsoleta",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 617
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "alterar reserva ou patrimônio invalida confirmação e seleção obsoleta",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 562
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "resposta atrasada de pesquisa não restaura materiais após mudar filtro",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 460
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "resposta atrasada de pesquisa não restaura materiais após mudar filtro",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 459
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "retirada exige confirmação, envia somente IDs e impede repetição após sucesso",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 844
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "retirada exige confirmação, envia somente IDs e impede repetição após sucesso",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 730
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "prazo com minutos e offset confirma retirada, pendência e devolução sem reenvio",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 706
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "prazo com minutos e offset confirma retirada, pendência e devolução sem reenvio",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 714
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "material inativo não oferece escolha válida e busca vazia não inventa resultados",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 572
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "material inativo não oferece escolha válida e busca vazia não inventa resultados",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 508
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "devolução aceita registro anterior de outro operador e mostra atraso final do servidor",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 633
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "devolução aceita registro anterior de outro operador e mostra atraso final do servidor",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 574
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "devolução exige confirmação e desistir não escreve",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 542
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "devolução exige confirmação e desistir não escreve",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 591
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "falha 400 preserva retirada, mostra texto literal e não repete POST",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 705
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "falha 400 preserva retirada, mostra texto literal e não repete POST",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 685
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "falha 403 preserva retirada, mostra texto literal e não repete POST",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 706
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "falha 403 preserva retirada, mostra texto literal e não repete POST",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 794
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "falha 404 preserva retirada, mostra texto literal e não repete POST",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 626
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "falha 404 preserva retirada, mostra texto literal e não repete POST",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 697
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "falha 409 preserva retirada, mostra texto literal e não repete POST",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 720
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "falha 409 preserva retirada, mostra texto literal e não repete POST",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 666
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "409 na devolução mantém a pendência e permite reconsulta sem POST automático",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 764
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "409 na devolução mantém a pendência e permite reconsulta sem POST automático",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 591
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "rede na devolução mantém pendência sem sucesso falso",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 846
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "rede na devolução mantém pendência sem sucesso falso",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 801
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "incoerente na devolução mantém pendência sem sucesso falso",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 930
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "incoerente na devolução mantém pendência sem sucesso falso",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 959
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "envios simultâneos de devolução mantêm apenas uma escrita e bloqueiam ações",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 787
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "envios simultâneos de devolução mantêm apenas uma escrita e bloqueiam ações",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 605
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "falha de consulta mantém última lista confirmada e recupera com GET",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 613
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "falha de consulta mantém última lista confirmada e recupera com GET",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 498
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "escrita confirmada seguida de GET falho não reabre pendência nem repete devolução",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 563
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "escrita confirmada seguida de GET falho não reabre pendência nem repete devolução",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 591
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "sessão expirada na escrita segue login sem segunda escrita",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 701
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "sessão expirada na escrita segue login sem segunda escrita",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 754
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "textos do cadastro são literais e não executam HTML",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 441
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "textos do cadastro são literais e não executam HTML",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 452
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "capturas de pendências e retirada, teclado e largura em duas viewports",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 996
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "capturas de pendências e retirada, teclado e largura em duas viewports",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 921
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "rede na retirada exige GET confirmado e nova confirmação antes de outro POST",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 1104
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "rede na retirada exige GET confirmado e nova confirmação antes de outro POST",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 989
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "incoerente na retirada exige GET confirmado e nova confirmação antes de outro POST",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 859
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "incoerente na retirada exige GET confirmado e nova confirmação antes de outro POST",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 954
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "identificação antiga não sobrescreve cadastro obtido na atualização seguinte",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 424
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "identificação antiga não sobrescreve cadastro obtido na atualização seguinte",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 550
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "envios simultâneos de retirada mantêm um POST e uma confirmação válida",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 703
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "envios simultâneos de retirada mantêm um POST e uma confirmação válida",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 752
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "falha inicial de pendências não inventa vazio e permite recuperação",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 449
+        }
+      ]
+    },
+    {
+      "arquivo": "movimentacoes.spec.js",
+      "cenario": "falha inicial de pendências não inventa vazio e permite recuperação",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 421
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "pesquisa combina filtros, mostra expediente real e codifica datas no fuso operacional",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 735
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "pesquisa combina filtros, mostra expediente real e codifica datas no fuso operacional",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 592
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "reserva comum seleciona sala e docente, envia DTO completo/CSRF e confirma resposta",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 795
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "reserva comum seleciona sala e docente, envia DTO completo/CSRF e confirma resposta",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 723
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "reserva restrita exibe SOLICITADA e espera sem inventar aprovação ou notificação",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 603
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "reserva restrita exibe SOLICITADA e espera sem inventar aprovação ou notificação",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 656
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "seleção atravessa páginas e nova pesquisa reinicia a página sem perder o mesmo período",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 845
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "seleção atravessa páginas e nova pesquisa reinicia a página sem perder o mesmo período",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 943
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "alterar o período limpa seleção e resultados antes de permitir outra solicitação",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 562
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "alterar o período limpa seleção e resultados antes de permitir outra solicitação",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 546
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "não oferece seleção de recurso indisponível ou inativo",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 586
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "não oferece seleção de recurso indisponível ou inativo",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 582
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "vazio e erro de consulta permitem corrigir e pesquisar novamente",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 755
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "vazio e erro de consulta permitem corrigir e pesquisar novamente",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 616
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "falha 400 na criação preserva período/seleção e não repete POST",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 613
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "falha 400 na criação preserva período/seleção e não repete POST",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 658
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "falha 403 na criação preserva período/seleção e não repete POST",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 660
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "falha 403 na criação preserva período/seleção e não repete POST",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 636
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "falha 404 na criação preserva período/seleção e não repete POST",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 606
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "falha 404 na criação preserva período/seleção e não repete POST",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 608
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "falha 409 na criação preserva período/seleção e não repete POST",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 653
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "falha 409 na criação preserva período/seleção e não repete POST",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 605
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "submissões simultâneas mantêm uma escrita e carregamento até a confirmação",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 653
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "submissões simultâneas mantêm uma escrita e carregamento até a confirmação",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 672
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "falha de rede não afirma sucesso e orienta conferir antes de reenviar",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 603
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "falha de rede não afirma sucesso e orienta conferir antes de reenviar",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 650
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "resposta incoerente após POST não mostra sucesso nem repete a escrita",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 633
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "resposta incoerente após POST não mostra sucesso nem repete a escrita",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 560
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "resposta atrasada é descartada se o período mudar durante a consulta",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 596
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "resposta atrasada é descartada se o período mudar durante a consulta",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 540
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "sessão ausente não consulta recursos e retorna ao login",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 458
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "sessão ausente não consulta recursos e retorna ao login",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 423
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "sessão expirada durante escrita segue fluxo central e não repete POST",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 725
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "sessão expirada durante escrita segue fluxo central e não repete POST",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 693
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "período inválido não dispara consultas",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 530
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "período inválido não dispara consultas",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 663
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "disponibilidade sem período é recusada e limpar filtros restaura a consulta geral",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 605
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "disponibilidade sem período é recusada e limpar filtros restaura a consulta geral",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 856
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "atualizar a pesquisa remove seleção que ficou indisponível",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 663
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "atualizar a pesquisa remove seleção que ficou indisponível",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 638
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "expediente vazio não inventa horários e falha de leitura não impede consulta",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 589
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "expediente vazio não inventa horários e falha de leitura não impede consulta",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 841
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "teclado, texto seguro e layout cabem em móvel/desktop com confirmação acessível",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 972
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "teclado, texto seguro e layout cabem em móvel/desktop com confirmação acessível",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 976
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "capturas de pesquisa e confirmação com recursos de teste identificados",
+      "projeto": "desktop",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 933
+        }
+      ]
+    },
+    {
+      "arquivo": "recursos.spec.js",
+      "cenario": "capturas de pesquisa e confirmação com recursos de teste identificados",
+      "projeto": "mobile",
+      "estado": "expected",
+      "execucoes": [
+        {
+          "estado": "passed",
+          "retry": 0,
+          "duracaoMs": 1099
+        }
+      ]
+    }
+  ]
+}

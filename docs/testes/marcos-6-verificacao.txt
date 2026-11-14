@@ -1,0 +1,53 @@
+MARCOS-6 — REVISÃO DO CLIENTE/TELA CONTROLADOS
+Data: 13/11/2026. Branch: feature/marcos-6-relatorios.
+Esta prévia usa sessão e relatório fictícios, sem Spring/MySQL.
+Não comprova autorização RF12, cálculo/agregador real ou envio de notificações.
+
+1. NA RAIZ DO REPOSITÓRIO, iniciar a prévia reproduzível:
+   node tests/browser/relatorios-utilizacao-preview.mjs
+   Se a porta4174 já estiver em uso pela nossa prévia, abrir o link abaixo.
+   Encerrar a prévia iniciada neste terminal com Ctrl+C.
+
+2. NO CHROME:
+   http://127.0.0.1:4174/pages/relatorios-utilizacao.html
+   Não precisa de login: a identidade da prévia é fictícia, identificada no aviso.
+   Não usar credenciais reais. Não procurar a opção de relatório no menu;
+   o link aguarda o contrato real de perfis. As outras áreas não são simuladas aqui.
+
+3. ESTADO INICIAL:
+   Conferir aviso 'Dados simulados', período vazio e nenhum resultado automático.
+
+4. EXEMPLO COM TRÊS RECURSOS:
+   Início: 17/11/2026, 10:00. Fim: 17/11/2026, 11:00. Recurso em branco.
+   Consultar: 1reserva, total1h, 1conflito registrado; recursos1/2/3 com1h cada.
+   O total de reservas continua1h, mesmo que as linhas de alocação somem3h.
+
+5. FILTRO E RECORTE:
+   Recurso2: uma linha de1h, total1h, conflito1.
+   Recurso1: uma linha de1h, total1h, conflito0.
+   Período10:30–11:00: total30min; o evento das10:30 está incluído.
+   Período10:00–10:30: total30min; o evento no fim do período está excluído.
+
+6. VAZIO E VALIDAÇÃO:
+   Período18/11/2026,10:00–11:00: zero reservas, duração0s, conflitos0, sem linhas.
+   Fim igual ou anterior ao início: mensagem de validação, sem consulta.
+   Recurso fracionário/zero: formulário inválido. Corrigir permite nova consulta.
+   Alterar um filtro deve remover o resultado anterior. Limpar remove todos os filtros.
+
+7. ACESSIBILIDADE/RESPONSIVIDADE:
+   Percorrer campos e botões com Tab; consultar com Enter.
+   Conferir foco no resultado e retorno de foco em erro.
+   Repetir em largura de celular; textos, cards e tabela devem caber sem rolagem lateral.
+   Capturas controladas estão em docs/testes/evidencias/marcos-6/.
+
+8. REGRESSÃO AUTOMATIZADA, EM OUTRO TERMINAL:
+   PowerShell: $env:PLAYWRIGHT_CHANNEL='chrome'; npm.cmd run build
+   CMD: set PLAYWRIGHT_CHANNEL=chrome
+        npm run build
+   O build executa lint, typecheck, unitários e navegador.
+   Sessão expirada, erros HTTP/rede e respostas atrasadas são cobertos pelos testes
+   interceptados em tests/browser/relatorios-utilizacao.spec.js, não por esta fixture manual.
+
+9. APÓS A REVISÃO:
+   Registrar aprovação ou ajustes no chat. Commit somente quando Marcos solicitar.
+   Integração real continua separada até o backend entregar HTTP/agregação/perfis RF12.

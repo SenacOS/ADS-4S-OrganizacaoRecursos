@@ -1,0 +1,41 @@
+server:
+  servlet:
+    session:
+      cookie:
+        # Cookie HttpOnly sempre; SameSite Lax para frontend de mesma origem.
+        http-only: true
+        same-site: lax
+        # Desenvolvimento HTTP usa false. Em HTTPS de homologacao/producao,
+        # configurar SESSION_COOKIE_SECURE=true obrigatoriamente.
+        secure: ${SESSION_COOKIE_SECURE:false}
+
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/organizacao_recursos?connectionTimeZone=UTC&forceConnectionTimeZoneToSession=true}
+    username: ${DB_USER:recursos}
+    password: ${DB_PASSWORD:}
+    hikari:
+      transaction-isolation: TRANSACTION_READ_COMMITTED
+      connection-init-sql: SET SESSION innodb_lock_wait_timeout=5
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate.jdbc.time_zone: UTC
+  flyway:
+    enabled: true
+recursos:
+  api:
+    enabled: false
+movimentacoes:
+  api:
+    enabled: false
+reservas:
+  api:
+    enabled: false
+notificacoes:
+  worker:
+    enabled: ${NOTIFICACOES_WORKER_ENABLED:false}
+  gateway:
+    url: ${NOTIFICACOES_GATEWAY_URL:}

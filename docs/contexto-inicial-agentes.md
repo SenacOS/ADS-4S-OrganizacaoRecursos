@@ -23,10 +23,10 @@ Se a especificação oficial divergir deste documento, a versão oficial mais re
 
 ## 2. Estado atual do projeto
 
-- Existe **apenas o repositório no GitHub**, sem código, documentação ou decisões registradas.
+- O repositório contém a base AIOX, README, documentação de domínio e ADRs aprovados. Não há código de aplicação ainda.
 - Não presuma que algo foi sugerido, decidido ou implementado em conversas anteriores. Se não estiver no repositório ou neste documento, não existe.
-- O **calendário acadêmico não deve condicionar o planejamento**. Priorize a ordem lógica das dependências e a qualidade, não a pressão de prazo.
-- O esclarecimento de dúvidas com o professor está **em espera**. Portanto, as ambiguidades da seção 7 permanecem **EM ANÁLISE** e não podem ser resolvidas por suposição.
+- O prazo oficial existe, mas não divide o trabalho em sprints. Priorize a ordem lógica das dependências e a qualidade.
+- O esclarecimento com o professor continua em espera. As ambiguidades da seção 7 marcadas como resolvidas seguem as decisões da seção 4; as demais permanecem **EM ANÁLISE**.
 
 ---
 
@@ -130,26 +130,28 @@ Cada artefato precisa ter finalidade clara. Evite documentação decorativa.
 
 ---
 
-## 4. Decisões que NÃO estão tomadas
+## 4. Decisões
 
-Nenhum dos itens abaixo foi decidido. **A ausência de uma decisão não autoriza você a tomá-la implicitamente.** Proponha, compare e aguarde a aprovação da equipe.
+**Atualização de 05/11/2026.** A equipe aprovou as decisões abaixo (detalhes em `docs/arquitetura/adr/`). Elas substituem qualquer indicação anterior de PostgreSQL, pasta `frontend/` separada ou preset `nextjs-react`.
 
-- Nome definitivo do produto e do repositório
-- Personas e jornadas detalhadas
-- Requisitos refinados e critérios de aceitação
-- Requisitos não funcionais específicos
-- Estilo e arquitetura da solução; organização de módulos e pacotes
-- Estratégia de persistência, SGBD e modelo de dados
-- Framework ou biblioteca da interface e padrão visual
-- Modelo de autenticação, sessões e autorização
-- Mecanismo de controle de concorrência
-- Contratos de API
-- Ferramentas complementares e estratégia de implantação
-- Organização interna da equipe, fluxo de branches e revisão por pares
-- Quais requisitos são "críticos" para a RTM
-- Qual funcionalidade será conduzida por TDD ou BDD
+| ID | Decisão APROVADA |
+|---|---|
+| D01 | Java 21, Spring Boot 3.x, monólito modular, API REST no mesmo processo |
+| D02 | Frontend HTML/CSS/JS puro, sem frameworks, servido pelo Spring Boot em `backend/src/main/resources/static/` (não existe `frontend/`) |
+| D03 | MySQL 8.4 (InnoDB) com migrações versionadas; Maven |
+| D04 | Horários livres dentro do expediente definido pelo Administrador |
+| D05 | Locks pessimistas (`FOR UPDATE`) em `recursos`, ordem crescente de ID, transação única, READ COMMITTED |
+| D06 | SOLICITADA bloqueia a agenda sem expiração automática |
+| D07 | Reservas comuns autoaprovadas; restritas exigem aprovação do Responsável |
+| D08 | Materiais como unidades individuais; retirados ficam indisponíveis até a devolução |
+| D09 | Spring Security, sessão com cookie HttpOnly, CSRF, controle por perfil; sem JWT |
+| D10 | Responsabilidades por módulo mantidas; testes e revisão compartilhados |
 
-Java 21 e Spring Boot 3.x são as únicas escolhas tecnológicas já fixadas.
+**Convenções provisórias** (alteráveis por ordem do grupo, via novo ADR): timezone `America/Sao_Paulo` com UTC na persistência, JPA/Hibernate, Flyway, formato JSON de erros (`codigo`, `mensagem`, `correlationId`) e tabela central `recursos`.
+
+**Ainda não decididos:** nome definitivo do produto, personas, ferramenta E2E, requisitos não funcionais específicos, quais requisitos são "críticos" na RTM, funcionalidade conduzida por TDD/BDD, quantidade de aprovações por PR, expediente concreto e duração mínima/máxima de reserva. A ausência de decisão não autoriza decidir implicitamente: proponha e aguarde.
+
+A restrição de prazo continua sendo a semana 46 de 2026 (oficial), mas o planejamento é contínuo, sem sprints. Prioridade atual: iniciar o desenvolvimento o quanto antes, com qualidade.
 
 ---
 
@@ -214,6 +216,8 @@ Mantenha o registro lógico do andamento, organizado nestas categorias: Escopo o
 
 ## 7. Ambiguidades abertas (EM ANÁLISE)
 
+> **Resolvidas pela seção 4:** itens 2 (reserva composta: sim, multi-recurso com locks ordenados), 4 (comuns autoaprovadas), 8 (intervalo semiaberto `[inicio, fim)`; fuso America/Sao_Paulo) e 9 (materiais individuais; retirada ligada à reserva, indisponível até devolução). Os demais continuam abertos.
+
 Estas lacunas da especificação aguardam esclarecimento com o professor. **Não as resolva por suposição.** Quando uma tarefa depender delas, aponte a dependência, apresente as alternativas e peça decisão à equipe.
 
 **Domínio**
@@ -272,9 +276,9 @@ Ordenada por dependência, sem vínculo com datas. Não é decisão aprovada.
 
 ## 10. Primeira tarefa
 
-**Não escreva código, não escolha banco de dados e não defina a arquitetura.**
+**Fase 1 (Domínio) já produzida** em `docs/dominio/`; revisar à luz das decisões da seção 4. Não reabra decisões aprovadas sem novo ADR. O próximo passo é a fase 4 (esqueleto executável com CI) em PRs pequenos.
 
-Execute a **fase 1 (Domínio)**:
+Histórico da tarefa original, fase 1 (Domínio):
 
 1. Releia a seção 3 e a seção 7 e confirme que entendeu as restrições e as lacunas.
 2. Inspecione o repositório e relate o estado real (o que existe e o que não existe).

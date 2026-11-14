@@ -1,0 +1,74 @@
+{
+  "data": "2026-11-13",
+  "base": "ab50d26da838dfd381a025d1c38df453945b9383",
+  "branch": "feature/marcos-fechamento-delegado",
+  "arvore": "incremento ainda sem commit",
+  "rodadaFinal": "2026-11-13T16-55-02-031Z",
+  "tentativaAnterior": "2026-11-13T16-40-26-312Z",
+  "origem": "Execução local real; resultado final sanitizado e tentativa anterior preservados sem reatribuir hashes antigos.",
+  "buildFrontend": {
+    "comando": "PLAYWRIGHT_CHANNEL=chrome npm.cmd run build",
+    "exitCode": 0,
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unitarios": 81,
+    "navegador": 278
+  },
+  "controleDeFalha": {
+    "rodada": "2026-11-13T16-55-25-561Z",
+    "resultadoEsperado": "FAIL controlado após spawn, antes de CIM",
+    "cleanupConfirmado": true
+  },
+  "artefatos": [
+    {
+      "arquivo": "tests/e2e-local/demonstrar-fechamento.cjs",
+      "algoritmo": "SHA-256",
+      "digest": "467c0564d24453a1f1723ab0ea47d4cef2e1e31e9c5cc46033710524169f0291"
+    },
+    {
+      "arquivo": "docs/operacao/vinculos-responsaveis.sql",
+      "algoritmo": "SHA-256",
+      "digest": "fdc05e882f09ad5bebc963ce2c18ae9e9403269559463c6e44769974e9814468"
+    },
+    {
+      "arquivo": "backend/target/organizacao-recursos-0.0.1-SNAPSHOT.jar",
+      "algoritmo": "SHA-256",
+      "digest": "4b8633a55e59f5f2b5d11865338cb7658eb0f943b50b35d6baa0eb2ebfb0def5"
+    },
+    {
+      "arquivo": "docs/testes/marcos-fechamento-delegado-1/resultado-final.json",
+      "algoritmo": "SHA-256",
+      "digest": "b7c770fce21b8ad962ee5b1bd97ad28e61c0d57b2a8290c52a59c4f4befbc508"
+    },
+    {
+      "arquivo": "docs/testes/marcos-fechamento-delegado-1/tentativa-inicial.json",
+      "algoritmo": "SHA-256",
+      "digest": "8af39c16ade7c032a3e0c4e90d4458fca6a9ac2af2345cf75a765ef76fe6fb3a"
+    },
+    {
+      "arquivo": "docs/testes/marcos-fechamento-delegado-1/resultado-intermediario.json",
+      "algoritmo": "SHA-256",
+      "digest": "824759982b81e13617ca321d4344a86835c33687bea4b79119b7892e25b6e4cd"
+    },
+    {
+      "arquivo": "docs/testes/marcos-fechamento-delegado-1/tentativa-rastreabilidade.json",
+      "algoritmo": "SHA-256",
+      "digest": "4bf39a08c71839d9f2871004aac54c7f9961c926b4f1d567236dfa79cb2fe03c"
+    },
+    {
+      "arquivo": "docs/testes/marcos-fechamento-delegado-1/falha-inicial-controlada.json",
+      "algoritmo": "SHA-256",
+      "digest": "a701bf64e88af5f920a4b15a7466266b2c24b3a560881fb35857f254b92340b1"
+    },
+    {
+      "arquivo": "docs/testes/marcos-fechamento-delegado-1/tentativa-indisponibilidade-mysql.json",
+      "algoritmo": "SHA-256",
+      "digest": "e0656b15a032e940a34046c0235844f11a86ab41a58c24682f256c63ea5e30a8"
+    },
+    {
+      "arquivo": "docs/testes/marcos-fechamento-delegado-1/frontend-build.txt",
+      "algoritmo": "SHA-256",
+      "digest": "23f721252e3cac8d7493041399ba23fa8c80cb317293a5863728dd96d2299aa4"
+    }
+  ]
+}

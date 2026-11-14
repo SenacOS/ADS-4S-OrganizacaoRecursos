@@ -1,0 +1,14 @@
+.report-controls { border: 0; padding: 0; margin: 0; min-width: 0; }
+.preview-notice { border-left: 4px solid #9f763c; background: #faf3e6; }
+.report-results { min-width: 0; }
+.report-period { font-size: .85rem; overflow-wrap: anywhere; }
+.report-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 24px 0; }
+.report-metrics > div { min-width: 0; padding: 22px; background: white; border: 1px solid var(--line); border-radius: 10px; }
+.report-metrics dt { font-size: .8rem; color: var(--muted); margin-bottom: 14px; }
+.report-metrics dd { margin: 0; font-size: 1.6rem; line-height: 1.4; font-weight: 600; color: var(--navy); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.report-table { width: 100%; table-layout: fixed; border-collapse: collapse; text-align: left; font-size: .9rem; }
+.report-table th, .report-table td { padding: 13px 10px; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; vertical-align: top; }
+.report-table thead { background: #f0f4ed; }
+.report-table tbody th { font-weight: 400; }
+.report-table td { font-variant-numeric: tabular-nums; }
+@media (max-width: 1000px) { .report-metrics { grid-template-columns: 1fr; } }

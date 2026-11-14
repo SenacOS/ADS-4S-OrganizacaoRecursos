@@ -1,0 +1,20 @@
+{
+  "data": "2026-11-10",
+  "stats": {
+    "startTime": "2026-11-11T01:28:10.135Z",
+    "duration": 146989.62600000002,
+    "expected": 69,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "falhas": [
+    {
+      "cenario": "não oferece seleção de recurso indisponível ou inativo",
+      "projeto": "mobile",
+      "status": "timedOut",
+      "erro": "\u001b[31mTest timeout of 15000ms exceeded while setting up \"page\".\u001b[39m"
+    }
+  ],
+  "observacao": "69 aprovações e um timeout no setup de page; suíte completa posterior com 76 aprovações, sem mudar timeout ou habilitar retries."
+}

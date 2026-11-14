@@ -1,0 +1,132 @@
+# Ambiente local de integração de Marcos
+
+## Etapa7 — base b73c501, V1–V7 — 13/11/2026
+
+Branch `test/marcos-7-validacao-integrada`; [resultados e comandos](../testes/marcos-7-resultados.md), [matriz](../testes/marcos-7-matriz-evidencias.md) e [roteiro humano](../testes/marcos-7-verificacao.md). JAR anterior e dump privados preservados antes da V7; mesmo MySQL isolado, dados anteriores mantidos. Principal em `http://127.0.0.1:18080/login.html`, worker desligado. Demonstração RF11 usa base/processo próprios, gateway simulado real e URL vazia.
+
+Sequência real da nova base: `controle.cjs status`, `validar.cjs`, `validar-cancelamento.cjs`, `validar-q9.cjs`, `validar-consulta-reservas.cjs`, `validar-fechamento.cjs --manifesto-frontend=docs/testes/marcos-7/regressao-frontend.json`, `validar-relatorios.cjs` e `demonstrar-fechamento.cjs`, todos sob `node tests/e2e-local/`. O fechamento exige manifesto de build aprovado correspondente à fonte atual; não editar os hashes antigos nem gerar um PASS fictício. O manifesto publicado comprova100/350,58fontes e comparação estrita. Os demais auxiliares registram fontes/JAR e massas próprios.
+
+Q5 exige justificativa em cancelamentos administrativos de terceiros; as fixtures atuais preenchem/enviam esse campo, preservando cancelamento sem corpo do dono. O auxiliar de consulta usa o próximo dia de São Paulo09h para evitar atravessar a meia-noite. Tentativa antiga6/1 mantida no relatório. Scripts opt-in não instalam ferramentas/apagam dados nem publicam credenciais/logs brutos.
+
+## RF12 real — 13/11/2026
+
+Na raiz da branch `feature/marcos-6-integracao-real`, sobre develop8065626: `node tests/e2e-local/controle.cjs status` e `node tests/e2e-local/validar-relatorios.cjs`. O auxiliar é opt-in Windows; exige ferramentas/configuração privada, JAR atual, banco isolado e API de reservas habilitada. Configurar caminhos absolutos `git` e `powershell` em `.aiox-core/local/tools/paths.json`, conforme `executaveis.cjs`; não consultar PATH ou publicar credenciais.
+
+[13cenários reais e comandos](../testes/marcos-6-integracao-real-resultados.md), [inventário](../testes/marcos-6-integracao-real/inventario.json) e [roteiro humano](../testes/marcos-6-integracao-real-verificacao.md). Cria recursos/reservas/conflito próprios por HTTP e escolhe janela global vazia dentro do expediente real; SQL de inspeção somente SELECT. Mantém dados anteriores, credenciais/logs privados e worker desligado. Não reescreve horários nem intercepta respostas. Preserva tentativas com erro e exige `concluido=true`/ausência de erro para declarar a rodada completa.
+
+JAR reconstruído após encerrar os processos próprios por identidade; principal disponível em `http://127.0.0.1:18080/login.html`. Package277 e build97/346 atuais separados das contagens históricas abaixo. O frontend usa `GET /api/reservas/relatorio-utilizacao`, e o menu é exclusivo do Administrador. Prévia fictícia permanece na porta4174, fora da rodada real.
+
+## Fechamento delegado — 13/11/2026
+
+Marcos comunicou carta branca da equipe e adotou as decisões do [ADR-007](../arquitetura/adr/ADR-007-fechamento-contratos-vinculos-rf11.md). Os contratos atuais, incluindo vínculo com todos os recursos, ficam formalizados **por decisão delegada de Marcos**, sem atribuir assinaturas individuais aos demais integrantes. Datas com offset, PATCH conjunto,409/FORA_DO_EXPEDIENTE, estados/perfis de edição/cancelamento e escopos/erros Q9 permanecem como implementados; Q1/Q3/Q8 preservadas.
+
+Processo de vínculos definido no [runbook restrito](../operacao/vinculos-responsaveis.md), com [SQL reutilizável](../operacao/vinculos-responsaveis.sql). Administrador autoriza, operador SQL executa pares explícitos com referência/registro; concessão exige RESPONSAVEL e recurso ativos, revogação remove pares obsoletos e é idempotente.
+
+RF11 adotada no **modo simulado real** previsto no ADR-006: base/processo exclusivos, worker e GatewayNotificacaoPadrao reais, URL vazia, log rastreável e ENVIADA na outbox. Sem envio externo. [Procedimento de demonstração](../operacao/demonstracao-fechamento.md), [story](../stories/marcos-fechamento-delegado-1.md) e [resultados/limites](../testes/marcos-fechamento-delegado-1-resultados.md). A execução local não é implantação no ambiente compartilhado.
+
+As menções anteriores a ratificação por integrante, processo indefinido ou modo RF11 aguardando decisão são históricas e foram superadas por esta delegação. Resultados antigos conservam sua origem. Restam revisão do incremento pelo autor, commit/publicação quando solicitados e revisão/integração dos PRs; não há fechamento global de todos os RFs por inferência.
+
+
+Preparado em 12/11/2026 no Windows. Spring serve o frontend na mesma origem, usando MySQL próprio. O ambiente é de desenvolvimento/teste; não modifica a implantação do projeto.
+
+Complemento de fechamento em `test/marcos-fechamento-e2e`, sobre0775715: `node tests/e2e-local/validar-fechamento.cjs` executa login inválido/CSRF real, timeout por inatividade em instância secundária18081, pesquisa paginada/vazia/ocupada, disputa HTTP, editor após cancelamento externo e devolução com atraso. **11 PASS/0 FAIL**, [matriz/limites/tentativas](../testes/marcos-fechamento-e2e-1-resultados.md). Porta18081 deve estar livre; timeout1m/cookie próprio/configuração são somente do processo temporário, identificado/encerrado pelo auxiliar `sessao-temporaria.cjs`. Principal18080 e estado permanecem preservados. Rodada leva cerca de80s, com esperas curtas/progresso, usando relógio real; executar longe da virada do dia. Resultados/logs privados em `.aiox-core/local/e2e/fechamento/<data>/`; não copiar cookies/configuração/logs brutos para evidências. Não requer novo package se o JAR continua correspondendo às32fontes servidas verificadas por hash; novo produto exige empacotamento correspondente.
+
+Atualização do complemento Marcos-3: interface geral de reservas implementada localmente na branch `feature/marcos-reservas-consulta`, sobre f9c4912. Após atualizar o JAR, executar também `node tests/e2e-local/validar-consulta-reservas.cjs`: lista/detalhe, PATCH com precisão preservada, conflito/reconsulta, seleção original, três perfis e cancelamentos reais, com dados fictícios exclusivos. Confere arquivos servidos por hash e persistência; cria somente vínculos dos recursos novos após validar IDs, códigos esperados e perfil. Resultados/capturas ficam em `.aiox-core/local/e2e/consulta-reservas/<data>/`. [Provas e limites](../testes/marcos-3-consulta-edicao-resultados.md). Zero bloqueios no smoke geral não substitui esse auxiliar nem toda a matriz de integração.
+
+Atualização após PR #27: JAR de develop `4cea177` e V6 revalidados; `validar-q9.cjs` cobre agora página vazia e revogação de um par de vínculo criado pela própria rodada, com negativas de consulta e decisão. [Resultado atual](../testes/marcos-integracao-q9-1-pr27-resultados.md). O DELETE de preparação é restrito ao recurso novo e Responsável conferidos; não remove dados antigos nem altera a autorização do produto.
+
+Atualização com PR #26: instância local migrada à V6 e JAR atualizado na branch `feature/marcos-integracao-q9`. O smoke principal passou a conferir seis migrações e leituras disponíveis. Para testar a fila/Q9, executar também `node tests/e2e-local/validar-q9.cjs`; cria massa fictícia exclusiva e vínculos restritos a ela, preservando demais dados. [Resultado](../testes/marcos-integracao-q9-1-resultados.md). Os registros anteriores com V1–V5 e GET405 correspondem à base da5881b.
+
+## Uso neste computador
+
+Na raiz do repositório, com Node e as dependências de desenvolvimento já disponíveis:
+
+```powershell
+node tests/e2e-local/controle.cjs status
+node tests/e2e-local/controle.cjs iniciar
+node tests/e2e-local/validar.cjs
+```
+
+`iniciar` reutiliza a instância **isolada já preparada**; não instala ferramentas nem inicializa um banco vazio. O endereço é **http://127.0.0.1:18080/login.html**. Credenciais fictícias dos três perfis estão no arquivo privado `.aiox-core/local/e2e/credentials.json`; abri-lo localmente para usar a tela. Não copiar valores para evidências ou Git. As contas não são as do ambiente compartilhado.
+
+```powershell
+node tests/e2e-local/controle.cjs parar
+```
+
+`parar` verifica UUID, datadir e porta do MySQL e executável, JAR e data de criação do processo Java. Se houver divergência, recusa o encerramento. Não usa `taskkill` genérico e não apaga dados. `status` informa falha quando o ambiente está parado ou sua identidade não confere; não significa que os dados foram removidos. Os auxiliares são específicos de Windows.
+
+## O que foi preparado
+
+| Componente | Configuração local |
+|---|---|
+| Java | Temurin 21.0.13+9 portátil; o JDK 25 do sistema foi preservado |
+| Maven | 3.9.16 portátil; cache próprio |
+| MySQL | 8.4.13 ZIP, `127.0.0.1:13307`, base `qs_marcos_e2e` |
+| Backend | `127.0.0.1:18080`, perfil `local`, JAR existente do projeto |
+| Banco | Flyway V1–V5; dados e usuários fictícios exclusivos |
+| APIs | Recursos, reservas e movimentações habilitadas por variáveis apenas no processo local |
+| Notificações | Outbox real persistida; worker desligado; nenhum envio externo |
+| Navegador | Chrome instalado, headless, viewport 1440×1000 e fuso de São Paulo no smoke real |
+
+Não foram alterados `application.yml`, POM, migrações, Java, dependências, serviços Windows ou PATH/JAVA_HOME persistentes. A conta de aplicação tem privilégios somente na base isolada; isso não reproduz a segregação de grants de produção para imutabilidade da auditoria.
+
+## Artefatos privados e reprodução em outra máquina
+
+Correção Quality Gate em13/11: `tools/paths.json` precisa informar também os arquivos absolutos `git` e `powershell`, de instalações conhecidas. Exemplo de formato (substituir pelos caminhos realmente conferidos nesta máquina):
+
+```json
+{
+  "git": "C:/caminho-da-instalacao-Git/cmd/git.exe",
+  "powershell": "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"
+}
+```
+
+Manter os campos anteriores de JDK/Maven/MySQL e versões. O executor recusa relativo, arquivo ausente, diretório ou nome diferente, resolve o caminho real e não busca pelo PATH. A configuração é privada/confiável e não acompanha clone/pull; não copiar credenciais. O controle principal/temporário continua validando identidade/PID/JAR/CreationDate antes de encerrar processos. Testes sem banco: `node --test tests/unit/e2e-local/configuracao.test.cjs`; na branch do complemento, `node --test tests/unit/e2e-local/*.test.cjs` também cobre viewport/integridade. [Diagnóstico e encaminhamento](marcos-qualitygate-equipe-2026-11-13.md).
+
+Tudo abaixo é ignorado pelo Git e **não acompanha clone/pull**:
+
+| Caminho sob `.aiox-core/local/` | Conteúdo |
+|---|---|
+| `tools/paths.json` | Diretórios absolutos `jdk`, `maven`, `mysql`, versões e arquivos absolutos `git`/`powershell` |
+| `tools/` | ZIPs verificados e distribuições extraídas |
+| `e2e/credentials.json` | `db` (host, port, name, user, password), `rootPassword`, `admin`, `solicitante`, `responsavel` (email/password fictícios) |
+| `e2e/mysql.ini` | basedir/datadir próprios, bind loopback, porta 13307, mysqlx e binlog desligados, timezone +00:00 |
+| `e2e/root-client.ini` | Cliente root TCP em loopback; senha privada fora dos argumentos |
+| `e2e/mysql-data/` | Instância inicializada exclusivamente para este ambiente |
+| `e2e/state.json` | Portas, nome/baseURL, UUID conferido e identidades dos processos locais |
+| `e2e/m2/`, logs e `e2e/resultados/` | Cache Maven, logs brutos e rodadas sem sobrescrever as anteriores |
+
+Para preparar outro computador, repetir o provisionamento em diretório novo: baixar/verificar as distribuições oficiais do [inventário](../testes/marcos-e2e-local-2026-11-12/inventario.json), extrair em `local/tools`, gerar senhas aleatórias novas e os arquivos privados acima. Inicializar **apenas** `local/e2e/mysql-data` com `mysqld --defaults-file=<mysql.ini> --initialize-insecure --console`; iniciar vinculado a loopback e definir imediatamente a senha root. Criar a base `qs_marcos_e2e` e conta própria limitada a ela, sem reutilizar ou limpar outra instância. O runtime Visual C++ já existia neste computador; conferir o requisito oficial ao preparar outro.
+
+Registrar UUID, datadir e porta obtidos com `SELECT @@server_uuid,@@datadir,@@port`, além do processo que usa o JAR. O estado deste computador não deve ser copiado para outro. O controle exige essa identidade prévia e falha de forma conservadora se faltar. Nunca inventar UUID/PID para superar essa validação.
+
+Os downloads vieram de [Adoptium](https://adoptium.net/en-GB/marketplace?arch=x64&os=windows&version=21), [Apache Maven](https://maven.apache.org/download.cgi) e [MySQL](https://dev.mysql.com/downloads/mysql/8.4.html?os=3). O inventário diferencia hash publicado conferido de hash SHA256 calculado localmente. No MySQL a conferência publicada foi MD5; também foram conferidas assinaturas Authenticode dos executáveis Java/MySQL. Isso não transforma MD5 em garantia criptográfica de autenticidade.
+
+## Atualizar o JAR após mudar o frontend
+
+Parar primeiro os processos próprios. No PowerShell, manter os argumentos `-D...` entre aspas:
+
+```powershell
+node tests/e2e-local/controle.cjs parar
+$qsTools = Get-Content -Raw .aiox-core/local/tools/paths.json | ConvertFrom-Json
+$env:JAVA_HOME = $qsTools.jdk
+$env:Path = (Join-Path $qsTools.jdk 'bin') + ';' + $env:Path
+$env:MAVEN_OPTS = '-Djavax.net.ssl.trustStoreType=Windows-ROOT'
+$qsCache = (Resolve-Path .aiox-core/local/e2e/m2).Path
+& (Join-Path $qsTools.maven 'bin/mvn.cmd') '-B' '--no-transfer-progress' '-f' 'backend/pom.xml' ('-Dmaven.repo.local=' + $qsCache) '-Dmaven.test.skip=true' '-DskipITs' 'package'
+if ($LASTEXITCODE -ne 0) { throw 'Empacotamento falhou; conferir log antes de iniciar.' }
+node tests/e2e-local/controle.cjs iniciar
+node tests/e2e-local/validar.cjs
+```
+
+Essas variáveis valem para a sessão; não usam `setx` nem desabilitam TLS. O trust store Windows é usado pelo Maven para os certificados já confiados no sistema. O comando acima **omite os testes Maven**, para produzir o artefato neste computador sem Docker. Não substitui `mvn clean verify`/Testcontainers da equipe. O smoke real e a regressão frontend têm comandos e resultados próprios.
+
+O validador compara SHA256 de `/js/datas.js` e `/js/administracao-recursos.js` servidos com as fontes locais. Se diferirem, exige novo empacotamento/reinício. Sua saída fica em uma pasta datada privada; somente as evidências sanitizadas selecionadas são copiadas para `docs/testes`.
+
+## Alcance da validação
+
+O smoke cria recursos com identificação única e usa o relógio atual de São Paulo, com período no mesmo dia e expediente de teste para toda a semana. Executar longe da virada do dia. Não exclui dados; uma rodada nova não deve repetir uma escrita de resultado incerto. O registro antigo da retirada que revelou FE-004 foi preservado como pendência, e os testes posteriores usaram materiais novos.
+
+Fluxos reais: login/logout dos três perfis, CSRF e algumas negativas de autorização, cadastro/edição dos recursos, manutenção/desativação, expediente, criação comum/restrita, conflito, PATCH/cancelamento por ID conhecido, retirada e devolução. A consulta SQL é somente leitura e confere persistência/auditoria/outbox dos cenários.
+
+Na base original da5881b os GETs retornavam 405. Após PR26/V6, leituras e aprovação/rejeição pela fila foram validadas com backend real. A interface geral de reabertura/edição/cancelamento agora também tem implementação e validação próprias, conforme atualização inicial. Expiração por timeout, corridas concorrentes, atrasos após o prazo e outras combinações precisam de cenários integrados complementares; testes controlados permanecem separados. [Histórico anterior](../testes/marcos-e2e-local-2026-11-12-resultados.md).
