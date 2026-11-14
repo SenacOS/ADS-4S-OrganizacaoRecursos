@@ -1,6 +1,12 @@
-# Proposta da porta de leitura do RF12
+# Porta de leitura do relatório RF12 — registro de implementação
 
-**Estado: proposta para revisão do Silva.**
+**Estado:** implementada e integrada em `develop` pelo PR #37, mesclado em `d7a92f571066da5446d956aee90f556c958637f5`.
+
+**Implementação:** `ReservaRelatorioPort` (camada `reserva/aplicacao`), `ConflitoEvitadoResumo` (projeção da aplicação) e `ReservaRelatorioMysql` (adaptador MySQL). O `ReservaRelatorioMysqlIT` cobre sete cenários de leitura com MySQL/Testcontainers, incluindo filtros, intervalos, múltiplos vínculos e seleção de conflitos pelo momento do evento.
+
+**Camadas posteriores, também integradas:** serviço/agregação/DTO no PR #39; fronteira transacional e endpoint HTTP no PR #41; interface inicial no PR #40 e integração com a rota real no PR #42. O contrato HTTP vigente está em [`docs/api/relatorios-utilizacao-proposta.md`](../api/relatorios-utilizacao-proposta.md).
+
+Os detalhes técnicos abaixo foram preservados como registro da porta e da semântica SQL implementadas. Menções a futura implementação de serviço, endpoint ou integração referem-se ao desenho original e devem ser lidas como histórico.
 
 A porta entrega os dados persistidos para o cálculo de utilização. O cálculo continua em `UtilizacaoReservas`.
 

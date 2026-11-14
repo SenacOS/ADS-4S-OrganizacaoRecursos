@@ -1,6 +1,14 @@
 # RF12 — contrato HTTP de relatórios e histórico da proposta
 
-**Estado vigente em13/11/2026: serviço/DTO #39 e HTTP/composição Spring #41 integrados à develop; frontend #40 conciliado localmente e validado com backend real.** [Story atual](../stories/marcos-6-integracao-real.md), [13cenários reais e limites](../testes/marcos-6-integracao-real-resultados.md). [Aceite do autor confirmado](../testes/marcos-6-integracao-real-aceite-2026-11-13.md); novo recorte sem commit, revisão independente/equipe e entrega pendentes; não declara etapa6 global Done.
+**Estado vigente — 13/11/2026 (base `develop` em `b73c501536a275cdc89101cc7130c7b481e52396`):** RF12 está integrado em cinco incrementos: persistência (PR #37), serviço/agregação/DTO (PR #39), endpoint e wiring Spring (PR #41), interface inicial (PR #40) e integração da interface com a rota real (PR #42). Todos estão mesclados em `develop`.
+
+Endpoint real: `GET /api/reservas/relatorio-utilizacao`. `inicio` e `fim` são obrigatórios, ISO-8601 com offset e intervalo semiaberto; `recursoId` é opcional e positivo; `estados` é opcional e, quando omitido, usa `APROVADA`, `EM_USO` e `CONCLUIDA`. A propriedade `reservas.api.enabled=true` habilita a rota; o padrão da aplicação permanece `false`.
+
+O acesso vigente está restrito a `ADMINISTRADOR` por política **provisória** do serviço. Não documentar esse perfil como política definitiva.
+
+**Evidências separadas do PR #42:** 13 cenários reais PASS/0 FAIL com Spring/MySQL/Chrome; 277 testes Maven unitários/HTTP no comando `package -DskipITs`; 97 testes unitários frontend e 346 execuções de navegador. São execuções/camadas distintas, não somáveis e não certificam produção ou todas as corridas de concorrência.
+
+As seções seguintes preservam a proposta original e os checkpoints históricos; referências a rota candidata, ausência de controller/bean ou integração pendente descrevem o momento desses registros e não o estado vigente acima.
 
 ## Contrato HTTP efetivo — PR #41
 

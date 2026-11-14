@@ -1,196 +1,151 @@
-# Relatório do módulo `reserva/` — material de estudo e manutenção
+# Relatório do módulo `reserva/`
 
-**Estado: PROPOSTO** · Autor: Gabriel Silva Gomes · Versão alinhada ao *Guia Técnico Definitivo* (05/11/2026)
-**Atualizado em 11/11/2026** sobre a `develop` no commit `395ac73` (PRs #1 a #6 integrados).
+**Estado:** implementação integrada na branch `develop` — base conferida em 13/11/2026, commit `b73c501536a275cdc89101cc7130c7b481e52396` (PR #43). **Responsável pelo módulo:** Gabriel Silva Gomes.
 
-Este relatório explica o que foi construído no módulo de reservas, como testá-lo, como ele se encaixa no restante do sistema e como mantê-lo. Serve para estudo da equipe, para a apresentação e para a prova oral.
+Este documento apresenta o estado vigente do módulo de reservas, suas regras, interfaces com os demais módulos, persistência, testes e limites de integração. Os detalhes históricos das entregas estão nos PRs e nos registros de teste vinculados abaixo.
 
-> **Honestidade sobre evidências.** Esta atualização separa o que está **integrado na `develop`** do que está só em PR, branch ou patch.
->
-> - Testes de concorrência com locks **em memória** (`ReservaConcorrenciaSimuladaTest`, `ReservaEdicaoConcorrenteTest`) validam o algoritmo, não o InnoDB.
-> - A prova com **MySQL 8.4 em Testcontainers** existe na `develop` em `Item18MysqlIT` (Fausto): corrida de criação em sala, professor e material, multirecurso, manutenção contra reserva, retirada e devolução. O resultado registrado pelo grupo (`docs/testes/item18-resultados.md`, 09/11/2026) é de execução **local** de `mvn verify`; não há execução em CI na `develop`.
-> - Os resultados de `mvn test` de 11/11/2026 (194 testes sem falhas) e do CT19 (5 testes) são execuções locais de Silva sobre as branches de trabalho, com os patches da fila RF07 e do CT19 aplicados. Não são CI.
-> - Evidências de segurança, auditoria e notificação reais, SonarCloud e revisão por pares **não** existem na `develop`.
+## 1. Responsabilidade e escopo
 
----
+O módulo `reserva/` concentra o domínio e os casos de uso de reservas. Ele é responsável pela máquina de estados, validação temporal, autorização de operações de reserva, detecção de conflitos, coordenação transacional e exposição da API de reservas e do relatório RF12.
 
-## 1. Resumo do projeto em 10 linhas
+Caminho principal: `backend/src/main/java/br/senac/recursos/reserva/`.
 
-- Sistema acadêmico (Senac ADS 2026.2) para **reservar salas, professores e materiais** sem conflito de horário.
-- Java 21, Spring Boot 3.x, **monólito modular**, MySQL/InnoDB, frontend HTML/CSS/JS puro servido pelo Spring (ADR-001, ADR-002).
-- Três perfis: Solicitante, Responsável (aprova recursos restritos) e Administrador (cadastros e manutenção).
-- Pontos que derrubam a nota: aplicação que não executa, CI ausente, falha de autorização e **dupla reserva**.
-- Reserva comum nasce SOLICITADA e é autoaprovada; reserva com recurso restrito fica SOLICITADA e **já bloqueia a agenda** até o Responsável decidir (ADR-005).
-- Intervalo semiaberto `[inicio, fim)`: 10h–11h e 11h–12h não conflitam.
-- A proteção contra dupla reserva é um **lock pessimista** em `recursos` (`FOR UPDATE`, IDs em ordem crescente, READ COMMITTED) (ADR-003).
-- Sessão HttpOnly + CSRF, sem JWT (ADR-004). Datas em UTC no banco, exibidas em `America/Sao_Paulo` (ADR-006).
-- Avaliação: 25% testes automatizados, 15% CI/cobertura, metas 80% linhas e 70% branches, RTM 100% crítica.
-- Quatro responsáveis principais; todos testam e revisam (D10).
-
-## 2. O que foi construído (módulo de Silva)
-
-Pacote base: `backend/src/main/java/br/senac/recursos/reserva/`
-
-### 2.1 Domínio (`dominio/`) — Java puro, sem Spring nem banco
-
-| Classe | Papel |
-|---|---|
-| `IntervaloReserva` | Record `[inicio, fim)`; recusa fim ≤ início; `sobrepoe()` implementa `inicio < outro.fim && fim > outro.inicio` |
-| `StatusReserva` | Os 7 estados e a matriz de transições; `ocupaAgenda()` (SOLICITADA, APROVADA, EM_USO); `terminal()` |
-| `Reserva` | Registro **imutável**; cada operação devolve uma nova reserva. Verifica permissão antes do estado |
-| `AtorReserva` / `PapelAtor` | Quem executa e com qual perfil (vem do contexto autenticado) |
-| `DetectorConflitos` | Regra única de conflito para criar, editar e consultar disponibilidade |
-| `Ocupacao` / `OrigemOcupacao` | O que ocupa um recurso: RESERVA, MANUTENCAO ou RETIRADA_ABERTA (até `Instant.MAX`) |
-| `Expediente` / `JanelaFuncionamento` | Funcionamento por dia da semana no fuso local; reserva deve caber inteira em uma janela do mesmo dia |
-| Exceções | `IntervaloInvalida`, `TransicaoInvalida`, `OperacaoNaoPermitida` (403), `ConflitoDisponibilidade` (409), `RecursoIndisponivel`, `RecursoNaoEncontrado`, `ReservaNaoEncontrada`, `ForaDoExpediente` |
-
-**Por que imutável?** Facilita testar (a reserva antiga continua disponível para comparar) e permite auditar "antes" e "depois" sem cópias manuais.
-
-### 2.2 Aplicação (`aplicacao/`)
-
-`ReservaService` orquestra os casos de uso: `criar`, `editar`, `aprovar`, `rejeitar`, `cancelar`, `iniciarUso`, `concluir` e `registrarNaoComparecimento`. Ele fala com o mundo exterior **somente por portas**:
-
-| Porta | Quem implementa | Função |
+| Camada | Componentes | Responsabilidade |
 |---|---|---|
-| `RecursosPort` | Fausto | `SELECT ... FOR UPDATE` nos recursos, em ordem |
-| `ReservaRepositorio` | Fausto/Silva | Persistência JPA |
-| `OcupacoesPort` | Fausto | Lê reservas ativas, manutenção e retiradas abertas |
-| `ExpedientePort` | Fausto | Funcionamento configurado |
-| `AuditoriaPort` | Débora | Registro auditável na mesma transação |
-| `NotificacaoPort` | Débora | Evento pendente (envio fora do commit) |
-| `ConflitosEvitadosPort` | Fausto/Débora | Conta tentativas barradas, em transação independente |
+| `dominio/` | `Reserva`, `IntervaloReserva`, `StatusReserva`, `DetectorConflitos`, `Expediente`, exceções e atores | Regras independentes de Spring e banco. |
+| `aplicacao/` | `ReservaService`, `ConsultarFilaAprovacao`, `ConsultarRelatorioUtilizacao` e portas | Orquestração dos casos de uso e contratos com outros módulos. |
+| `infraestrutura/` | `ReservaTransacional`, `ReservaMysql`, `ReservaConsultaMysql`, `ReservaFilaMysql`, `ReservaRelatorioMysql`, `ConflitosMysql` | Persistência MySQL, locks e fronteiras transacionais. |
+| `api/` | `ReservaController`, `ReservaLeituraController`, `RelatorioUtilizacaoController`, DTOs e `ReservaExceptionHandler` | Contratos HTTP, validação e envelope uniforme de erros. |
 
-O `ReservaService` em si não abre transação. A transação `READ_COMMITTED` é aplicada por `ReservaTransacional` (subclasse em `reserva/infraestrutura/`), registrada como bean `@Lazy` em `Item18Config`. Ambos foram integrados por Fausto no PR #6.
+## 2. Regras de domínio
 
-### 2.3 Fluxo de `criar` (resumo)
+### 2.1 Intervalos, estados e ocupação
 
-1. Valida o intervalo e o **expediente** (antes de qualquer lock, para não segurar lock à toa).
-2. Ordena os IDs dos recursos, sem repetição.
-3. **Bloqueia** os recursos (`RecursosPort`).
-4. Só então **lê as ocupações** e roda `DetectorConflitos`.
-5. Conflito → registra "conflito evitado", lança exceção (HTTP 409) e a transação inteira sofre rollback.
-6. Sem conflito → grava SOLICITADA, audita, registra notificação; se não houver recurso restrito, grava APROVADA e audita a segunda transição.
+- Os intervalos seguem `[início, fim)`. O fim deve ser posterior ao início; a comparação é feita por instantes, não por texto formatado.
+- A reserva deve caber em uma janela válida do expediente local.
+- Estados: `SOLICITADA`, `APROVADA`, `EM_USO`, `CONCLUIDA`, `REJEITADA`, `CANCELADA` e `NAO_COMPARECEU`.
+- `SOLICITADA`, `APROVADA` e `EM_USO` ocupam a agenda. Estados finais liberam a agenda de acordo com a matriz de transições.
+- Recursos em manutenção, desativados ou com retirada de material ainda aberta também participam da verificação de disponibilidade.
+- Reservas comuns são autoaprovadas; reservas restritas permanecem solicitadas e bloqueiam a agenda até a decisão do Responsável.
 
-Diagramas: `docs/arquitetura/sequencia-reserva.md`.
+### 2.2 Concorrência e atomicidade
 
-### 2.4 Regras PROPOSTAS (ainda sem decisão formal)
+A proteção contra dupla reserva utiliza locks pessimistas (`SELECT ... FOR UPDATE`) nas linhas de `recursos`, com IDs ordenados crescentemente e transações `READ_COMMITTED`. O serviço bloqueia os recursos antes de consultar as ocupações e gravar a reserva. A edição bloqueia a união dos recursos antigos e novos e relê a reserva sob lock.
 
-Estão listadas e numeradas em `docs/integracao/dependencias-e-revisores.md` (Q1–Q8): quem inicia e conclui o uso, edição de reserva aprovada, cancelamento por Administrador, código HTTP para fora do expediente, limites de duração.
+A mesma convenção de ocupação é compartilhada com manutenção e movimentações. A tentativa conflitante é registrada como conflito evitado em transação própria, pois a transação da reserva é revertida.
 
-## 3. Como testar
+### 2.3 Decisões complementares integradas
 
-### 3.1 Comandos
+| Decisão | Regra vigente | Evidência de integração |
+|---|---|---|
+| Q1 | Início, conclusão e registro de não comparecimento são operações exclusivas do Responsável. | PR #31. |
+| Q2 | Reserva restrita já aprovada não pode ser alterada pelo fluxo de PATCH. | ADR-007; sem mudança de código adicional. |
+| Q3 | O Responsável não pode aprovar a própria reserva, mesmo que acumule papéis ou possua vínculo com os recursos. | PR #30. |
+| Q5 | Administrador cancelando reserva de terceiro precisa fornecer justificativa não vazia, armazenada em `motivo_cancelamento`; `motivo_decisao` permanece separado. | PR #43 e migration V7. |
+| Q8 | A aprovação revalida autorização, estado, recursos ativos, expediente e ocupações sob a fronteira transacional. | PRs #33/#34. |
+| Q9 | A listagem, o detalhe e a fila aplicam o escopo do usuário autenticado; Responsável precisa de vínculo com todos os recursos da reserva. | PRs #26/#27 e ADR-007. |
+
+Q2 e Q5 são decisões de regra de negócio sob RF04/RF07, não requisitos funcionais novos.
+
+### 2.4 Cancelamento administrativo — Q5
+
+`POST /api/reservas/{id}/cancelamento` aceita corpo opcional `{"motivo":"..."}`. O campo admite até 500 caracteres.
+
+- O dono pode cancelar sem justificativa. Se enviar um texto, ele é aparado e armazenado em `motivo_cancelamento`.
+- O Administrador pode cancelar sem justificativa quando também é o dono da reserva.
+- Quando o Administrador cancela uma reserva de terceiro, a justificativa aparada deve ser não vazia.
+- Papel e usuário vêm da sessão autenticada. A validação segue a ordem: permissão, justificativa e estado.
+- A falta de justificativa obrigatória produz HTTP 400, código `REQUISICAO_INVALIDA`. O handler HTTP apresenta a mensagem genérica `Requisição inválida.`; a validação de tamanho também retorna 400 no mesmo envelope.
+- O registro de cancelamento preserva reserva, vínculos, auditoria e notificação. A coluna `motivo_cancelamento` foi criada pela migration `V7__reserva_motivo_cancelamento.sql` como `VARCHAR(500) NULL`.
+
+**Integração do cliente:** no estado conferido de `develop` em 13/11/2026, `backend/src/main/resources/static/js/reservas.js` ainda executa o POST sem corpo. Por isso, o Administrador cancelando uma reserva de terceiro pela interface recebe 400 até que a frente de frontend envie `motivo`. O backend e a migration estão integrados no PR #43; o ajuste do cliente pertence à frente de frontend. `docs/api/frontend-integracao.md` não é alterado por este relatório.
+
+## 3. Integração com os demais módulos
+
+| Módulo | Integração com `reserva/` |
+|---|---|
+| `recurso/` | Cadastro, estado ativo/restrito, expediente, manutenção e locks compartilhados. |
+| `movimentacao/` | Retiradas abertas são ocupações; retirada e devolução usam o mesmo controle de recursos. |
+| `seguranca/` | `AtorAutenticadoProvider` obtém identidade e perfil exclusivamente da sessão Spring Security; escrita usa CSRF. |
+| `auditoria/` | `AuditoriaPort` registra operações na mesma transação da alteração de reserva. |
+| `notificacao/` | `NotificacaoPort` grava eventos na outbox transacional; processamento ocorre depois do commit. |
+| Frontend (`static/`) | Consome contratos HTTP; a validação visual não substitui as regras e permissões do backend. |
+
+## 4. API e contratos integrados
+
+| Operação | Método e rota | Referência |
+|---|---|---|
+| Criar reserva | `POST /api/reservas` | [`reservas-contrato.md`](../api/reservas-contrato.md) |
+| Editar reserva | `PATCH /api/reservas/{id}` | [`reservas-contrato.md`](../api/reservas-contrato.md) |
+| Cancelar reserva | `POST /api/reservas/{id}/cancelamento` | [`reservas-contrato.md`](../api/reservas-contrato.md) |
+| Aprovar/rejeitar | `POST /api/reservas/{id}/aprovacao` e `/rejeicao` | [`reservas-contrato.md`](../api/reservas-contrato.md) |
+| Iniciar/concluir/não comparecimento | `POST /api/reservas/{id}/inicio`, `/conclusao` e `/nao-comparecimento` | [`reservas-contrato.md`](../api/reservas-contrato.md) |
+| Consultar reservas | `GET /api/reservas` e `GET /api/reservas/{id}` | [`reservas-consulta-contrato.md`](../api/reservas-consulta-contrato.md) e [`reservas-leitura-contrato.md`](../api/reservas-leitura-contrato.md) |
+| Relatório RF12 | `GET /api/reservas/relatorio-utilizacao` | [`relatorios-utilizacao-proposta.md`](../api/relatorios-utilizacao-proposta.md) |
+
+Os endpoints de escrita, leitura e relatório são condicionados pela propriedade `reservas.api.enabled`, cujo padrão no `application.yml` é `false`. A ativação deve ser explícita no ambiente de execução.
+
+### 4.1 RF12 — cadeia de implementação
+
+O relatório de utilização está integrado nas seguintes camadas:
+
+1. **Persistência — PR #37:** `ReservaRelatorioPort`, `ConflitoEvitadoResumo` e `ReservaRelatorioMysql`; testes MySQL/Testcontainers em `ReservaRelatorioMysqlIT`.
+2. **Serviço e DTO — PR #39:** `ConsultarRelatorioUtilizacao`, `RelatorioUtilizacaoResponse` e fronteira transacional `REPEATABLE_READ`.
+3. **Endpoint e composição Spring — PR #41:** `RelatorioUtilizacaoController`, `Item18Config` e rota real `GET /api/reservas/relatorio-utilizacao`.
+4. **Interface — PR #40 e integração real — PR #42:** tela e menu de Relatórios para Administrador, consumo da rota efetiva e testes HTTP/Spring/MySQL/Chrome.
+
+A política de acesso ADMINISTRADOR do RF12 permanece **provisória**, conforme o serviço integrado; não deve ser descrita como política definitiva para todos os ambientes.
+
+## 5. Persistência
+
+A persistência utiliza MySQL 8.4/InnoDB, JPA/JDBC e Flyway. A migration V7 adiciona `reservas.motivo_cancelamento VARCHAR(500) NULL`, sem reutilizar `motivo_decisao`. As consultas de leitura de reservas, fila e relatório preservam os escopos autorizados no backend.
+
+## 6. Testes e evidências
+
+### 6.1 Testes do domínio e aplicação
+
+Entre as classes de teste do módulo estão:
+
+- `IntervaloReservaTest`, `StatusReservaTest`, `ReservaDominioTest` e `DetectorConflitosEExpedienteTest`;
+- `ReservaServiceTest`, `ReservaDisponibilidadeTest`, `ReservaEdicaoConcorrenteTest` e testes da fila de aprovação;
+- `ReservaControllerTest`, `ReservaLeituraSegurancaTest` e `RelatorioUtilizacaoControllerTest`.
+
+### 6.2 Integração com MySQL/Testcontainers
+
+O conjunto integrado inclui, entre outras, `ReservaQ9MysqlIT`, `ReservaFilaMysqlIT`, `ReservaAprovacaoMysqlIT`, `ReservaCancelamentoMysqlIT`, `ReservaRelatorioMysqlIT` e `Item18MysqlIT`. Os cenários cobrem filtros/escopo, revalidação da aprovação, justificativa Q5, persistência do RF12, integridade, locks e movimentações.
+
+### 6.3 Evidências recentes — resultados separados
+
+- **PR #43 / CI 43525712520:** `mvn -f backend/pom.xml clean verify` terminou em `BUILD SUCCESS`; os testes MySQL/Testcontainers e os limites JaCoCo foram aprovados. O job JMeter também terminou com sucesso. A etapa SonarCloud falhou com `Not authorized or project not found`; não há Quality Gate Sonar aprovado nessa execução.
+- **PR #42 / RF12:** 13 cenários reais PASS/0 FAIL com Spring, MySQL e Chrome; 277 testes Maven unitários/HTTP no comando `package -DskipITs`; regressão frontend separada com 97 testes unitários e 346 execuções de navegador. As contagens pertencem a execuções/camadas diferentes e não são somadas.
+- **JMeter:** quatro planos são executados em ambiente isolado: consulta, disputa por mesma reserva, recursos distintos e manutenção contra reserva. Os resultados são evidência de cenários controlados, não um SLA de produção.
+
+Referências: [resultados da integração RF12](../testes/marcos-6-integracao-real-resultados.md), [aceite humano RF12](../testes/marcos-6-integracao-real-aceite-2026-11-13.md), [evidência JMeter](../qualidade/jmeter/evidencias-2026-11-10.md), [segurança](../qualidade/seguranca.md), [auditoria](../qualidade/rf10-auditoria.md) e [notificações](../qualidade/rf11-notificacoes.md).
+
+## 7. Execução de testes
+
+Na raiz do repositório:
 
 ```bash
-cd backend
-mvn test          # testes unitários e de serviço (sem banco)
-mvn verify        # o mesmo comando que o CI deve usar
+mvn -f backend/pom.xml -Dtest=IntervaloReservaTest,StatusReservaTest,ReservaDominioTest,ReservaServiceTest test
+mvn -f backend/pom.xml clean verify
 ```
 
-Os testes de `reserva/` (`mvn test`) não exigem Docker. Os de integração com MySQL (`Item18MysqlIT`, executados por `mvn verify`) exigem Docker ativo por causa do Testcontainers.
+`mvn test` executa testes unitários/API sem iniciar os testes de integração. `mvn clean verify` inclui os testes `*IT` com MySQL/Testcontainers e, portanto, exige Docker ativo. Os gates JaCoCo do projeto verificam no bundle pelo menos 80% de linhas e 70% de branches.
 
-### 3.2 Mapa dos testes e dos casos críticos (CT) do guia
+## 8. Limites conhecidos do recorte
 
-| Caso do guia | Teste | Classe |
-|---|---|---|
-| CT01, CT02 fim ≤ início inválido | `ct01_…`, `ct02_…` | `IntervaloReservaTest` |
-| CT03, CT04 encostar × sobrepor | `sobreposicaoSemiaberta` (parametrizado) | `IntervaloReservaTest` |
-| CT05, CT06, CT07, CT08 recursos compartilhados | `conflitosPorRecursoCompartilhado_…` | `ReservaServiceTest` |
-| CT09 duas threads, uma vence | `ct09_mesmoRecursoEIntervalo_exatamenteUmaVence` (**simulado**) | `ReservaConcorrenciaSimuladaTest` |
-| CT09 real (MySQL) | `reservasConcorrentesUmaVenceEConflitoSobreviveRollback` (sala, professor e material) | `Item18MysqlIT` |
-| CT10 multi-recurso sem gravação parcial | `ct10_conflitoNaoDeixa…` | `ReservaServiceTest` |
-| CT11 restrita bloqueia, CT12 rejeitada libera | `ct11_…`, `ct12_…` | `ReservaServiceTest` |
-| CT13 comum autoaprovada e auditada | `ct13_…` | `ReservaServiceTest` |
-| CT14 Solicitante não aprova | `ct14_…` | `ReservaDominioTest`, `ReservaServiceTest` |
-| CT15 manutenção, CT16 retirada aberta | `ct15_ct16_…` | `ReservaServiceTest` |
-| CT19 edição detecta conflito | `ct19_…` | `ReservaServiceTest` |
-| CT19 edições concorrentes (**simulado**, 5 cenários) | `seisEdicoes…`, `edicoesQueTrocamRecursos…`, `edicoesComRecursosOriginais…`, `edicaoContraCriacao…`, `controleNegativo_…` | `ReservaEdicaoConcorrenteTest` (patch, fora da `develop`) |
-| RF07 fila de aprovação (aplicação, **fake**) | filtro, projeções, autorização e contrato da porta | `FiltroFilaAprovacaoTest`, `ItemFilaAprovacaoTest`, `ConsultarFilaAprovacaoTest`, `FilaEmMemoriaContratoTest` (patch, fora da `develop`) |
-| Matriz de estados (49 pares) | `matrizCompletaDeTransicoes` | `StatusReservaTest` |
-| Expediente e fuso | `expediente…` | `DetectorConflitosEExpedienteTest` |
-| CT20 auditoria na mesma transação | **parcial**: gera os registros; a atomicidade real depende do adaptador de Débora | — |
-| CT17, CT18 logout/CSRF | responsabilidade de Débora | — |
+- Q5 está implementada no domínio, serviço, persistência e API. O cliente `reservas.js` ainda não envia `motivo` ao cancelar reserva de terceiro como Administrador; essa integração pertence à frente de frontend.
+- A flag `reservas.api.enabled` permanece `false` por padrão. A execução local deve habilitá-la explicitamente junto às APIs de recursos e movimentações necessárias ao cenário.
+- O acesso ADMINISTRADOR no RF12 é provisório. A tela real e o endpoint estão integrados, mas a decisão de acesso não é descrita como política definitiva.
+- RF11 utiliza o modo simulado por log quando o gateway externo está vazio. Isso comprova a demonstração simulada, não o recebimento de e-mail ou mensagem externa.
+- SonarCloud não produziu Quality Gate aprovado na CI do PR #43 por erro de autorização/projeto. JaCoCo e JMeter têm resultados próprios aprovados, sem substituir o Sonar.
+- Os resultados descritos são evidências de versões e cenários identificados. Eles não equivalem a certificação de produção nem à regressão global de todos os módulos.
 
-### 3.3 Como ler os testes de concorrência
+## 9. Glossário
 
-`AmbienteFake` implementa todas as portas em memória. Seus locks são `ReentrantLock` liberados ao fim de `transacao(...)`, imitando commit/rollback. Os testes:
-
-- **mesmo recurso**: 8 threads, 20 rodadas, exatamente 1 reserva aceita e 7 conflitos;
-- **ordens opostas** (`[1,2]` e `[2,1]`): o serviço ordena, então não há deadlock;
-- **recursos distintos**: todas passam (não há lock global);
-- **multi-recurso parcial**: invariante "nenhum recurso com duas reservas ativas sobrepostas";
-- **controle negativo**: sem lock e com atraso entre ler e gravar, **a dupla reserva acontece**. Esse teste mostra que a suíte detecta o problema (risco R6: teste que nunca falha não vale como evidência).
-
-### 3.4 O que ainda precisa de teste real
-
-- CT19 no MySQL/Testcontainers (edições concorrentes de reservas distintas). Cenários prontos em `ReservaEdicaoConcorrenteTest`; implementação com Fausto.
-- Adaptador MySQL da fila de aprovação, validado pelo contrato `ReservaFilaPortContrato`.
-- Rollback verdadeiro: nenhum vínculo ou auditoria órfãos após falha, com os adaptadores reais de auditoria (PR #9).
-- API caixa-preta com sessão real, segurança (403, IDOR) e E2E, que dependem dos PRs #8 a #12 e da branch de Marcos.
-- JMeter e CI na versão integrada (PR #11).
-- Ciclo TDD documentado: o da fila RF07 está em `docs/testes/rf07-fila-tdd.md` (RED, GREEN e REFACTOR em commits separados), com execução local sem CI.
-
-## 4. Como o módulo se relaciona com os demais (resumo do guia)
-
-| Módulo | Dono | Relação com `reserva/` |
-|---|---|---|
-| `recurso/` | Fausto | Fornece a tabela `recursos` (alvo do lock), cadastro, ativo/restrito, expediente e bloqueios de manutenção |
-| `movimentacao/` | Fausto | Retirada aberta vira ocupação `RETIRADA_ABERTA`; usa o mesmo lock e a mesma ordem |
-| `seguranca/`, `usuario/` | Débora | Entrega o `AtorReserva` do usuário autenticado; aplica 401/403/CSRF; resolve IDOR |
-| `auditoria/` | Débora | Implementa `AuditoriaPort`; cada transição vira registro com ator, antes/depois e correlação |
-| `notificacao/` | Débora | Implementa `NotificacaoPort`; envio simulado e WireMock |
-| `relatorio/` | Silva e Fausto | Usa `ConflitoEvitado` e horas por reserva (sem contar horas em triplicado por recurso) |
-| frontend (`static/`) | Marcos | Consome o contrato `docs/api/reservas-contrato.md`; só mostra ações permitidas, mas **o servidor sempre revalida** |
-| CI/qualidade | Débora | JaCoCo, Sonar, RTM, JMeter |
-
-Regra de ouro: `reserva` é o **único** dono da regra de sobreposição. Controller, frontend e outros módulos não duplicam essa verificação.
-
-## 5. Concorrência explicada (para a apresentação)
-
-**Problema.** Duas pessoas pedem a mesma sala ao mesmo tempo. Se cada uma "consulta e depois grava", as duas veem "livre" e gravam: dupla reserva.
-
-**Solução.** Antes de consultar, cada requisição **trava as linhas dos recursos** envolvidos na tabela `recursos`, em ordem crescente de ID. A segunda requisição espera. Quando a primeira confirma, a segunda lê o estado atualizado, enxerga o conflito e recebe 409.
-
-**Perguntas esperadas na prova oral**
-
-- *Por que não bloquear a linha da reserva?* Porque a reserva futura ainda não existe; é preciso um objeto estável compartilhado (o recurso).
-- *Por que ordenar IDs?* Para duas requisições com `[1,2]` e `[2,1]` não travarem uma à outra (deadlock). Mesmo assim o InnoDB pode abortar uma transação; o sistema deve retornar erro previsível.
-- *Por que READ COMMITTED?* Porque a leitura de conflitos precisa ver o que foi confirmado depois do início da transação; o snapshot do REPEATABLE READ poderia ser antigo.
-- *O que prova que funciona?* Teste real com MySQL em Testcontainers, não mock. O teste em memória mostra apenas que o algoritmo está correto.
-- *E se alguém esquecer o lock em um endpoint?* A garantia se perde; por isso criação, edição, cancelamento, manutenção, retirada e devolução usam a mesma convenção e passam por revisão.
-- *Por que o conflito evitado usa outra transação?* Porque a transação da tentativa sofre rollback e levaria o registro junto.
-
-## 6. Guia de manutenção
-
-| Quero… | Onde mexer | Cuidados |
-|---|---|---|
-| Mudar uma transição de estado | `StatusReserva.destinos()` e `StatusReservaTest` (matriz) | Atualizar o ADR-005, a RTM e o contrato |
-| Mudar quem pode agir | Métodos de `Reserva` (`exigirPapel`, `exigirOperador`, `cancelar`) | Testar CT14 e o caso do Administrador |
-| Novo motivo de indisponibilidade | Novo valor em `OrigemOcupacao` + adaptador de `OcupacoesPort` | O detector não muda |
-| Mudar a regra de sobreposição | **Somente** `IntervaloReserva.sobrepoe` | Os testes CT03/CT04 devem continuar passando; a mesma regra existe no SQL do Fausto |
-| Alterar a ordem ou o tipo de lock | `RecursosPort` e ADR-003 | Revisar manutenção e movimentação; reexecutar o teste real de corrida |
-| Novo endpoint | Controller → `ReservaService`; nunca acessar repositórios no controller | Atualizar `docs/api/` |
-| Nova exceção de domínio | `dominio/` + mapeamento no `@RestControllerAdvice` | Código de erro no contrato |
-
-Convenções: pacotes sem acento; mensagens ao usuário em português; nenhum dado sensível em auditoria ou logs; uma issue por mudança pequena ligada a um RF.
-
-## 7. Limites desta entrega
-
-Situação na `develop` (`395ac73`):
-
-- **Integrado:** domínio, `ReservaService`, `ReservaTransacional`, persistência MySQL, locks, ocupações, expediente, conflito evitado persistido, controller com 8 endpoints de escrita e `UtilizacaoReservas`.
-- **API desligada por padrão** (`reservas.api.enabled=false`). Não ativar isoladamente: faltam a segurança, a auditoria e a notificação reais, hoje em PRs (#8, #9, #10).
-- **Não existem na `develop`:** `GET /api/reservas`, `GET /api/reservas/{id}` (bloqueado por Q9), endpoint da fila de aprovação, endpoint de disponibilidade e API de relatórios RF12.
-- **RF12:** o cálculo de horas e a gravação de conflitos evitados existem. Faltam a consulta persistida de reservas e de conflitos, o serviço e a API.
-- **Sem idempotência por chave** no backend (decisão da equipe pendente).
-- **Fora da `develop`, em patch ou branch:** fila de aprovação RF07 (camada de aplicação) e CT19 com fake.
-- **RTM:** nenhum requisito deve ser marcado como IMPLEMENTADO ou VALIDADO sem execução em CI e revisão. A RTM da `develop` só tem as linhas do item 18; a RTM completa (RF01 a RF14) está na cadeia de PRs da Débora.
-
-## 8. Glossário rápido
-
-- **Recurso restrito**: exige aprovação do Responsável.
-- **Ocupar a agenda**: estar em SOLICITADA, APROVADA ou EM_USO.
-- **Lock pessimista**: bloqueio de linha no banco até o fim da transação.
-- **Porta**: interface que o serviço usa e que outro módulo implementa.
-- **Conflito evitado**: tentativa de reserva barrada por colisão; alimenta o relatório RF12.
-- **Intervalo semiaberto**: inclui o início e exclui o fim.
+- **Intervalo semiaberto:** inclui o início e exclui o fim.
+- **Recurso restrito:** exige aprovação do Responsável.
+- **Lock pessimista:** bloqueio de linha no banco mantido até o fim da transação.
+- **Porta:** interface da camada de aplicação implementada por um adaptador.
+- **Conflito evitado:** tentativa de reserva barrada por uma ocupação incompatível, registrada para o relatório RF12.

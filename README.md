@@ -14,6 +14,10 @@ A especificação oficial do projeto está em:
 
 > **Convenção deste documento:** o que é exigência do professor aparece como "oficial" ou "obrigatório". O que aparece como "proposta" ou "recomendação" é sugestão da equipe, sujeita a aprovação em ADR. Nada aqui indica que um requisito já esteja implementado.
 
+**Leitura do estado do projeto:** a convenção acima distingue exigências oficiais de propostas da equipe. O estado efetivamente implementado é apresentado separadamente nas seções seguintes, com referência ao snapshot e às evidências correspondentes.
+
+**Snapshot de implementação documentado:** branch `develop`, commit `b73c501536a275cdc89101cc7130c7b481e52396`, conferido em 13/11/2026. Naquela conferência, `main` ainda estava no commit `33ad05fbebed8760f2a058b2e69d1e39cabc7612`, de 27/10/2026.
+
 ## Integrantes da Equipe
 
 | Nome | GitHub | Papel/Foco |
@@ -25,262 +29,176 @@ A especificação oficial do projeto está em:
 
 O responsável por um módulo coordena sua implementação, mas testes, revisão e documentação são compartilhados: nenhum integrante é o único a testar ou revisar o próprio código.
 
-## Escopo do Sistema
+## Visão geral
+O sistema centraliza o cadastro e a consulta de recursos, a solicitação e a aprovação de reservas, a manutenção de agendas, a retirada e devolução de materiais, a auditoria das operações e os relatórios de utilização. As regras críticas são executadas e revalidadas no backend; a interface é um cliente da API e não substitui as verificações de autorização ou concorrência do servidor.
 
-O sistema atende a três perfis de acesso:
+### Perfis de acesso
 
-- **Solicitante:** professor ou coordenador que consulta a disponibilidade e cria, altera ou cancela reservas próprias.
-- **Responsável:** aprova solicitações de recursos restritos, valida a alocação de docentes e acompanha retiradas e devoluções de materiais.
-- **Administrador:** gerencia salas, professores, materiais, usuários, bloqueios e períodos de manutenção.
-
-### Requisitos funcionais (oficiais)
-
-| RF | Descrição | Responsáveis |
-|---|---|---|
-| RF01 | Autenticação e autorização por perfil | Débora, Marcos |
-| RF02 | Cadastro e consulta de salas, professores e materiais | Fausto, Marcos |
-| RF03 | Pesquisa por tipo, capacidade, localização, competência e disponibilidade | Fausto, Silva, Marcos |
-| RF04 | Criação, alteração e cancelamento de reservas | Silva, Marcos, Débora |
-| RF05 | Detecção de sobreposição de horários, inclusive de professor | Silva, Fausto |
-| RF06 | Proteção contra dupla reserva simultânea | Silva, Fausto, Débora |
-| RF07 | Aprovação obrigatória para recursos restritos | Silva, Débora, Marcos |
-| RF08 | Bloqueio de recursos em manutenção | Fausto, Silva |
-| RF09 | Retirada e devolução de materiais e equipamentos | Fausto, Marcos, Débora |
-| RF10 | Histórico auditável de mudanças | Débora e autores dos módulos |
-| RF11 | Notificação simulada ou integração externa | Débora, Silva, Marcos |
-| RF12 | Relatórios de utilização, carga horária e conflitos evitados | Silva, Fausto, Marcos |
-| RF13 | Interface responsiva e mensagens de erro compreensíveis | Marcos, Débora |
-| RF14 | Documentação da API ou dos fluxos públicos | Marcos e equipe |
-
-Os códigos RF01 a RF14 são de uso interno da equipe: a especificação oficial numera os requisitos de 1 a 14. Os critérios de aceitação ficarão em `docs/requisitos/`.
-
-### Ciclo de vida de uma reserva
-
-Sequência principal oficial: `SOLICITADA → APROVADA → EM_USO → CONCLUÍDA`, com os estados alternativos `REJEITADA`, `CANCELADA` e `NÃO_COMPARECEU`. A matriz completa de transições (quem, quando, pré-condições) está em análise pela equipe.
-
-### Regras obrigatórias
-
-- O horário final é posterior ao inicial.
-- Reservas do mesmo recurso (sala, material ou professor) não se sobrepõem, inclusive na agenda do professor.
-- Recurso em manutenção não pode ser reservado.
-- Duas solicitações simultâneas e conflitantes produzem uma única reserva aceita.
-- Somente o Responsável aprova recursos restritos.
-- Reserva iniciada não pode ser apagada, e toda mudança de estado gera auditoria.
-
-## Tecnologias Utilizadas
-
-**Definidas pela especificação**
-
-- **Linguagem e framework:** Java 21 e Spring Boot 3.x
-- **Testes:** JUnit 5, Testcontainers e WireMock
-- **Qualidade e integração contínua:** GitHub Actions, JaCoCo e SonarCloud
-- **Testes de carga:** JMeter
-
-**Decisões da equipe** (registradas em [`docs/arquitetura/adr/`](docs/arquitetura/adr/README.md))
-
-| Decisão | Situação | ADR |
-|---|---|---|
-| Arquitetura | Monólito modular Spring Boot 3.x, Java 21 | [ADR-001](docs/arquitetura/adr/ADR-001-monolito-modular-frontend-estatico.md) |
-| Frontend | HTML, CSS e JavaScript puro, servido pelo Spring Boot em `backend/src/main/resources/static/` | ADR-001 |
-| Build | Maven | ADR-001 |
-| Banco de dados | MySQL 8.4 (InnoDB); Flyway e JPA/Hibernate (provisório) | [ADR-002](docs/arquitetura/adr/ADR-002-mysql-innodb-modelo-recursos.md) |
-| Dupla reserva | Locks pessimistas (`FOR UPDATE`) em `recursos`, ordem crescente de ID, READ COMMITTED | [ADR-003](docs/arquitetura/adr/ADR-003-estrategia-de-concorrencia.md) |
-| Autenticação | Spring Security, sessão com cookie HttpOnly e CSRF; sem JWT | [ADR-004](docs/arquitetura/adr/ADR-004-sessao-spring-security.md) |
-| Reservas e materiais | Comuns autoaprovadas; restritas SOLICITADAS e bloqueando; materiais individuais | [ADR-005](docs/arquitetura/adr/ADR-005-politicas-de-reserva.md) |
-| Datas e notificações | UTC na persistência, `America/Sao_Paulo` na exibição; notificação simulada | [ADR-006](docs/arquitetura/adr/ADR-006-timezone-expediente-notificacoes.md) |
-
-Ferramenta de testes E2E (Playwright ou Selenium): ainda a escolher.
-
-## Arquitetura e Documentação
-
-**Estado: APROVADO** (ver ADRs). Nada aqui indica que esteja implementado.
-
-O backend é um **monólito modular**: uma única aplicação Spring Boot, implantada como uma unidade, com módulos de negócio organizados internamente. O frontend estático é servido pelo próprio Spring Boot e é apenas um cliente da API: validações visuais não substituem a validação e a autorização feitas no servidor. A separação em pastas não transforma o backend em microsserviços.
-
-```mermaid
-flowchart TD
-    U["Navegador / interface responsiva"] -->|HTTPS / JSON + sessão HttpOnly| API
-
-    subgraph APP["Aplicação Spring Boot 3.x - Java 21 (implantação única)"]
-        API["API REST + autorização"]
-        SEG["seguranca / usuario<br/>identidade e perfis"]
-        RES["reserva<br/>agenda, aprovação, conflitos, estados"]
-        REC["recurso<br/>salas, professores, materiais, manutenção"]
-        MOV["movimentacao<br/>retirada e devolução"]
-        AUD["auditoria<br/>trilha de eventos"]
-        NOT["notificacao<br/>simulada ou externa"]
-        REL["relatorio<br/>utilização e conflitos evitados"]
-        API --> SEG
-        API --> RES
-        API --> REC
-        API --> MOV
-        API --> REL
-        RES --> REC
-        RES --> AUD
-        MOV --> AUD
-        RES --> NOT
-    end
-
-    APP -->|JPA / transações| DB[("MySQL 8.4 (InnoDB)")]
-    NOT -.->|opcional| EXT["Serviço externo de notificação"]
-```
-
-Módulos e responsáveis:
-
-| Módulo | Responsável principal | Observação |
-|---|---|---|
-| `reserva` | Gabriel Silva Gomes | Disponibilidade, conflitos, transições e aprovação |
-| `recurso`, `movimentacao` | Gabriel Rodrigues Fausto | Cadastros, manutenção, persistência e movimentações |
-| `seguranca`, `auditoria`, `notificacao` | Débora dos Santos | Perfis, permissões, trilha auditável e CI |
-| frontend (`static/`) | Marcos Boé | Telas, integração com a API e testes E2E |
-| `relatorio` | Compartilhado | API por Silva e Fausto, telas por Marcos |
-
-Princípios de arquitetura:
-
-- A regra de conflito de horários fica em um serviço central, reutilizado por criação, alteração, pesquisa de disponibilidade e manutenção.
-- A proteção contra dupla reserva é feita no backend, dentro de uma transação, e provada por teste automatizado com concorrência real e banco em container. "Consultar e depois gravar" não é suficiente.
-- Toda transição de estado é autorizada, validada pelo domínio e auditada.
-- Módulos expõem contratos definidos e não consultam diretamente as tabelas uns dos outros sem acordo documentado.
-- Datas seguem ISO 8601 com fuso explícito, e erros seguem um formato padronizado, sem expor detalhes internos.
-
-Estrutura de diretórios alvo. Os diretórios existentes do AIOX são preservados, sem renomear:
-
-```
-backend/
-  src/main/java/br/senac/recursos/
-    config/
-    seguranca/ usuario/
-    reserva/ recurso/ movimentacao/ auditoria/ notificacao/ relatorio/
-    shared/
-  src/main/resources/
-    db/migration/       <-- Flyway
-    static/             <-- frontend: HTML, CSS e JS (fonte única)
-  src/test/java/br/senac/recursos/
-    unit/ integration/ api/ concurrency/ security/
-tests/                  <-- E2E, desempenho (JMeter) e evidências
-docs/                   <-- requisitos, ADRs, API, testes e qualidade
-.github/workflows/      <-- integração contínua
-```
-
-A pasta `docs/` reúne a documentação técnica e passará a incluir:
-
-- Requisitos, regras de negócio e critérios de aceitação
-- Matriz de rastreabilidade (`RTM.md`)
-- Diagramas de contexto, componentes e sequências críticas
-- Decisões de arquitetura (ADRs)
-- Documentação da API ou dos fluxos públicos
-- Plano e relatório de testes
-- Plano e resultado do teste de carga
-- Registro de defeitos e relatório final de qualidade
-
-## Qualidade e Testes
-
-| Indicador | Meta |
+| Perfil | Responsabilidades principais |
 |---|---|
-| Cobertura de linhas | 80% ou mais |
-| Cobertura de branches | 70% ou mais |
-| Requisitos críticos na RTM | 100% |
-| Bugs ou vulnerabilidades críticos | Zero |
+| **Solicitante** | Consultar recursos e disponibilidade; criar, editar e cancelar as próprias reservas, conforme o estado e as regras de negócio. |
+| **Responsável** | Aprovar ou rejeitar reservas de recursos restritos; iniciar, concluir e registrar não comparecimento; realizar retiradas e devoluções autorizadas. |
+| **Administrador** | Administrar salas, professores, materiais, usuários, expediente e manutenção; consultar relatórios; executar ações administrativas permitidas pelo servidor. |
 
-Tipos de teste previstos: unitários e parametrizados (JUnit 5), integração com banco real (Testcontainers), API em caixa-preta, integração externa isolada (WireMock), ponta a ponta, concorrência, carga (JMeter) e ao menos uma funcionalidade desenvolvida com TDD ou BDD. Mocks são usados apenas em testes unitários isolados.
+### Escopo funcional integrado
 
-Os testes e a pipeline rodam em pull requests. Cobertura alta, sozinha, não é critério de qualidade: os testes precisam verificar regras, erros, autorização e concorrência.
+| Requisito | Funcionalidade disponibilizada |
+|---|---|
+| RF01 | Autenticação por sessão e autorização por perfil, com proteção CSRF. |
+| RF02 | Cadastro, consulta, edição e desativação lógica de salas, professores e materiais. |
+| RF03 | Pesquisa por tipo, capacidade, localização, competência, patrimônio e disponibilidade por período. |
+| RF04 | Criação, edição e cancelamento de reservas, com validação do estado e do ator autenticado. |
+| RF05 | Detecção de sobreposição para recursos compartilhados, incluindo a agenda de professores. |
+| RF06 | Proteção transacional contra dupla reserva, com bloqueio ordenado dos recursos. |
+| RF07 | Fila de aprovação e rejeição de reservas que envolvem recursos restritos. |
+| RF08 | Bloqueios de manutenção e configuração de expediente, integrados à verificação de disponibilidade. |
+| RF09 | Registro de retirada e devolução de materiais e equipamentos, com controle de unidade em uso. |
+| RF10 | Histórico de auditoria das operações relevantes, com ator, ação, estado anterior/posterior e correlação. |
+| RF11 | Notificações por outbox transacional, com modo de demonstração simulado e gateway HTTP testável. |
+| RF12 | Relatórios de utilização, carga horária e conflitos evitados, integrados à API real. |
+| RF13 | Interface responsiva, feedback de operações e tratamento consistente de erros e sessão. |
+| RF14 | Contratos da API, decisões arquiteturais e documentação dos fluxos públicos. |
 
-## Como Contribuir
+## Regras de negócio centrais
 
-1. Abra uma Issue para cada mudança pequena e verificável, indicando o requisito relacionado e os critérios de aceite.
-2. Crie uma branch por alteração, com nomes como `feature/rf06-concorrencia`, `test/rf07-aprovacao`, `docs/adr-banco` ou `fix/...`.
-3. Combine o contrato entre módulos (DTOs, estados, formato de data e erros) antes de integrações que cruzem responsabilidades.
-4. Abra um pull request com contexto, requisitos, evidências de testes e atualização da documentação.
-5. Peça revisão de outro integrante e aguarde a pipeline concluir.
-6. Nunca versione `.env`, credenciais, arquivos locais de banco ou relatórios temporários.
+- Intervalos de reserva usam a convenção semiaberta `[início, fim)`: o início pertence ao intervalo e o fim não. Reservas consecutivas podem compartilhar a fronteira sem sobreposição.
+- O horário final deve ser posterior ao inicial, e a reserva deve caber no expediente aplicável.
+- Reservas comuns são autoaprovadas; reservas com recurso restrito permanecem `SOLICITADA` até decisão do Responsável e já bloqueiam a agenda.
+- Reservas em `SOLICITADA`, `APROVADA` ou `EM_USO` ocupam a agenda. Estados finais liberam o recurso, conforme a matriz de transições.
+- A detecção de conflitos considera salas, materiais, professores, manutenção e retiradas abertas.
+- A criação, edição, aprovação e operações concorrentes usam transações e locks no MySQL/InnoDB; recursos são bloqueados em ordem crescente de ID.
+- A identidade e o perfil do ator vêm da sessão autenticada, nunca de campos enviados pelo navegador.
+- A reserva não é apagada fisicamente ao ser cancelada; histórico, auditoria e notificação são preservados.
+- A edição não altera a necessidade de aprovação. Reserva restrita já aprovada não é editável pelo fluxo de PATCH (Q2).
+- No contrato da API, o cancelamento administrativo de reserva de terceiro exige justificativa de até 500 caracteres, armazenada em `motivo_cancelamento`, separada de `motivo_decisao` (Q5).
 
-Cada decisão relevante é registrada em um ADR, com contexto, opções avaliadas, decisão, consequências e riscos.
+**Compatibilidade da interface no snapshot:** a regra Q5 está implementada no backend; o cliente `reservas.js` ainda envia o cancelamento sem corpo. Por isso, o cancelamento de reserva de terceiro pelo Administrador via tela retorna HTTP 400 até que a interface envie `motivo`. O contrato e o comportamento do endpoint estão descritos em [`docs/api/reservas-contrato.md`](docs/api/reservas-contrato.md).
 
-**Definição de pronto:** uma funcionalidade só está pronta quando atende ao requisito e à regra de negócio (casos válidos, inválidos e de autorização), tem testes executados, com código crítico não dependendo só de mock, tem documentação, RTM e riscos atualizados com evidência reproduzível, e teve o PR revisado com a pipeline verde.
+## Arquitetura e tecnologias
 
-**AIOX:** a base inicial é preservada. Antes de adaptar a estrutura proposta, inventariar os arquivos existentes e seus possíveis conflitos com `backend/` e `docs/`. O preset AIOX ativo é `java`. Código gerado por agentes entra sempre via PR revisável, com testes executados e documentação.
+A solução utiliza um **monólito modular**: uma única aplicação Spring Boot, com módulos de negócio separados por responsabilidade e frontend estático servido pela própria aplicação.
 
-## Estado do Projeto
+| Camada | Tecnologias e responsabilidade |
+|---|---|
+| Backend | Java 21, Spring Boot 3.5.7, Spring MVC, Spring Security, Jakarta Validation e Maven. |
+| Persistência | MySQL 8.4 com InnoDB, Spring Data JPA/JDBC e migrações versionadas com Flyway. |
+| Frontend | HTML, CSS e JavaScript; arquivos estáticos em `backend/src/main/resources/static/`. Node.js é utilizado somente nas verificações de desenvolvimento. |
+| Testes | JUnit 5, Spring Security Test, Testcontainers/MySQL, WireMock e Playwright. |
+| Qualidade | GitHub Actions, JaCoCo e Apache JMeter; etapa SonarCloud configurada no workflow. |
 
-O projeto está em transição do planejamento para o desenvolvimento. As decisões D01–D10 estão aprovadas e registradas em ADR. Ainda não há aplicação executável, e nenhum requisito foi marcado como implementado.
+### Módulos do backend
 
-Parâmetros ainda em aberto (configuração ou ADR futuro, sem bloquear o início):
+```text
+backend/src/main/java/br/senac/recursos/
+├── seguranca/       # sessão, autenticação, usuários e perfis
+├── recurso/         # salas, professores, materiais, expediente e manutenção
+├── reserva/         # domínio, aplicação, API e persistência de reservas
+├── movimentacao/    # retirada e devolução de materiais
+├── auditoria/       # trilha de auditoria e consultas
+├── notificacao/     # outbox, processamento e gateway
+├── config/          # composição e configuração Spring
+└── shared/          # contratos e componentes compartilhados
+```
 
-- Expediente concreto, duração mínima/máxima de reserva e antecedência
-- Quem dispara EM_USO, CONCLUÍDA e NÃO_COMPARECEU, e a tolerância de atraso
-- Política para manutenção que colide com reserva já aprovada (rejeitar o bloqueio ou resolver com auditoria)
-- Ferramenta de testes E2E
-- Definição formal de "conflitos evitados" e conteúdo mínimo da auditoria
+O frontend está em `backend/src/main/resources/static/`. As migrações SQL ficam em `backend/src/main/resources/db/migration/`; os testes backend ficam em `backend/src/test/java/`; os testes frontend e auxiliares ficam em `tests/`.
 
-Prazo de entrega: conferir o calendário oficial (semana 46 de 2026); o planejamento não é dividido em sprints.
+### Decisões arquiteturais
 
-## Como Executar o Projeto
+As decisões aprovadas estão registradas em [`docs/arquitetura/adr/`](docs/arquitetura/adr/README.md): monólito modular, MySQL/InnoDB, estratégia de concorrência, sessão Spring Security, política de reservas e materiais e fuso horário/notificações. O ADR-007 registra o fechamento delegado de contratos, vínculos e demonstração RF11.
 
-As instruções completas serão publicadas quando houver uma versão executável. O passo a passo abaixo é provisório.
+## Qualidade e evidências
+
+A suíte backend é executada com `mvn -f backend/pom.xml clean verify`. O build integra testes unitários/API, integrações MySQL com Testcontainers e verificações JaCoCo. Os limites configurados no POM são **80% de cobertura de linhas** e **70% de branches**.
+
+O workflow também executa quatro cenários JMeter em ambiente isolado: consulta de recursos, disputa por uma mesma reserva, reservas em recursos distintos e disputa entre manutenção e reserva. Os resultados são preservados como artefatos da execução.
+
+As evidências recentes estão separadas por camada e execução:
+
+- [Integração RF12 real](docs/testes/marcos-6-integracao-real-resultados.md): 13 cenários HTTP com Spring, MySQL e Chrome; regressão frontend com 97 testes unitários e 346 execuções de navegador; execução Maven de package com 277 testes unitários/HTTP. Essas contagens pertencem a execuções distintas e não devem ser somadas.
+- [Fechamento das etapas 1 a 5](docs/testes/marcos-fechamento-e2e-1-resultados.md): cenários E2E reais de sessão, pesquisa, concorrência pontual, edição e movimentações, com limites documentados.
+- [Resultados do JMeter](docs/qualidade/jmeter/evidencias-2026-11-10.md) e [planos de carga](docs/qualidade/jmeter/README.md).
+- [Testes de segurança](docs/qualidade/seguranca.md), [auditoria](docs/qualidade/rf10-auditoria.md) e [notificações](docs/qualidade/rf11-notificacoes.md).
+
+Na execução de CI associada ao PR #43, o job Maven/Testcontainers/JaCoCo terminou com `BUILD SUCCESS` e `All coverage checks have been met`; o job JMeter também terminou com sucesso. A etapa SonarCloud, na mesma execução, retornou `Not authorized or project not found`. Portanto, não se declara um Quality Gate SonarCloud aprovado com base nessa execução.
+
+## Executar localmente
 
 ### Pré-requisitos
 
-- Java 21
-- Git
-- Docker (necessário para os testes com Testcontainers)
-- Maven 3.9+ (ou wrapper `./mvnw`, quando versionado)
-- MySQL 8.4 para execução local (os testes usam MySQL via Testcontainers)
+- JDK 21;
+- Maven 3.9 ou compatível;
+- Docker com Docker Compose, para MySQL e Testcontainers;
+- Node.js 24 ou compatível e npm, apenas para verificações do frontend;
+- Chromium/Chrome, para os testes de navegador.
 
-### Passo a Passo
+### 1. Preparar o MySQL
 
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/SenacOS/nome-do-repositorio.git
-   ```
-2. Configure as variáveis de ambiente (renomeie `.env.example` para `.env`, se houver).
-3. Instalação das dependências e testes (a partir de `backend/`): `mvn verify` (será o mesmo comando do CI).
-4. Execução da aplicação (a partir de `backend/`): `mvn spring-boot:run` — depende do esqueleto do backend, ainda em PR.
+Na raiz do repositório, crie um arquivo `.env` (não o versione) com credenciais locais:
 
-## Screenshots
+```dotenv
+DB_PASSWORD=uma_senha_local
+MYSQL_ROOT_PASSWORD=outra_senha_local
+```
 
-<!-- Prints da interface, se houver -->
+Inicie o banco:
 
-## Licença
+```bash
+docker compose up -d mysql
+```
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](./LICENSE) para mais detalhes.
+O Compose publica o MySQL somente em `127.0.0.1:3306`, cria o banco `organizacao_recursos` e o usuário `recursos`. A URL e o usuário padrão do Spring Boot já apontam para essa configuração; `DB_PASSWORD` deve ter o mesmo valor usado no Compose.
 
----
+### 2. Executar testes e verificações do backend
 
-*Projeto acadêmico desenvolvido como parte da formação em tecnologia no Senac Brasil, hospedado na organização [SenacOS](https://github.com/SenacOS).*
+Na raiz do repositório:
 
+```bash
+mvn -f backend/pom.xml clean verify
+```
 
-## Implementação do item 18
+Esse comando exige Docker ativo para os testes de integração com Testcontainers e gera os relatórios Surefire, Failsafe e JaCoCo.
 
-Recursos, manutenção, MySQL, locks e movimentações foram acrescentados na branch do Fausto. Consulte [execução e integração](docs/integracao/item18.md), [contratos](docs/api/item18.md), [modelo e concorrência](docs/arquitetura/item18-persistencia.md) e [RTM](docs/RTM.md). Os demais módulos continuam pendentes; APIs são desligadas por padrão.
+### 3. Iniciar a aplicação local
 
+O `.env` é lido pelo Docker Compose, mas não é carregado automaticamente pelo processo Maven. No PowerShell, defina as variáveis necessárias no terminal antes de iniciar o Spring Boot:
 
-## Base do frontend — Marcos-1
+```powershell
+$env:DB_PASSWORD = "a_mesma_senha_configurada_no_env"
+$env:SPRING_PROFILES_ACTIVE = "local"
+$env:DEMO_ADMIN_EMAIL = "admin@local.test"
+$env:DEMO_ADMIN_SENHA = "uma_senha_com_12_caracteres_ou_mais"
+$env:RECURSOS_API_ENABLED = "true"
+$env:MOVIMENTACOES_API_ENABLED = "true"
+$env:RESERVAS_API_ENABLED = "true"
+$env:NOTIFICACOES_WORKER_ENABLED = "true" # opcional, para processar a outbox simulada
+mvn -f backend/pom.xml spring-boot:run
+```
 
-Os clientes JavaScript estão em backend/src/main/resources/static/js/, conforme ADR-001. Login e entrada autenticada estão em login.html e index.html da mesma pasta static/. O frontend continua servido pelo Spring Boot, sem compilação. Node 24+, npm e Playwright são usados apenas para verificações de desenvolvimento: na raiz, execute npm ci, npx playwright install chromium e npm run build (lint, checkJs, testes unitários e navegador com API controlada). Com Chrome instalado, também é possível definir PLAYWRIGHT_CHANNEL=chrome para usar esse navegador.
+O perfil `local` pode criar o primeiro Administrador a partir de `DEMO_ADMIN_EMAIL` e `DEMO_ADMIN_SENHA`, se o e-mail ainda não existir. A senha inicial precisa ter pelo menos 12 caracteres. Não há credenciais padrão distribuídas pelo projeto.
 
-Consulte o [plano completo de Marcos](docs/planejamento/marcos-plano-de-acao.md), a [integração do frontend](docs/api/frontend-integracao.md) e as [evidências de acesso](docs/testes/marcos-2-resultados.md). npm run preview serve o layout em http://127.0.0.1:4173/login.html, sem simular a API. Autenticação real depende da integração do módulo de segurança. APIs não foram habilitadas nesta etapa.
+As APIs de recursos, movimentações e reservas ficam desabilitadas por padrão (`false`) e devem ser habilitadas explicitamente no ambiente local. O worker de notificações permanece desabilitado por padrão; habilite `NOTIFICACOES_WORKER_ENABLED=true` quando quiser processar a outbox no modo simulado por log (gateway vazio). Para ambientes HTTPS, configure `SESSION_COOKIE_SECURE=true`.
 
-## Pesquisa e solicitação de recursos — Marcos-3
+Com o Spring Boot em execução, acesse `http://localhost:8080/login.html`.
 
-As páginas `static/pages/recursos.html` e `static/pages/reservas.html` oferecem filtros, disponibilidade por período, paginação, seleção de múltiplos recursos e criação de reservas comuns/restritas com confirmação do servidor. O frontend continua HTML/CSS/JS nativo; Node serve apenas às verificações. Datas do formulário usam São Paulo independentemente do fuso do navegador.
+### 4. Verificar o frontend
 
-A [story Marcos-3](docs/stories/marcos-3.md) cobre o primeiro recorte da etapa 3. Listagem de reservas anteriores, reabertura para edição/cancelamento e integração real continuam dependentes das entregas da equipe. Mocks existem apenas nos testes; o preview não substitui o backend. Execute `npm run build` na raiz com `PLAYWRIGHT_CHANNEL=chrome` quando usar o Chrome instalado. [Resultados e capturas](docs/testes/marcos-3-resultados.md).
+Na raiz do repositório:
 
-## Fila e decisões — Marcos-4
+```bash
+npm ci
+npx playwright install chromium
+npm run build
+```
 
-`static/pages/aprovacoes.html` implementa o cliente da especificação da fila: filtros, paginação, detalhes, aprovação e rejeição com motivo, com acesso visual exclusivo do Responsável. Confirmação da decisão e falha de atualização da fila são apresentadas separadamente, sem reenvio automático.
+O script `build` executa lint, verificação de tipos, testes unitários e testes Playwright. O frontend é servido pelo Spring Boot; Node.js não é necessário para executar a aplicação em uso normal.
 
-O GET de fila ainda depende de implementação/revisão do backend; a página é validada com API controlada nos testes. Nenhuma flag de API foi habilitada. Consulte a [story](docs/stories/marcos-4.md), o [contrato de leitura](docs/api/reservas-leitura-contrato.md) e as [evidências](docs/testes/marcos-4-resultados.md). O preview continua apenas estático.
+## Documentação de referência
 
-A retomada da Marcos-4 reúne também a administração e as movimentações já publicadas, em branch própria baseada em movimentações. [Regressão conjunta e instruções de validação](docs/testes/marcos-4-conciliacao-resultados.md); os registros anteriores de cada incremento permanecem identificados separadamente.
-
-## Administração de recursos — Marcos-5
-
-`static/pages/gestao-recursos.html` oferece cadastro e edição de salas/docentes/materiais, desativação lógica, bloqueios de manutenção e expediente completo para Administrador, seguindo o item18. O link aparece na navegação desse perfil. Este recorte é independente da fila/Q9; movimentações estão no incremento complementar abaixo. [Story](docs/stories/marcos-5.md), [contratos de consumo](docs/api/frontend-integracao.md#administração-de-recursos--marcos-5) e [resultados locais](docs/testes/marcos-5-resultados.md). As APIs permanecem desligadas por padrão; o preview estático não simula sessão nem dados.
-
-## Movimentações — complemento da etapa 5
-
-`static/pages/movimentacoes.html` oferece pendências de materiais para Responsável/Administrador e registro de retirada/devolução somente para Responsável. A retirada usa número da reserva e seleção do material por patrimônio, sem depender de consultas de reservas da Q9. Prazo ultrapassado é estimativa identificada; devolução e atraso final são confirmados pela API. [Story](docs/stories/marcos-5-movimentacoes.md), [integração](docs/api/frontend-integracao.md#movimentações--complemento-da-etapa-5) e [evidências](docs/testes/marcos-5-movimentacoes-resultados.md). Testes locais não comprovam integração Spring/MySQL; o preview não simula APIs.
-
-Implementação local da etapa 5 encerrada com o aceite visual de Marcos em 11/11/2026 nos incrementos administrativo e de movimentações. Revisão da equipe, CI e integração real permanecem pendentes para a entrega integrada.
+| Documento | Conteúdo |
+|---|---|
+| [RTM](docs/RTM.md) | Rastreabilidade dos RF01–RF14 e evidências. |
+| [Contratos da API](docs/api/) | Rotas, payloads, permissões, filtros e respostas. |
+| [ADRs](docs/arquitetura/adr/README.md) | Decisões arquiteturais e regras adotadas. |
+| [Sequência de reservas](docs/arquitetura/sequencia-reserva.md) | Fluxo transacional de criação e controle de conflitos. |
+| [Qualidade](docs/qualidade/relatorio-evidencias.md) | Evidências, cobertura, segurança e decisões de qualidade. |
+| [Relatório do módulo de reservas](docs/entrega/relatorio-modulo-reserva.md) | Domínio, integração, testes e manutenção do módulo `reserva/`. |
