@@ -27,3 +27,12 @@ Sem CI verde da `main` ligada ao SHA de release; sem clone limpo e `./mvnw -B ve
 ### Política de versão
 
 Após corrigir os bloqueadores, criar `v1.0.0-rc1` **anotada** sobre o SHA aprovado, publicar evidências do mesmo SHA e obter decisão da equipe. Se houver correção após publicar, usar `v1.0.0-rc2`. **Nunca mover ou sobrescrever tags publicadas.**
+
+
+## Atualização de preparação da entrega — 14/11/2026
+
+- A documentação dos três prompts já foi integrada à `main` pelo [PR #48](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/48); este PR #49 contém uma versão alternativa e **não deve ser mesclado sem resolver a duplicação**.
+- A correção do workflow está proposta no [PR #50](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/50), com testes Maven/JaCoCo/JMeter nos PRs e SonarCloud na `main`. **A existência desse PR não comprova CI verde na `main`**.
+- A tag anotada `v1.0.0-rc1` está **planejada para publicação após os merges e a verificação do SHA final**. URL para conferência: https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/tags . **Não registrar tag criada antes de confirmar que existe**.
+- Evidências já verificadas no PR #45: 287 testes Surefire, 79 Failsafe, JaCoCo 92,58% linhas / 76,39% branches e quatro cenários JMeter. Essas métricas são históricas, **não equivalem à validação do SHA final**.
+- Para encerrar a entrega, preencher com links reais: execução verde da `main`, SHA da tag, resultado do SonarCloud na `main`, reprodução limpa e aceite individual dos integrantes. Esses itens não são atestados automaticamente por este documento.
