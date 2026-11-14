@@ -61,3 +61,12 @@ Cada integrante deve conferir sua participação, explicar em suas próprias pal
 > Projeto: Organização de Recursos. Repositório público: https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos. Tag prevista para entrega: `v1.0.0-rc1` (**ainda não criada**). Integrantes: Gabriel Silva Gomes, Gabriel Rodrigues Fausto, Marcos Boé e Débora dos Santos. Envio condicionado à CI verde no commit da tag e à aprovação coletiva do pacote.
 
 **Conclusão:** não afirmar “pronto para produção” nem “release aprovado”. Os resultados anteriores são positivos em cenários definidos, mas a cadeia de evidência exigida para a tag final não está completa.
+
+
+## Atualização de preparação da entrega — 14/11/2026
+
+- A documentação dos três prompts já foi integrada à `main` pelo [PR #48](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/48); este PR #49 contém uma versão alternativa e **não deve ser mesclado sem resolver a duplicação**.
+- A correção do workflow está proposta no [PR #50](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/50), com testes Maven/JaCoCo/JMeter nos PRs e SonarCloud na `main`. **A existência desse PR não comprova CI verde na `main`**.
+- A tag anotada `v1.0.0-rc1` está **planejada para publicação após os merges e a verificação do SHA final**. URL para conferência: https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/tags . **Não registrar tag criada antes de confirmar que existe**.
+- Evidências já verificadas no PR #45: 287 testes Surefire, 79 Failsafe, JaCoCo 92,58% linhas / 76,39% branches e quatro cenários JMeter. Essas métricas são históricas, **não equivalem à validação do SHA final**.
+- Para encerrar a entrega, preencher com links reais: execução verde da `main`, SHA da tag, resultado do SonarCloud na `main`, reprodução limpa e aceite individual dos integrantes. Esses itens não são atestados automaticamente por este documento.
