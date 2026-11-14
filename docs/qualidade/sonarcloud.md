@@ -52,3 +52,14 @@ com testes, cobertura, upload e SonarCloud.
 Sem SONAR_TOKEN e chaves reais não é possível executar análise autenticada,
 medir bugs/vulnerabilidades nem afirmar Quality Gate verde. Também não se deve
 inventar nota, URL de projeto, cobertura percentual ou resultado de CI.
+
+
+## Atualização pós-merge do PR #50 — 14/11/2026
+
+**Correção do workflow concluída:** [PR #50](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/50) integrado. A CI do próprio PR foi aprovada. O workflow agora é acionado por push na `main`, com análise SonarCloud somente nesse contexto; testes Maven, Testcontainers, JaCoCo e JMeter continuam exigidos.
+
+**Pendência na `main` (não ocultada):** na execução `CI e SonarCloud` #92, commit `5e9b9ea`, o scanner identificou `Github event: push`, branch `main`, mas falhou ao criar a análise com `[ERROR] Not authorized or project not found`. O job terminou com `exit code 1`; **a CI global da `main` ficou vermelha e não há Quality Gate da main comprovadamente aprovado** nessa execução. A CI verde do PR não substitui essa verificação.
+
+**Ação administrativa futura:** verificar permissão do `SONAR_TOKEN`, valores de `sonar.projectKey` e `sonar.organization`, vínculo do projeto à organização e direito de análise do token. Depois, reexecutar o workflow da `main` e anexar URL, SHA e resultado do gate. Não publicar tokens nem desabilitar o scanner apenas para obter status verde.
+
+**Release:** [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1). A publicação da tag não atesta aprovação de CI no SHA marcado. Esta anotação é posterior à tag e não modifica o conteúdo da versão marcada.
