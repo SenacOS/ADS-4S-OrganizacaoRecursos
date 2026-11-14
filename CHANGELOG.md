@@ -3,7 +3,7 @@
 **Situação em 14/11/2026:** PR #50 integrado; CI do PR aprovada. A execução da `main` no commit `5e9b9ea` ocorreu, mas terminou com falha de autorização do SonarCloud (`Not authorized or project not found`). A release [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) foi publicada; a CI verde e o Quality Gate do SHA da tag não estão comprovados. Clone limpo independente ainda não foi realizado (limitação do ambiente de verificação); o projeto usa `mvn` instalado, não `./mvnw`.
 
 
-Histórico resumido do conteúdo integrado. **Release candidate publicado; a validação integral do SHA marcado continua pendente.0.0-rc1` é o nome planejado, não uma tag criada.
+Histórico resumido do conteúdo integrado. **Release candidate `v1.0.0-rc1` publicado; validação integral do SHA marcado pendente.**
 
 ## [v1.0.0-rc1] — release publicada em 14/11/2026 (evidências históricas de 13/11)
 
