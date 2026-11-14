@@ -1,5 +1,8 @@
 # Checklist final — Prompt 1 (Aula 14)
 
+**Situação em 14/11/2026:** PR #50 integrado; CI do PR aprovada. A execução da `main` no commit `5e9b9ea` ocorreu, mas terminou com falha de autorização do SonarCloud (`Not authorized or project not found`). A release [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) foi publicada; a CI verde e o Quality Gate do SHA da tag não estão comprovados. Clone limpo independente ainda não foi realizado (limitação do ambiente de verificação); o projeto usa `mvn` instalado, não `./mvnw`.
+
+
 **Auditoria documental em 13/11/2026 (São Paulo).** Referência: [main `548f8b0b95980a3e292f271b9676105473822ead`](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/commit/548f8b0b95980a3e292f271b9676105473822ead), após [PR #47](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/47). Critérios: [aula 14](https://afonsolelis.github.io/aulas_senac/pages/qualidade2/material/material_entrega-projeto-final.html).
 
 ## Clone limpo e reprodutibilidade
@@ -32,27 +35,15 @@
 | Resultado de carga | Sim, em outro caminho | `docs/performance/resultado-01.md` inexistente no snapshot | [evidencias JMeter](../qualidade/jmeter/evidencias-2026-11-10.md) |
 | Registro de defeitos | Sim, disperso | `docs/defeitos/` inexistente no snapshot | [defeitos frontend](../qualidade/defeitos-frontend.md), [relatório](../qualidade/relatorio-evidencias.md) |
 | Relatório de qualidade final | Parcial | Consolidação preliminar, sem decisão coletiva | [relatorio-evidencias](../qualidade/relatorio-evidencias.md) |
-| Tag `v1.0.0-rc1` | **Não** | Não encontrada; pré-condições não atendidas | [Tags](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/tags) |
+| Tag `v1.0.0-rc1` | **Sim, publicada** | CI/Quality Gate no SHA ainda pendentes | [Tags](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/tags) |
 | Decisão assinada por quatro integrantes | **Não** | Review de PR não equivale a aceite de release | [ADR](../arquitetura/adr/README.md), [PR47](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/47) |
 
 ## Bloqueadores (priorizados)
 
-1. **CI verde na main e no SHA de release:** workflow só dispara em `develop`; scanner Maven SonarCloud falha com `Not authorized or project not found`. Não assumir que a causa é o plano gratuito sem comprovação.
+1. **CI verde na main e no SHA de release:** workflow dispara em `develop` e `main`; scanner Maven SonarCloud falha com `Not authorized or project not found`. Não assumir que a causa é o plano gratuito sem comprovação.
 2. **Clone limpo/comando do professor:** wrapper ausente; executar `./mvnw -B verify` após adequação, banco, app e frontend em ambiente limpo; guardar evidências.
 3. **Documentação arquitetural:** contexto e componentes não encontrados como diagramas próprios; plano único de testes ainda fragmentado.
-4. **Tag e cadeia de evidências:** somente após CI verde no SHA criar **tag anotada** `v1.0.0-rc1`, com artefatos e links desse mesmo commit. Nunca mover uma tag já usada.
+4. **Tag e cadeia de evidências:** tag `v1.0.0-rc1` já publicada; obter CI verde no SHA e registrar evidências sem mover a tag, com artefatos e links desse mesmo commit. Nunca mover uma tag já usada.
 5. **Aceite coletivo e Hub:** decidir riscos, obter declaração/assinatura de cada integrante e realizar envio por uma pessoa do grupo.
 
 **Resultado do Prompt 1:** checklist concluído sem modificar fontes ou workflow. Clone, execução e CI na main **não comprovados**.
-
-
-## Estado atualizado da entrega — 14/11/2026
-
-> **Esta seção substitui afirmações históricas acima sobre tag inexistente, CI não executada na main e workflow sem gatilho main.** As seções anteriores descrevem a inspeção de 13/11/2026, não o estado atual.
-
-- **PR #50 integrado e verificação de PR aprovada:** o workflow foi corrigido para executar CI em pushes na `main` e scanner SonarCloud somente nesse evento. Maven, Testcontainers, JaCoCo e JMeter permanecem como verificações de qualidade.
-- **CI da main executada, mas NÃO verde:** workflow `CI e SonarCloud` #92, commit [`5e9b9ea`](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/commit/5e9b9ea671714a5aae7a0e780cdad5e6ba8e38cf), terminou em **failure** na etapa de SonarCloud: `Not authorized or project not found`. A análise foi acionada na branch `main`; a falha indica necessidade de conferir permissões do token e identificação do projeto, não prova falha de testes.
-- **Pendência administrativa explícita:** revisar `SONAR_TOKEN`, `sonar.projectKey`, `sonar.organization`, organização do projeto e autorização para análise. Depois, reexecutar a CI na `main` e guardar a URL do resultado. Não declarar Quality Gate aprovado sem essa evidência.
-- **Tag/release publicada:** [`v1.0.0-rc1`](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1). A publicação da release não comprova CI verde no SHA da tag; a correspondência do SHA e o gate permanecem por validar.
-- **Evidências históricas preservadas:** CI do PR #45 registrou 287 testes Surefire, 79 Failsafe, JaCoCo 92,58% linhas e 76,39% branches, além de quatro cenários JMeter. Não atribuir esses números automaticamente ao commit da tag.
-- **Aceite final:** mantém ressalvas de reprodução em clone limpo e aprovação individual do grupo até evidência específica. Não declarar aprovação coletiva nem execução de clone que não ocorreu.
