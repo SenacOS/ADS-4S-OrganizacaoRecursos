@@ -1,16 +1,19 @@
 # Índice do pacote de evidências — Prompt 2 (Aula 14)
 
-**Status: pacote documental PREPARADO; release `v1.0.0-rc1` AINDA NÃO PUBLICADO.**  
-**Verificação:** 13/11/2026 (America/Sao_Paulo). [main avaliada no commit `548f8b0b95980a3e292f271b9676105473822ead`](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/commit/548f8b0b95980a3e292f271b9676105473822ead).  
+**Situação em 14/11/2026:** PR #50 integrado; CI do PR aprovada. A execução da `main` no commit `5e9b9ea` ocorreu, mas terminou com falha de autorização do SonarCloud (`Not authorized or project not found`). A release [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) foi publicada; a CI verde e o Quality Gate do SHA da tag não estão comprovados. Clone limpo independente ainda não foi realizado (limitação do ambiente de verificação); o projeto usa `mvn` instalado, não `./mvnw`.
+
+
+**Status: pacote documental preparado; release [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1) publicada, com ressalvas de validação.**  
+**Verificação histórica:** 13/11/2026 (America/Sao_Paulo). [main avaliada no commit `548f8b0b95980a3e292f271b9676105473822ead`](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/commit/548f8b0b95980a3e292f271b9676105473822ead).  
 **Critérios da aula:** [material do professor](https://afonsolelis.github.io/aulas_senac/pages/qualidade2/material/material_entrega-projeto-final.html).
 
 ## Vínculo obrigatório entre tag, SHA e evidências
 
 | Campo solicitado | Estado atual | Link, quando há evidência real |
 |---|---|---|
-| Tag anotada `v1.0.0-rc1` | **PENDENTE** — não existe, não foi criada | [Tags](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/tags) |
-| SHA do commit marcado pela tag | **PENDENTE** — não há tag para resolver | Não inventar SHA de release |
-| CI verde executada na `main` nesse mesmo SHA | **PENDENTE** — não há run da main registrado; workflow não é disparado nessa branch | [GitHub Actions](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions) |
+| Tag anotada `v1.0.0-rc1` | **PUBLICADA** — [v1.0.0-rc1](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1); conferir SHA | [Tags](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/tags) |
+| SHA do commit marcado pela tag | **PENDENTE DE CONFERÊNCIA** — SHA da tag não verificado neste relatório | Não inventar SHA de release |
+| CI verde executada na `main` nesse mesmo SHA | **NÃO APROVADA** — run #92 da main executou e falhou no SonarCloud | [GitHub Actions](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions) |
 | JaCoCo do SHA da tag | **PENDENTE** — existe histórico de PR, não do release | [Artefato histórico PR45](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976/artifacts/14092304959) |
 | Quality Gate do SHA da tag | **PENDENTE** — bot do PR45 reportou OK, mas scanner Maven falhou | [Análise histórica do PR45](https://sonarcloud.io/dashboard?id=SenacOS_ADS-4S-OrganizacaoRecursos&pullRequest=45) |
 | Desempenho no SHA da tag | **PENDENTE** — há resultados históricos válidos com origem distinta | [Resultado histórico consolidado](../performance/resultado-01.md) |
@@ -22,7 +25,7 @@
 | Artefato solicitado | Arquivo existente neste PR ou na main | Evidência / proveniência |
 |---|---|---|
 | Checklist de clone limpo | [`docs/entrega/checklist.md`](../entrega/checklist.md) | Confere inventário e descreve tentativa de acesso impedida por DNS, sem alegar clone realizado |
-| Changelog do candidato | [`CHANGELOG.md`](../../CHANGELOG.md) | Versão **Unreleased**; tag não publicada |
+| Changelog do candidato | [`CHANGELOG.md`](../../CHANGELOG.md) | Versão **Unreleased**; tag publicada, sem validação integral do SHA marcado |
 | Índice de rastreabilidade | [`docs/rtm.md`](../rtm.md) → [matriz canônica](../RTM.md) | RF01–RF14 com referências históricas e limites |
 | Planejamento e relatórios de testes | [relatório de qualidade](../relatorio-qualidade.md), [resultados integrados](../testes/marcos-8-resultados.md), [plano JMeter](../qualidade/jmeter/README.md) | Não representam nova execução da tag |
 | JaCoCo e testes Java/MySQL | [CI de PR45 #43542757976](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976), [artifact #14092304959](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/actions/runs/43542757976/artifacts/14092304959) | **287 Surefire + 79 Failsafe**, sem falhas; **92,58% linhas / 76,39% branches** no PR45, não na tag |
@@ -49,24 +52,3 @@
 5. Se precisar corrigir após publicar, use `v1.0.0-rc2`. Nunca recrie/mova a `rc1`.
 
 **Resultado do Prompt 2:** changelog e pacote de evidências preparados, com links reais e pendências explícitas. **Tag não criada e release não publicado**, pois as pré-condições do próprio prompt ainda não estão atendidas.
-
-
-## Atualização de preparação da entrega — 14/11/2026
-
-- A documentação dos três prompts já foi integrada à `main` pelo [PR #48](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/48); este PR #49 contém uma versão alternativa e **não deve ser mesclado sem resolver a duplicação**.
-- A correção do workflow está proposta no [PR #50](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/pull/50), com testes Maven/JaCoCo/JMeter nos PRs e SonarCloud na `main`. **A existência desse PR não comprova CI verde na `main`**.
-- A tag anotada `v1.0.0-rc1` está **planejada para publicação após os merges e a verificação do SHA final**. URL para conferência: https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/tags . **Não registrar tag criada antes de confirmar que existe**.
-- Evidências já verificadas no PR #45: 287 testes Surefire, 79 Failsafe, JaCoCo 92,58% linhas / 76,39% branches e quatro cenários JMeter. Essas métricas são históricas, **não equivalem à validação do SHA final**.
-- Para encerrar a entrega, preencher com links reais: execução verde da `main`, SHA da tag, resultado do SonarCloud na `main`, reprodução limpa e aceite individual dos integrantes. Esses itens não são atestados automaticamente por este documento.
-
-
-## Estado atualizado da entrega — 14/11/2026
-
-> **Esta seção substitui afirmações históricas acima sobre tag inexistente, CI não executada na main e workflow sem gatilho main.** As seções anteriores descrevem a inspeção de 13/11/2026, não o estado atual.
-
-- **PR #50 integrado e verificação de PR aprovada:** o workflow foi corrigido para executar CI em pushes na `main` e scanner SonarCloud somente nesse evento. Maven, Testcontainers, JaCoCo e JMeter permanecem como verificações de qualidade.
-- **CI da main executada, mas NÃO verde:** workflow `CI e SonarCloud` #92, commit [`5e9b9ea`](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/commit/5e9b9ea671714a5aae7a0e780cdad5e6ba8e38cf), terminou em **failure** na etapa de SonarCloud: `Not authorized or project not found`. A análise foi acionada na branch `main`; a falha indica necessidade de conferir permissões do token e identificação do projeto, não prova falha de testes.
-- **Pendência administrativa explícita:** revisar `SONAR_TOKEN`, `sonar.projectKey`, `sonar.organization`, organização do projeto e autorização para análise. Depois, reexecutar a CI na `main` e guardar a URL do resultado. Não declarar Quality Gate aprovado sem essa evidência.
-- **Tag/release publicada:** [`v1.0.0-rc1`](https://github.com/SenacOS/ADS-4S-OrganizacaoRecursos/releases/tag/v1.0.0-rc1). A publicação da release não comprova CI verde no SHA da tag; a correspondência do SHA e o gate permanecem por validar.
-- **Evidências históricas preservadas:** CI do PR #45 registrou 287 testes Surefire, 79 Failsafe, JaCoCo 92,58% linhas e 76,39% branches, além de quatro cenários JMeter. Não atribuir esses números automaticamente ao commit da tag.
-- **Aceite final:** mantém ressalvas de reprodução em clone limpo e aprovação individual do grupo até evidência específica. Não declarar aprovação coletiva nem execução de clone que não ocorreu.
